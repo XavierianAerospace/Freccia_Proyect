@@ -1,5 +1,5 @@
-C:/Users/santi/OneDrive/Documentos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_InicioWindow.cpp: C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Header_Files/InicioWindow.h \
-  C:/Users/santi/OneDrive/Documentos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/moc_predefs.h \
+D:/FRECCIA/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_InicioWindow.cpp: D:/FRECCIA/Freccia_Proyect/GUI/Header_Files/InicioWindow.h \
+  D:/FRECCIA/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/moc_predefs.h \
   D:/ProgramFiles/Qt/6.6.3/mingw_64/include/QtCore/q20functional.h \
   D:/ProgramFiles/Qt/6.6.3/mingw_64/include/QtCore/q20memory.h \
   D:/ProgramFiles/Qt/6.6.3/mingw_64/include/QtCore/q20type_traits.h \

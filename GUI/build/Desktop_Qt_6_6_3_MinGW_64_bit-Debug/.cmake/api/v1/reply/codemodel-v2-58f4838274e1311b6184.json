@@ -44,14 +44,14 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "GUI_FRECCIA::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-GUI_FRECCIA-Debug-7ad76460f399cb984398.json",
+					"jsonFile" : "target-GUI_FRECCIA-Debug-af25b3ca24ca4fd362a4.json",
 					"name" : "GUI_FRECCIA",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "GUI_FRECCIA_autogen::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-GUI_FRECCIA_autogen-Debug-bac5ea67bfd947198bef.json",
+					"jsonFile" : "target-GUI_FRECCIA_autogen-Debug-884ff1ac060ead8f5d03.json",
 					"name" : "GUI_FRECCIA_autogen",
 					"projectIndex" : 0
 				},
@@ -68,8 +68,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/santi/OneDrive/Documentos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug",
-		"source" : "C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639"
+		"build" : "D:/FRECCIA/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug",
+		"source" : "D:/FRECCIA/Freccia_Proyect/GUI"
 	},
 	"version" : 
 	{

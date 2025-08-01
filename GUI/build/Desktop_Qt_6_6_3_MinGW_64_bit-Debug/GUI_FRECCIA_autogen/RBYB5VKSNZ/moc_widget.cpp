@@ -6,7 +6,7 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Header_Files/widget.h"
+#include "../../../../Header_Files/widget.h"
 #include <QtGui/qtextcursor.h>
 #include <QtDataVisualization/q3dscene.h>
 #include <QtDataVisualization/qscatter3dseries.h>

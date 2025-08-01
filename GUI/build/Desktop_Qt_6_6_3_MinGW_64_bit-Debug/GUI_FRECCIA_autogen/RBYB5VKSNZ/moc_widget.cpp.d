@@ -1,10 +1,10 @@
-C:/Users/santi/OneDrive/Documentos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_widget.cpp: C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Header_Files/widget.h \
-  C:/Users/santi/OneDrive/Documentos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/moc_predefs.h \
-  C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Header_Files/SensorManager.h \
-  C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Header_Files/SerialReader.h \
-  C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Header_Files/data/DataCleaner.h \
-  C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Header_Files/data/FileHelper.h \
-  C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Header_Files/data/SensorData.h \
+D:/FRECCIA/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_widget.cpp: D:/FRECCIA/Freccia_Proyect/GUI/Header_Files/widget.h \
+  D:/FRECCIA/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/moc_predefs.h \
+  D:/FRECCIA/Freccia_Proyect/GUI/Header_Files/SensorManager.h \
+  D:/FRECCIA/Freccia_Proyect/GUI/Header_Files/SerialReader.h \
+  D:/FRECCIA/Freccia_Proyect/GUI/Header_Files/data/DataCleaner.h \
+  D:/FRECCIA/Freccia_Proyect/GUI/Header_Files/data/FileHelper.h \
+  D:/FRECCIA/Freccia_Proyect/GUI/Header_Files/data/SensorData.h \
   D:/ProgramFiles/Qt/6.6.3/mingw_64/include/QtCharts/QAbstractAxis \
   D:/ProgramFiles/Qt/6.6.3/mingw_64/include/QtCharts/QAbstractSeries \
   D:/ProgramFiles/Qt/6.6.3/mingw_64/include/QtCharts/QChart \

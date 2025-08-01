@@ -772,7 +772,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-DQT_QML_DEBUG -g -fdiagnostics-color=always"
+					"fragment" : "-g -fdiagnostics-color=always"
 				}
 			],
 			"defines" : 
@@ -878,15 +878,15 @@
 			[
 				{
 					"backtrace" : 0,
-					"path" : "C:/Users/santi/OneDrive/Documentos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/include"
+					"path" : "D:/FRECCIA/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/include"
 				},
 				{
 					"backtrace" : 128,
-					"path" : "C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Header_Files"
+					"path" : "D:/FRECCIA/Freccia_Proyect/GUI/Header_Files"
 				},
 				{
 					"backtrace" : 128,
-					"path" : "C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Header_Files/data"
+					"path" : "D:/FRECCIA/Freccia_Proyect/GUI/Header_Files/data"
 				},
 				{
 					"backtrace" : 107,
@@ -1024,7 +1024,7 @@
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "-DQT_QML_DEBUG -g",
+				"fragment" : "-g",
 				"role" : "flags"
 			},
 			{
@@ -1232,7 +1232,7 @@
 			"backtrace" : 0,
 			"compileGroupIndex" : 0,
 			"isGenerated" : true,
-			"path" : "C:/Users/santi/OneDrive/Documentos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/mocs_compilation.cpp",
+			"path" : "build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/mocs_compilation.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
@@ -1326,13 +1326,13 @@
 		{
 			"backtrace" : 0,
 			"isGenerated" : true,
-			"path" : "C:/Users/santi/OneDrive/Documentos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/timestamp",
+			"path" : "build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/timestamp",
 			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 0,
 			"isGenerated" : true,
-			"path" : "C:/Users/santi/OneDrive/Documentos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/timestamp.rule",
+			"path" : "build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/timestamp.rule",
 			"sourceGroupIndex" : 3
 		}
 	],

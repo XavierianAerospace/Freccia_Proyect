@@ -145,106 +145,9 @@ Graph3DWindow::Graph3DWindow(SensorManager* manager, QWidget* parent)
     pal.setColor(QPalette::Window, Qt::white);
     container3D->setPalette(pal);
 
-    // === LLMAP ===
-    llmapScene = new QGraphicsScene();
-    llmapScene->setSceneRect(-200000, -200000, 400000, 400000);  // escala lógica inicial
-
-    llmap = new QGraphicsView(llmapScene);
-    llmap->setMinimumSize(500, 300);
-    llmap->setStyleSheet("background-color: black;");
-    trayecto = QPainterPath();  // solo inicializa vacío
-    pathItem = llmapScene->addPath(trayecto, QPen(Qt::green, 2));
-    pathItem->setZValue(-1);  // detrás del punto rojo
-
-   //// === Gyro3D ===
-    view3D = new Qt3DExtras::Qt3DWindow();
-    view3D->defaultFrameGraph()->setClearColor(QColor("#fffff"));
-    container3DModel = QWidget::createWindowContainer(view3D);
-    container3DModel->setMinimumSize(500, 300);
-    container3DModel->setMaximumSize(500, 300);
-    container3DModel->setFocusPolicy(Qt::TabFocus);
-
-    // === Cámara ===
-    Qt3DRender::QCamera* camera = view3D->camera();
-    camera->lens()->setPerspectiveProjection(45.0f, 16.0f / 9.0f, 0.1f, 1000.0f);
-
-    // === Entidad raíz ===
-    rootEntity = new Qt3DCore::QEntity();
-
-    // === Controlador de cámara orbital ===
-    Qt3DExtras::QOrbitCameraController* camController = new Qt3DExtras::QOrbitCameraController(rootEntity);
-    camController->setCamera(camera);
-
-    // === Luz ===
-    Qt3DCore::QEntity* lightEntity = new Qt3DCore::QEntity(rootEntity);
-    auto* light = new Qt3DRender::QPointLight(lightEntity);
-    light->setColor("white");
-    light->setIntensity(3.0);
-    lightEntity->addComponent(light);
-
-    auto* lightTransform = new Qt3DCore::QTransform();
-    lightTransform->setTranslation(QVector3D(20.0f, 20.0f, 20.0f));
-    lightEntity->addComponent(lightTransform);
-
-    // === Modelo 3D ===
-    Qt3DRender::QMesh* mesh = new Qt3DRender::QMesh();
-    mesh->setSource(QUrl::fromLocalFile(QCoreApplication::applicationDirPath() + "/assets/model/CoheteGUI.STL"));
-
-    QTimer::singleShot(1000, [mesh]() {
-        if (mesh->status() == Qt3DRender::QMesh::Ready) {
-            qDebug() << "✅ Modelo STL cargado correctamente.";
-        } else if (mesh->status() == Qt3DRender::QMesh::Error) {
-            qDebug() << "❌ Error al cargar el modelo STL.";
-        } else {
-            qDebug() << "⏳ Modelo STL aún no está listo. Estado:" << mesh->status();
-        }
-    });
-
-    // === Transformación y Material ===
-    rocketTransform = new Qt3DCore::QTransform();
-    rocketTransform->setScale(300.0f);
-    rocketTransform->setTranslation(QVector3D(0.0f, -1.0f, 0.0f));
-    rocketTransform->setRotation(QQuaternion::fromEulerAngles(90, 0, 0));
-
-    qDebug() << "🔍 Transform actual: escala =" << rocketTransform->scale();
-    rocketTransform = new Qt3DCore::QTransform();
-
-
-
-    Qt3DExtras::QPhongMaterial* material = new Qt3DExtras::QPhongMaterial(rootEntity);
-
-    // Color principal (difuso)
-    material->setDiffuse(QColor(180, 180, 255)); // azul claro
-
-    // Luz ambiental que siempre se ve un poco
-    material->setAmbient(QColor(150, 150, 150));
-
-    // Especular (reflejos)
-    material->setSpecular(QColor(255, 255, 255)); // blanco
-
-    // Brillo del especular
-    material->setShininess(50.0f); // entre 1 y 100\
-
-    // === Entidad que representa el cohete ===
-    Qt3DCore::QEntity* rocketEntity = new Qt3DCore::QEntity(rootEntity);
-    rocketEntity->addComponent(mesh);
-    rocketEntity->addComponent(rocketTransform);
-    rocketEntity->addComponent(material);
-
-    // === Posicionar la cámara (fijo o centrado) ===
-    QVector3D center = QVector3D(0, 0, 0);  // Suponemos que el modelo está centrado
-    float distancia = 100.0f;  // Ajusta según lo que veas en pantalla
-    camera->setPosition(QVector3D(0, 0, 20));  // Más lejos para asegurar visibilidad
-    camera->setViewCenter(QVector3D(0, 0, 0));
-
-    // === Renderizar ===
-    view3D->setRootEntity(rootEntity);
-
     // === Layout general ===
     mainLayout->addWidget(containerGeneral2D, 0, 0);
     mainLayout->addWidget(container3D,         0, 1);
-    mainLayout->addWidget(llmap,   1, 0);
-    mainLayout->addWidget(container3DModel, 1, 1);
     setLayout(mainLayout);
 
     // === Conexión de datos ===
@@ -384,41 +287,6 @@ Graph3DWindow::Graph3DWindow(SensorManager* manager, QWidget* parent)
         trailSeries->dataProxy()->resetArray(trailArray);
 
         xIndex3D++;
-
-        // === LLMAP ===
-
-        double x = d.longitude * 10000;
-        double y = -d.latitude * 10000;
-
-        if (mapDot) llmapScene->removeItem(mapDot);
-        mapDot = llmapScene->addEllipse(x - 5, y - 5, 10, 10, QPen(Qt::red), QBrush(Qt::red));
-        llmap->centerOn(mapDot);
-
-        trayecto.lineTo(x, y);
-        pathItem->setPath(trayecto);
-
-        // === Gyro3D ===
-        QQuaternion qYaw = QQuaternion::fromEulerAngles(0.0f, d.Yaw, 0.0f);
-        QQuaternion qPitch = QQuaternion::fromEulerAngles(d.Pitch, 0.0f, 0.0f);
-        QQuaternion qRoll = QQuaternion::fromEulerAngles(0.0f, 0.0f, d.Roll);
-        QQuaternion orientation = qYaw * qPitch * qRoll;
-
-        rocketTransform->setRotation(orientation);
-
-        QTimer::singleShot(1500, [=]() {
-            if (mesh->status() == Qt3DRender::QMesh::Ready) {
-                qDebug() << "✅ Modelo STL cargado correctamente.";
-
-                // Ajustamos la cámara para ver todo el modelo
-                auto bbCenter = rocketTransform->translation();  // Centro de transformación
-                float distance = 2.5f; // Aumenta o reduce según lo que veas
-                camera->setViewCenter(bbCenter);
-                camera->setPosition(bbCenter + QVector3D(0, 0, distance));
-
-            } else {
-                qDebug() << "❌ Error o el modelo aún no está listo.";
-            }
-        });
     });
 
 }

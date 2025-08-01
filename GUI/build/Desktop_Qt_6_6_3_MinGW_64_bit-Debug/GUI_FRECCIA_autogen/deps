@@ -1,30 +1,30 @@
 GUI_FRECCIA_autogen/timestamp: \
-	C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/CMakeLists.txt \
-	C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Header_Files/Graph3DWindow.h \
-	C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Header_Files/InicioWindow.h \
-	C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Header_Files/SensorManager.h \
-	C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Header_Files/SerialReader.h \
-	C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Header_Files/data/DataCleaner.h \
-	C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Header_Files/data/FileHelper.h \
-	C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Header_Files/data/SensorData.h \
-	C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Header_Files/widget.h \
-	C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Source_Files/Graph3DWindow.cpp \
-	C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Source_Files/InicioWindow.cpp \
-	C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Source_Files/SensorManager.cpp \
-	C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Source_Files/SerialReader.cpp \
-	C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Source_Files/data/DataCleaner.cpp \
-	C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Source_Files/data/FileHelper.cpp \
-	C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Source_Files/main.cpp \
-	C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Source_Files/widget.cpp \
-	C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/assets/Inicio.gif \
-	C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/assets/Menu.png \
-	C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/assets/logo_xae.png \
-	C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/assets/model/CoheteGUI.STL \
-	C:/Users/santi/OneDrive/Documentos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/.qtc/package-manager/auto-setup.cmake \
-	C:/Users/santi/OneDrive/Documentos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/CMakeFiles/3.30.5/CMakeCXXCompiler.cmake \
-	C:/Users/santi/OneDrive/Documentos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/CMakeFiles/3.30.5/CMakeRCCompiler.cmake \
-	C:/Users/santi/OneDrive/Documentos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/CMakeFiles/3.30.5/CMakeSystem.cmake \
-	C:/Users/santi/OneDrive/Documentos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/moc_predefs.h \
+	D:/FRECCIA/Freccia_Proyect/GUI/CMakeLists.txt \
+	D:/FRECCIA/Freccia_Proyect/GUI/Header_Files/Graph3DWindow.h \
+	D:/FRECCIA/Freccia_Proyect/GUI/Header_Files/InicioWindow.h \
+	D:/FRECCIA/Freccia_Proyect/GUI/Header_Files/SensorManager.h \
+	D:/FRECCIA/Freccia_Proyect/GUI/Header_Files/SerialReader.h \
+	D:/FRECCIA/Freccia_Proyect/GUI/Header_Files/data/DataCleaner.h \
+	D:/FRECCIA/Freccia_Proyect/GUI/Header_Files/data/FileHelper.h \
+	D:/FRECCIA/Freccia_Proyect/GUI/Header_Files/data/SensorData.h \
+	D:/FRECCIA/Freccia_Proyect/GUI/Header_Files/widget.h \
+	D:/FRECCIA/Freccia_Proyect/GUI/Source_Files/Graph3DWindow.cpp \
+	D:/FRECCIA/Freccia_Proyect/GUI/Source_Files/InicioWindow.cpp \
+	D:/FRECCIA/Freccia_Proyect/GUI/Source_Files/SensorManager.cpp \
+	D:/FRECCIA/Freccia_Proyect/GUI/Source_Files/SerialReader.cpp \
+	D:/FRECCIA/Freccia_Proyect/GUI/Source_Files/data/DataCleaner.cpp \
+	D:/FRECCIA/Freccia_Proyect/GUI/Source_Files/data/FileHelper.cpp \
+	D:/FRECCIA/Freccia_Proyect/GUI/Source_Files/main.cpp \
+	D:/FRECCIA/Freccia_Proyect/GUI/Source_Files/widget.cpp \
+	D:/FRECCIA/Freccia_Proyect/GUI/assets/Inicio.gif \
+	D:/FRECCIA/Freccia_Proyect/GUI/assets/Menu.png \
+	D:/FRECCIA/Freccia_Proyect/GUI/assets/logo_xae.png \
+	D:/FRECCIA/Freccia_Proyect/GUI/assets/model/CoheteGUI.STL \
+	D:/FRECCIA/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/.qtc/package-manager/auto-setup.cmake \
+	D:/FRECCIA/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/CMakeFiles/3.30.5/CMakeCXXCompiler.cmake \
+	D:/FRECCIA/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/CMakeFiles/3.30.5/CMakeRCCompiler.cmake \
+	D:/FRECCIA/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/CMakeFiles/3.30.5/CMakeSystem.cmake \
+	D:/FRECCIA/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/moc_predefs.h \
 	D:/ProgramFiles/Qt/6.6.3/mingw_64/include/Qt3DCore/QEntity \
 	D:/ProgramFiles/Qt/6.6.3/mingw_64/include/Qt3DCore/QTransform \
 	D:/ProgramFiles/Qt/6.6.3/mingw_64/include/Qt3DCore/qcomponent.h \

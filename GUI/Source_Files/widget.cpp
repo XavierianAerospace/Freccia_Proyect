@@ -200,7 +200,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     labelTiempo->setStyleSheet(
         "color: white;"
         "font-weight: bold;"
-        "font-size: 18px;"     // tamaño más grande
+        "font-size: 18px;"
     );
 
     // Menú desplegable y acciones
@@ -267,7 +267,8 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
         pantalla1Activa = false;
         actualizarEstilosMenu();
     }
-    // === Botón Pantalla Gráficas 3D y OSM ===
+
+    // === Botón Pantalla Gráficas ===
     connect(pantalla2, &QAction::triggered, this, [this, manager]() {
         if (ventanaGraph3D) {
             ventanaGraph3D->raise();
@@ -319,23 +320,49 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     globalLayout->addWidget(topBar);
     globalLayout->addLayout(layout);
 
-    auto crearGrafica = [&](QChart*& chart, QLineSeries*& series, QChartView*& view,
-                        QLabel*& label, QValueAxis*& ejeX, QValueAxis*& ejeY,
-                        const QString& nombre, const QString& yTitulo,
-                        int fila, int columna) {
-        chart = new QChart();
-        series = new QLineSeries();
-        series->setName(nombre);
+    auto crearGrafica = [&](QChart*& chart,
+                       QLineSeries*& series,
+                       QChartView*& view,
+                       QLabel*& label,
+                       QValueAxis*& ejeX,
+                       QValueAxis*& ejeY,
+                       const QString& nombre,
+                       const QString& yTitulo,
+                       const QString& unidad,
+                       int fila,
+                       int columna) 
+    {
 
-        // === Colores únicos por gráfica ===
-        static QVector<QColor> colores = {
-            Qt::cyan, Qt::magenta, Qt::green, Qt::yellow,
-            Qt::red, Qt::blue, Qt::gray, Qt::darkCyan,
-            Qt::darkMagenta, Qt::darkYellow, Qt::darkRed, Qt::darkBlue
+        static const QVector<QColor> colores = {
+            Qt::cyan, Qt::magenta, Qt::green,  Qt::yellow,
+            Qt::red,  Qt::blue,    Qt::gray,   Qt::darkCyan,
+            Qt::darkMagenta,        Qt::darkYellow,
+            Qt::darkRed,            Qt::darkBlue
         };
         static int colorIndex = 0;
-        series->setColor(colores[colorIndex % colores.size()]);
-        colorIndex++;
+
+        chart  = new QChart();
+        series = new QLineSeries();
+
+        // 1) guardo nombre base para recuperar luego
+        series->setObjectName(nombre);
+
+        // 2) guardo la unidad como propiedad
+        series->setProperty("tipoDato", unidad);
+
+        // 3) texto inicial con unidad a la derecha
+        QString texto0 = QString("%1: %2 %3")
+                            .arg(nombre)   
+                            .arg(0)            
+                            .arg(unidad);
+        series->setName(texto0);
+
+        // 4) color
+        if (colores.isEmpty()) {
+            series->setColor(Qt::white);
+        } else {
+            series->setColor(colores[colorIndex++ % colores.size()]);
+        }
 
         chart->addSeries(series);
 
@@ -343,48 +370,50 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
         ejeX = new QValueAxis();
         ejeY = new QValueAxis();
         ejeX->setTitleText("Tiempo");
-        ejeY->setTitleText(yTitulo);
+        ejeY->setTitleText(QString("%1 (%2)").arg(yTitulo, unidad));
         ejeX->setLabelsColor(Qt::white);
         ejeY->setLabelsColor(Qt::white);
         ejeX->setTitleBrush(QBrush(Qt::white));
         ejeY->setTitleBrush(QBrush(Qt::white));
         ejeX->setRange(0, 1);
-        ejeY->setRange(0, 1); //No menor a 12
+        ejeY->setRange(0, 1);
 
         chart->addAxis(ejeX, Qt::AlignBottom);
         chart->addAxis(ejeY, Qt::AlignLeft);
         series->attachAxis(ejeX);
         series->attachAxis(ejeY);
 
-        chart->setTitle(nombre);
+        chart->setTitle("");                
         chart->setTitleBrush(QBrush(Qt::white));
         chart->legend()->setLabelColor(Qt::white);
         chart->setBackgroundBrush(QBrush(Qt::black));
 
         view = new QChartView(chart);
-        view->setMinimumSize(300, 200);
+        view->setMinimumSize(400, 250);
+        view->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         layout->addWidget(view, fila, columna);
 
         label = new QLabel(nombre + ": 0");
         label->setStyleSheet("color: white; font-weight: bold;");
         layout->addWidget(label, fila + 1, columna);
+        
     };
 
     // Fila 0
-    crearGrafica(chartRoll, seriesRoll, viewRoll, labelRoll, axisX_Roll, axisY_Roll, "Roll", "Ángulo", 0, 0);
-    crearGrafica(chartPitch, seriesPitch, viewPitch, labelPitch, axisX_Pitch, axisY_Pitch, "Pitch", "Ángulo", 0, 1);
-    crearGrafica(chartYaw, seriesYaw, viewYaw, labelYaw, axisX_Yaw, axisY_Yaw, "Yaw", "Ángulo", 0, 2);
-    crearGrafica(chartSats, seriesSats, viewSats, labelSats, axisX_Sats, axisY_Sats, "Satélites", "Número", 0, 3);
+    crearGrafica(chartRoll, seriesRoll, viewRoll, labelRoll, axisX_Roll, axisY_Roll, "Roll", "Ángulo", "°", 0, 0);
+    crearGrafica(chartPitch, seriesPitch, viewPitch, labelPitch, axisX_Pitch, axisY_Pitch, "Pitch", "Ángulo", "°", 0, 1);
+    crearGrafica(chartYaw, seriesYaw, viewYaw, labelYaw, axisX_Yaw, axisY_Yaw, "Yaw", "Ángulo", "°", 0, 2);
+    crearGrafica(chartSats, seriesSats, viewSats, labelSats, axisX_Sats, axisY_Sats, "Satélites", "Conexiones", "Conexiones", 0, 3);
 
     // Fila 1
-    crearGrafica(chartLat, seriesLat, viewLat, labelLat, axisX_Lat, axisY_Lat, "Latitud", "Grados", 1, 0);
-    crearGrafica(chartLon, seriesLon, viewLon, labelLon, axisX_Lon, axisY_Lon, "Longitud", "Grados", 1, 1);
-    crearGrafica(chartAlt, seriesAlt, viewAlt, labelAlt, axisX_Alt, axisY_Alt, "AltDiff", "m", 1, 2);
-    crearGrafica(chartHdop, seriesHdop, viewHdop, labelHdop, axisX_Hdop, axisY_Hdop, "HDOP", "Precisión", 1, 3);
+    crearGrafica(chartLat, seriesLat, viewLat, labelLat, axisX_Lat, axisY_Lat, "Latitud", "Grados", "°", 1, 0);
+    crearGrafica(chartLon, seriesLon, viewLon, labelLon, axisX_Lon, axisY_Lon, "Longitud", "Grados", "°", 1, 1);
+    crearGrafica(chartAlt, seriesAlt, viewAlt, labelAlt, axisX_Alt, axisY_Alt, "AltDiff", "Metros", "m", 1, 2);
+    crearGrafica(chartHdop, seriesHdop, viewHdop, labelHdop, axisX_Hdop, axisY_Hdop, "HDOP", "Precisión", "°", 1, 3);
 
     // Fila 2
-    crearGrafica(chartPresion, seriesPressure, viewPressure, labelPressure, axisX_Pressure, axisY_Pressure, "Presión", "hPa", 2, 0);
-    crearGrafica(chartTemp, seriesTemp, viewTemp, labelTemp, axisX_Temp, axisY_Temp, "Temperatura", "°C", 2, 1);
+    crearGrafica(chartPresion, seriesPressure, viewPressure, labelPressure, axisX_Pressure, axisY_Pressure, "Presión", "Presión", "hPa", 2, 0);
+    crearGrafica(chartTemp, seriesTemp, viewTemp, labelTemp, axisX_Temp, axisY_Temp, "Temperatura", "Temperatura", "°C", 2, 1);
 
    // === SERVOS (2,2) como tarjetas cuadradas ===
     QGridLayout* gridServos = new QGridLayout();
@@ -394,7 +423,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
 
     for (int i = 0; i < 4; ++i) {
         QFrame* card = new QFrame();
-        card->setFrameShape(QFrame::NoFrame); // Quita el borde
+        card->setFrameShape(QFrame::NoFrame);
         card->setStyleSheet("background-color: #2c2c2c; border-radius: 10px;");
         card->setFixedSize(100, 100);
 
@@ -438,36 +467,36 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     QStringList campos = {"Conexión", "Tiempo Para Inicio", "Paracaídas", "Fecha Satélital", "Fecha Local", "Hora Local"};
 
     for (int i = 0; i < campos.size(); ++i) {
-    QFrame* card = new QFrame();
-    if (!card) {
-        qDebug() << "Error: card es nullptr en índice" << i;
-        continue;
-    }
+        QFrame* card = new QFrame();
+        if (!card) {
+            qDebug() << "Error: card es nullptr en índice" << i;
+            continue;
+        }
 
-    card->setStyleSheet("background-color: #2c2c2c; border-radius: 10px;");
-    card->setFixedSize(150, 50);
+        card->setStyleSheet("background-color: #2c2c2c; border-radius: 10px;");
+        card->setFixedSize(150, 50);
 
-    QVBoxLayout* cardLayout = new QVBoxLayout(card);
-    cardLayout->setAlignment(Qt::AlignCenter);
-    cardLayout->setContentsMargins(4, 2, 4, 2);
+        QVBoxLayout* cardLayout = new QVBoxLayout(card);
+        cardLayout->setAlignment(Qt::AlignCenter);
+        cardLayout->setContentsMargins(4, 2, 4, 2);
 
-    QLabel* titulo = new QLabel(campos[i]);
-    titulo->setStyleSheet("color: white; font-size: 10px;");
-    titulo->setAlignment(Qt::AlignCenter);
+        QLabel* titulo = new QLabel(campos[i]);
+        titulo->setStyleSheet("color: white; font-size: 10px;");
+        titulo->setAlignment(Qt::AlignCenter);
 
-    labelStatus[i] = new QLabel("Esperando...");
-    labelStatus[i]->setStyleSheet("color: white; font-weight: bold; font-size: 12px;");
-    labelStatus[i]->setAlignment(Qt::AlignCenter);
+        labelStatus[i] = new QLabel("Esperando...");
+        labelStatus[i]->setStyleSheet("color: white; font-weight: bold; font-size: 12px;");
+        labelStatus[i]->setAlignment(Qt::AlignCenter);
 
-    cardLayout->addWidget(titulo);
-    cardLayout->addWidget(labelStatus[i]);
+        cardLayout->addWidget(titulo);
+        cardLayout->addWidget(labelStatus[i]);
 
-    if (labelStatus[i] == nullptr || titulo == nullptr || cardLayout == nullptr) {
-        qDebug() << "Fallo en creación de widgets para campo" << campos[i];
-        continue;
-    }
+        if (labelStatus[i] == nullptr || titulo == nullptr || cardLayout == nullptr) {
+            qDebug() << "Fallo en creación de widgets para campo" << campos[i];
+            continue;
+        }
 
-    gridEstado->addWidget(card, i / 2, i % 2); // <--- aquí crashea si card == nullptr
+        gridEstado->addWidget(card, i / 2, i % 2);
     }
 
     // === Línea inferior con COM y Velocidad ===
@@ -484,7 +513,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     labelBaud->setAlignment(Qt::AlignRight);
 
     puertoLayout->addWidget(labelCom);
-    puertoLayout->addStretch(); // Para que se separen bien
+    puertoLayout->addStretch();
     puertoLayout->addWidget(labelBaud);
 
     // === Línea final con paquete RAW ===
@@ -497,8 +526,6 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     QVBoxLayout* estadoFinal = new QVBoxLayout();
     estadoFinal->addLayout(gridEstado);
 
-    qDebug() << "Estado de labelRaw:" << (labelRaw ? "OK" : "nullptr");
-
     if (labelRaw) {
         estadoFinal->addWidget(labelRaw);
     } else {
@@ -510,28 +537,51 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     QWidget* estadoWidget = new QWidget();
     estadoWidget->setLayout(estadoFinal);
     layout->addWidget(estadoWidget, 2, 3);
-    qDebug() << "estadoWidget agregado al layout";
 
     // === Datos en tiempo real ===
     connect(m_sensorManager, &SensorManager::newSensorData, this, [&](const SensorData& d) {
         static int t = 0;
 
-        qDebug() << "Recibiendo datos del sensor...";
-        if (!labelRaw) qWarning() << "labelRaw es nullptr";
-        for (int i = 0; i < 4; ++i)
-            if (!labelServos[i]) qWarning() << "labelServos[" << i << "] es nullptr";
-        for (int i = 0; i < 6; ++i)
-            if (!labelStatus[i]) qWarning() << "labelStatus[" << i << "] es nullptr";
-        if (!seriesRoll || !labelRoll || !axisX_Roll || !axisY_Roll) qWarning() << "Falta algo en Roll";
+        auto actualizarGrafica = [&](QLineSeries* series,
+                            double valor,
+                            QLabel*     label,
+                            QValueAxis* axisX,
+                            QValueAxis* axisY)
+        {
+            if (!series || !label || !axisX || !axisY
+                || std::isnan(valor) || std::isinf(valor))
+                return;
 
-        auto actualizarGrafica = [&](QLineSeries* series, double valor, QLabel* label, QValueAxis* axisX, QValueAxis* axisY) {
-            if (!series || !label || !axisX || !axisY || std::isnan(valor) || std::isinf(valor)) return;
+            // 1) apuntamos el nuevo valor en la curva
             series->append(t, valor);
-            label->setText(QString("%1: %2").arg(series->name()).arg(valor));
-            if (axisX->min() == axisX->max()) axisX->setRange(t, t + 1);
-            else { if (t > axisX->max()) axisX->setMax(t); if (t < axisX->min()) axisX->setMin(t); }
-            if (axisY->min() == axisY->max()) axisY->setRange(valor, valor + 1);
-            else { if (valor > axisY->max()) axisY->setMax(valor); if (valor < axisY->min()) axisY->setMin(valor); }
+
+            // 2) recuperamos nombre + unidad
+            QString nombre = series->objectName();                
+            QString unidad = series->property("tipoDato").toString();
+
+            // 3) montamos el texto: "AltDiff: 3.50 m"
+            QString texto  = QString("%1: %2 %3")
+                         .arg(nombre)                        
+                         .arg(valor, 0, 'f', 3)              
+                         .arg(unidad);  
+
+            // 4) actualizamos leyenda *y* etiqueta
+            series->setName(texto);
+            label->setText(texto);
+
+            // 5) reajustamos ejes si hace falta
+            if (axisX->min() == axisX->max())
+                axisX->setRange(t, t+1);
+            else {
+                if (t > axisX->max()) axisX->setMax(t);
+                if (t < axisX->min()) axisX->setMin(t);
+            }
+            if (axisY->min() == axisY->max())
+                axisY->setRange(valor, valor+1);
+            else {
+                if (valor > axisY->max()) axisY->setMax(valor);
+                if (valor < axisY->min()) axisY->setMin(valor);
+            }
         };
 
         actualizarGrafica(seriesRoll, d.Roll, labelRoll, axisX_Roll, axisY_Roll);
@@ -550,7 +600,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
         labelServos[2]->setText(QString::number(d.Servo3) + "°");
         labelServos[3]->setText(QString::number(d.Servo4) + "°");
 
-        labelStatus[0]->setText("Estable - 3");
+        labelStatus[0]->setText("Estable: 3");
         labelStatus[1]->setText("Inicializado");
         labelStatus[2]->setText("N/A");
         labelStatus[3]->setText(QString::fromStdString(d.date));
@@ -597,11 +647,11 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     timeoutTimer->setSingleShot(true);
 
     connect(timer, &QTimer::timeout, this, [this]() {
-            int secs = tiempoInicio.secsTo(QTime::currentTime());
-            QTime t(0, 0);
-            t = t.addSecs(secs);
-            labelTiempo->setText("Tiempo: " + t.toString("hh:mm:ss"));
-        });
+        int secs = tiempoInicio.secsTo(QTime::currentTime());
+        QTime t(0, 0);
+        t = t.addSecs(secs);
+        labelTiempo->setText("Tiempo: " + t.toString("hh:mm:ss"));
+    });
     
     connect(timeoutTimer, &QTimer::timeout, this, [this]() {
         qWarning() << "No se han recibido datos en 20 segundos. Deteniendo el contador.";
@@ -612,19 +662,19 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     });
 
     connect(cerrarBtn, &QPushButton::clicked, this, []() {
-            QMessageBox msgBox;
-            msgBox.setIcon(QMessageBox::Critical);
-            msgBox.setWindowTitle("Exit Confirmation");
-            msgBox.setText("Are you sure about closing the program?");
-            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-            msgBox.setDefaultButton(QMessageBox::No);
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Critical);
+        msgBox.setWindowTitle("Exit Confirmation");
+        msgBox.setText("Are you sure about closing the program?");
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        msgBox.setDefaultButton(QMessageBox::No);
 
-            msgBox.setWindowIcon(QIcon("./assets/logo_xae.png"));
+        msgBox.setWindowIcon(QIcon("./assets/logo_xae.png"));
 
-            int reply = msgBox.exec();
-            if (reply == QMessageBox::Yes)
-                QCoreApplication::quit();
-        });
+        int reply = msgBox.exec();
+        if (reply == QMessageBox::Yes)
+            QCoreApplication::quit();
+    });
     pantalla1Activa = true;
     actualizarEstilosMenu();
 }

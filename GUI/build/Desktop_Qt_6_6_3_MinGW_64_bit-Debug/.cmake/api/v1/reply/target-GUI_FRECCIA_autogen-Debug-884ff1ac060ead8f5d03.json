@@ -55,19 +55,19 @@
 		{
 			"backtrace" : 0,
 			"isGenerated" : true,
-			"path" : "C:/Users/santi/OneDrive/Documentos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/CMakeFiles/GUI_FRECCIA_autogen",
+			"path" : "build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/CMakeFiles/GUI_FRECCIA_autogen",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 0,
 			"isGenerated" : true,
-			"path" : "C:/Users/santi/OneDrive/Documentos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/CMakeFiles/GUI_FRECCIA_autogen.rule",
+			"path" : "build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/CMakeFiles/GUI_FRECCIA_autogen.rule",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 0,
 			"isGenerated" : true,
-			"path" : "C:/Users/santi/OneDrive/Documentos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/timestamp.rule",
+			"path" : "build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/timestamp.rule",
 			"sourceGroupIndex" : 1
 		}
 	],

@@ -1,17 +1,17 @@
 {
 	"AUTOGEN_COMMAND_LINE_LENGTH_MAX" : 32000,
-	"BUILD_DIR" : "C:/Users/santi/OneDrive/Documentos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen",
-	"CMAKE_BINARY_DIR" : "C:/Users/santi/OneDrive/Documentos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug",
-	"CMAKE_CURRENT_BINARY_DIR" : "C:/Users/santi/OneDrive/Documentos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug",
-	"CMAKE_CURRENT_SOURCE_DIR" : "C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639",
+	"BUILD_DIR" : "D:/FRECCIA/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen",
+	"CMAKE_BINARY_DIR" : "D:/FRECCIA/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug",
+	"CMAKE_CURRENT_BINARY_DIR" : "D:/FRECCIA/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug",
+	"CMAKE_CURRENT_SOURCE_DIR" : "D:/FRECCIA/Freccia_Proyect/GUI",
 	"CMAKE_EXECUTABLE" : "D:/ProgramFiles/Qt/Tools/CMake_64/bin/cmake.exe",
 	"CMAKE_LIST_FILES" : 
 	[
-		"C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/CMakeLists.txt",
-		"C:/Users/santi/OneDrive/Documentos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/.qtc/package-manager/auto-setup.cmake",
+		"D:/FRECCIA/Freccia_Proyect/GUI/CMakeLists.txt",
+		"D:/FRECCIA/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/.qtc/package-manager/auto-setup.cmake",
 		"D:/ProgramFiles/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeDetermineSystem.cmake",
 		"D:/ProgramFiles/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeSystem.cmake.in",
-		"C:/Users/santi/OneDrive/Documentos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/CMakeFiles/3.30.5/CMakeSystem.cmake",
+		"D:/FRECCIA/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/CMakeFiles/3.30.5/CMakeSystem.cmake",
 		"D:/ProgramFiles/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeNinjaFindMake.cmake",
 		"D:/ProgramFiles/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeSystemSpecificInitialize.cmake",
 		"D:/ProgramFiles/Qt/Tools/CMake_64/share/cmake-3.30/Modules/Platform/Windows-Initialize.cmake",
@@ -65,7 +65,7 @@
 		"D:/ProgramFiles/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeFindBinUtils.cmake",
 		"D:/ProgramFiles/Qt/Tools/CMake_64/share/cmake-3.30/Modules/Compiler/GNU-FindBinUtils.cmake",
 		"D:/ProgramFiles/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeCXXCompiler.cmake.in",
-		"C:/Users/santi/OneDrive/Documentos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/CMakeFiles/3.30.5/CMakeCXXCompiler.cmake",
+		"D:/FRECCIA/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/CMakeFiles/3.30.5/CMakeCXXCompiler.cmake",
 		"D:/ProgramFiles/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeSystemSpecificInformation.cmake",
 		"D:/ProgramFiles/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeGenericSystem.cmake",
 		"D:/ProgramFiles/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeInitializeConfigs.cmake",
@@ -80,7 +80,7 @@
 		"D:/ProgramFiles/Qt/Tools/CMake_64/share/cmake-3.30/Modules/Platform/Windows-GNU.cmake",
 		"D:/ProgramFiles/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeDetermineRCCompiler.cmake",
 		"D:/ProgramFiles/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeRCCompiler.cmake.in",
-		"C:/Users/santi/OneDrive/Documentos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/CMakeFiles/3.30.5/CMakeRCCompiler.cmake",
+		"D:/FRECCIA/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/CMakeFiles/3.30.5/CMakeRCCompiler.cmake",
 		"D:/ProgramFiles/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeRCInformation.cmake",
 		"D:/ProgramFiles/Qt/Tools/CMake_64/share/cmake-3.30/Modules/Platform/Windows-windres.cmake",
 		"D:/ProgramFiles/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeTestRCCompiler.cmake",
@@ -97,7 +97,7 @@
 		"D:/ProgramFiles/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeDetermineCompilerSupport.cmake",
 		"D:/ProgramFiles/Qt/Tools/CMake_64/share/cmake-3.30/Modules/Internal/FeatureTesting.cmake",
 		"D:/ProgramFiles/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeCXXCompiler.cmake.in",
-		"C:/Users/santi/OneDrive/Documentos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/CMakeFiles/3.30.5/CMakeCXXCompiler.cmake",
+		"D:/FRECCIA/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/CMakeFiles/3.30.5/CMakeCXXCompiler.cmake",
 		"D:/ProgramFiles/Qt/Tools/CMake_64/share/cmake-3.30/Modules/Platform/Windows-GNU-CXX-ABI.cmake",
 		"D:/ProgramFiles/Qt/6.6.3/mingw_64/lib/cmake/Qt6/Qt6ConfigVersion.cmake",
 		"D:/ProgramFiles/Qt/6.6.3/mingw_64/lib/cmake/Qt6/Qt6ConfigVersionImpl.cmake",
@@ -504,69 +504,69 @@
 		"D:/ProgramFiles/Qt/6.6.3/mingw_64/lib/cmake/Qt63DAnimation/Qt63DAnimationAdditionalTargetInfo.cmake",
 		"D:/ProgramFiles/Qt/6.6.3/mingw_64/lib/cmake/Qt63DAnimation/Qt63DAnimationVersionlessTargets.cmake",
 		"D:/ProgramFiles/Qt/Tools/CMake_64/share/cmake-3.30/Modules/GNUInstallDirs.cmake",
-		"C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/assets/logo_xae.png",
-		"C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/assets/Inicio.gif",
-		"C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/assets/Menu.png",
-		"C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/assets/model/CoheteGUI.STL"
+		"D:/FRECCIA/Freccia_Proyect/GUI/assets/logo_xae.png",
+		"D:/FRECCIA/Freccia_Proyect/GUI/assets/Inicio.gif",
+		"D:/FRECCIA/Freccia_Proyect/GUI/assets/Menu.png",
+		"D:/FRECCIA/Freccia_Proyect/GUI/assets/model/CoheteGUI.STL"
 	],
-	"CMAKE_SOURCE_DIR" : "C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639",
+	"CMAKE_SOURCE_DIR" : "D:/FRECCIA/Freccia_Proyect/GUI",
 	"CROSS_CONFIG" : false,
-	"DEP_FILE" : "C:/Users/santi/OneDrive/Documentos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/deps",
+	"DEP_FILE" : "D:/FRECCIA/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/deps",
 	"DEP_FILE_RULE_NAME" : "GUI_FRECCIA_autogen/timestamp",
 	"HEADERS" : 
 	[
 		[
-			"C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Header_Files/Graph3DWindow.h",
+			"D:/FRECCIA/Freccia_Proyect/GUI/Header_Files/Graph3DWindow.h",
 			"MU",
 			"RBYB5VKSNZ/moc_Graph3DWindow.cpp",
 			null
 		],
 		[
-			"C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Header_Files/InicioWindow.h",
+			"D:/FRECCIA/Freccia_Proyect/GUI/Header_Files/InicioWindow.h",
 			"MU",
 			"RBYB5VKSNZ/moc_InicioWindow.cpp",
 			null
 		],
 		[
-			"C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Header_Files/SensorManager.h",
+			"D:/FRECCIA/Freccia_Proyect/GUI/Header_Files/SensorManager.h",
 			"MU",
 			"RBYB5VKSNZ/moc_SensorManager.cpp",
 			null
 		],
 		[
-			"C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Header_Files/SerialReader.h",
+			"D:/FRECCIA/Freccia_Proyect/GUI/Header_Files/SerialReader.h",
 			"MU",
 			"RBYB5VKSNZ/moc_SerialReader.cpp",
 			null
 		],
 		[
-			"C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Header_Files/data/DataCleaner.h",
+			"D:/FRECCIA/Freccia_Proyect/GUI/Header_Files/data/DataCleaner.h",
 			"MU",
 			"BDBYVKFZ5G/moc_DataCleaner.cpp",
 			null
 		],
 		[
-			"C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Header_Files/data/FileHelper.h",
+			"D:/FRECCIA/Freccia_Proyect/GUI/Header_Files/data/FileHelper.h",
 			"MU",
 			"BDBYVKFZ5G/moc_FileHelper.cpp",
 			null
 		],
 		[
-			"C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Header_Files/data/SensorData.h",
+			"D:/FRECCIA/Freccia_Proyect/GUI/Header_Files/data/SensorData.h",
 			"MU",
 			"BDBYVKFZ5G/moc_SensorData.cpp",
 			null
 		],
 		[
-			"C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Header_Files/widget.h",
+			"D:/FRECCIA/Freccia_Proyect/GUI/Header_Files/widget.h",
 			"MU",
 			"RBYB5VKSNZ/moc_widget.cpp",
 			null
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
-	"INCLUDE_DIR" : "C:/Users/santi/OneDrive/Documentos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/include",
-	"MOC_COMPILATION_FILE" : "C:/Users/santi/OneDrive/Documentos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/mocs_compilation.cpp",
+	"INCLUDE_DIR" : "D:/FRECCIA/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/include",
+	"MOC_COMPILATION_FILE" : "D:/FRECCIA/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/mocs_compilation.cpp",
 	"MOC_DEFINITIONS" : 
 	[
 		"MINGW_HAS_SECURE_API=1",
@@ -603,8 +603,8 @@
 	],
 	"MOC_INCLUDES" : 
 	[
-		"C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Header_Files",
-		"C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Header_Files/data",
+		"D:/FRECCIA/Freccia_Proyect/GUI/Header_Files",
+		"D:/FRECCIA/Freccia_Proyect/GUI/Header_Files/data",
 		"D:/ProgramFiles/Qt/6.6.3/mingw_64/include/QtCore",
 		"D:/ProgramFiles/Qt/6.6.3/mingw_64/include",
 		"D:/ProgramFiles/Qt/6.6.3/mingw_64/mkspecs/win32-g++",
@@ -648,59 +648,51 @@
 		"-c",
 		"D:/ProgramFiles/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp"
 	],
-	"MOC_PREDEFS_FILE" : "C:/Users/santi/OneDrive/Documentos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/moc_predefs.h",
+	"MOC_PREDEFS_FILE" : "D:/FRECCIA/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/moc_predefs.h",
 	"MOC_RELAXED_MODE" : false,
 	"MOC_SKIP" : [],
 	"MULTI_CONFIG" : false,
 	"PARALLEL" : 8,
-	"PARSE_CACHE_FILE" : "C:/Users/santi/OneDrive/Documentos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/CMakeFiles/GUI_FRECCIA_autogen.dir/ParseCache.txt",
+	"PARSE_CACHE_FILE" : "D:/FRECCIA/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/CMakeFiles/GUI_FRECCIA_autogen.dir/ParseCache.txt",
 	"QT_MOC_EXECUTABLE" : "D:/ProgramFiles/Qt/6.6.3/mingw_64/./bin/moc.exe",
 	"QT_UIC_EXECUTABLE" : "D:/ProgramFiles/Qt/6.6.3/mingw_64/./bin/uic.exe",
 	"QT_VERSION_MAJOR" : 6,
 	"QT_VERSION_MINOR" : 6,
-	"SETTINGS_FILE" : "C:/Users/santi/OneDrive/Documentos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/CMakeFiles/GUI_FRECCIA_autogen.dir/AutogenUsed.txt",
+	"SETTINGS_FILE" : "D:/FRECCIA/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_MinGW_64_bit-Debug/CMakeFiles/GUI_FRECCIA_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
 		[
-			"C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Source_Files/Graph3DWindow.cpp",
+			"D:/FRECCIA/Freccia_Proyect/GUI/Source_Files/Graph3DWindow.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Source_Files/InicioWindow.cpp",
+			"D:/FRECCIA/Freccia_Proyect/GUI/Source_Files/InicioWindow.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Source_Files/SensorManager.cpp",
+			"D:/FRECCIA/Freccia_Proyect/GUI/Source_Files/SensorManager.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Source_Files/SerialReader.cpp",
+			"D:/FRECCIA/Freccia_Proyect/GUI/Source_Files/SerialReader.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Source_Files/data/DataCleaner.cpp",
+			"D:/FRECCIA/Freccia_Proyect/GUI/Source_Files/data/DataCleaner.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Source_Files/data/FileHelper.cpp",
+			"D:/FRECCIA/Freccia_Proyect/GUI/Source_Files/data/FileHelper.cpp",
 			"MU",
 			null
 		],
-		[
-			"C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Source_Files/main.cpp",
-			"MU",
-			null
-		],
-		[
-			"C:/Users/santi/OneDrive/Desktop/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Freccia_Proyect-2e53c529396e7e4ffb6b446ee5f77d022371f639/Source_Files/widget.cpp",
-			"MU",
-			null
-		]
+		[ "D:/FRECCIA/Freccia_Proyect/GUI/Source_Files/main.cpp", "MU", null ],
+		[ "D:/FRECCIA/Freccia_Proyect/GUI/Source_Files/widget.cpp", "MU", null ]
 	],
 	"UIC_OPTIONS" : [],
 	"UIC_SEARCH_PATHS" : [],
