@@ -66,17 +66,10 @@ configure_file(
 
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/assets/model)
 
-configure_file(
-    ${CMAKE_SOURCE_DIR}/assets/model/CoheteGUI.stl
-    ${CMAKE_BINARY_DIR}/assets/model/CoheteGUI.stl
-    COPYONLY
-)
-
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/Header_Files
     ${CMAKE_CURRENT_SOURCE_DIR}/Header_Files/data
 )
-
 
 set_target_properties(GUI_FRECCIA PROPERTIES
     WIN32_EXECUTABLE TRUE

@@ -1,4 +1,5 @@
 #include "SensorManager.h"
+#include "FileHelper.h" 
 #include <QStringList>
 #include <QTimer>
 
@@ -8,7 +9,7 @@ SensorManager::SensorManager(QObject* parent) : QObject(parent) {
 
     // Iniciar lectura ligeramente después para evitar problemas de sincronización
     QTimer::singleShot(200, this, [this]() {
-        m_serialReader->start("COM6");
+        m_serialReader->start("/dev/pts/3");
     });
 }
 
@@ -38,9 +39,13 @@ void SensorManager::processRawData(const QByteArray& line) {
         sensor.pressure    = 0.0f;
         sensor.temperature = 0.0f;
 
+        // Guarda histórico en memoria si lo necesitas
         vectorData.push_back(sensor);
 
-        // Limpieza y almacenamiento automático
+        // ⬇️ Escribe inmediatamente UN registro en raw_data.csv (con timestamp y header si falta)
+        FileHelper::appendRawData("../data/raw_data.csv", sensor);
+
+        // Limpieza y almacenamiento limpio / de errores
         cleaner.clean(vectorData);
 
         emit newSensorData(sensor);

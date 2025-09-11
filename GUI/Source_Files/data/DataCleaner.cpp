@@ -1,3 +1,4 @@
+// DataCleaner.cpp
 #include "DataCleaner.h"
 #include "FileHelper.h"
 
@@ -17,8 +18,7 @@ std::string getCurrentTimestamp() {
 }
 
 void DataCleaner::clean(std::vector<SensorData>& data) {
-    const std::string folder = "../data";
-    const std::string rawFile   = folder + "/raw_data.csv";
+    const std::string folder    = "../data";
     const std::string cleanFile = folder + "/clean_sensores.csv";
     const std::string errorFile = folder + "/errores_sensores.csv";
 
@@ -28,10 +28,8 @@ void DataCleaner::clean(std::vector<SensorData>& data) {
         "Latitud,Longitud,Fecha,HoraUTC,Segundos,Satélites,HDOP,Roll,Pitch,Yaw,"
         "Servo1,Servo2,Servo3,Servo4,AltDiff,Presion,Temperatura";
 
-    FileHelper::ensureExists(rawFile);
     FileHelper::ensureExists(cleanFile);
     FileHelper::ensureExists(errorFile);
-    FileHelper::writeHeaderIfNew(rawFile, header);
     FileHelper::writeHeaderIfNew(cleanFile, header);
     FileHelper::writeHeaderIfNew(errorFile,
         "Latitud,Longitud,Fecha,HoraUTC,Satélites,HDOP,ERROR");
@@ -39,16 +37,14 @@ void DataCleaner::clean(std::vector<SensorData>& data) {
     std::string timestamp = getCurrentTimestamp();
     std::ofstream errStream(errorFile, std::ios::app);
     std::ofstream cleanStream(cleanFile, std::ios::app);
-    std::ofstream rawStream(rawFile, std::ios::app);
 
     errStream << "\n---- Procesamiento: " << timestamp << " ----\n";
     cleanStream << "\n---- Procesamiento: " << timestamp << " ----\n";
-    rawStream << "\n---- Entrada cruda: " << timestamp << " ----\n";
 
     int errores = 0;
 
     for (auto& d : data) {
-        FileHelper::appendRawData(rawFile, d);
+        // ❌ Ya NO escribimos en raw_data.csv aquí (se hace en SensorManager, por evento)
 
         std::string errorDetail;
         if (!isValid(d, errorDetail)) {
@@ -64,7 +60,6 @@ void DataCleaner::clean(std::vector<SensorData>& data) {
 
     std::cout << "Datos procesados. Errores encontrados: " << errores << "\n";
 
-    rawStream.close();
     cleanStream.close();
     errStream.close();
 }
