@@ -15,6 +15,7 @@ class Graph3DWindow;
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QTimer>
+#include <QSlider>   
 #include <QDateTime>
 #include <QVector3D>
 #include <QtDataVisualization/Q3DScatter>
@@ -97,10 +98,18 @@ private:
     QValueAxis *axisX_Pressure, *axisY_Pressure;
     QValueAxis *axisX_Temp, *axisY_Temp;
 
+    // === Pie de estado ===
     QLabel* labelCom = nullptr;
     QLabel* labelBaud = nullptr;
     QLabel* labelRaw = nullptr;
 
+    // === Módulo "ventana de tiempo" ===
+    QSlider* winSlider = nullptr;
+    QLabel*  winText   = nullptr;
+    int      windowSec = 0;
+
+    // Actualizacion de las gráficas con el slider
+    QVector<std::pair<QLineSeries*, QValueAxis*>> seriesAndXAxis;
 
 };
 

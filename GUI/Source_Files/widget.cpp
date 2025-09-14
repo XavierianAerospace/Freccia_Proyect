@@ -2,6 +2,9 @@
 #include "Graph3DWindow.h"
 #include "data/FileHelper.h"
 
+#include <QSlider>
+#include <cmath>
+
 #include <QMenu>
 #include <QWidgetAction>
 #include <QPushButton>
@@ -389,6 +392,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
         chart->setBackgroundBrush(QBrush(Qt::black));
 
         view = new QChartView(chart);
+        view->setRenderHint(QPainter::Antialiasing, true);
         view->setMinimumSize(400, 250);
         view->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         layout->addWidget(view, fila, columna);
@@ -396,6 +400,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
         label = new QLabel(nombre + ": 0");
         label->setStyleSheet("color: white; font-weight: bold;");
         layout->addWidget(label, fila + 1, columna);
+        seriesAndXAxis.push_back({series, ejeX});
         
     };
 
@@ -415,54 +420,137 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     crearGrafica(chartPresion, seriesPressure, viewPressure, labelPressure, axisX_Pressure, axisY_Pressure, "Presión", "Presión", "hPa", 2, 0);
     crearGrafica(chartTemp, seriesTemp, viewTemp, labelTemp, axisX_Temp, axisY_Temp, "Temperatura", "Temperatura", "°C", 2, 1);
 
-   // === SERVOS (2,2) como tarjetas cuadradas ===
+    // === SERVOS (2,2) ahora 3x2 para 6 servos ===
     QGridLayout* gridServos = new QGridLayout();
-    gridServos->setSpacing(10);
+    gridServos->setContentsMargins(8, 8, 8, 8);
+    gridServos->setHorizontalSpacing(24);
+    gridServos->setVerticalSpacing(24);
 
-    QStringList unidadesServo = {"°", "°", "°", "°"};
+    const qreal k = 1.6;                   // escala de tamaño
+    const int  cardSize = int(100 * k);    // lado de la tarjeta
+    const int  rCorner  = int(10  * k);    // radio de esquina
+    const int  titlePt  = int(8   * k);    // tamaño título "Servo N"
+    const int  valuePt  = int(10  * k * 1.9); // tamaño valor
 
-    for (int i = 0; i < 4; ++i) {
+    // Ahora 6 unidades
+    QStringList unidadesServo = {"°", "°", "°", "°", "°", "°"};
+
+    for (int i = 0; i < 6; ++i) {
         QFrame* card = new QFrame();
         card->setFrameShape(QFrame::NoFrame);
-        card->setStyleSheet("background-color: #2c2c2c; border-radius: 10px;");
-        card->setFixedSize(100, 100);
+        card->setStyleSheet(QString(
+            "background-color: #2c2c2c;"
+            "border-radius: %1px;"
+        ).arg(rCorner));
+        card->setFixedSize(cardSize, cardSize);
 
         QVBoxLayout* cardLayout = new QVBoxLayout(card);
         cardLayout->setAlignment(Qt::AlignCenter);
-        cardLayout->setSpacing(4);
-        cardLayout->setContentsMargins(4, 4, 4, 4);
+        cardLayout->setSpacing(int(4 * k));
+        cardLayout->setContentsMargins(int(6 * k), int(6 * k), int(6 * k), int(6 * k));
 
+        // Título
         QLabel* labelTitulo = new QLabel(QString("Servo %1").arg(i + 1));
         QFont tituloFont;
-        tituloFont.setPointSize(8);
+        tituloFont.setPointSize(titlePt);
         tituloFont.setBold(true);
         labelTitulo->setFont(tituloFont);
         labelTitulo->setStyleSheet("color: white;");
         labelTitulo->setAlignment(Qt::AlignCenter);
 
+        // Valor
+        if (i >= 6) continue;
         labelServos[i] = new QLabel("0" + unidadesServo[i]);
         QFont valorFont;
-        valorFont.setPointSize(10);
+        valorFont.setPointSize(valuePt);
         valorFont.setBold(true);
         labelServos[i]->setFont(valorFont);
         labelServos[i]->setStyleSheet("color: white;");
         labelServos[i]->setAlignment(Qt::AlignCenter);
 
         cardLayout->addWidget(labelTitulo);
+        cardLayout->addStretch(1);
         cardLayout->addWidget(labelServos[i]);
+        cardLayout->addStretch(1);
 
-        gridServos->addWidget(card, i / 2, i % 2); // Posición 2x2
+        // Colocar en una grilla de 2 filas × 3 columnas
+        gridServos->addWidget(card, i / 3, i % 3);
     }
+
+    // Stretch para llenar el espacio disponible
+    for (int col = 0; col < 3; ++col) gridServos->setColumnStretch(col, 1);
+    for (int row = 0; row < 2; ++row) gridServos->setRowStretch(row, 1);
 
     QWidget* servoWidget = new QWidget();
     servoWidget->setLayout(gridServos);
     layout->addWidget(servoWidget, 2, 2);
 
-
     // === ESTADO DEL SISTEMA (2,3) con distribución 3 filas x 2 columnas ===
     QGridLayout* gridEstado = new QGridLayout();
     gridEstado->setSpacing(8);
     gridEstado->setContentsMargins(0, 0, 0, 0);
+
+    gridEstado->setHorizontalSpacing(16);
+    gridEstado->setVerticalSpacing(10);
+    gridEstado->setColumnStretch(0, 1);
+    gridEstado->setColumnStretch(1, 1);
+
+    QWidget* winBox = new QWidget();
+    winBox->setStyleSheet("background-color: #2c2c2c; border-radius: 10px;");
+    QVBoxLayout* winLay = new QVBoxLayout(winBox);
+    winLay->setContentsMargins(10, 8, 10, 8);
+    winLay->setSpacing(6);
+
+    // Texto / valor seleccionado
+    winText = new QLabel(tr("Ventana: Máx"));
+    winText->setAlignment(Qt::AlignCenter);
+    winText->setStyleSheet("color: white; font-weight: bold;");
+
+    // Slider con 8 posiciones: 5,10,20,30,40,50,60, Máx
+    winSlider = new QSlider(Qt::Horizontal);
+    winSlider->setRange(0, 7);
+    winSlider->setValue(7); // 7 = Máx por defecto
+    winSlider->setTickPosition(QSlider::TicksBelow);
+    winSlider->setTickInterval(1);
+    winSlider->setSingleStep(1);
+
+    // Estilo
+    winSlider->setStyleSheet(R"(
+    QSlider::groove:horizontal {
+        height: 16px; border-radius: 8px;
+        margin: 8px 10px;
+        background: qlineargradient(x1:0, y1:0.5, x2:1, y2:0.5,
+        stop:0 #2ecc71, stop:0.5 #f1c40f, stop:1 #e74c3c);
+    }
+    QSlider::handle:horizontal {
+        background: white; border: 1px solid #bbb;
+        width: 24px; height: 24px; margin: -6px 0;
+        border-radius: 12px;
+    }
+    QSlider::sub-page:horizontal { background: transparent; }
+    QSlider::add-page:horizontal { background: transparent; }
+    QSlider::tick-position:below { color: #aaa; }
+    )");
+
+    // Etiquetas “5s ... Máx”
+    QStringList tickText = {"5s","10s","20s","30s","40s","50s","60s","Máx"};
+    QHBoxLayout* ticks = new QHBoxLayout();
+    ticks->setContentsMargins(14, 0, 14, 0);
+    for (int i=0;i<tickText.size();++i) {
+        QLabel* t = new QLabel(tickText[i]);
+        t->setStyleSheet("color:#bbb; font-size:10px;");
+        t->setAlignment(Qt::AlignCenter);
+        ticks->addWidget(t, 1);
+    }
+
+    winLay->addWidget(winText);
+    winLay->addWidget(winSlider);
+    winLay->addLayout(ticks);
+
+    // Contenedor vertical de la columna derecha
+    QVBoxLayout* estadoFinal = new QVBoxLayout();
+    estadoFinal->setContentsMargins(0,0,0,0);
+    estadoFinal->addWidget(winBox);
 
     QStringList campos = {"Conexión", "Tiempo Para Inicio", "Paracaídas", "Fecha Satélital", "Fecha Local", "Hora Local"};
 
@@ -474,7 +562,8 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
         }
 
         card->setStyleSheet("background-color: #2c2c2c; border-radius: 10px;");
-        card->setFixedSize(150, 50);
+        card->setMinimumHeight(56);
+        card->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
         QVBoxLayout* cardLayout = new QVBoxLayout(card);
         cardLayout->setAlignment(Qt::AlignCenter);
@@ -516,15 +605,27 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     puertoLayout->addStretch();
     puertoLayout->addWidget(labelBaud);
 
+    // Añade el grid de estado al contenedor
+    estadoFinal->addLayout(gridEstado);
+
+    // Línea COM y Velocidad
+    estadoFinal->addLayout(puertoLayout);
+
     // === Línea final con paquete RAW ===
     labelRaw = new QLabel("Paquete: Esperando...");
     labelRaw->setStyleSheet("color: white; font-size: 10px; background-color: #1e1e1e; padding: 6px;");
     labelRaw->setWordWrap(true);
-    labelRaw->setAlignment(Qt::AlignLeft);
-    labelRaw->setMinimumHeight(30);
+    labelRaw->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+    labelRaw->setMinimumHeight(64);
+    labelRaw->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
-    QVBoxLayout* estadoFinal = new QVBoxLayout();
-    estadoFinal->addLayout(gridEstado);
+    labelRaw->setMaximumWidth(475);
+    labelRaw->setTextInteractionFlags(Qt::TextSelectableByMouse);
+
+    QFont mono;
+    mono.setFamily("Consolas");
+    mono.setStyleHint(QFont::Monospace);
+    labelRaw->setFont(mono);
 
     if (labelRaw) {
         estadoFinal->addWidget(labelRaw);
@@ -538,15 +639,52 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     estadoWidget->setLayout(estadoFinal);
     layout->addWidget(estadoWidget, 2, 3);
 
+    // === Ventana de tiempo ===
+    auto secsAt = [](int pos)->int {
+        static const int map[8] = {5,10,20,30,40,50,60,0}; // 0 = Máx
+        return map[qBound(0,pos,7)];
+    };
+
+    connect(winSlider, &QSlider::valueChanged, this, [this, secsAt](int pos){
+        windowSec = secsAt(pos);
+        winText->setText(windowSec == 0 ? tr("Ventana: Máx")
+                                        : tr("Ventana: %1 s").arg(windowSec));
+
+        // Reencuadra y recorta TODAS las gráficas registradas
+        for (auto &p : seriesAndXAxis) {
+            auto* s  = p.first;
+            auto* ax = p.second;
+            if (!s || !ax || s->count() == 0) continue;
+
+            const auto pts    = s->pointsVector();
+            const double last = pts.constLast().x();
+            const double first= pts.constFirst().x();
+
+            if (windowSec == 0) {
+                ax->setRange(first, last);
+            } else {
+                ax->setRange(std::max(0.0, last - windowSec), last);
+
+                // Recorte inmediato de puntos muy viejos (margen 5 s)
+                const double cutoff = last - (windowSec + 5);
+                int removeCount = 0;
+                while (removeCount < pts.size() && pts[removeCount].x() < cutoff)
+                    ++removeCount;
+                if (removeCount > 0)
+                    s->removePoints(0, removeCount);
+            }
+        }
+    });
+
     // === Datos en tiempo real ===
     connect(m_sensorManager, &SensorManager::newSensorData, this, [&](const SensorData& d) {
         static int t = 0;
 
         auto actualizarGrafica = [&](QLineSeries* series,
-                            double valor,
-                            QLabel*     label,
-                            QValueAxis* axisX,
-                            QValueAxis* axisY)
+                             double valor,
+                             QLabel*     label,
+                             QValueAxis* axisX,
+                             QValueAxis* axisY)
         {
             if (!series || !label || !axisX || !axisY
                 || std::isnan(valor) || std::isinf(valor))
@@ -561,21 +699,38 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
 
             // 3) montamos el texto: "AltDiff: 3.50 m"
             QString texto  = QString("%1: %2 %3")
-                         .arg(nombre)                        
-                         .arg(valor, 0, 'f', 3)              
-                         .arg(unidad);  
+                            .arg(nombre)                        
+                            .arg(valor, 0, 'f', 3)              
+                            .arg(unidad);  
 
             // 4) actualizamos leyenda *y* etiqueta
             series->setName(texto);
             label->setText(texto);
 
-            // 5) reajustamos ejes si hace falta
-            if (axisX->min() == axisX->max())
-                axisX->setRange(t, t+1);
-            else {
-                if (t > axisX->max()) axisX->setMax(t);
-                if (t < axisX->min()) axisX->setMin(t);
+            // 5) reajustamos ejes X según la ventana seleccionada
+            if (windowSec == 0) {
+                // === Modo Máx: dejar crecer indefinidamente ===
+                if (axisX->min() == axisX->max())
+                    axisX->setRange(t, t+1);
+                else {
+                    if (t > axisX->max()) axisX->setMax(t);
+                    if (t < axisX->min()) axisX->setMin(t);
+                }
+            } else {
+                // === Modo ventana deslizante: mostrar últimos windowSec segundos ===
+                axisX->setRange(std::max(0, t - windowSec), t);
+
+                // Recorta puntos más antiguos para liberar memoria
+                const int cutoff = t - (windowSec + 5); // 5 s extra de margen
+                int removeCount = 0;
+                const auto pts = series->pointsVector();
+                while (removeCount < pts.size() && pts[removeCount].x() < cutoff)
+                    ++removeCount;
+                if (removeCount > 0)
+                    series->removePoints(0, removeCount);
             }
+
+            // 6) reajustamos ejes Y dinámicamente
             if (axisY->min() == axisY->max())
                 axisY->setRange(valor, valor+1);
             else {

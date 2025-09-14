@@ -9,7 +9,7 @@ SensorManager::SensorManager(QObject* parent) : QObject(parent) {
 
     // Iniciar lectura ligeramente después para evitar problemas de sincronización
     QTimer::singleShot(200, this, [this]() {
-        m_serialReader->start("/dev/pts/3");
+        m_serialReader->start("COM3");
     });
 }
 
