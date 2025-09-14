@@ -3,7 +3,11 @@ import time
 import math
 import random
 
-puerto = 'COM4'  # Cambia si usas otro puerto
+#puerto = 'COM4'  # Cambia si usas otro puerto
+
+puerto = '/dev/pts/2'  # Cambia si usas otro puerto
+
+
 baudrate = 115200
 
 # Abrir conexión serial

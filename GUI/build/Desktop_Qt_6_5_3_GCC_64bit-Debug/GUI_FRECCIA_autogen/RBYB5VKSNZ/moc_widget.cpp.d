@@ -246,13 +246,18 @@
   /home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/qserialportglobal.h \
   /home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/qserialportinfo.h \
   /home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/qtserialportexports.h \
+  /home/apolo/Qt/6.5.3/gcc_64/include/QtWidgets/QGraphicsEllipseItem \
+  /home/apolo/Qt/6.5.3/gcc_64/include/QtWidgets/QGraphicsLineItem \
+  /home/apolo/Qt/6.5.3/gcc_64/include/QtWidgets/QGraphicsSimpleTextItem \
   /home/apolo/Qt/6.5.3/gcc_64/include/QtWidgets/QGraphicsView \
   /home/apolo/Qt/6.5.3/gcc_64/include/QtWidgets/QGraphicsWidget \
   /home/apolo/Qt/6.5.3/gcc_64/include/QtWidgets/QHBoxLayout \
   /home/apolo/Qt/6.5.3/gcc_64/include/QtWidgets/QLabel \
+  /home/apolo/Qt/6.5.3/gcc_64/include/QtWidgets/QSlider \
   /home/apolo/Qt/6.5.3/gcc_64/include/QtWidgets/QVBoxLayout \
   /home/apolo/Qt/6.5.3/gcc_64/include/QtWidgets/QWidget \
   /home/apolo/Qt/6.5.3/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+  /home/apolo/Qt/6.5.3/gcc_64/include/QtWidgets/qabstractslider.h \
   /home/apolo/Qt/6.5.3/gcc_64/include/QtWidgets/qboxlayout.h \
   /home/apolo/Qt/6.5.3/gcc_64/include/QtWidgets/qframe.h \
   /home/apolo/Qt/6.5.3/gcc_64/include/QtWidgets/qgraphicsitem.h \
@@ -266,6 +271,7 @@
   /home/apolo/Qt/6.5.3/gcc_64/include/QtWidgets/qlayoutitem.h \
   /home/apolo/Qt/6.5.3/gcc_64/include/QtWidgets/qscrollarea.h \
   /home/apolo/Qt/6.5.3/gcc_64/include/QtWidgets/qsizepolicy.h \
+  /home/apolo/Qt/6.5.3/gcc_64/include/QtWidgets/qslider.h \
   /home/apolo/Qt/6.5.3/gcc_64/include/QtWidgets/qtwidgets-config.h \
   /home/apolo/Qt/6.5.3/gcc_64/include/QtWidgets/qtwidgetsexports.h \
   /home/apolo/Qt/6.5.3/gcc_64/include/QtWidgets/qtwidgetsglobal.h \

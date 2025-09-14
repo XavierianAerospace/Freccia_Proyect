@@ -4,6 +4,11 @@
 
 #include <QSlider>
 #include <cmath>
+#include <algorithm> 
+#include <QGraphicsSimpleTextItem>
+#include <QGraphicsTextItem>
+#include <QGraphicsEllipseItem>
+#include <QGraphicsLineItem>
 
 #include <QMenu>
 #include <QWidgetAction>
@@ -324,55 +329,43 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     globalLayout->addLayout(layout);
 
     auto crearGrafica = [&](QChart*& chart,
-                       QLineSeries*& series,
-                       QChartView*& view,
-                       QLabel*& label,
-                       QValueAxis*& ejeX,
-                       QValueAxis*& ejeY,
-                       const QString& nombre,
-                       const QString& yTitulo,
-                       const QString& unidad,
-                       int fila,
-                       int columna) 
+                        QLineSeries*& series,
+                        QChartView*& view,       // devolvemos como QChartView* para no cambiar firmas
+                        QLabel*& label,
+                        QValueAxis*& ejeX,
+                        QValueAxis*& ejeY,
+                        const QString& nombre,
+                        const QString& yTitulo,
+                        const QString& unidad,
+                        int fila,
+                        int columna)
     {
-
         static const QVector<QColor> colores = {
             Qt::cyan, Qt::magenta, Qt::green,  Qt::yellow,
             Qt::red,  Qt::blue,    Qt::gray,   Qt::darkCyan,
-            Qt::darkMagenta,        Qt::darkYellow,
-            Qt::darkRed,            Qt::darkBlue
+            Qt::darkMagenta, Qt::darkYellow, Qt::darkRed, Qt::darkBlue
         };
         static int colorIndex = 0;
 
+        // --- Chart y serie ---
         chart  = new QChart();
         series = new QLineSeries();
 
-        // 1) guardo nombre base para recuperar luego
+        // 1) nombre base
         series->setObjectName(nombre);
-
-        // 2) guardo la unidad como propiedad
+        // 2) unidad como propiedad
         series->setProperty("tipoDato", unidad);
-
-        // 3) texto inicial con unidad a la derecha
-        QString texto0 = QString("%1: %2 %3")
-                            .arg(nombre)   
-                            .arg(0)            
-                            .arg(unidad);
-        series->setName(texto0);
-
+        // 3) texto inicial
+        series->setName(QString("%1: %2 %3").arg(nombre).arg(0).arg(unidad));
         // 4) color
-        if (colores.isEmpty()) {
-            series->setColor(Qt::white);
-        } else {
-            series->setColor(colores[colorIndex++ % colores.size()]);
-        }
+        series->setColor(colores[colores.isEmpty() ? 0 : (colorIndex++ % colores.size())]);
 
         chart->addSeries(series);
 
-        // === Ejes inicializados desde 0 ===
+        // --- Ejes ---
         ejeX = new QValueAxis();
         ejeY = new QValueAxis();
-        ejeX->setTitleText("Tiempo");
+        ejeX->setTitleText("Tiempo (s)");
         ejeY->setTitleText(QString("%1 (%2)").arg(yTitulo, unidad));
         ejeX->setLabelsColor(Qt::white);
         ejeY->setLabelsColor(Qt::white);
@@ -386,22 +379,119 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
         series->attachAxis(ejeX);
         series->attachAxis(ejeY);
 
-        chart->setTitle("");                
+        chart->setTitle("");
         chart->setTitleBrush(QBrush(Qt::white));
         chart->legend()->setLabelColor(Qt::white);
         chart->setBackgroundBrush(QBrush(Qt::black));
 
-        view = new QChartView(chart);
-        view->setRenderHint(QPainter::Antialiasing, true);
-        view->setMinimumSize(400, 250);
-        view->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        layout->addWidget(view, fila, columna);
+       // --- View con soporte de hover ---
+        auto* hview = new HoverChartView();
+        hview->setRenderHint(QPainter::Antialiasing, true);
+        hview->setMinimumSize(400, 250);
+        hview->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        hview->setChart(chart);
+        view = hview;
+        layout->addWidget(hview, fila, columna);
 
+        // *** CREA EL LABEL ANTES DE LAS LAMBDAS ***
         label = new QLabel(nombre + ": 0");
         label->setStyleSheet("color: white; font-weight: bold;");
         layout->addWidget(label, fila + 1, columna);
+
+        // --- Overlay (línea, punto, tooltip) por cada gráfica ---
+        struct Overlay {
+            QGraphicsLineItem*    line = nullptr;
+            QGraphicsEllipseItem* dot  = nullptr;
+            QGraphicsTextItem*    text = nullptr;
+            bool   inside  = false;
+            double lastX   = 0.0;
+        };
+        auto overlay = std::make_shared<Overlay>();
+
+        auto clearOverlay = [hview, overlay]() {
+            if (!hview->scene()) return;
+            if (overlay->line) { hview->scene()->removeItem(overlay->line); delete overlay->line; overlay->line=nullptr; }
+            if (overlay->dot)  { hview->scene()->removeItem(overlay->dot);  delete overlay->dot;  overlay->dot =nullptr; }
+            if (overlay->text) { hview->scene()->removeItem(overlay->text); delete overlay->text; overlay->text=nullptr; }
+        };
+
+        // Búsqueda rápida del punto más cercano por X
+        auto nearestByX = [series](double x)->QPointF {
+            const auto pts = series->points();
+            if (pts.isEmpty()) return QPointF(x, 0);
+            int lo = 0, hi = pts.size()-1, idx = 0;
+            while (lo <= hi) {
+                int m = (lo+hi)/2;
+                if (pts[m].x() < x) lo = m+1;
+                else { idx = m; hi = m-1; }
+            }
+            if (idx > 0 && std::abs(pts[idx-1].x()-x) < std::abs(pts[idx].x()-x)) idx--;
+            return pts[idx];
+        };
+
+        auto drawOverlayNow = [hview, chart, series, unidad, label, overlay, clearOverlay, nearestByX]() {
+            if (!overlay->inside) { clearOverlay(); return; }
+            if (!chart || !series || series->count()==0) { clearOverlay(); return; }
+
+            const QPointF p = nearestByX(overlay->lastX);
+            const QPointF scene = chart->mapToPosition(p, series);
+            if (!chart->plotArea().contains(scene)) { clearOverlay(); return; }
+
+            clearOverlay();
+
+            overlay->line = hview->scene()->addLine(
+                scene.x(), chart->plotArea().top(),
+                scene.x(), chart->plotArea().bottom(),
+                QPen(Qt::white, 1, Qt::DashLine));
+
+            overlay->dot = hview->scene()->addEllipse(
+                scene.x()-4, scene.y()-4, 8, 8,
+                QPen(series->color(), 2),
+                QBrush(series->color()));
+
+            QString txt = QString("t: %1 s\nv: %2 %3")
+                            .arg(p.x(), 0, 'f', 2)
+                            .arg(p.y(), 0, 'f', 3)
+                            .arg(unidad);
+
+            overlay->text = hview->scene()->addText(txt);
+            overlay->text->setDefaultTextColor(Qt::white);
+            QFont f = overlay->text->font(); f.setBold(true); f.setPointSize(9);
+            overlay->text->setFont(f);
+
+            // Actualiza leyenda y label con el valor bajo el mouse
+            const QString nombreSerie = series->objectName();
+            const QString textoHover  = QString("%1: %2 %3")
+                                        .arg(nombreSerie).arg(p.y(), 0, 'f', 3).arg(unidad);
+            series->setName(textoHover);
+            if (label) label->setText(textoHover);
+
+            // Mantén el tooltip dentro del plot
+            const QRectF pr = chart->plotArea();
+            const QRectF tr = overlay->text->boundingRect();
+            QPointF tp(scene.x()+12, scene.y()-tr.height()-6);
+            if (tp.x()+tr.width() > pr.right())   tp.setX(scene.x()-tr.width()-12);
+            if (tp.y() < pr.top())                tp.setY(scene.y()+12);
+            if (tp.y()+tr.height() > pr.bottom()) tp.setY(pr.bottom()-tr.height()-6);
+            overlay->text->setPos(tp);
+        };
+
+        QObject::connect(hview, &HoverChartView::hoverUpdate, hview,
+            [overlay, clearOverlay, drawOverlayNow](QPointF chartPos, QPoint, bool inside) {
+                overlay->inside = inside;
+                if (!inside) { clearOverlay(); return; }
+                overlay->lastX = chartPos.x();
+                drawOverlayNow();
+            });
+
+        QObject::connect(series, &QLineSeries::pointAdded,    hview, [drawOverlayNow](int){ drawOverlayNow(); });
+        QObject::connect(series, &QLineSeries::pointRemoved,  hview, [drawOverlayNow](int){ drawOverlayNow(); });
+        QObject::connect(series, &QLineSeries::pointReplaced, hview, [drawOverlayNow](int){ drawOverlayNow(); });
+        QObject::connect(ejeX,   &QValueAxis::rangeChanged,   hview, [drawOverlayNow](qreal, qreal){ drawOverlayNow(); });
+        QObject::connect(ejeY,   &QValueAxis::rangeChanged,   hview, [drawOverlayNow](qreal, qreal){ drawOverlayNow(); });
+
+        // Registrar para gestión de ventana de tiempo
         seriesAndXAxis.push_back({series, ejeX});
-        
     };
 
     // Fila 0
@@ -430,7 +520,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     const int  cardSize = int(100 * k);    // lado de la tarjeta
     const int  rCorner  = int(10  * k);    // radio de esquina
     const int  titlePt  = int(8   * k);    // tamaño título "Servo N"
-    const int  valuePt  = int(10  * k * 1.9); // tamaño valor
+    const int  valuePt  = int(6  * k * 1.9); // tamaño valor
 
     // Ahora 6 unidades
     QStringList unidadesServo = {"°", "°", "°", "°", "°", "°"};
@@ -616,7 +706,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     labelRaw->setStyleSheet("color: white; font-size: 10px; background-color: #1e1e1e; padding: 6px;");
     labelRaw->setWordWrap(true);
     labelRaw->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-    labelRaw->setMinimumHeight(64);
+    labelRaw->setMinimumHeight(30);
     labelRaw->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
     labelRaw->setMaximumWidth(475);
@@ -641,7 +731,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
 
     // === Ventana de tiempo ===
     auto secsAt = [](int pos)->int {
-        static const int map[8] = {5,10,20,30,40,50,60,0}; // 0 = Máx
+        static const int map[8] = {5,10,20,30,40,50,60,0}; 
         return map[qBound(0,pos,7)];
     };
 
@@ -650,28 +740,22 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
         winText->setText(windowSec == 0 ? tr("Ventana: Máx")
                                         : tr("Ventana: %1 s").arg(windowSec));
 
-        // Reencuadra y recorta TODAS las gráficas registradas
+        // Reencuadra TODAS las gráficas SIN eliminar datos
         for (auto &p : seriesAndXAxis) {
             auto* s  = p.first;
             auto* ax = p.second;
             if (!s || !ax || s->count() == 0) continue;
 
-            const auto pts    = s->pointsVector();
+            const auto pts = s->points();
             const double last = pts.constLast().x();
-            const double first= pts.constFirst().x();
 
             if (windowSec == 0) {
-                ax->setRange(first, last);
+                // Mostrar el histórico completo
+                ax->setRange(0.0, last);
             } else {
-                ax->setRange(std::max(0.0, last - windowSec), last);
-
-                // Recorte inmediato de puntos muy viejos (margen 5 s)
-                const double cutoff = last - (windowSec + 5);
-                int removeCount = 0;
-                while (removeCount < pts.size() && pts[removeCount].x() < cutoff)
-                    ++removeCount;
-                if (removeCount > 0)
-                    s->removePoints(0, removeCount);
+                // Últimos N segundos
+                const double from = std::max(0.0, last - double(windowSec));
+                ax->setRange(from, last);
             }
         }
     });
@@ -707,27 +791,13 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
             series->setName(texto);
             label->setText(texto);
 
-            // 5) reajustamos ejes X según la ventana seleccionada
+            // 5) reajustamos ejes X según la ventana seleccionada (SIN borrar puntos)
             if (windowSec == 0) {
-                // === Modo Máx: dejar crecer indefinidamente ===
-                if (axisX->min() == axisX->max())
-                    axisX->setRange(t, t+1);
-                else {
-                    if (t > axisX->max()) axisX->setMax(t);
-                    if (t < axisX->min()) axisX->setMin(t);
-                }
+                // Máx: mostrar todo lo acumulado desde t = 0 hasta t
+                axisX->setRange(0, t);
             } else {
-                // === Modo ventana deslizante: mostrar últimos windowSec segundos ===
+                // Ventana deslizante: últimos windowSec segundos
                 axisX->setRange(std::max(0, t - windowSec), t);
-
-                // Recorta puntos más antiguos para liberar memoria
-                const int cutoff = t - (windowSec + 5); // 5 s extra de margen
-                int removeCount = 0;
-                const auto pts = series->pointsVector();
-                while (removeCount < pts.size() && pts[removeCount].x() < cutoff)
-                    ++removeCount;
-                if (removeCount > 0)
-                    series->removePoints(0, removeCount);
             }
 
             // 6) reajustamos ejes Y dinámicamente
@@ -794,8 +864,8 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
         ++t;
 
         procesarDatos(d);
-    });
-    
+    }, Qt::QueuedConnection);
+
     this->timer = new QTimer(this);
     timeoutTimer = new QTimer(this);
     timeoutTimer->setInterval(30000);

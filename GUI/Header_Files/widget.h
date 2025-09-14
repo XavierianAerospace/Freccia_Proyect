@@ -15,7 +15,7 @@ class Graph3DWindow;
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QTimer>
-#include <QSlider>   
+#include <QSlider>
 #include <QDateTime>
 #include <QVector3D>
 #include <QtDataVisualization/Q3DScatter>
@@ -23,8 +23,65 @@ class Graph3DWindow;
 #include <QtDataVisualization/QScatterDataProxy>
 #include <QtDataVisualization/QScatterDataItem>
 
+// Extras para el hover
+#include <QMouseEvent>
+#include <QGraphicsLineItem>
+#include <QGraphicsEllipseItem>
+#include <QGraphicsSimpleTextItem>
+
 extern Graph3DWindow* ventanaGraph3D;
 
+// -------------------------------------------------------------------
+// HoverChartView: QChartView con señal de posición del mouse y helpers
+// -------------------------------------------------------------------
+class HoverChartView : public QChartView {
+    Q_OBJECT
+public:
+    explicit HoverChartView(QWidget* parent=nullptr)
+        : QChartView(parent),
+          hover_line_(nullptr), hover_point_(nullptr), hover_text_(nullptr)
+    {
+        setMouseTracking(true);
+        setRenderHint(QPainter::Antialiasing, true);
+    }
+
+    void clearHoverElements() {
+        if (!scene()) return;
+        if (hover_line_)  { scene()->removeItem(hover_line_);  delete hover_line_;  hover_line_  = nullptr; }
+        if (hover_point_) { scene()->removeItem(hover_point_); delete hover_point_; hover_point_ = nullptr; }
+        if (hover_text_)  { scene()->removeItem(hover_text_);  delete hover_text_;  hover_text_  = nullptr; }
+    }
+
+signals:
+    // chartPos: coordenadas en el sistema del chart (mapToValue)
+    // scenePos: posición en escena (pixeles)
+    // insidePlot: true si el mouse está dentro del plotArea
+    void hoverUpdate(QPointF chartPos, QPoint scenePos, bool insidePlot);
+
+protected:
+    void mouseMoveEvent(QMouseEvent* e) override {
+        if (!chart()) { QChartView::mouseMoveEvent(e); return; }
+        const QRectF pa = chart()->plotArea();
+        const QPoint p  = e->pos();
+        emit hoverUpdate(chart()->mapToValue(p), p, pa.contains(p));
+        QChartView::mouseMoveEvent(e);
+    }
+    void leaveEvent(QEvent* e) override {
+        emit hoverUpdate(QPointF(), QPoint(), false);
+        QChartView::leaveEvent(e);
+    }
+
+public:
+    // Punteros a los elementos dibujados (línea/punto/tooltip) para
+    // poder limpiarlos desde fuera si es necesario.
+    QGraphicsLineItem*       hover_line_;
+    QGraphicsEllipseItem*    hover_point_;
+    QGraphicsSimpleTextItem* hover_text_;
+};
+
+// -------------------------------------------------------------------
+//                           Widget principal
+// -------------------------------------------------------------------
 class Widget : public QWidget {
     Q_OBJECT
 
@@ -83,7 +140,7 @@ private:
     QLabel *labelPressure, *labelTemp;
 
     // === Labels de servo y estado ===
-    QLabel* labelServos[4];
+    QLabel* labelServos[6];   // <- ahora 6 servos
     QLabel* labelStatus[6];
 
     // === Ejes dinámicos para cada gráfica ===
@@ -110,7 +167,6 @@ private:
 
     // Actualizacion de las gráficas con el slider
     QVector<std::pair<QLineSeries*, QValueAxis*>> seriesAndXAxis;
-
 };
 
 #endif // WIDGET_H
