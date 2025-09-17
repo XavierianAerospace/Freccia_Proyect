@@ -14,13 +14,21 @@
 #include <QDebug>
 #include <QTime>
 
-
 // === utilidades internas ===
 static std::string nowTimestamp() {
-    auto now = std::chrono::system_clock::now();
-    std::time_t t_c = std::chrono::system_clock::to_time_t(now);
+    using namespace std::chrono;
+
+    auto now = system_clock::now();
+    auto t_c = system_clock::to_time_t(now);
+
+    auto micros = duration_cast<microseconds>(now.time_since_epoch()) % 1000000;
+    auto millis = duration_cast<milliseconds>(now.time_since_epoch()) % 1000;
+
     std::stringstream ss;
-    ss << std::put_time(std::localtime(&t_c), "%Y-%m-%d %H:%M:%S");
+    ss << std::put_time(std::localtime(&t_c), "%Y-%m-%d %H:%M:%S")
+       << ":" << std::setw(3) << std::setfill('0') << millis.count()
+       << "," << std::setw(3) << std::setfill('0') << (micros.count() % 1000);
+
     return ss.str();
 }
 
@@ -54,28 +62,22 @@ void FileHelper::createDataDirectoryIfNeeded() {
     std::filesystem::create_directories("../data");
 }
 
-// ⬇️ AHORA: asegura carpeta+archivo+header, agrega línea de timestamp y escribe EXACTAMENTE 1 registro
+// ===================== RAW =====================
 void FileHelper::appendRawData(const std::string& path, const SensorData& d) {
-    // Asegurar carpeta/archivo y encabezado
     createDataDirectoryIfNeeded();
     ensureExists(path);
     writeHeaderIfNew(path, RAW_HEADER);
 
     std::ofstream file(path, std::ios::app);
-
-    // Línea de marca temporal (una por evento)
     file << "\n---- Entrada cruda: " << nowTimestamp() << " ----\n";
-
-    // Una sola línea CSV del dato recibido
-    // (Opcional: formateo con precisión; aquí se deja como valor bruto)
     file << d.latitude << "," << d.longitude << "," << d.date << "," << d.utc_time << "," << d.secs << ","
          << d.satellites << "," << d.hdop << "," << d.Roll << "," << d.Pitch << "," << d.Yaw << ","
          << d.Servo1 << "," << d.Servo2 << "," << d.Servo3 << "," << d.Servo4 << "," << d.AltDiff << ","
          << d.pressure << "," << d.temperature << "\n";
-
     file.close();
 }
 
+// ===================== CLEAN  =====================
 void FileHelper::appendCleanData(const std::string& path, const std::vector<SensorData>& data) {
     std::ofstream file(path, std::ios::app);
     for (const auto& d : data) {
@@ -94,7 +96,7 @@ void FileHelper::appendErrorData(const std::string& path, const SensorData& d, c
     file.close();
 }
 
-// ======= Grabación (tu lógica existente) =======
+// ===================== REC  =====================
 void FileHelper::iniciarGrabacion() {
     tiempoGrabado = QTime(0, 0, 0);
     createDataDirectoryIfNeeded();
@@ -121,7 +123,6 @@ void FileHelper::detenerGrabacion() {
         archivoGrabacion.close();
     }
 
-    // Añadir la duración al principio del archivo
     QString ruta = QString::fromStdString(rutaArchivoActual);
     QFile file(ruta);
 
@@ -142,4 +143,64 @@ void FileHelper::detenerGrabacion() {
     out << "Tiempo de grabación: " << tiempoGrabado.toString("hh:mm:ss") << "\n";
     out << contenido;
     file.close();
+}
+
+// ===================== CLEAN por sesión =====================
+void FileHelper::iniciarSesionLimpios(const std::string& fechaISO, const std::string& horaISO) {
+    createDataDirectoryIfNeeded();
+
+    fechaPrimeraSesionISO = fechaISO;
+    horaPrimeraSesionISO  = horaISO;
+
+    // Construir nombre de archivo con fecha/hora de inicio (sanitizando caracteres)
+    auto sanitize = [](std::string s) {
+        for (char& c : s) if (c==' ' || c==':' || c=='.') c = '_';
+        return s;
+    };
+
+    std::string base = sanitize(fechaISO + "_" + horaISO);
+    rutaCleanSesion   = "../data/clean_session_" + base + ".csv";
+
+    // Abrir y escribir encabezado
+    archivoCleanSesion.open(rutaCleanSesion, std::ios::out);
+    archivoCleanSesion
+        << "Hora,Latitud,Longitud,Fecha,Hora,Segundos,Satélites,HDOP,Roll,Pitch,Yaw,"
+           "Servo1,Servo2,Servo3,Servo4,AltDiff,Presión,Temperatura\n";
+}
+
+void FileHelper::escribirLimpioDuranteSesion(double tRel,
+                                             const SensorData& d,
+                                             bool /*primerRegistro*/,
+                                             const std::string& /*fechaISO*/,
+                                             const std::string& /*horaISO*/) {
+    if (!archivoCleanSesion.is_open()) return;
+
+    // Siempre escribimos la fecha/hora de INICIO de la sesión (primeras columnas Fecha/Hora)
+    // y en la primera columna "Hora" va el tiempo relativo (tRel).
+    archivoCleanSesion.setf(std::ios::fixed, std::ios::floatfield);
+    archivoCleanSesion << std::setprecision(3)
+                       << tRel << ","
+                       << d.latitude << ","
+                       << d.longitude << ","
+                       << fechaPrimeraSesionISO << ","
+                       << horaPrimeraSesionISO << ","
+                       << d.secs << ","
+                       << d.satellites << ","
+                       << d.hdop << ","
+                       << d.Roll << ","
+                       << d.Pitch << ","
+                       << d.Yaw << ","
+                       << d.Servo1 << ","
+                       << d.Servo2 << ","
+                       << d.Servo3 << ","
+                       << d.Servo4 << ","
+                       << d.AltDiff << ","
+                       << d.pressure << ","
+                       << d.temperature << "\n";
+}
+
+void FileHelper::cerrarSesionLimpios() {
+    if (archivoCleanSesion.is_open()) {
+        archivoCleanSesion.close();
+    }
 }

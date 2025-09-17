@@ -8,9 +8,6 @@
 #include <fstream>
 #include <QTime>
 
-// Nota: Los headers de Qt usados SOLO en el .cpp (QFile, QTextStream, QDateTime, QString, QIODevice, QDebug)
-// NO son necesarios aquí. Inclúyelos en FileHelper.cpp.
-
 class FileHelper {
 public:
     // ===== Utilidades de archivos (estáticas) =====
@@ -20,30 +17,41 @@ public:
     static void createDataDirectoryIfNeeded();
 
     // ===== Persistencia por evento (estáticas) =====
-    // Escribe EXACTAMENTE 1 registro en 'path' (p.ej. ../data/raw_data.csv).
     static void appendRawData(const std::string& path, const SensorData& data);
-
-    // Agrega múltiples registros "limpios" en un solo batch.
     static void appendCleanData(const std::string& path, const std::vector<SensorData>& data);
-
-    // Registra un dato con su detalle de error en el archivo de errores.
     static void appendErrorData(const std::string& path, const SensorData& data, const std::string& errorDetail);
 
-    // ===== Grabación por sesión (de instancia) =====
-    // Abre/crea un archivo de sesión con encabezado.
+    // ===== Grabación por sesión (REC) =====
     void iniciarGrabacion();
-    // Agrega un registro a la sesión abierta (si la hay).
     void escribirDuranteGrabacion(const SensorData& d);
-    // Cierra la sesión y antepone la duración al archivo.
     void detenerGrabacion();
 
-    // Exponemos el tiempo acumulado de la sesión (lo manipula el .cpp).
+    // ===== Sesión de datos limpios (CLEAN por sesión) =====
+    // Crea archivo de sesión con encabezado usando la fecha/hora absolutas de inicio.
+    void iniciarSesionLimpios(const std::string& fechaISO, const std::string& horaISO);
+    // Escribe una fila: Hora(tRel), Lat, Lon, FechaInicio, HoraInicio, ...
+    // (firma usada por DataCleaner.cpp)
+    void escribirLimpioDuranteSesion(double tRel,
+                                     const SensorData& d,
+                                     bool primerRegistro,
+                                     const std::string& fechaISO,
+                                     const std::string& horaISO);
+    // Cierra archivo de sesión CLEAN
+    void cerrarSesionLimpios();
+
+    // Tiempo acumulado de la sesión de grabación (REC)
     QTime tiempoGrabado;
 
 private:
-    // Estado de la grabación por sesión (propio del objeto)
+    // Estado de la grabación por sesión (REC)
     std::ofstream archivoGrabacion;
     std::string   rutaArchivoActual;
+
+    // Estado de la sesión CLEAN
+    std::ofstream archivoCleanSesion;
+    std::string   rutaCleanSesion;
+    std::string   fechaPrimeraSesionISO;
+    std::string   horaPrimeraSesionISO;
 };
 
 #endif // FILEHELPER_H

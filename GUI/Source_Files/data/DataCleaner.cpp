@@ -1,4 +1,3 @@
-// DataCleaner.cpp
 #include "DataCleaner.h"
 #include "FileHelper.h"
 
@@ -9,7 +8,7 @@
 #include <cmath>
 #include <fstream>
 
-std::string getCurrentTimestamp() {
+static std::string getCurrentTimestamp() {
     auto now = std::chrono::system_clock::now();
     std::time_t t_c = std::chrono::system_clock::to_time_t(now);
     std::stringstream ss;
@@ -18,50 +17,78 @@ std::string getCurrentTimestamp() {
 }
 
 void DataCleaner::clean(std::vector<SensorData>& data) {
-    const std::string folder    = "../data";
-    const std::string cleanFile = folder + "/clean_sensores.csv";
-    const std::string errorFile = folder + "/errores_sensores.csv";
+    // ========= Estado de sesión para CLEAN (persiste mientras corre el proceso) =========
+    static bool         sesionAbierta   = false;
+    static bool         primerRegistro  = false;
+    static double       lastSecs        = -1.0;   
+    static FileHelper   fhSesion;                 
+    static std::string  fechaPrimeraISO;         
+    static std::string  horaPrimeraISO;          
 
-    FileHelper::createDataDirectoryIfNeeded();
-
-    const std::string header =
-        "Latitud,Longitud,Fecha,HoraUTC,Segundos,Satélites,HDOP,Roll,Pitch,Yaw,"
-        "Servo1,Servo2,Servo3,Servo4,AltDiff,Presion,Temperatura";
-
-    FileHelper::ensureExists(cleanFile);
-    FileHelper::ensureExists(errorFile);
-    FileHelper::writeHeaderIfNew(cleanFile, header);
-    FileHelper::writeHeaderIfNew(errorFile,
-        "Latitud,Longitud,Fecha,HoraUTC,Satélites,HDOP,ERROR");
-
-    std::string timestamp = getCurrentTimestamp();
-    std::ofstream errStream(errorFile, std::ios::app);
-    std::ofstream cleanStream(cleanFile, std::ios::app);
-
-    errStream << "\n---- Procesamiento: " << timestamp << " ----\n";
-    cleanStream << "\n---- Procesamiento: " << timestamp << " ----\n";
-
-    int errores = 0;
-
-    for (auto& d : data) {
-        // ❌ Ya NO escribimos en raw_data.csv aquí (se hace en SensorManager, por evento)
-
-        std::string errorDetail;
-        if (!isValid(d, errorDetail)) {
-            errores++;
-            FileHelper::appendErrorData(errorFile, d, errorDetail);
-        }
-
-        correctIfNeeded(d);
-        approximateZeroOrInvalids(d);
-
-        FileHelper::appendCleanData(cleanFile, {d});
+    // ========= Inicialización perezosa del archivo de errores =========
+    static bool errorInit = false;
+    const std::string errorFile = "../data/errores_sensores.csv";
+    if (!errorInit) {
+        FileHelper::createDataDirectoryIfNeeded();
+        FileHelper::ensureExists(errorFile);
+        FileHelper::writeHeaderIfNew(errorFile,
+            "Latitud,Longitud,Fecha,HoraCompleta,Satélites,HDOP,ERROR");
+        errorInit = true;
     }
 
-    std::cout << "Datos procesados. Errores encontrados: " << errores << "\n";
+    if (data.empty()) return;
 
-    cleanStream.close();
-    errStream.close();
+    // Procesar SOLO el último dato
+    SensorData d = data.back();
+
+    // ================= VALIDACIÓN / CORRECCIÓN =================
+    std::string errorDetail;
+    // Obtener hora absoluta del sistema con milis
+    auto now       = std::chrono::system_clock::now();
+    auto t_c       = std::chrono::system_clock::to_time_t(now);
+    auto millis    = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()) % 1000;
+    std::stringstream horaAbs;
+    horaAbs << std::put_time(std::localtime(&t_c), "%H:%M:%S")
+            << "." << std::setw(3) << std::setfill('0') << millis.count();
+
+    std::stringstream fechaAbs;
+    fechaAbs << std::put_time(std::localtime(&t_c), "%Y-%m-%d");
+
+    if (!isValid(d, errorDetail)) {
+        FileHelper::appendErrorData(errorFile, d, errorDetail); 
+    } else {
+        // Guardar también OK con hora absoluta
+        std::ofstream file(errorFile, std::ios::app);
+        file << d.latitude << "," << d.longitude << ","
+             << fechaAbs.str() << "," << horaAbs.str() << ","
+             << d.satellites << "," << d.hdop << ",OK\n";
+        file.close();
+    }
+
+    correctIfNeeded(d);
+    approximateZeroOrInvalids(d);
+
+    // ================= MANEJO DE SESIÓN =================
+    const bool contadorReiniciado = (lastSecs >= 0.0 && d.secs < lastSecs);
+
+    if (!sesionAbierta || contadorReiniciado) {
+        if (sesionAbierta) {
+            fhSesion.cerrarSesionLimpios();
+        }
+
+        // Guardar fecha/hora de inicio completas
+        fechaPrimeraISO  = fechaAbs.str();
+        horaPrimeraISO   = horaAbs.str();
+        fhSesion.iniciarSesionLimpios(fechaPrimeraISO, horaPrimeraISO);
+        primerRegistro   = true;
+        sesionAbierta    = true;
+        lastSecs         = -1.0; 
+    }
+
+    fhSesion.escribirLimpioDuranteSesion(static_cast<double>(d.secs), d, primerRegistro,
+                                         fechaPrimeraISO, horaPrimeraISO);
+    primerRegistro = false;
+    lastSecs = d.secs;
 }
 
 // === VALIDACIÓN DE DATOS ===
@@ -69,20 +96,16 @@ bool DataCleaner::isValid(const SensorData& d, std::string& errorDetail) {
     bool valid = true;
 
     if (d.latitude < -90 || d.latitude > 90) {
-        valid = false;
-        errorDetail += "Latitud ";
+        valid = false; errorDetail += "Latitud ";
     }
     if (d.longitude < -180 || d.longitude > 180) {
-        valid = false;
-        errorDetail += "Longitud ";
+        valid = false; errorDetail += "Longitud ";
     }
     if (d.satellites <= 0) {
-        valid = false;
-        errorDetail += "Satélites ";
+        valid = false; errorDetail += "Satélites ";
     }
     if (d.hdop <= 0 || d.hdop > 20) {
-        valid = false;
-        errorDetail += "HDOP ";
+        valid = false; errorDetail += "HDOP ";
     }
 
     return valid;
@@ -101,9 +124,9 @@ void DataCleaner::correctIfNeeded(SensorData& d) {
     if (d.hdop <= 0 || d.hdop > 20) d.hdop = 1.5;
 
     // Ángulos
-    if (std::abs(d.Roll) > 360) d.Roll = 0.0f;
+    if (std::abs(d.Roll)  > 360) d.Roll  = 0.0f;
     if (std::abs(d.Pitch) > 360) d.Pitch = 0.0f;
-    if (std::abs(d.Yaw) > 360) d.Yaw = 0.0f;
+    if (std::abs(d.Yaw)   > 360) d.Yaw   = 0.0f;
 
     // Altura relativa
     if (std::abs(d.AltDiff) > 50000) d.AltDiff = 0.0f;
@@ -123,9 +146,9 @@ void DataCleaner::correctIfNeeded(SensorData& d) {
 void DataCleaner::approximateZeroOrInvalids(SensorData& d) {
     auto isNearZero = [](float val) { return std::abs(val) < 0.001f; };
 
-    if (isNearZero(d.Roll)) d.Roll = 0.0f;
-    if (isNearZero(d.Pitch)) d.Pitch = 0.0f;
-    if (isNearZero(d.Yaw)) d.Yaw = 0.0f;
+    if (isNearZero(d.Roll))   d.Roll   = 0.0f;
+    if (isNearZero(d.Pitch))  d.Pitch  = 0.0f;
+    if (isNearZero(d.Yaw))    d.Yaw    = 0.0f;
     if (isNearZero(d.Servo1)) d.Servo1 = 90.0f;
     if (isNearZero(d.Servo2)) d.Servo2 = 90.0f;
     if (isNearZero(d.Servo3)) d.Servo3 = 90.0f;

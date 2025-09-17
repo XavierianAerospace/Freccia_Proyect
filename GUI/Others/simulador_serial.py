@@ -5,7 +5,7 @@ import random
 
 #puerto = 'COM4'  # Cambia si usas otro puerto
 
-puerto = '/dev/pts/7'  # Cambia si usas otro puerto
+puerto = '/dev/pts/6'  # Cambia si usas otro puerto
 
 
 baudrate = 115200
