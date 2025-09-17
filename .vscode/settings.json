@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "*.html": "html",
+        "array": "cpp",
+        "bitset": "cpp",
+        "string_view": "cpp",
+        "initializer_list": "cpp",
+        "span": "cpp",
+        "fstream": "cpp"
+    }
+}

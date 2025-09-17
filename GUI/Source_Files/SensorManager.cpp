@@ -1,5 +1,5 @@
 #include "SensorManager.h"
-#include "FileHelper.h" 
+#include "FileHelper.h"
 #include <QStringList>
 #include <QTimer>
 
@@ -7,12 +7,35 @@ SensorManager::SensorManager(QObject* parent) : QObject(parent) {
     m_serialReader = new SerialReader(this);
     connect(m_serialReader, &SerialReader::dataReceived, this, &SensorManager::processRawData);
 
-    // Iniciar lectura ligeramente después para evitar problemas de sincronización
-    QTimer::singleShot(200, this, [this]() {
-        //m_serialReader->start("COM3");
-        m_serialReader->start("/dev/pts/3");
-    });
-}
+    // Valores por defecto por plataforma
+    #ifdef Q_OS_WIN
+        currentPort_ = "COM3";
+    #else
+        currentPort_ = "/dev/pts/3";
+    #endif
+        currentBaud_ = 115200;
+
+        // Iniciar lectura con retardo para evitar fallos al inicio
+        QTimer::singleShot(200, this, [this]() {
+            m_serialReader->start(currentPort_, currentBaud_);
+        });
+    }
+
+    bool SensorManager::setSerial(const QString& portName, int baud) {
+        bool ok = false;
+        try {
+            if (m_serialReader) m_serialReader->stop();
+            ok = m_serialReader && m_serialReader->start(portName, baud);
+            if (ok) {
+                currentPort_ = portName;
+                currentBaud_ = baud;
+            }
+        } catch (...) {
+            ok = false;
+        }
+        emit serialReconfigured(portName, baud, ok);
+        return ok;
+    }
 
 void SensorManager::processRawData(const QByteArray& line) {
     QString str = QString::fromUtf8(line).trimmed();
@@ -43,10 +66,10 @@ void SensorManager::processRawData(const QByteArray& line) {
         // Guarda histórico en memoria si lo necesitas
         vectorData.push_back(sensor);
 
-        // ⬇️ Escribe inmediatamente UN registro en raw_data.csv (con timestamp y header si falta)
+        // Guardar dato "raw" inmediatamente
         FileHelper::appendRawData("../data/raw_data.csv", sensor);
 
-        // Limpieza y almacenamiento limpio / de errores
+        // Limpieza y almacenamiento de datos limpios
         cleaner.clean(vectorData);
 
         emit newSensorData(sensor);

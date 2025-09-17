@@ -26,6 +26,12 @@
 #include <QtCharts/QLineSeries>
 #include <QtCharts/QChart>
 
+#include <QDialog>
+#include <QComboBox>
+#include <QDialogButtonBox>
+#include <QFormLayout>
+#include <QtSerialPort/QSerialPortInfo>
+
 static Widget* ventanaUnica = nullptr;
 Graph3DWindow* ventanaGraph3D = nullptr;
 
@@ -301,17 +307,46 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
         });
     });
 
+    // --- Menú: acciones de configuración y cerrar ---
     menuDesplegable->addSeparator();
-    QAction* configCom = menuDesplegable->addAction("Configurar COM");
-    QAction* configBaud = menuDesplegable->addAction("Configurar Baud");
-    QAction* configAcc = menuDesplegable->addAction("Calibrar Acelerómetro");
+
+    QAction* configCom  = menuDesplegable->addAction("Configurar COM y Baud");
+    QAction* configAcc  = menuDesplegable->addAction("Calibrar Acelerómetro");
     QAction* configGyro = menuDesplegable->addAction("Calibrar Giroscopio");
+
     menuDesplegable->addSeparator();
+
     QWidgetAction* cerrarWidgetAction = new QWidgetAction(this);
     QPushButton* cerrarBtn = new QPushButton("Close the program");
     cerrarBtn->setStyleSheet("color: white; background-color: red; border: none; padding: 4px;");
     cerrarWidgetAction->setDefaultWidget(cerrarBtn);
     menuDesplegable->addAction(cerrarWidgetAction);
+
+    // Ventana de selección de puerto/baud
+    connect(configCom, &QAction::triggered, this, [this]() {
+        abrirDialogoSerial();
+    });
+
+    // Mantener sincronizados los labels cuando SensorManager reconfigure el puerto
+    connect(m_sensorManager, &SensorManager::serialReconfigured,
+            this, [this](const QString& port, int baud, bool ok) {
+        labelCom->setText(QString("COM: %1%2").arg(port, ok ? "" : " (error)"));
+        labelBaud->setText(QString("Velocidad: %1").arg(baud));
+    });
+
+    // Confirmación para cerrar
+    connect(cerrarBtn, &QPushButton::clicked, this, []() {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Critical);
+        msgBox.setWindowTitle("Exit Confirmation");
+        msgBox.setText("Are you sure about closing the program?");
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        msgBox.setDefaultButton(QMessageBox::No);
+        msgBox.setWindowIcon(QIcon("./assets/logo_xae.png"));
+        if (msgBox.exec() == QMessageBox::Yes) {
+            QCoreApplication::quit();
+        }
+    });
 
     btnMenu->setMenu(menuDesplegable);
 
@@ -637,7 +672,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     winLay->addWidget(winSlider);
     winLay->addLayout(ticks);
 
-    // Contenedor vertical de la columna derecha
+  // Contenedor vertical de la columna derecha
     QVBoxLayout* estadoFinal = new QVBoxLayout();
     estadoFinal->setContentsMargins(0,0,0,0);
     estadoFinal->addWidget(winBox);
@@ -678,28 +713,55 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
         gridEstado->addWidget(card, i / 2, i % 2);
     }
 
-    // === Línea inferior con COM y Velocidad ===
-    QHBoxLayout* puertoLayout = new QHBoxLayout();
-    puertoLayout->setSpacing(12);
-    puertoLayout->setContentsMargins(0, 0, 0, 0);
+    // === Tarjetas separadas: "Puerto (COM)" y "Velocidad" lado a lado ===
+    QFrame* puertoCard = new QFrame();
+    puertoCard->setStyleSheet("background-color: #2c2c2c; border-radius: 10px;");
+    puertoCard->setMinimumHeight(56);
+    puertoCard->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
-    labelCom = new QLabel("COM: Esperando...");
-    labelCom->setStyleSheet("color: white; font-size: 11px; font-weight: bold;");
-    labelCom->setAlignment(Qt::AlignLeft);
+    QVBoxLayout* puertoCardLayout = new QVBoxLayout(puertoCard);
+    puertoCardLayout->setAlignment(Qt::AlignCenter);
+    puertoCardLayout->setContentsMargins(8, 4, 8, 4);
 
-    labelBaud = new QLabel("Velocidad: Esperando...");
-    labelBaud->setStyleSheet("color: white; font-size: 11px; font-weight: bold;");
-    labelBaud->setAlignment(Qt::AlignRight);
+    QLabel* tituloPuerto = new QLabel("Puerto");
+    tituloPuerto->setStyleSheet("color: white; font-size: 10px;");
+    tituloPuerto->setAlignment(Qt::AlignCenter);
 
-    puertoLayout->addWidget(labelCom);
-    puertoLayout->addStretch();
-    puertoLayout->addWidget(labelBaud);
+    labelCom = new QLabel("Esperando...");
+    labelCom->setStyleSheet("color: white; font-weight: bold; font-size: 12px;");
+    labelCom->setAlignment(Qt::AlignCenter);
+
+    puertoCardLayout->addWidget(tituloPuerto);
+    puertoCardLayout->addWidget(labelCom);
+
+    // ---
+    QFrame* baudCard = new QFrame();
+    baudCard->setStyleSheet("background-color: #2c2c2c; border-radius: 10px;");
+    baudCard->setMinimumHeight(56);
+    baudCard->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+
+    QVBoxLayout* baudCardLayout = new QVBoxLayout(baudCard);
+    baudCardLayout->setAlignment(Qt::AlignCenter);
+    baudCardLayout->setContentsMargins(8, 4, 8, 4);
+
+    QLabel* tituloBaud = new QLabel("Velocidad");
+    tituloBaud->setStyleSheet("color: white; font-size: 10px;");
+    tituloBaud->setAlignment(Qt::AlignCenter);
+
+    labelBaud = new QLabel("Esperando...");
+    labelBaud->setStyleSheet("color: white; font-weight: bold; font-size: 12px;");
+    labelBaud->setAlignment(Qt::AlignCenter);
+
+    baudCardLayout->addWidget(tituloBaud);
+    baudCardLayout->addWidget(labelBaud);
+
+    // Añade ambas tarjetas a la MISMA fila del grid (una izquierda, otra derecha)
+    const int nextRow = campos.size() / 2; // con 6 campos, nextRow = 3
+    gridEstado->addWidget(puertoCard, nextRow, 0);
+    gridEstado->addWidget(baudCard,   nextRow, 1);
 
     // Añade el grid de estado al contenedor
     estadoFinal->addLayout(gridEstado);
-
-    // Línea COM y Velocidad
-    estadoFinal->addLayout(puertoLayout);
 
     // === Línea final con paquete RAW ===
     labelRaw = new QLabel("Paquete: Esperando...");
@@ -731,7 +793,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
 
     // === Ventana de tiempo ===
     auto secsAt = [](int pos)->int {
-        static const int map[8] = {5,10,20,30,40,50,60,0}; 
+        static const int map[8] = {5,10,20,30,40,50,60,0};
         return map[qBound(0,pos,7)];
     };
 
@@ -750,10 +812,8 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
             const double last = pts.constLast().x();
 
             if (windowSec == 0) {
-                // Mostrar el histórico completo
                 ax->setRange(0.0, last);
             } else {
-                // Últimos N segundos
                 const double from = std::max(0.0, last - double(windowSec));
                 ax->setRange(from, last);
             }
@@ -925,6 +985,140 @@ void Widget::abrirVentana3DDesdeExterno() {
 
 void Widget::procesarDatos(const SensorData& data) {
     fileHelper->escribirDuranteGrabacion(data);
+}
+
+void Widget::abrirDialogoSerial() {
+    auto leerPuertoActual = [this]() -> QString {
+
+        // Espera formato "COM: <puerto>" o "COM: <puerto> (error)"
+        QString txt = labelCom && !labelCom->text().isEmpty() ? labelCom->text() : QString();
+
+        // quita prefijo "COM: "
+        if (txt.startsWith("COM: ")) txt = txt.mid(5);
+
+        // quita los errores
+        txt.replace(" (error)", "");
+        return txt.trimmed();
+    };
+    auto leerBaudActual = [this]() -> int {
+
+        // Espera formato "Velocidad: <baud>"
+        QString txt = labelBaud && !labelBaud->text().isEmpty() ? labelBaud->text() : QString();
+        txt.replace("Velocidad:", "").remove(' ');
+        bool ok = false; int b = txt.toInt(&ok);
+        return ok ? b : 115200;
+    };
+
+    QDialog dlg(this);
+    dlg.setWindowTitle("Configurar puerto serie");
+    dlg.setModal(true);
+    dlg.resize(360, 120); 
+
+    auto* cbOS      = new QComboBox(&dlg);
+    auto* cbPuertos = new QComboBox(&dlg);
+    auto* cbBaud    = new QComboBox(&dlg);
+    auto* btns      = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dlg);
+
+    cbOS->addItems({"Linux", "Windows"});
+
+    // bauds predefinidos
+    const QList<int> bauds = {9600, 19200, 38400, 57600, 115200, 230400, 460800};
+    for (int b : bauds) cbBaud->addItem(QString::number(b), b);
+
+    // Puertos disponibles según OS
+    auto listarPuertosLinux = []() -> QStringList {
+        QStringList out;
+        const auto infos = QSerialPortInfo::availablePorts();
+        for (const auto& info : infos) out << info.systemLocation(); 
+        for (int i = 0; i < 32; ++i) out << QString("/dev/pts/%1").arg(i);
+        out.removeDuplicates();
+        out.sort();
+        return out;
+    };
+    auto listarPuertosWindows = []() -> QStringList {
+        QStringList out;
+        const auto infos = QSerialPortInfo::availablePorts();
+        for (const auto& info : infos) out << info.portName();
+        if (out.isEmpty()) {
+            for (int i = 1; i <= 100; ++i) out << QString("COM%1").arg(i);
+        }
+        out.removeDuplicates();
+        out.sort();
+        return out;
+    };
+
+    auto poblarPuertos = [&](const QString& osName, const QString& preselect) {
+        cbPuertos->clear();
+        QStringList lista = (osName == "Windows") ? listarPuertosWindows()
+                                                  : listarPuertosLinux();
+        cbPuertos->setEditable(true);
+        cbPuertos->addItems(lista);
+        int idx = lista.indexOf(preselect);
+        if (idx >= 0) cbPuertos->setCurrentIndex(idx);
+        else if (!preselect.isEmpty()) cbPuertos->setEditText(preselect);
+    };
+
+    // --- layout ---
+    auto* lay = new QFormLayout(&dlg);
+    lay->setContentsMargins(20, 20, 20, 20);
+    lay->setSpacing(14);
+    lay->addRow("Sistema:", cbOS);
+    lay->addRow("Puerto:",  cbPuertos);
+    lay->addRow("Baud:",    cbBaud);
+    lay->addRow(btns);
+
+    // --- valores actuales para preseleccionar ---
+    const QString puertoActual = leerPuertoActual();
+    const int     baudActual   = leerBaudActual();
+
+    #ifdef Q_OS_WIN
+        cbOS->setCurrentText("Windows");
+    #else
+        cbOS->setCurrentText("Linux");
+    #endif
+
+    poblarPuertos(cbOS->currentText(), puertoActual);
+
+    // preselección de baud
+    int idxBaud = cbBaud->findData(baudActual);
+    cbBaud->setCurrentIndex(idxBaud >= 0 ? idxBaud : cbBaud->findData(115200));
+
+    // Cambios en OS o puerto
+    connect(cbOS, &QComboBox::currentTextChanged, &dlg, [&, this](const QString& osName){
+        const QString textoActual = cbPuertos->currentText().trimmed();
+        poblarPuertos(osName, textoActual.isEmpty() ? puertoActual : textoActual);
+    });
+
+    // botones
+    QObject::connect(btns, &QDialogButtonBox::accepted, &dlg, &QDialog::accept);
+    QObject::connect(btns, &QDialogButtonBox::rejected, &dlg, &QDialog::reject);
+
+    // Aplicacion de cambios
+    if (dlg.exec() == QDialog::Accepted) {
+        const QString port = cbPuertos->currentText().trimmed();
+        const int baud     = cbBaud->currentData().toInt();
+        if (port.isEmpty() || baud <= 0) {
+            QMessageBox::warning(this, "Configurar COM", "Selecciona un puerto y un baudrate válido.");
+            return;
+        }
+
+        const bool ok = m_sensorManager->setSerial(port, baud);
+
+        // Actualización inmediata de labels (además del signal serialReconfigured)
+        labelCom->setText(QString(" %1%2").arg(port, ok ? "" : " (error)"));
+        labelBaud->setText(QString(" %1").arg(baud));
+
+            if (!ok) {
+                QMessageBox::critical(this, "Puerto serie",
+                                    "No se pudo abrir el puerto.\n"
+            #ifdef Q_OS_WIN
+                                            "Prueba con otro COM o reconecta el dispositivo."
+            #else
+                                            "Prueba con otro /dev/* o revisa permisos (grupo dialout/tty)."
+            #endif
+            );
+        }
+    }
 }
 
 Widget::~Widget() {}

@@ -1,6 +1,7 @@
 /home/apolo/Videos/Freccia_Proyect/GUI/build/Desktop_Qt_6_5_3_GCC_64bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_SensorManager.cpp: /home/apolo/Videos/Freccia_Proyect/GUI/Header_Files/SensorManager.h \
   /home/apolo/Videos/Freccia_Proyect/GUI/build/Desktop_Qt_6_5_3_GCC_64bit-Debug/GUI_FRECCIA_autogen/moc_predefs.h \
   /home/apolo/Qt/6.5.3/gcc_64/include/QtCore/QObject \
+  /home/apolo/Qt/6.5.3/gcc_64/include/QtCore/QString \
   /home/apolo/Qt/6.5.3/gcc_64/include/QtCore/q20type_traits.h \
   /home/apolo/Qt/6.5.3/gcc_64/include/QtCore/qalgorithms.h \
   /home/apolo/Qt/6.5.3/gcc_64/include/QtCore/qanystringview.h \
@@ -92,10 +93,8 @@
   /home/apolo/Qt/6.5.3/gcc_64/include/QtCore/qversiontagging.h \
   /home/apolo/Qt/6.5.3/gcc_64/include/QtCore/qxptype_traits.h \
   /home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/QSerialPort \
-  /home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/QSerialPortInfo \
   /home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/qserialport.h \
   /home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/qserialportglobal.h \
-  /home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/qserialportinfo.h \
   /home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/qtserialportexports.h \
   /home/apolo/Videos/Freccia_Proyect/GUI/Header_Files/SerialReader.h \
   /home/apolo/Videos/Freccia_Proyect/GUI/Header_Files/data/DataCleaner.h \

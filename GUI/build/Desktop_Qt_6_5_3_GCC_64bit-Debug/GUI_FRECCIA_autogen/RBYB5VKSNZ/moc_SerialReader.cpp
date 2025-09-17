@@ -41,8 +41,8 @@ static constexpr auto qt_meta_stringdata_CLASSSerialReaderENDCLASS = QtMocHelper
     "SerialReader",
     "dataReceived",
     "",
-    "data",
-    "handleReadyRead"
+    "line",
+    "onReadyRead"
 );
 #else  // !QT_MOC_HAS_STRING_DATA
 struct qt_meta_stringdata_CLASSSerialReaderENDCLASS_t {
@@ -51,7 +51,7 @@ struct qt_meta_stringdata_CLASSSerialReaderENDCLASS_t {
     char stringdata1[13];
     char stringdata2[1];
     char stringdata3[5];
-    char stringdata4[16];
+    char stringdata4[12];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_CLASSSerialReaderENDCLASS_t::offsetsAndSizes) + ofs), len 
@@ -60,14 +60,14 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSSerialReaderENDCLASS_t qt_meta_
         QT_MOC_LITERAL(0, 12),  // "SerialReader"
         QT_MOC_LITERAL(13, 12),  // "dataReceived"
         QT_MOC_LITERAL(26, 0),  // ""
-        QT_MOC_LITERAL(27, 4),  // "data"
-        QT_MOC_LITERAL(32, 15)   // "handleReadyRead"
+        QT_MOC_LITERAL(27, 4),  // "line"
+        QT_MOC_LITERAL(32, 11)   // "onReadyRead"
     },
     "SerialReader",
     "dataReceived",
     "",
-    "data",
-    "handleReadyRead"
+    "line",
+    "onReadyRead"
 };
 #undef QT_MOC_LITERAL
 #endif // !QT_MOC_HAS_STRING_DATA
@@ -113,7 +113,7 @@ Q_CONSTINIT const QMetaObject SerialReader::staticMetaObject = { {
         // method 'dataReceived'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<const QByteArray &, std::false_type>,
-        // method 'handleReadyRead'
+        // method 'onReadyRead'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -126,7 +126,7 @@ void SerialReader::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         (void)_t;
         switch (_id) {
         case 0: _t->dataReceived((*reinterpret_cast< std::add_pointer_t<QByteArray>>(_a[1]))); break;
-        case 1: _t->handleReadyRead(); break;
+        case 1: _t->onReadyRead(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {

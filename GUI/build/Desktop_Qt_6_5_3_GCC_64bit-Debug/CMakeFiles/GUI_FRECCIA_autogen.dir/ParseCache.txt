@@ -95,10 +95,8 @@
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtCore/qversiontagging.h
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtCore/qxptype_traits.h
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/QSerialPort
- mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/QSerialPortInfo
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/qserialport.h
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/qserialportglobal.h
- mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/qserialportinfo.h
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/qtserialportexports.h
  mdp:/home/apolo/Videos/Freccia_Proyect/GUI/Header_Files/SerialReader.h
  mdp:/home/apolo/Videos/Freccia_Proyect/GUI/build/Desktop_Qt_6_5_3_GCC_64bit-Debug/GUI_FRECCIA_autogen/moc_predefs.h
@@ -357,6 +355,7 @@
 /home/apolo/Videos/Freccia_Proyect/GUI/Header_Files/SensorManager.h
  mmc:Q_OBJECT
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtCore/QObject
+ mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtCore/QString
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtCore/q20type_traits.h
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtCore/qalgorithms.h
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtCore/qanystringview.h
@@ -448,10 +447,8 @@
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtCore/qversiontagging.h
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtCore/qxptype_traits.h
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/QSerialPort
- mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/QSerialPortInfo
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/qserialport.h
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/qserialportglobal.h
- mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/qserialportinfo.h
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/qtserialportexports.h
  mdp:/home/apolo/Videos/Freccia_Proyect/GUI/Header_Files/SensorManager.h
  mdp:/home/apolo/Videos/Freccia_Proyect/GUI/Header_Files/SerialReader.h
@@ -1399,10 +1396,8 @@
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtGui/qwindow.h
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtGui/qwindowdefs.h
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/QSerialPort
- mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/QSerialPortInfo
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/qserialport.h
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/qserialportglobal.h
- mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/qserialportinfo.h
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/qtserialportexports.h
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtWidgets/QGraphicsEllipseItem
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtWidgets/QGraphicsLineItem
@@ -1990,10 +1985,8 @@
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtGui/qwindow.h
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtGui/qwindowdefs.h
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/QSerialPort
- mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/QSerialPortInfo
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/qserialport.h
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/qserialportglobal.h
- mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/qserialportinfo.h
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/qtserialportexports.h
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtWidgets/QGraphicsView
  mdp:/home/apolo/Qt/6.5.3/gcc_64/include/QtWidgets/QGraphicsWidget

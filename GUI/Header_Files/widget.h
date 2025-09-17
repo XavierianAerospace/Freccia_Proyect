@@ -22,8 +22,6 @@ class Graph3DWindow;
 #include <QtDataVisualization/QScatter3DSeries>
 #include <QtDataVisualization/QScatterDataProxy>
 #include <QtDataVisualization/QScatterDataItem>
-
-// Extras para el hover
 #include <QMouseEvent>
 #include <QGraphicsLineItem>
 #include <QGraphicsEllipseItem>
@@ -31,9 +29,6 @@ class Graph3DWindow;
 
 extern Graph3DWindow* ventanaGraph3D;
 
-// -------------------------------------------------------------------
-// HoverChartView: QChartView con señal de posición del mouse y helpers
-// -------------------------------------------------------------------
 class HoverChartView : public QChartView {
     Q_OBJECT
 public:
@@ -53,9 +48,6 @@ public:
     }
 
 signals:
-    // chartPos: coordenadas en el sistema del chart (mapToValue)
-    // scenePos: posición en escena (pixeles)
-    // insidePlot: true si el mouse está dentro del plotArea
     void hoverUpdate(QPointF chartPos, QPoint scenePos, bool insidePlot);
 
 protected:
@@ -73,15 +65,11 @@ protected:
 
 public:
     // Punteros a los elementos dibujados (línea/punto/tooltip) para
-    // poder limpiarlos desde fuera si es necesario.
     QGraphicsLineItem*       hover_line_;
     QGraphicsEllipseItem*    hover_point_;
     QGraphicsSimpleTextItem* hover_text_;
 };
 
-// -------------------------------------------------------------------
-//                           Widget principal
-// -------------------------------------------------------------------
 class Widget : public QWidget {
     Q_OBJECT
 
@@ -167,6 +155,9 @@ private:
 
     // Actualizacion de las gráficas con el slider
     QVector<std::pair<QLineSeries*, QValueAxis*>> seriesAndXAxis;
+
+    //Configuracion de puertos
+    void abrirDialogoSerial();
 };
 
 #endif // WIDGET_H

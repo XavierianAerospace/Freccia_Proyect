@@ -270,10 +270,8 @@ GUI_FRECCIA_autogen/timestamp: \
 	/home/apolo/Qt/6.5.3/gcc_64/include/QtGui/qwindow.h \
 	/home/apolo/Qt/6.5.3/gcc_64/include/QtGui/qwindowdefs.h \
 	/home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/QSerialPort \
-	/home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/QSerialPortInfo \
 	/home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/qserialport.h \
 	/home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/qserialportglobal.h \
-	/home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/qserialportinfo.h \
 	/home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/qtserialportexports.h \
 	/home/apolo/Qt/6.5.3/gcc_64/include/QtWidgets/QCheckBox \
 	/home/apolo/Qt/6.5.3/gcc_64/include/QtWidgets/QGraphicsEllipseItem \

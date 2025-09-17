@@ -2,24 +2,29 @@
 #define SERIALREADER_H
 
 #include <QObject>
-#include <QSerialPort>
-#include <QSerialPortInfo>
+#include <QtSerialPort/QSerialPort>
 
 class SerialReader : public QObject {
     Q_OBJECT
-
 public:
     explicit SerialReader(QObject* parent = nullptr);
-    void start(const QString& portName);
+
+    bool start(const QString& portName, int baud = 115200);
+
+    bool start(const QString& portName) { return start(portName, 115200); }
+
+    // Cierra el puerto si está abierto
+    void stop();
 
 signals:
-    void dataReceived(const QByteArray& data);
+    void dataReceived(const QByteArray& line);
 
 private slots:
-    void handleReadyRead();
+    void onReadyRead();
 
 private:
-    QSerialPort* m_serialPort = nullptr;
+    QSerialPort* port_ = nullptr;
+    QByteArray buffer_;
 };
 
-#endif
+#endif // SERIALREADER_H

@@ -92,10 +92,8 @@
   /home/apolo/Qt/6.5.3/gcc_64/include/QtCore/qversiontagging.h \
   /home/apolo/Qt/6.5.3/gcc_64/include/QtCore/qxptype_traits.h \
   /home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/QSerialPort \
-  /home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/QSerialPortInfo \
   /home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/qserialport.h \
   /home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/qserialportglobal.h \
-  /home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/qserialportinfo.h \
   /home/apolo/Qt/6.5.3/gcc_64/include/QtSerialPort/qtserialportexports.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \

@@ -1,29 +1,44 @@
 #include "SerialReader.h"
-#include <QDebug>
+#include <QtSerialPort/QSerialPortInfo>
 
-SerialReader::SerialReader(QObject* parent) : QObject(parent) {
-    m_serialPort = new QSerialPort(this);
-    connect(m_serialPort, &QSerialPort::readyRead, this, &SerialReader::handleReadyRead);
+SerialReader::SerialReader(QObject* parent)
+    : QObject(parent),
+      port_(new QSerialPort(this))
+{
+    connect(port_, &QSerialPort::readyRead, this, &SerialReader::onReadyRead);
 }
 
-void SerialReader::start(const QString& portName) {
-    m_serialPort->setPortName(portName);
-    m_serialPort->setBaudRate(QSerialPort::Baud115200);  // ajusta si usas otra velocidad
-    m_serialPort->setDataBits(QSerialPort::Data8);
-    m_serialPort->setParity(QSerialPort::NoParity);
-    m_serialPort->setStopBits(QSerialPort::OneStop);
-    m_serialPort->setFlowControl(QSerialPort::NoFlowControl);
+bool SerialReader::start(const QString& portName, int baud) {
+    if (port_->isOpen())
+        port_->close();
 
-    if (!m_serialPort->open(QIODevice::ReadOnly)) {
-        qCritical() << "No se pudo abrir el puerto:" << portName << "-" << m_serialPort->errorString();
-    } else {
-        qDebug() << "Puerto abierto correctamente:" << portName;
+    port_->setPortName(portName);
+    port_->setBaudRate(baud);
+    port_->setDataBits(QSerialPort::Data8);
+    port_->setParity(QSerialPort::NoParity);
+    port_->setStopBits(QSerialPort::OneStop);
+    port_->setFlowControl(QSerialPort::NoFlowControl);
+
+    if (!port_->open(QIODevice::ReadOnly)) {
+        return false;
     }
+
+    buffer_.clear();
+    return true;
 }
 
-void SerialReader::handleReadyRead() {
-    const QByteArray data = m_serialPort->readLine();
-    if (!data.isEmpty()) {
-        emit dataReceived(data);
+void SerialReader::stop() {
+    if (port_->isOpen())
+        port_->close();
+}
+
+void SerialReader::onReadyRead() {
+    buffer_.append(port_->readAll());
+
+    int idx = -1;
+    while ((idx = buffer_.indexOf('\n')) != -1) {
+        QByteArray line = buffer_.left(idx + 1);
+        buffer_.remove(0, idx + 1);
+        emit dataReceived(line); 
     }
 }
