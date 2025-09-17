@@ -6,7 +6,6 @@
 #include "DataCleaner.h"
 
 #include <vector>
-#include <fstream>
 #include <QObject>
 #include <QString>
 
@@ -15,19 +14,26 @@ class SensorManager : public QObject {
 
 public:
     explicit SensorManager(QObject* parent = nullptr);
-    void processRawData(const QByteArray& line);
     ~SensorManager();
 
+    // Entrada cruda desde SerialReader
+    void processRawData(const QByteArray& line);
+
+    // Acceso a histórico (si lo usas en otra parte)
     const std::vector<SensorData>& getVectorData() const { return vectorData; }
 
-    // Método para cerrar/abrir el puerto en caliente
 public slots:
+    // Reconfigurar puerto/baud en caliente
     bool setSerial(const QString& portName, int baud = 115200);
+    void clearData();
+
+    // Habilitar/deshabilitar recepción (procesamiento/guardado/emisión)
+    void setReceivingEnabled(bool enabled) { receivingEnabled_ = enabled; }
 
 signals:
     void newSensorData(const SensorData& data);
-    
-    // Conexion con la UI para reconfigurar el puerto
+
+    // UI: notificar reconfiguración del puerto
     void serialReconfigured(QString port, int baud, bool ok);
 
 private:
@@ -35,9 +41,12 @@ private:
     std::vector<SensorData> vectorData;
     DataCleaner cleaner;
 
-    // Guardar configuración actual del puerto
+    // Config actual del puerto
     QString currentPort_ = QString();
-    int currentBaud_ = 115200;
+    int     currentBaud_ = 115200;
+
+    // Flag para ignorar completamente los datos entrantes
+    bool receivingEnabled_ = true;
 };
 
-#endif
+#endif // SENSORMANAGER_H

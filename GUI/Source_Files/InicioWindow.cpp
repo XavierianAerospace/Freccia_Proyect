@@ -21,8 +21,8 @@ InicioWindow::InicioWindow(QWidget* parent) : QWidget(parent) {
     }
 
     // === Checkboxes ===
-    check2D = new QCheckBox("Gráficas 2D - Principales");
-    check3D = new QCheckBox("Gráficas 3D y OSM - Secundarias");
+    check2D = new QCheckBox("Gráficas  Principales 2D");
+    check3D = new QCheckBox("Gráficas Secundarias 3D");
     connect(check2D, &QCheckBox::stateChanged, this, &InicioWindow::checkSelection);
     connect(check3D, &QCheckBox::stateChanged, this, &InicioWindow::checkSelection);
 

@@ -116,14 +116,11 @@
   /usr/include/c++/13/bits/allocator.h \
   /usr/include/c++/13/bits/atomic_base.h \
   /usr/include/c++/13/bits/atomic_lockfree_defines.h \
-  /usr/include/c++/13/bits/basic_ios.h \
-  /usr/include/c++/13/bits/basic_ios.tcc \
   /usr/include/c++/13/bits/basic_string.h \
   /usr/include/c++/13/bits/basic_string.tcc \
   /usr/include/c++/13/bits/char_traits.h \
   /usr/include/c++/13/bits/charconv.h \
   /usr/include/c++/13/bits/chrono.h \
-  /usr/include/c++/13/bits/codecvt.h \
   /usr/include/c++/13/bits/concept_check.h \
   /usr/include/c++/13/bits/cpp_type_traits.h \
   /usr/include/c++/13/bits/cxxabi_forced.h \
@@ -133,7 +130,6 @@
   /usr/include/c++/13/bits/exception.h \
   /usr/include/c++/13/bits/exception_defines.h \
   /usr/include/c++/13/bits/exception_ptr.h \
-  /usr/include/c++/13/bits/fstream.tcc \
   /usr/include/c++/13/bits/functexcept.h \
   /usr/include/c++/13/bits/functional_hash.h \
   /usr/include/c++/13/bits/hash_bytes.h \
@@ -141,12 +137,9 @@
   /usr/include/c++/13/bits/hashtable_policy.h \
   /usr/include/c++/13/bits/invoke.h \
   /usr/include/c++/13/bits/ios_base.h \
-  /usr/include/c++/13/bits/istream.tcc \
   /usr/include/c++/13/bits/list.tcc \
   /usr/include/c++/13/bits/locale_classes.h \
   /usr/include/c++/13/bits/locale_classes.tcc \
-  /usr/include/c++/13/bits/locale_facets.h \
-  /usr/include/c++/13/bits/locale_facets.tcc \
   /usr/include/c++/13/bits/localefwd.h \
   /usr/include/c++/13/bits/memory_resource.h \
   /usr/include/c++/13/bits/memoryfwd.h \
@@ -154,7 +147,6 @@
   /usr/include/c++/13/bits/nested_exception.h \
   /usr/include/c++/13/bits/new_allocator.h \
   /usr/include/c++/13/bits/node_handle.h \
-  /usr/include/c++/13/bits/ostream.tcc \
   /usr/include/c++/13/bits/ostream_insert.h \
   /usr/include/c++/13/bits/parse_numbers.h \
   /usr/include/c++/13/bits/postypes.h \
@@ -214,7 +206,6 @@
   /usr/include/c++/13/cstring \
   /usr/include/c++/13/ctime \
   /usr/include/c++/13/cwchar \
-  /usr/include/c++/13/cwctype \
   /usr/include/c++/13/debug/assertions.h \
   /usr/include/c++/13/debug/debug.h \
   /usr/include/c++/13/exception \
@@ -225,12 +216,9 @@
   /usr/include/c++/13/ext/numeric_traits.h \
   /usr/include/c++/13/ext/string_conversions.h \
   /usr/include/c++/13/ext/type_traits.h \
-  /usr/include/c++/13/fstream \
   /usr/include/c++/13/functional \
   /usr/include/c++/13/initializer_list \
-  /usr/include/c++/13/ios \
   /usr/include/c++/13/iosfwd \
-  /usr/include/c++/13/istream \
   /usr/include/c++/13/iterator \
   /usr/include/c++/13/limits \
   /usr/include/c++/13/list \
@@ -239,7 +227,6 @@
   /usr/include/c++/13/new \
   /usr/include/c++/13/numeric \
   /usr/include/c++/13/optional \
-  /usr/include/c++/13/ostream \
   /usr/include/c++/13/pstl/execution_defs.h \
   /usr/include/c++/13/pstl/glue_algorithm_defs.h \
   /usr/include/c++/13/pstl/glue_memory_defs.h \
@@ -286,7 +273,6 @@
   /usr/include/strings.h \
   /usr/include/time.h \
   /usr/include/wchar.h \
-  /usr/include/wctype.h \
   /usr/include/x86_64-linux-gnu/asm/errno.h \
   /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h \
   /usr/include/x86_64-linux-gnu/bits/byteswap.h \
@@ -347,17 +333,12 @@
   /usr/include/x86_64-linux-gnu/bits/waitflags.h \
   /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
   /usr/include/x86_64-linux-gnu/bits/wchar.h \
-  /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h \
   /usr/include/x86_64-linux-gnu/bits/wordsize.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/atomic_word.h \
-  /usr/include/x86_64-linux-gnu/c++/13/bits/basic_file.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/c++allocator.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
-  /usr/include/x86_64-linux-gnu/c++/13/bits/c++io.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/cpu_defines.h \
-  /usr/include/x86_64-linux-gnu/c++/13/bits/ctype_base.h \
-  /usr/include/x86_64-linux-gnu/c++/13/bits/ctype_inline.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/error_constants.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/gthr-default.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/gthr.h \

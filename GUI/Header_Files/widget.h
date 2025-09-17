@@ -103,6 +103,11 @@ private:
     QTimer* timerGrabacion = nullptr;
     QTime tiempoGrabacion;
 
+    // --- contador global de muestras para X ---
+    int t_ = 0;
+
+    bool resetTimeBase_ = false; 
+
     // === Gráficas individuales ===
     QChart *chartRoll, *chartPitch, *chartYaw;
     QChart *chartSats, *chartLat, *chartLon;

@@ -48,11 +48,14 @@ static constexpr auto qt_meta_stringdata_CLASSSensorManagerENDCLASS = QtMocHelpe
     "baud",
     "ok",
     "setSerial",
-    "portName"
+    "portName",
+    "clearData",
+    "setReceivingEnabled",
+    "enabled"
 );
 #else  // !QT_MOC_HAS_STRING_DATA
 struct qt_meta_stringdata_CLASSSensorManagerENDCLASS_t {
-    uint offsetsAndSizes[22];
+    uint offsetsAndSizes[28];
     char stringdata0[14];
     char stringdata1[14];
     char stringdata2[1];
@@ -64,6 +67,9 @@ struct qt_meta_stringdata_CLASSSensorManagerENDCLASS_t {
     char stringdata8[3];
     char stringdata9[10];
     char stringdata10[9];
+    char stringdata11[10];
+    char stringdata12[20];
+    char stringdata13[8];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_CLASSSensorManagerENDCLASS_t::offsetsAndSizes) + ofs), len 
@@ -79,7 +85,10 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSSensorManagerENDCLASS_t qt_meta
         QT_MOC_LITERAL(69, 4),  // "baud"
         QT_MOC_LITERAL(74, 2),  // "ok"
         QT_MOC_LITERAL(77, 9),  // "setSerial"
-        QT_MOC_LITERAL(87, 8)   // "portName"
+        QT_MOC_LITERAL(87, 8),  // "portName"
+        QT_MOC_LITERAL(96, 9),  // "clearData"
+        QT_MOC_LITERAL(106, 19),  // "setReceivingEnabled"
+        QT_MOC_LITERAL(126, 7)   // "enabled"
     },
     "SensorManager",
     "newSensorData",
@@ -91,7 +100,10 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSSensorManagerENDCLASS_t qt_meta
     "baud",
     "ok",
     "setSerial",
-    "portName"
+    "portName",
+    "clearData",
+    "setReceivingEnabled",
+    "enabled"
 };
 #undef QT_MOC_LITERAL
 #endif // !QT_MOC_HAS_STRING_DATA
@@ -103,7 +115,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSSensorManagerENDCLASS[] = {
       11,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
+       6,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -111,12 +123,14 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSSensorManagerENDCLASS[] = {
        2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   38,    2, 0x06,    1 /* Public */,
-       5,    3,   41,    2, 0x06,    3 /* Public */,
+       1,    1,   50,    2, 0x06,    1 /* Public */,
+       5,    3,   53,    2, 0x06,    3 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       9,    2,   48,    2, 0x0a,    7 /* Public */,
-       9,    1,   53,    2, 0x2a,   10 /* Public | MethodCloned */,
+       9,    2,   60,    2, 0x0a,    7 /* Public */,
+       9,    1,   65,    2, 0x2a,   10 /* Public | MethodCloned */,
+      11,    0,   68,    2, 0x0a,   12 /* Public */,
+      12,    1,   69,    2, 0x0a,   13 /* Public */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
@@ -125,6 +139,8 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSSensorManagerENDCLASS[] = {
  // slots: parameters
     QMetaType::Bool, QMetaType::QString, QMetaType::Int,   10,    7,
     QMetaType::Bool, QMetaType::QString,   10,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Bool,   13,
 
        0        // eod
 };
@@ -152,7 +168,12 @@ Q_CONSTINIT const QMetaObject SensorManager::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<int, std::false_type>,
         // method 'setSerial'
         QtPrivate::TypeAndForceComplete<bool, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>
+        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
+        // method 'clearData'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'setReceivingEnabled'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<bool, std::false_type>
     >,
     nullptr
 } };
@@ -169,6 +190,8 @@ void SensorManager::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
         case 3: { bool _r = _t->setSerial((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])));
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
+        case 4: _t->clearData(); break;
+        case 5: _t->setReceivingEnabled((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -209,13 +232,13 @@ int SensorManager::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 4)
+        if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 6;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 4)
+        if (_id < 6)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 4;
+        _id -= 6;
     }
     return _id;
 }

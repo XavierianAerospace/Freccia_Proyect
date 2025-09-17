@@ -1,46 +1,49 @@
 #include "SensorManager.h"
 #include "FileHelper.h"
+
 #include <QStringList>
 #include <QTimer>
 
 SensorManager::SensorManager(QObject* parent) : QObject(parent) {
     m_serialReader = new SerialReader(this);
-    connect(m_serialReader, &SerialReader::dataReceived, this, &SensorManager::processRawData);
+    connect(m_serialReader, &SerialReader::dataReceived,
+            this, &SensorManager::processRawData);
 
-    // Valores por defecto por plataforma
-    #ifdef Q_OS_WIN
-        currentPort_ = "COM3";
-    #else
-        currentPort_ = "/dev/pts/3";
-    #endif
-        currentBaud_ = 115200;
+#ifdef Q_OS_WIN
+    currentPort_ = "COM3";
+#else
+    currentPort_ = "/dev/pts/3";
+#endif
+    currentBaud_ = 115200;
 
-        // Iniciar lectura con retardo para evitar fallos al inicio
-        QTimer::singleShot(200, this, [this]() {
-            m_serialReader->start(currentPort_, currentBaud_);
-        });
-    }
+    QTimer::singleShot(200, this, [this]() {
+        m_serialReader->start(currentPort_, currentBaud_);
+    });
+}
 
-    bool SensorManager::setSerial(const QString& portName, int baud) {
-        bool ok = false;
-        try {
-            if (m_serialReader) m_serialReader->stop();
-            ok = m_serialReader && m_serialReader->start(portName, baud);
-            if (ok) {
-                currentPort_ = portName;
-                currentBaud_ = baud;
-            }
-        } catch (...) {
-            ok = false;
+bool SensorManager::setSerial(const QString& portName, int baud) {
+    bool ok = false;
+    try {
+        if (m_serialReader) m_serialReader->stop();
+        ok = (m_serialReader && m_serialReader->start(portName, baud));
+        if (ok) {
+            currentPort_ = portName;
+            currentBaud_ = baud;
         }
-        emit serialReconfigured(portName, baud, ok);
-        return ok;
+    } catch (...) {
+        ok = false;
     }
+    emit serialReconfigured(portName, baud, ok);
+    return ok;
+}
 
 void SensorManager::processRawData(const QByteArray& line) {
-    QString str = QString::fromUtf8(line).trimmed();
-    QStringList values = str.split(',');
+    if (!receivingEnabled_) return;
 
+    const QString str = QString::fromUtf8(line).trimmed();
+    if (str.isEmpty()) return;
+
+    const QStringList values = str.split(',');
     if (values.size() < 15) return;
 
     try {
@@ -60,22 +63,25 @@ void SensorManager::processRawData(const QByteArray& line) {
         sensor.Servo3      = values[12].toFloat();
         sensor.Servo4      = values[13].toFloat();
         sensor.AltDiff     = values[14].toFloat();
+
         sensor.pressure    = 0.0f;
         sensor.temperature = 0.0f;
 
-        // Guarda histórico en memoria si lo necesitas
         vectorData.push_back(sensor);
 
-        // Guardar dato "raw" inmediatamente
-        FileHelper::appendRawData("../data/raw_data.csv", sensor);
+        FileHelper::appendRawData(std::string("../data/raw_data.csv"), sensor);
 
-        // Limpieza y almacenamiento de datos limpios
         cleaner.clean(vectorData);
 
         emit newSensorData(sensor);
     } catch (...) {
-        // Ignorar errores de conversión
+        // Ignorar errores de conversión/parsing
     }
+}
+
+void SensorManager::clearData() {
+    vectorData.clear();
+    emit newSensorData(SensorData{});
 }
 
 SensorManager::~SensorManager() {}

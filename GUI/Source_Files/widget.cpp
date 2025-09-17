@@ -32,6 +32,8 @@
 #include <QFormLayout>
 #include <QtSerialPort/QSerialPortInfo>
 
+#include <QButtonGroup>
+
 static Widget* ventanaUnica = nullptr;
 Graph3DWindow* ventanaGraph3D = nullptr;
 
@@ -217,6 +219,159 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
         "font-size: 18px;"
     );
 
+    // === Controles de recepción  ===
+    QWidget* rightButtons = new QWidget();
+    QHBoxLayout* rightLayout = new QHBoxLayout(rightButtons);
+    rightLayout->setContentsMargins(0, 0, 8, 0);
+    rightLayout->setSpacing(6);
+
+    QPushButton* btnRxOn  = new QPushButton("Recibir datos");
+    QPushButton* btnRxOff = new QPushButton("No recibir");
+    btnRxOn->setCheckable(true);
+    btnRxOff->setCheckable(true);
+
+    btnRxOn->setStyleSheet(
+        "QPushButton { "
+            "color: white; "
+            "background-color: black; "
+            "padding: 6px 10px; "
+            "font-size: 13px; "
+            "border-radius: 8px; "
+        "} "
+        "QPushButton:hover { "
+            "background-color: #444; "
+        "} "
+        "QPushButton:checked { "
+            "color: black; "
+            "background-color: #00cc44; " 
+            "border-color: #00cc44; "
+        "}"
+    );
+
+    btnRxOff->setStyleSheet(
+        "QPushButton { "
+            "color: white; "
+            "background-color: black; "
+            "padding: 6px 10px; "
+            "font-size: 13px; "
+            "border-radius: 8px; "
+        "} "
+        "QPushButton:hover { "
+            "background-color: #444; "
+        "} "
+        "QPushButton:checked { "
+            "background-color: #b33939; "
+            "border-color: #b33939; "
+        "}"
+    );
+
+    QButtonGroup* rxGroup = new QButtonGroup(this);
+    rxGroup->setExclusive(true);
+    rxGroup->addButton(btnRxOn);
+    rxGroup->addButton(btnRxOff);
+
+    // Estado inicial
+    btnRxOn->setChecked(true);
+    m_sensorManager->setReceivingEnabled(true);
+
+    // Conexiones
+    connect(btnRxOn, &QPushButton::toggled, this, [this](bool checked){
+        if (checked) m_sensorManager->setReceivingEnabled(true);
+    });
+    connect(btnRxOff, &QPushButton::toggled, this, [this, btnRxOff]() {
+        if (btnRxOff->isChecked()) {
+            m_sensorManager->setReceivingEnabled(false);
+            if (timer && timer->isActive()) {
+                timer->stop();
+                labelTiempo->setText("Recepción pausada.");
+            }
+        }
+    });
+
+    rightLayout->addWidget(btnRxOn);
+    rightLayout->addWidget(btnRxOff);
+
+    // --- Botón de reinicio ---
+    QPushButton* btnReset = new QPushButton("Reiniciar");
+    btnReset->setStyleSheet(
+        "QPushButton { "
+            "color: white; "
+            "background-color: black; "
+            "padding: 6px 10px; "
+            "font-size: 13px; "
+            "border-radius: 8px; "
+        "} "
+        "QPushButton:hover { "
+            "background-color: #444; "
+        "} "
+        "QPushButton:pressed { "
+            "background-color: #ffaa00; " 
+            "border-color: #ffaa00; "
+        "}"
+    );
+
+    connect(btnReset, &QPushButton::clicked, this, [this, btnRxOn, btnRxOff]() {
+        // 1) Respetar el estado actual del usuario (si estaba en "No recibir", NO activar)
+        const bool wasReceiving = btnRxOn->isChecked();
+        m_sensorManager->setReceivingEnabled(false);
+
+        // 2) Limpiar datos en el manager
+        if (m_sensorManager) m_sensorManager->clearData();
+
+        // 3) Reiniciar cronómetro correctamente
+        tiempoIniciado = false;
+        tiempoInicio = QTime();
+        if (timer && timer->isActive()) timer->stop();
+        if (timeoutTimer && timeoutTimer->isActive()) timeoutTimer->stop();
+        labelTiempo->setText("Tiempo: 00:00:00");
+
+        // 4) Vaciar series y RESETEAR ejes X e Y a 0..1
+        for (auto* chartView : findChildren<QChartView*>()) {
+            if (auto* chart = chartView->chart()) {
+                // Borrar curvas
+                for (auto* s : chart->series()) {
+                    if (auto* line = qobject_cast<QLineSeries*>(s)) line->clear();
+                }
+                // Ejes X
+                for (auto* ax : chart->axes(Qt::Horizontal)) {
+                    if (auto* v = qobject_cast<QValueAxis*>(ax)) v->setRange(0.0, 1.0);
+                }
+                // Ejes Y
+                for (auto* ax : chart->axes(Qt::Vertical)) {
+                    if (auto* v = qobject_cast<QValueAxis*>(ax)) v->setRange(0.0, 1.0);
+                }
+            }
+        }
+
+        // 5) Restablecer textos
+        auto restLabel = [](QLabel* lbl, const QString& nombre, const QString& unidad){
+            if (lbl) lbl->setText(QString("%1: 0 %2").arg(nombre, unidad));
+        };
+        restLabel(labelRoll,  "Roll",        "°");
+        restLabel(labelPitch, "Pitch",       "°");
+        restLabel(labelYaw,   "Yaw",         "°");
+        restLabel(labelSats,  "Satélites",   "Conexiones");
+        restLabel(labelLat,   "Latitud",     "°");
+        restLabel(labelLon,   "Longitud",    "°");
+        restLabel(labelAlt,   "AltDiff",     "m");
+        restLabel(labelHdop,  "HDOP",        "°");
+        restLabel(labelPressure, "Presión",  "hPa");
+        restLabel(labelTemp,     "Temperatura", "°C");
+
+        for (int i = 0; i < 6; ++i) if (labelStatus[i]) labelStatus[i]->setText("Esperando...");
+        if (labelRaw) labelRaw->setText("Paquete: Esperando...");
+        for (int i = 0; i < 6; ++i) if (labelServos[i]) labelServos[i]->setText("0°");
+
+        // 6) Pedir que el manejador de datos reinicie su índice de tiempo 't'
+        resetTimeBase_ = true;
+
+        // 7) Volver al estado de recepción que eligió el usuario
+        m_sensorManager->setReceivingEnabled(wasReceiving);
+    });
+
+    // Agregar al layout
+    rightLayout->addWidget(btnReset);
+
     // Menú desplegable y acciones
    QPushButton* btnMenu = new QPushButton();
     btnMenu->setIcon(QIcon("./assets/Menu.png"));
@@ -355,17 +510,19 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     topLayout->addStretch();
     topLayout->addWidget(labelTiempo);
     topLayout->addStretch();
+    topLayout->addWidget(rightButtons); 
     topLayout->addWidget(btnMenu);
 
     // === Añadir barra al layout principal ===
     QVBoxLayout* globalLayout = new QVBoxLayout(this);
     globalLayout->setContentsMargins(0, 0, 0, 0);
+    globalLayout->addSpacing(10);
     globalLayout->addWidget(topBar);
     globalLayout->addLayout(layout);
 
     auto crearGrafica = [&](QChart*& chart,
                         QLineSeries*& series,
-                        QChartView*& view,       // devolvemos como QChartView* para no cambiar firmas
+                        QChartView*& view, 
                         QLabel*& label,
                         QValueAxis*& ejeX,
                         QValueAxis*& ejeY,
@@ -821,8 +978,13 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     });
 
     // === Datos en tiempo real ===
-    connect(m_sensorManager, &SensorManager::newSensorData, this, [&](const SensorData& d) {
+   connect(m_sensorManager, &SensorManager::newSensorData, this, [&](const SensorData& d) {
         static int t = 0;
+
+        if (resetTimeBase_) { t = 0; resetTimeBase_ = false; }
+
+        if (t == 0 && !tiempoIniciado) {
+        }
 
         auto actualizarGrafica = [&](QLineSeries* series,
                              double valor,
