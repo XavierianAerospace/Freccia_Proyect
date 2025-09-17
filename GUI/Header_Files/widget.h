@@ -163,6 +163,8 @@ private:
 
     //Configuracion de puertos
     void abrirDialogoSerial();
+
+    bool modoArchivo_ = false;
 };
 
 #endif // WIDGET_H

@@ -41,6 +41,9 @@ class Graph3DWindow : public QWidget {
 public:
     explicit Graph3DWindow(SensorManager* manager, QWidget* parent = nullptr);
 
+public slots:
+    void resetData();
+
 private:
     void aplicarEstiloGrafico(QChart* chart, QValueAxis* axisX, QValueAxis* axisY);
     SensorManager* m_sensorManager = nullptr;

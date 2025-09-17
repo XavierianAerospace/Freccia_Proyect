@@ -290,3 +290,102 @@ Graph3DWindow::Graph3DWindow(SensorManager* manager, QWidget* parent)
     });
 
 }
+
+void Graph3DWindow::resetData()
+{
+    // ===== HARD RESET 2D =====
+    // Destruye POR COMPLETO el chart y todo lo que cuelga de él,
+    // y crea uno nuevo limpio. Así no queda ninguna serie/axis previa.
+
+    QChart* oldChart = chartAllView ? chartAllView->chart() : nullptr;
+    if (oldChart) {
+        // Quitar y destruir todas las series
+        const auto seriesList = oldChart->series();
+        for (QAbstractSeries* s : seriesList) {
+            oldChart->removeSeries(s);
+            delete s;
+        }
+        // Quitar y destruir todos los ejes
+        const auto axesList = oldChart->axes();
+        for (QAbstractAxis* ax : axesList) {
+            oldChart->removeAxis(ax);
+            delete ax;
+        }
+        // Destruir el propio chart
+        delete oldChart;
+    }
+
+    // Crear chart nuevo y ponerlo en el view
+    QChart* newChart = new QChart();
+    newChart->setMargins(QMargins(0, 0, 60, 0));
+    newChart->setTitle("Datos Generales");
+    chartAllView->setChart(newChart);
+
+    // Ejes nuevos
+    axisX1 = new QValueAxis();
+    axisY1 = new QValueAxis();
+    axisX1->setTitleText("Tiempo");
+    axisY1->setTitleText("Valor");
+    axisX1->setRange(0.0, 1.0);
+    axisY1->setRange(0.0, 1.0);
+    newChart->addAxis(axisX1, Qt::AlignBottom);
+    newChart->addAxis(axisY1, Qt::AlignLeft);
+
+    // Series 2D NUEVAS (sin heredar nada viejo)
+    seriesLat   = new QLineSeries(); seriesLat->setName("Latitud");    seriesLat->setColor(QColor("#bcbd22"));
+    seriesLon   = new QLineSeries(); seriesLon->setName("Longitud");   seriesLon->setColor(QColor("#d62728"));
+    seriesRoll  = new QLineSeries(); seriesRoll->setName("Roll");      seriesRoll->setColor(QColor("#1f77b4"));
+    seriesPitch = new QLineSeries(); seriesPitch->setName("Pitch");    seriesPitch->setColor(QColor("#2ca02c"));
+    seriesYaw   = new QLineSeries(); seriesYaw->setName("Yaw");        seriesYaw->setColor(QColor("#ff7f0e"));
+    seriesAlt   = new QLineSeries(); seriesAlt->setName("AltDiff");    seriesAlt->setColor(QColor("#9467bd"));
+    seriesSats  = new QLineSeries(); seriesSats->setName("Satélites"); seriesSats->setColor(QColor("#8c564b"));
+    seriesHDOP  = new QLineSeries(); seriesHDOP->setName("HDOP");      seriesHDOP->setColor(QColor("#ff0080"));
+
+    for (auto s : {seriesRoll, seriesPitch, seriesYaw, seriesAlt,
+                   seriesSats, seriesHDOP, seriesLat, seriesLon}) {
+        s->setPointsVisible(true);
+        newChart->addSeries(s);
+        s->attachAxis(axisX1);
+        s->attachAxis(axisY1);
+    }
+
+    aplicarEstiloGrafico(newChart, axisX1, axisY1);
+
+    xIndex2D = 0;
+
+    // Limpieza de overlays/etiquetas
+    for (auto* it : tooltipTexts) delete it;
+    tooltipTexts.clear();
+    for (auto* it : tooltipLines) delete it;
+    tooltipLines.clear();
+    tooltipDots.clear();
+
+    // ===== HARD RESET 3D =====
+    pointHistory.clear();
+    xIndex3D = 0;
+
+    // Eliminar y recrear las series 3D (para no heredar proxies viejos)
+    if (mainSeries) { scatterGraph->removeSeries(mainSeries); delete mainSeries; mainSeries = nullptr; }
+    if (trailSeries){ scatterGraph->removeSeries(trailSeries); delete trailSeries; trailSeries = nullptr; }
+
+    mainSeries  = new QScatter3DSeries();
+    trailSeries = new QScatter3DSeries();
+    mainSeries->setItemSize(0.2f);
+    trailSeries->setItemSize(0.5f);
+    mainSeries->setBaseColor(Qt::blue);
+    trailSeries->setBaseColor(Qt::red);
+
+    scatterGraph->addSeries(mainSeries);
+    scatterGraph->addSeries(trailSeries);
+
+    // Proxies vacíos (sin puntos)
+    mainSeries->dataProxy()->resetArray(new QScatterDataArray());
+    trailSeries->dataProxy()->resetArray(new QScatterDataArray());
+
+    // Ejes del scatter en auto (por si habían quedado fijos)
+    if (scatterGraph) {
+        scatterGraph->axisX()->setAutoAdjustRange(true);
+        scatterGraph->axisY()->setAutoAdjustRange(true);
+        scatterGraph->axisZ()->setAutoAdjustRange(true);
+    }
+}

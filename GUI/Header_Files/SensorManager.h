@@ -30,6 +30,8 @@ public slots:
     // Habilitar/deshabilitar recepción (procesamiento/guardado/emisión)
     void setReceivingEnabled(bool enabled) { receivingEnabled_ = enabled; }
 
+    bool loadFromCsv(const QString& path);
+
 signals:
     void newSensorData(const SensorData& data);
 

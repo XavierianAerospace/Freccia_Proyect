@@ -4,6 +4,12 @@
 #include <QStringList>
 #include <QTimer>
 
+#include <QFile>
+#include <QTextStream>
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+  #include <QStringConverter>
+#endif
+
 SensorManager::SensorManager(QObject* parent) : QObject(parent) {
     m_serialReader = new SerialReader(this);
     connect(m_serialReader, &SerialReader::dataReceived,
@@ -82,6 +88,76 @@ void SensorManager::processRawData(const QByteArray& line) {
 void SensorManager::clearData() {
     vectorData.clear();
     emit newSensorData(SensorData{});
+}
+
+bool SensorManager::loadFromCsv(const QString& path)
+{
+    // Detén la recepción en vivo mientras cargas
+    receivingEnabled_ = false;
+
+    // Limpia el buffer actual
+    vectorData.clear();
+
+    QFile f(path);
+    if (!f.open(QIODevice::ReadOnly | QIODevice::Text))
+        return false;
+
+    QTextStream in(&f);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    in.setEncoding(QStringConverter::Utf8);
+#endif
+
+    // Esperamos el formato:
+    // Hora,Latitud,Longitud,Fecha,Hora,Segundos,Satélites,HDOP,Roll,Pitch,Yaw,
+    // Servo1,Servo2,Servo3,Servo4,AltDiff,Presión,Temperatura
+    bool firstLine = true;
+
+    while (!in.atEnd()) {
+        const QString line = in.readLine().trimmed();
+        if (line.isEmpty())
+            continue;
+
+        // Salta encabezado
+        if (firstLine) {
+            firstLine = false;
+            if (line.startsWith("Hora,"))
+                continue;
+        }
+
+        const QStringList v = line.split(',', Qt::KeepEmptyParts);
+        if (v.size() < 18)
+            continue; // línea incompleta
+
+        SensorData s{};
+        // 0: Hora relativa (no se usa para graficar internamente)
+        s.latitude    = v[1].toDouble();
+        s.longitude   = v[2].toDouble();
+        s.date        = v[3].toStdString();   // Fecha (la primera de la sesión)
+        s.utc_time    = v[4].toStdString();   // Hora completa "hh:mm:ss.zzz"
+        s.secs        = v[5].toFloat();       // segundos relativos
+        s.satellites  = v[6].toInt();
+        s.hdop        = v[7].toFloat();
+        s.Roll        = v[8].toFloat();
+        s.Pitch       = v[9].toFloat();
+        s.Yaw         = v[10].toFloat();
+        s.Servo1      = v[11].toFloat();
+        s.Servo2      = v[12].toFloat();
+        s.Servo3      = v[13].toFloat();
+        s.Servo4      = v[14].toFloat();
+        s.AltDiff     = v[15].toFloat();
+        s.pressure    = v[16].toFloat();
+        s.temperature = v[17].toFloat();
+
+        vectorData.push_back(s);
+    }
+
+    f.close();
+
+    // Emitimos todos los datos para que el Widget pinte las gráficas
+    for (const auto& s : vectorData)
+        emit newSensorData(s);
+
+    return true;
 }
 
 SensorManager::~SensorManager() {}

@@ -1,7 +1,6 @@
 #include "widget.h"
 #include "Graph3DWindow.h"
 #include "data/FileHelper.h"
-
 #include <QSlider>
 #include <cmath>
 #include <algorithm> 
@@ -9,12 +8,10 @@
 #include <QGraphicsTextItem>
 #include <QGraphicsEllipseItem>
 #include <QGraphicsLineItem>
-
 #include <QMenu>
 #include <QWidgetAction>
 #include <QPushButton>
 #include <QMessageBox>
-
 #include <QGridLayout>
 #include <QLabel>
 #include <QChartView>
@@ -25,14 +22,16 @@
 #include <QtCharts/QValueAxis>
 #include <QtCharts/QLineSeries>
 #include <QtCharts/QChart>
-
 #include <QDialog>
 #include <QComboBox>
 #include <QDialogButtonBox>
 #include <QFormLayout>
 #include <QtSerialPort/QSerialPortInfo>
-
 #include <QButtonGroup>
+#include <QFileDialog>
+#include <QFileInfo>
+#include <QFile>
+#include <QTextStream>
 
 static Widget* ventanaUnica = nullptr;
 Graph3DWindow* ventanaGraph3D = nullptr;
@@ -367,6 +366,31 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
 
         // 7) Volver al estado de recepción que eligió el usuario
         m_sensorManager->setReceivingEnabled(wasReceiving);
+
+        // Salir de modo archivo
+        if (labelCom)  { labelCom->setProperty("fileMode", false);  labelCom->setText("Esperando..."); }
+        if (labelBaud) { labelBaud->setProperty("fileMode", false); labelBaud->setText("Esperando..."); }
+        setWindowTitle("FRECCIA_XAE - Gráficas 2D");
+
+        // Rehabilitar toggles de recepción
+        if (btnRxOn)  btnRxOn->setEnabled(true);
+        if (btnRxOff) btnRxOff->setEnabled(true);
+
+        // Si veníamos de modo archivo, limpiar bandera y restaurar labels/título
+        if (labelCom && labelCom->property("fileMode").toBool()) {
+            labelCom->setProperty("fileMode", false);
+            labelCom->setText("Esperando...");
+        }
+        if (labelBaud && labelBaud->property("fileMode").toBool()) {
+            labelBaud->setProperty("fileMode", false);
+            labelBaud->setText("Esperando...");
+        }
+        setWindowTitle("FRECCIA_XAE - Gráficas 2D");
+        modoArchivo_ = false;
+
+        if (ventanaGraph3D) {
+            ventanaGraph3D->resetData();
+        }
     });
 
     // Agregar al layout
@@ -384,6 +408,96 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
                                 "QMenu::item:selected { background-color: #444; }");
 
     btnMenu->setMenu(menuDesplegable);
+
+    // --- Ver antiguos: abrir CSV y poblar gráficas ---
+    auto abrirAntiguos = [this, btnRecord, btnStop, btnRxOn, btnRxOff, btnMenu, btnVerAntiguos, btnReset]() {
+        const QString file = QFileDialog::getOpenFileName(
+            this,
+            tr("Abrir sesión CSV"),
+            "../data",
+            tr("CSV (*.csv)")
+        );
+        if (file.isEmpty()) return;
+
+        // Pausar recepción y reiniciar base de tiempo
+        m_sensorManager->setReceivingEnabled(false);
+
+        if (timer && timer->isActive()) timer->stop();
+        tiempoIniciado = false;
+        tiempoInicio = QTime();
+        if (labelTiempo) labelTiempo->setText("Tiempo: 00:00:00");
+
+        // Asegurar que 't' empiece en 0 en el slot de graficación
+        resetTimeBase_ = true;
+
+        // Limpiar series y devolver ejes X a 0..1
+        for (auto& p : seriesAndXAxis) {
+            if (p.first)  p.first->clear();
+            if (p.second) p.second->setRange(0.0, 1.0);
+        }
+        
+        // Cargar CSV y emitir datos hacia las gráficas
+        m_sensorManager->loadFromCsv(file);
+        modoArchivo_ = true;
+
+        // Parar timers para que no sobreescriban títulos
+        if (timer && timer->isActive())         timer->stop();
+        if (timeoutTimer && timeoutTimer->isActive()) timeoutTimer->stop();
+
+        // Mostrar COM/Baud como "No aplica" y marcar modo archivo (hasta Reiniciar)
+        if (labelCom)  { labelCom->setText(" No aplica");        labelCom->setProperty("fileMode", true); }
+        if (labelBaud) { labelBaud->setText(" No aplica"); labelBaud->setProperty("fileMode", true); }
+
+        // Fijar título con el nombre del CSV
+        setWindowTitle(QString("FRECCIA_XAE - Gráficas 2D (CSV: %1)").arg(QFileInfo(file).fileName()));
+
+        // Dejar los controles en modo "solo lectura de archivo"
+        m_sensorManager->setReceivingEnabled(false);
+        if (btnRxOff)   btnRxOff->setChecked(true);
+        if (btnRxOn)    btnRxOn->setEnabled(false);
+        if (btnRxOff)   btnRxOff->setEnabled(false);
+        if (btnRecord)  btnRecord->setEnabled(false);
+        if (btnStop)    btnStop->setEnabled(false);
+        if (btnMenu)    btnMenu->setEnabled(true);
+        if (btnVerAntiguos) btnVerAntiguos->setEnabled(true);
+
+        // Mostrar en el label el tiempo TOTAL (columna 0 = "Hora" en segundos) + nombre del documento
+        if (labelTiempo) {
+            QFile f2(file);
+            if (f2.open(QIODevice::ReadOnly | QIODevice::Text)) {
+                QTextStream in(&f2);
+        #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+                in.setEncoding(QStringConverter::Utf8);
+        #endif
+            QString last;
+            while (!in.atEnd()) {
+                const QString line = in.readLine().trimmed();
+                if (line.isEmpty()) continue;
+                if (line.startsWith("Hora,")) continue; // saltar encabezado
+                last = line;
+            }
+            f2.close();
+
+            if (!last.isEmpty()) {
+                const QStringList v = last.split(',', Qt::KeepEmptyParts);
+                bool ok = false;
+                const double secs = v.value(0).toDouble(&ok); // "Hora" relativa
+                if (ok) {
+                    const int msec = int(std::llround(secs * 1000.0));
+                    const QTime dur = QTime(0,0,0).addMSecs(msec);
+                    labelTiempo->setText(
+                        tr("Tiempo total: %1   |   Datos Documento: \"%2\"")
+                        .arg(dur.toString("hh:mm:ss"))
+                        .arg(QFileInfo(file).fileName())
+                    );
+                }
+            }
+        }
+    }
+    };
+
+    connect(btnVerAntiguos, &QPushButton::clicked, this, abrirAntiguos);
+
     // Acciones
     pantalla1 = menuDesplegable->addAction("Pantalla Gráficas 2D");
     pantalla2 = menuDesplegable->addAction("Pantalla Gráficas 3D y OSM");
@@ -485,8 +599,13 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     // Mantener sincronizados los labels cuando SensorManager reconfigure el puerto
     connect(m_sensorManager, &SensorManager::serialReconfigured,
             this, [this](const QString& port, int baud, bool ok) {
-        labelCom->setText(QString("COM: %1%2").arg(port, ok ? "" : " (error)"));
-        labelBaud->setText(QString("Velocidad: %1").arg(baud));
+        // Si estamos en modo archivo, NO toques las etiquetas
+        if ((labelCom  && labelCom->property("fileMode").toBool()) ||
+            (labelBaud && labelBaud->property("fileMode").toBool())) {
+            return;
+        }
+        if (labelCom)  labelCom->setText(QString(" %1%2").arg(port, ok ? "" : " (error)"));
+        if (labelBaud) labelBaud->setText(QString(" %1").arg(baud));
     });
 
     // Confirmación para cerrar
@@ -1072,16 +1191,18 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
             QString::number(d.AltDiff)
         );
 
-       timeoutTimer->start();
+        if (!modoArchivo_) {
+        if (timeoutTimer) timeoutTimer->start();
 
         if (!tiempoIniciado) {
             tiempoInicio = QTime::currentTime();
             tiempoIniciado = true;
-            timer->start(1000);
-        } else if (!timer->isActive()) {
+            if (timer) timer->start(1000);
+        } else if (timer && !timer->isActive()) {
             timer->start(1000);
             qDebug() << "Señal recuperada. Reanudando cronómetro.";
         }
+    }
 
         ++t;
 
@@ -1094,6 +1215,8 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     timeoutTimer->setSingleShot(true);
 
     connect(timer, &QTimer::timeout, this, [this]() {
+
+        if (modoArchivo_) return;
         int secs = tiempoInicio.secsTo(QTime::currentTime());
         QTime t(0, 0);
         t = t.addSecs(secs);
