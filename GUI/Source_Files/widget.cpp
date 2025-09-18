@@ -805,6 +805,51 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
         seriesAndXAxis.push_back({series, ejeX});
     };
 
+ /*
+    // Crear el QSlider para mover el eje X
+    QSlider* timeSlider = new QSlider(Qt::Horizontal);
+    timeSlider->setStyleSheet(
+        "QSlider::groove:horizontal { background: gray; height: 12px; border-radius: 6px; }"
+        "QSlider::handle:horizontal { background: #4CAF50; border-radius: 6px; width: 18px; height: 18px; }"
+    );
+    timeSlider->setMinimumHeight(30);  // Aumentamos el tamaño de la barra
+    timeSlider->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+
+    // Asegurarse de que el slider no esté bloqueado ni tapado
+    timeSlider->setMinimum(0); // Valor mínimo en el slider
+    timeSlider->setValue(0);    // Valor inicial en 0
+
+    // Asegurarnos de que el slider tenga un rango adecuado
+    auto actualizarSlider = [this, timeSlider]() {
+        if (seriesRoll->points().isEmpty()) return;  // Evitar errores si no hay datos en la serie
+
+        double maxX = seriesRoll->points().last().x();  // Último punto de la serie
+        timeSlider->setRange(0, static_cast<int>(maxX));  // Ajustamos el rango máximo del slider
+    };
+
+    // Conexión para mover el slider
+    connect(timeSlider, &QSlider::valueChanged, this, [this](int value) {
+        if (seriesRoll->points().isEmpty()) return;  // Evitar errores si no hay datos en la serie
+
+        double maxX = seriesRoll->points().last().x();  // Último punto de la serie (tiempo máximo)
+        double rangeStart = value;  // Valor del slider (tiempo que se moverá)
+
+        // Establecer el tamaño de la ventana para el gráfico (puedes ajustar el "timeStep" como lo necesites)
+        double timeStep = 10.0;  // Ajuste de la ventana de tiempo visible
+        double rangeEnd = std::min(rangeStart + timeStep, maxX);  // Ajustar el final de la ventana
+
+        // Ahora recorrer todas las gráficas y mover su eje X
+        for (auto &p : seriesAndXAxis) {
+            auto* series = p.first;
+            auto* axisX = p.second;
+
+            axisX->setRange(rangeStart, rangeEnd);  // Ajustar el rango del eje X en función del slider
+        }
+    });
+
+   layout->addWidget(timeSlider, 3, 0, 1, 4);
+    */
+
     // Fila 0
     crearGrafica(chartRoll, seriesRoll, viewRoll, labelRoll, axisX_Roll, axisY_Roll, "Roll", "Ángulo", "°", 0, 0);
     crearGrafica(chartPitch, seriesPitch, viewPitch, labelPitch, axisX_Pitch, axisY_Pitch, "Pitch", "Ángulo", "°", 0, 1);
