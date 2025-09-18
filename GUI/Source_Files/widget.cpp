@@ -52,7 +52,8 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     setWindowTitle("FRECCIA_XAE - Gráficas 2D");
     setStyleSheet("background-color: black;");
     QGridLayout* layout = new QGridLayout();
-    layout->setSpacing(2);
+    layout->setSpacing(0);
+    layout->setContentsMargins(0, 0, 0, 0); 
     setWindowIcon(QIcon("./assets/logo_xae.png"));
 
     pantalla1Activa = true;
@@ -222,7 +223,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     QWidget* rightButtons = new QWidget();
     QHBoxLayout* rightLayout = new QHBoxLayout(rightButtons);
     rightLayout->setContentsMargins(0, 0, 8, 0);
-    rightLayout->setSpacing(6);
+    rightLayout->setSpacing(0);
 
     QPushButton* btnRxOn  = new QPushButton("Recibir datos");
     QPushButton* btnRxOff = new QPushButton("No recibir");
@@ -635,8 +636,9 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     // === Añadir barra al layout principal ===
     QVBoxLayout* globalLayout = new QVBoxLayout(this);
     globalLayout->setContentsMargins(0, 0, 0, 0);
-    globalLayout->addSpacing(10);
+    globalLayout->addSpacing(10); 
     globalLayout->addWidget(topBar);
+    globalLayout->addSpacing(0); 
     globalLayout->addLayout(layout);
 
     auto crearGrafica = [&](QChart*& chart,
@@ -698,16 +700,11 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
        // --- View con soporte de hover ---
         auto* hview = new HoverChartView();
         hview->setRenderHint(QPainter::Antialiasing, true);
-        hview->setMinimumSize(400, 250);
+        hview->setMinimumSize(400, 320);
         hview->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         hview->setChart(chart);
         view = hview;
         layout->addWidget(hview, fila, columna);
-
-        // *** CREA EL LABEL ANTES DE LAS LAMBDAS ***
-        label = new QLabel(nombre + ": 0");
-        label->setStyleSheet("color: white; font-weight: bold;");
-        layout->addWidget(label, fila + 1, columna);
 
         // --- Overlay (línea, punto, tooltip) por cada gráfica ---
         struct Overlay {
@@ -892,7 +889,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
 
         QVBoxLayout* cardLayout = new QVBoxLayout(card);
         cardLayout->setAlignment(Qt::AlignCenter);
-        cardLayout->setSpacing(int(4 * k));
+        cardLayout->setSpacing(int(8 * k));
         cardLayout->setContentsMargins(int(6 * k), int(6 * k), int(6 * k), int(6 * k));
 
         // Título
@@ -933,11 +930,11 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
 
     // === ESTADO DEL SISTEMA (2,3) con distribución 3 filas x 2 columnas ===
     QGridLayout* gridEstado = new QGridLayout();
-    gridEstado->setSpacing(8);
+    gridEstado->setSpacing(0);
     gridEstado->setContentsMargins(0, 0, 0, 0);
 
     gridEstado->setHorizontalSpacing(16);
-    gridEstado->setVerticalSpacing(10);
+    gridEstado->setVerticalSpacing(4);
     gridEstado->setColumnStretch(0, 1);
     gridEstado->setColumnStretch(1, 1);
 
@@ -945,7 +942,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     winBox->setStyleSheet("background-color: #2c2c2c; border-radius: 10px;");
     QVBoxLayout* winLay = new QVBoxLayout(winBox);
     winLay->setContentsMargins(10, 8, 10, 8);
-    winLay->setSpacing(6);
+    winLay->setSpacing(2);
 
     // Texto / valor seleccionado
     winText = new QLabel(tr("Ventana: Máx"));
@@ -978,7 +975,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     QSlider::tick-position:below { color: #aaa; }
     )");
 
-    // Etiquetas “5s ... Máx”
+    // Etiquetas “5s a Máx”
     QStringList tickText = {"5s","10s","20s","30s","40s","50s","60s","Máx"};
     QHBoxLayout* ticks = new QHBoxLayout();
     ticks->setContentsMargins(14, 0, 14, 0);
@@ -1055,7 +1052,6 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     puertoCardLayout->addWidget(tituloPuerto);
     puertoCardLayout->addWidget(labelCom);
 
-    // ---
     QFrame* baudCard = new QFrame();
     baudCard->setStyleSheet("background-color: #2c2c2c; border-radius: 10px;");
     baudCard->setMinimumHeight(56);
@@ -1123,7 +1119,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
         winText->setText(windowSec == 0 ? tr("Ventana: Máx")
                                         : tr("Ventana: %1 s").arg(windowSec));
 
-        // Reencuadra TODAS las gráficas SIN eliminar datos
+        // Reencuadra todas las gráficas sin eliminar ningún dato
         for (auto &p : seriesAndXAxis) {
             auto* s  = p.first;
             auto* ax = p.second;
