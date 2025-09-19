@@ -6,6 +6,10 @@
 
 #include <QFile>
 #include <QTextStream>
+
+#include <QTcpServer>
+#include <QTcpSocket>
+
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
   #include <QStringConverter>
 #endif
@@ -25,6 +29,26 @@ SensorManager::SensorManager(QObject* parent) : QObject(parent) {
     QTimer::singleShot(200, this, [this]() {
         m_serialReader->start(currentPort_, currentBaud_);
     });
+
+    // ===== Servidor TCP =====
+    tcpServer_ = new QTcpServer(this);
+    connect(tcpServer_, &QTcpServer::newConnection, this, [this]() {
+        while (tcpServer_->hasPendingConnections()) {
+            QTcpSocket* client = tcpServer_->nextPendingConnection();
+            clients_ << client;
+
+            connect(client, &QTcpSocket::disconnected, this, [this, client]() {
+                clients_.removeAll(client);
+                client->deleteLater();
+            });
+        }
+    });
+
+    if (!tcpServer_->listen(QHostAddress::Any, 5000)) {
+        qWarning() << "No se pudo iniciar servidor TCP en puerto 5000";
+    } else {
+        qDebug() << "Servidor TCP escuchando en puerto 5000";
+    }
 }
 
 bool SensorManager::setSerial(const QString& portName, int baud) {
@@ -80,6 +104,15 @@ void SensorManager::processRawData(const QByteArray& line) {
         cleaner.clean(vectorData);
 
         emit newSensorData(sensor);
+
+        // ===== Enviar datos a clientes TCP =====
+        QByteArray msg = line + "\n";
+        for (QTcpSocket* client : clients_) {
+            if (client->state() == QAbstractSocket::ConnectedState) {
+                client->write(msg);
+                client->flush();
+            }
+        }
     } catch (...) {
         // Ignorar errores de conversión/parsing
     }
@@ -107,9 +140,6 @@ bool SensorManager::loadFromCsv(const QString& path)
     in.setEncoding(QStringConverter::Utf8);
 #endif
 
-    // Esperamos el formato:
-    // Hora,Latitud,Longitud,Fecha,Hora,Segundos,Satélites,HDOP,Roll,Pitch,Yaw,
-    // Servo1,Servo2,Servo3,Servo4,AltDiff,Presión,Temperatura
     bool firstLine = true;
 
     while (!in.atEnd()) {
@@ -129,7 +159,6 @@ bool SensorManager::loadFromCsv(const QString& path)
             continue; // línea incompleta
 
         SensorData s{};
-        // 0: Hora relativa (no se usa para graficar internamente)
         s.latitude    = v[1].toDouble();
         s.longitude   = v[2].toDouble();
         s.date        = v[3].toStdString();   // Fecha (la primera de la sesión)
@@ -149,6 +178,15 @@ bool SensorManager::loadFromCsv(const QString& path)
         s.temperature = v[17].toFloat();
 
         vectorData.push_back(s);
+
+        // ===== Enviar también al canal TCP =====
+        QByteArray msg = line.toUtf8() + "\n";
+        for (QTcpSocket* client : clients_) {
+            if (client->state() == QAbstractSocket::ConnectedState) {
+                client->write(msg);
+                client->flush();
+            }
+        }
     }
 
     f.close();

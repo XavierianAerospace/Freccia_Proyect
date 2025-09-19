@@ -9,6 +9,9 @@
 #include <QObject>
 #include <QString>
 
+#include <QTcpServer>
+#include <QTcpSocket>
+
 class SensorManager : public QObject {
     Q_OBJECT
 
@@ -49,6 +52,9 @@ private:
 
     // Flag para ignorar completamente los datos entrantes
     bool receivingEnabled_ = true;
+
+    QTcpServer* tcpServer_ = nullptr;
+    QList<QTcpSocket*> clients_;
 };
 
 #endif // SENSORMANAGER_H

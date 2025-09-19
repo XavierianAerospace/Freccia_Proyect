@@ -1,0 +1,40 @@
+🔹1. Crear el entorno virtual
+
+Linux/Mac:
+
+    python3 -m venv sensor_env
+
+
+Windows (PowerShell o CMD):
+
+    python -m venv sensor_env
+
+🔹2. Activar el entorno
+
+Linux/Mac:
+
+    source sensor_env/bin/activate
+
+
+Windows CMD:
+
+    sensor_env\Scripts\activate
+
+Windows PowerShell:
+
+    sensor_env\Scripts\Activate.ps1
+
+🔹3. Instalar dependencias
+
+Dentro del entorno activado:
+
+    pip install pyqt5
+    pip install PyQt6 PyQt6-WebEngine pyqtgraph numpy trimesh numpy-stl shapely rtree
+
+🔹 4. Ejecutar tu cliente
+
+python client_viewer.py
+
+🔹 5. Desactivar el entorno (cuando termines)
+
+ deactivate

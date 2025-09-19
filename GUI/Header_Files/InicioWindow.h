@@ -6,7 +6,7 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QHBoxLayout>
-#include <QVBoxLayout>
+#include <QProcess> 
 
 class InicioWindow : public QWidget {
     Q_OBJECT
@@ -17,15 +17,21 @@ public:
 signals:
     void iniciar(bool abrir2D, bool abrir3D);
 
+private slots:
+    void checkSelection();
+    void onError();
+    void onFinished(int exitCode, QProcess::ExitStatus exitStatus); 
+
 private:
     QCheckBox* check2D;
     QCheckBox* check3D;
+    QCheckBox* checkPy;
     QPushButton* btnIniciar;
     QPushButton* btnExit;
     QLabel* gifLabel;
+    QProcess* process;
 
     void setupStyle();
-    void checkSelection();
 };
 
 #endif // INICIOWINDOW_H

@@ -22,6 +22,8 @@ find_package(Qt6 REQUIRED COMPONENTS
     3DAnimation
 )
 
+find_package(Python3 REQUIRED COMPONENTS Interpreter)
+
 qt_standard_project_setup()
 
 qt_add_executable(GUI_FRECCIA
@@ -96,4 +98,21 @@ install(TARGETS GUI_FRECCIA
     RUNTIME DESTINATION "${INSTALL_EXAMPLEDIR}"
     BUNDLE DESTINATION "${INSTALL_EXAMPLEDIR}"
     LIBRARY DESTINATION "${INSTALL_EXAMPLEDIR}"
+)
+
+configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/Source_Files/ventana_extra.py
+    ${CMAKE_BINARY_DIR}/Source_Files/ventana_extra.py
+    COPYONLY
+)
+
+# Copiar recursivamente la carpeta PyWindow al directorio de build
+file(COPY
+    ${CMAKE_CURRENT_SOURCE_DIR}/Source_Files/PyWindow
+    DESTINATION ${CMAKE_BINARY_DIR}/Source_Files
+)
+
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Source_Files/PyWindow
+    DESTINATION "${INSTALL_EXAMPLEDIR}/Source_Files"
+    USE_SOURCE_PERMISSIONS
 )

@@ -1,5 +1,9 @@
 #include "InicioWindow.h"
 #include <QMovie>
+#include <QProcess>
+#include <QDebug>
+#include <QFile>
+#include <QFileInfo>
 
 InicioWindow::InicioWindow(QWidget* parent) : QWidget(parent) {
     setWindowTitle("FRECCIA_XAE - Inicio");
@@ -23,8 +27,10 @@ InicioWindow::InicioWindow(QWidget* parent) : QWidget(parent) {
     // === Checkboxes ===
     check2D = new QCheckBox("Gráficas  Principales 2D");
     check3D = new QCheckBox("Gráficas Secundarias 3D");
+    checkPy = new QCheckBox("Graficos Especiales");
     connect(check2D, &QCheckBox::stateChanged, this, &InicioWindow::checkSelection);
     connect(check3D, &QCheckBox::stateChanged, this, &InicioWindow::checkSelection);
+    connect(checkPy, &QCheckBox::stateChanged, this, &InicioWindow::checkSelection);
 
     // === Botones ===
     btnIniciar = new QPushButton("Iniciar Simulación");
@@ -32,6 +38,31 @@ InicioWindow::InicioWindow(QWidget* parent) : QWidget(parent) {
     btnExit = new QPushButton("Exit");
     connect(btnExit, &QPushButton::clicked, this, &QWidget::close);
     connect(btnIniciar, &QPushButton::clicked, this, [=]() {
+        if (checkPy->isChecked()) {
+            QString terminal = "x-terminal-emulator";
+            QString scriptPath = "Source_Files/PyWindow/run_pywindow.sh";
+            QFileInfo fi(scriptPath);
+            if (!fi.isExecutable()) {
+                // Solo pide permisos de administrador, NO ejecuta el script aún
+                QStringList permArgs;
+                permArgs << "-e" << QString("bash -c 'sudo chmod +x %1; exec bash'").arg(scriptPath);
+                QProcess::startDetached(terminal, permArgs);
+                qDebug() << "[LOG] Se solicitó permiso de administrador para chmod +x al script.";
+                // Aquí puedes mostrar un mensaje al usuario si quieres
+                return;
+            }
+            // Si ya tiene permisos, ejecuta el script normalmente
+            QStringList args;
+            args << "-e" << QString("bash -c './%1; exec bash'").arg(scriptPath);
+
+            qDebug() << "[LOG] Ejecutando run_pywindow.sh en terminal...";
+
+            bool ok = QProcess::startDetached(terminal, args);
+
+            qDebug() << "[LOG] Terminal lanzada. startDetached retornó:" << ok;
+            close();
+            return;
+        }
         emit iniciar(check2D->isChecked(), check3D->isChecked());
         close();
     });
@@ -46,6 +77,7 @@ InicioWindow::InicioWindow(QWidget* parent) : QWidget(parent) {
     QVBoxLayout* controlesLayout = new QVBoxLayout;
     controlesLayout->addWidget(check2D);
     controlesLayout->addWidget(check3D);
+    controlesLayout->addWidget(checkPy); 
     controlesLayout->addSpacing(10);
     controlesLayout->addWidget(btnIniciar);
     controlesLayout->addWidget(btnExit);
@@ -82,7 +114,6 @@ InicioWindow::InicioWindow(QWidget* parent) : QWidget(parent) {
 
     setLayout(finalLayout);
 
-
     // === Estilo general ===
     setupStyle();
     qDebug() << "Logo visible:" << !logoPixmap.isNull();
@@ -90,7 +121,7 @@ InicioWindow::InicioWindow(QWidget* parent) : QWidget(parent) {
 }
 
 void InicioWindow::checkSelection() {
-    btnIniciar->setEnabled(check2D->isChecked() || check3D->isChecked());
+    btnIniciar->setEnabled(check2D->isChecked() || check3D->isChecked() || checkPy->isChecked());
 }
 
 void InicioWindow::setupStyle() {
@@ -122,3 +153,20 @@ void InicioWindow::setupStyle() {
     setStyleSheet(style);
     btnExit->setObjectName("btnExit");
 }
+
+void InicioWindow::onError() {
+    QProcess *process = qobject_cast<QProcess*>(sender());
+    if (process) {
+        qDebug() << "Error al ejecutar el script Python: " << process->readAllStandardError();
+    }
+}
+
+void InicioWindow::onFinished(int exitCode, QProcess::ExitStatus exitStatus) {
+    qDebug() << "El script Python ha finalizado con código de salida:" << exitCode;
+    if (exitStatus == QProcess::CrashExit) {
+        qDebug() << "El proceso Python terminó inesperadamente.";
+    } else {
+        qDebug() << "El proceso Python terminó correctamente.";
+    }
+}
+
