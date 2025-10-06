@@ -1039,11 +1039,14 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     estadoFinal->addLayout(gridEstado);
 
     // === Línea final con paquete RAW ===
-    labelRaw = new QLabel("Paquete: Esperando...");
+    labelRaw = new QLabel("Paquete: Esperando...\n");
     labelRaw->setStyleSheet("color: white; font-size: 10px; background-color: #1e1e1e; padding: 6px;");
     labelRaw->setWordWrap(true);
     labelRaw->setAlignment(Qt::AlignLeft | Qt::AlignTop);
     labelRaw->setMinimumHeight(30);
+    labelRaw->setMaximumHeight(36);
+    labelRaw->setMinimumWidth(300);
+    labelRaw->setMaximumWidth(300);
     labelRaw->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
     labelRaw->setMaximumWidth(475);

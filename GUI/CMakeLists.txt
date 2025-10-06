@@ -100,12 +100,6 @@ install(TARGETS GUI_FRECCIA
     LIBRARY DESTINATION "${INSTALL_EXAMPLEDIR}"
 )
 
-configure_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/Source_Files/ventana_extra.py
-    ${CMAKE_BINARY_DIR}/Source_Files/ventana_extra.py
-    COPYONLY
-)
-
 # Copiar recursivamente la carpeta PyWindow al directorio de build
 file(COPY
     ${CMAKE_CURRENT_SOURCE_DIR}/Source_Files/PyWindow
@@ -114,5 +108,16 @@ file(COPY
 
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Source_Files/PyWindow
     DESTINATION "${INSTALL_EXAMPLEDIR}/Source_Files"
+    USE_SOURCE_PERMISSIONS
+)
+
+file(COPY
+    ${CMAKE_CURRENT_SOURCE_DIR}/Source_Py/
+    DESTINATION ${CMAKE_BINARY_DIR}/Source_Py
+)
+
+install(DIRECTORY 
+    ${CMAKE_CURRENT_SOURCE_DIR}/Source_Py/
+    DESTINATION "${INSTALL_EXAMPLEDIR}/Source_Py"
     USE_SOURCE_PERMISSIONS
 )

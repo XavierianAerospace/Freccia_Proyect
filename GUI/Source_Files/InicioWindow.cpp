@@ -27,7 +27,7 @@ InicioWindow::InicioWindow(QWidget* parent) : QWidget(parent) {
     // === Checkboxes ===
     check2D = new QCheckBox("Gráficas  Principales 2D");
     check3D = new QCheckBox("Gráficas Secundarias 3D");
-    checkPy = new QCheckBox("Graficos Especiales");
+    checkPy = new QCheckBox("Graficas Map - Angulo Ataque");
     connect(check2D, &QCheckBox::stateChanged, this, &InicioWindow::checkSelection);
     connect(check3D, &QCheckBox::stateChanged, this, &InicioWindow::checkSelection);
     connect(checkPy, &QCheckBox::stateChanged, this, &InicioWindow::checkSelection);
@@ -39,29 +39,26 @@ InicioWindow::InicioWindow(QWidget* parent) : QWidget(parent) {
     connect(btnExit, &QPushButton::clicked, this, &QWidget::close);
     connect(btnIniciar, &QPushButton::clicked, this, [=]() {
         if (checkPy->isChecked()) {
-            QString terminal = "x-terminal-emulator";
-            QString scriptPath = "Source_Files/PyWindow/run_pywindow.sh";
-            QFileInfo fi(scriptPath);
-            if (!fi.isExecutable()) {
-                // Solo pide permisos de administrador, NO ejecuta el script aún
-                QStringList permArgs;
-                permArgs << "-e" << QString("bash -c 'sudo chmod +x %1; exec bash'").arg(scriptPath);
-                QProcess::startDetached(terminal, permArgs);
-                qDebug() << "[LOG] Se solicitó permiso de administrador para chmod +x al script.";
-                // Aquí puedes mostrar un mensaje al usuario si quieres
-                return;
+            QString rutaExe = "./Source_Py/dist/FRECCIA_XAE.exe";
+            QFileInfo fileInfo(rutaExe);
+            QString rutaAbsoluta = fileInfo.absoluteFilePath();
+            
+            qDebug() << "[LOG] Intentando ejecutar:" << rutaAbsoluta;
+            
+            if (fileInfo.exists()) {
+                bool exito = QProcess::startDetached(rutaAbsoluta);
+                
+                if (exito) {
+                    qDebug() << "[LOG] Ejecutable FRECCIA_XAE iniciado correctamente";
+                    qDebug() << "[LOG] Ruta:" << rutaAbsoluta;
+                } else {
+                    qDebug() << "[ERROR] No se pudo iniciar el ejecutable";
+                }
+            } else {
+                qDebug() << "[ERROR] No se encontró el archivo en" << rutaAbsoluta;
             }
-            // Si ya tiene permisos, ejecuta el script normalmente
-            QStringList args;
-            args << "-e" << QString("bash -c './%1; exec bash'").arg(scriptPath);
-
-            qDebug() << "[LOG] Ejecutando run_pywindow.sh en terminal...";
-
-            bool ok = QProcess::startDetached(terminal, args);
-
-            qDebug() << "[LOG] Terminal lanzada. startDetached retornó:" << ok;
-            close();
-            return;
+            // NO hacemos close() aquí - la ventana de inicio se mantiene abierta
+            // Solo para los casos 2D/3D - aquí sí cerramos la ventana
         }
         emit iniciar(check2D->isChecked(), check3D->isChecked());
         close();
