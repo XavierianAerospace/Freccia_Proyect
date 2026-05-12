@@ -1,6 +1,7 @@
 #include "widget.h"
 #include "Graph3DWindow.h"
 #include "data/FileHelper.h"
+#include "data/DataTopic.h"
 #include <QSlider>
 #include <cmath>
 #include <algorithm> 
@@ -1098,14 +1099,12 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
         }
     });
 
-    // === Datos en tiempo real ===
-   connect(m_sensorManager, &SensorManager::newSensorData, this, [&](const SensorData& d) {
+    // === Suscripción a DataTopic ===
+   connect(DataTopic::instance(), &DataTopic::dataPublished, this, [this](const QString& line) {
+        SensorData d = SensorData::deserialize(line);
         static int t = 0;
 
         if (resetTimeBase_) { t = 0; resetTimeBase_ = false; }
-
-        if (t == 0 && !tiempoIniciado) {
-        }
 
         auto actualizarGrafica = [&](QLineSeries* series,
                              double valor,
@@ -1175,36 +1174,20 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
         labelStatus[4]->setText(QDate::currentDate().toString("dd-MMMM-yyyy"));
         labelStatus[5]->setText(QTime::currentTime().toString("hh:mm:ss"));
 
-        labelRaw->setText("Paquete: " +
-            QString::number(d.latitude) + "," +
-            QString::number(d.longitude) + "," +
-            QString::fromStdString(d.date) + "," +
-            QString::fromStdString(d.utc_time) + "," +
-            QString::number(d.secs) + "," +
-            QString::number(d.satellites) + "," +
-            QString::number(d.hdop) + "," +
-            QString::number(d.Roll) + "," +
-            QString::number(d.Pitch) + "," +
-            QString::number(d.Yaw) + "," +
-            QString::number(d.Servo1) + "," +
-            QString::number(d.Servo2) + "," +
-            QString::number(d.Servo3) + "," +
-            QString::number(d.Servo4) + "," +
-            QString::number(d.AltDiff)
-        );
+        labelRaw->setText("Paquete: " + line);
 
         if (!modoArchivo_) {
-        if (timeoutTimer) timeoutTimer->start();
+            if (timeoutTimer) timeoutTimer->start();
 
-        if (!tiempoIniciado) {
-            tiempoInicio = QTime::currentTime();
-            tiempoIniciado = true;
-            if (timer) timer->start(1000);
-        } else if (timer && !timer->isActive()) {
-            timer->start(1000);
-            qDebug() << "Señal recuperada. Reanudando cronómetro.";
+            if (!tiempoIniciado) {
+                tiempoInicio = QTime::currentTime();
+                tiempoIniciado = true;
+                if (timer) timer->start(1000);
+            } else if (timer && !timer->isActive()) {
+                timer->start(1000);
+                qDebug() << "Señal recuperada. Reanudando cronómetro.";
+            }
         }
-    }
 
         ++t;
 

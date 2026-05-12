@@ -20,6 +20,7 @@ find_package(Qt6 REQUIRED COMPONENTS
     3DInput
     3DLogic
     3DAnimation
+    Network
 )
 
 find_package(Python3 REQUIRED COMPONENTS Interpreter)
@@ -36,6 +37,7 @@ qt_add_executable(GUI_FRECCIA
 
   Source_Files/data/DataCleaner.cpp
   Source_Files/data/FileHelper.cpp
+  Source_Files/data/DataTopic.cpp
 
   Header_Files/widget.h
   Header_Files/SensorManager.h
@@ -46,6 +48,7 @@ qt_add_executable(GUI_FRECCIA
   Header_Files/data/DataCleaner.h
   Header_Files/data/FileHelper.h
   Header_Files/data/SensorData.h
+  Header_Files/data/DataTopic.h
 )
 
 configure_file(
@@ -92,6 +95,7 @@ target_link_libraries(GUI_FRECCIA PUBLIC
     Qt::3DInput
     Qt::3DLogic
     Qt::3DAnimation
+    Qt::Network
 )
 
 install(TARGETS GUI_FRECCIA

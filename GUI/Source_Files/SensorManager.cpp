@@ -1,14 +1,12 @@
 #include "SensorManager.h"
 #include "FileHelper.h"
+#include "data/DataTopic.h"
 
 #include <QStringList>
 #include <QTimer>
 
 #include <QFile>
 #include <QTextStream>
-
-#include <QTcpServer>
-#include <QTcpSocket>
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
   #include <QStringConverter>
@@ -29,26 +27,6 @@ SensorManager::SensorManager(QObject* parent) : QObject(parent) {
     QTimer::singleShot(200, this, [this]() {
         m_serialReader->start(currentPort_, currentBaud_);
     });
-
-    // ===== Servidor TCP =====
-    tcpServer_ = new QTcpServer(this);
-    connect(tcpServer_, &QTcpServer::newConnection, this, [this]() {
-        while (tcpServer_->hasPendingConnections()) {
-            QTcpSocket* client = tcpServer_->nextPendingConnection();
-            clients_ << client;
-
-            connect(client, &QTcpSocket::disconnected, this, [this, client]() {
-                clients_.removeAll(client);
-                client->deleteLater();
-            });
-        }
-    });
-
-    if (!tcpServer_->listen(QHostAddress::Any, 5000)) {
-        qWarning() << "No se pudo iniciar servidor TCP en puerto 5000";
-    } else {
-        qDebug() << "Servidor TCP escuchando en puerto 5000";
-    }
 }
 
 bool SensorManager::setSerial(const QString& portName, int baud) {
@@ -97,22 +75,18 @@ void SensorManager::processRawData(const QByteArray& line) {
         sensor.pressure    = 0.0f;
         sensor.temperature = 0.0f;
 
+        // Limpieza y corrección de datos
+        std::vector<SensorData> tempVec = {sensor};
+        cleaner.clean(tempVec);
+        sensor = tempVec.back();
+
         vectorData.push_back(sensor);
 
         FileHelper::appendRawData(std::string("../data/raw_data.csv"), sensor);
 
-        cleaner.clean(vectorData);
+        // Publicar a través de DataTopic
+        DataTopic::instance()->publish(sensor.serialize());
 
-        emit newSensorData(sensor);
-
-        // ===== Enviar datos a clientes TCP =====
-        QByteArray msg = line + "\n";
-        for (QTcpSocket* client : clients_) {
-            if (client->state() == QAbstractSocket::ConnectedState) {
-                client->write(msg);
-                client->flush();
-            }
-        }
     } catch (...) {
         // Ignorar errores de conversión/parsing
     }
@@ -120,7 +94,7 @@ void SensorManager::processRawData(const QByteArray& line) {
 
 void SensorManager::clearData() {
     vectorData.clear();
-    emit newSensorData(SensorData{});
+    DataTopic::instance()->publish(SensorData{}.serialize());
 }
 
 bool SensorManager::loadFromCsv(const QString& path)
@@ -179,21 +153,11 @@ bool SensorManager::loadFromCsv(const QString& path)
 
         vectorData.push_back(s);
 
-        // ===== Enviar también al canal TCP =====
-        QByteArray msg = line.toUtf8() + "\n";
-        for (QTcpSocket* client : clients_) {
-            if (client->state() == QAbstractSocket::ConnectedState) {
-                client->write(msg);
-                client->flush();
-            }
-        }
+        // Publicar a través de DataTopic
+        DataTopic::instance()->publish(s.serialize());
     }
 
     f.close();
-
-    // Emitimos todos los datos para que el Widget pinte las gráficas
-    for (const auto& s : vectorData)
-        emit newSensorData(s);
 
     return true;
 }
