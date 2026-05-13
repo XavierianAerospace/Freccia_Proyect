@@ -23,8 +23,6 @@ find_package(Qt6 REQUIRED COMPONENTS
     Network
 )
 
-find_package(Python3 REQUIRED COMPONENTS Interpreter)
-
 qt_standard_project_setup()
 
 qt_add_executable(GUI_FRECCIA
@@ -115,13 +113,58 @@ install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Source_Files/PyWindow
     USE_SOURCE_PERMISSIONS
 )
 
-file(COPY
-    ${CMAKE_CURRENT_SOURCE_DIR}/Source_Py/
-    DESTINATION ${CMAKE_BINARY_DIR}/Source_Py
+set(FRECCIA_SOURCE_PY_FILES
+    Source_Py/build.spec
+    Source_Py/client_viewer.py
+    Source_Py/client_viewer2.py
+    Source_Py/CoheteGUI.STL
+    Source_Py/FRECCIA_XAE.spec
+    Source_Py/Instrucciones.txt
+    Source_Py/stl_rotator_pyglet.py
 )
 
-install(DIRECTORY 
-    ${CMAKE_CURRENT_SOURCE_DIR}/Source_Py/
+set(FRECCIA_SOURCE_PY_DIRECTORIES
+    Source_Py/dist
+    Source_Py/Map
+)
+
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/Source_Py)
+
+foreach(source_py_file IN LISTS FRECCIA_SOURCE_PY_FILES)
+    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${source_py_file}")
+        configure_file(
+            "${CMAKE_CURRENT_SOURCE_DIR}/${source_py_file}"
+            "${CMAKE_BINARY_DIR}/${source_py_file}"
+            COPYONLY
+        )
+    endif()
+endforeach()
+
+foreach(source_py_directory IN LISTS FRECCIA_SOURCE_PY_DIRECTORIES)
+    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${source_py_directory}")
+        file(COPY
+            "${CMAKE_CURRENT_SOURCE_DIR}/${source_py_directory}"
+            DESTINATION "${CMAKE_BINARY_DIR}/Source_Py"
+        )
+    endif()
+endforeach()
+
+install(FILES
+    ${CMAKE_CURRENT_SOURCE_DIR}/Source_Py/build.spec
+    ${CMAKE_CURRENT_SOURCE_DIR}/Source_Py/client_viewer.py
+    ${CMAKE_CURRENT_SOURCE_DIR}/Source_Py/client_viewer2.py
+    ${CMAKE_CURRENT_SOURCE_DIR}/Source_Py/CoheteGUI.STL
+    ${CMAKE_CURRENT_SOURCE_DIR}/Source_Py/FRECCIA_XAE.spec
+    ${CMAKE_CURRENT_SOURCE_DIR}/Source_Py/Instrucciones.txt
+    ${CMAKE_CURRENT_SOURCE_DIR}/Source_Py/stl_rotator_pyglet.py
+    DESTINATION "${INSTALL_EXAMPLEDIR}/Source_Py"
+    OPTIONAL
+)
+
+install(DIRECTORY
+    ${CMAKE_CURRENT_SOURCE_DIR}/Source_Py/dist
+    ${CMAKE_CURRENT_SOURCE_DIR}/Source_Py/Map
     DESTINATION "${INSTALL_EXAMPLEDIR}/Source_Py"
     USE_SOURCE_PERMISSIONS
+    OPTIONAL
 )
