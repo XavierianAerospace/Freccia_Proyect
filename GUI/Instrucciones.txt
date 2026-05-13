@@ -1,0 +1,6 @@
+En la carpeta de build
+
+../build.sh
+
+./Atenea
+

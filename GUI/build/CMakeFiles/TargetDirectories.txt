@@ -1,0 +1,3 @@
+/home/apolo/Documents/GitGub/Atenea_Proyect/Code/Atenea_UI/build/CMakeFiles/Atenea.dir
+/home/apolo/Documents/GitGub/Atenea_Proyect/Code/Atenea_UI/build/CMakeFiles/edit_cache.dir
+/home/apolo/Documents/GitGub/Atenea_Proyect/Code/Atenea_UI/build/CMakeFiles/rebuild_cache.dir
