@@ -9,9 +9,6 @@
 #include <QObject>
 #include <QString>
 
-#include <QTcpServer>
-#include <QTcpSocket>
-
 class SensorManager : public QObject {
     Q_OBJECT
 
@@ -36,8 +33,6 @@ public slots:
     bool loadFromCsv(const QString& path);
 
 signals:
-    void newSensorData(const SensorData& data);
-
     // UI: notificar reconfiguración del puerto
     void serialReconfigured(QString port, int baud, bool ok);
 
@@ -52,9 +47,6 @@ private:
 
     // Flag para ignorar completamente los datos entrantes
     bool receivingEnabled_ = true;
-
-    QTcpServer* tcpServer_ = nullptr;
-    QList<QTcpSocket*> clients_;
 };
 
 #endif // SENSORMANAGER_H

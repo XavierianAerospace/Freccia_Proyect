@@ -1,0 +1,16 @@
+# ninja log v6
+15	2561	8003423688371625	GUI_FRECCIA_autogen/timestamp	3ed66e700e36519d
+15	2561	8003423688371625	GUI_FRECCIA_autogen/mocs_compilation.cpp	3ed66e700e36519d
+15	2561	8003423688371625	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/timestamp	3ed66e700e36519d
+15	2561	8003423688371625	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/mocs_compilation.cpp	3ed66e700e36519d
+2590	5843	8003423689736866	CMakeFiles/GUI_FRECCIA.dir/Source_Files/SerialReader.cpp.obj	1da9cd29417c3419
+2620	5973	8003423690026916	CMakeFiles/GUI_FRECCIA.dir/Source_Files/data/DataTopic.cpp.obj	85990967004d5668
+2611	6193	8003423689936916	CMakeFiles/GUI_FRECCIA.dir/Source_Files/data/DataCleaner.cpp.obj	d885f524e0252c93
+2586	6349	8003423689686866	CMakeFiles/GUI_FRECCIA.dir/Source_Files/SensorManager.cpp.obj	283baaee2b36de24
+2616	6456	8003423689986918	CMakeFiles/GUI_FRECCIA.dir/Source_Files/data/FileHelper.cpp.obj	35456f4b82c7c6e8
+2601	6553	8003423689836859	CMakeFiles/GUI_FRECCIA.dir/Source_Files/InicioWindow.cpp.obj	e93f0ffe5fec7ff
+2579	6857	8003423689616868	CMakeFiles/GUI_FRECCIA.dir/Source_Files/main.cpp.obj	d3cbc1a7bb349cdb
+2597	7223	8003423689796863	CMakeFiles/GUI_FRECCIA.dir/Source_Files/Graph3DWindow.cpp.obj	bd5b35d8872dcc5d
+2575	7350	8003423689576871	CMakeFiles/GUI_FRECCIA.dir/GUI_FRECCIA_autogen/mocs_compilation.cpp.obj	ef7071c9557673f
+2583	7777	8003423689656869	CMakeFiles/GUI_FRECCIA.dir/Source_Files/widget.cpp.obj	5341ed685fbd6562
+7777	7955	8003423741597471	GUI_FRECCIA.exe	6879656cd60b67b6

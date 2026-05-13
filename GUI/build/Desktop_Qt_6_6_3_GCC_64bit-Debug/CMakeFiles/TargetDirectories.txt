@@ -1,9 +1,0 @@
-/home/apolo/Videos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_GCC_64bit-Debug/CMakeFiles/GUI_FRECCIA.dir
-/home/apolo/Videos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_GCC_64bit-Debug/CMakeFiles/edit_cache.dir
-/home/apolo/Videos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_GCC_64bit-Debug/CMakeFiles/rebuild_cache.dir
-/home/apolo/Videos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_GCC_64bit-Debug/CMakeFiles/list_install_components.dir
-/home/apolo/Videos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_GCC_64bit-Debug/CMakeFiles/install.dir
-/home/apolo/Videos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_GCC_64bit-Debug/CMakeFiles/install/local.dir
-/home/apolo/Videos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_GCC_64bit-Debug/CMakeFiles/install/strip.dir
-/home/apolo/Videos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_GCC_64bit-Debug/CMakeFiles/GUI_FRECCIA_autogen_timestamp_deps.dir
-/home/apolo/Videos/Freccia_Proyect/GUI/build/Desktop_Qt_6_6_3_GCC_64bit-Debug/CMakeFiles/GUI_FRECCIA_autogen.dir
