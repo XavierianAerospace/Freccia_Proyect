@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/assets">
+    <file>assets/logo_xae.png</file>
+    <file>assets/Inicio.gif</file>
+  </qresource>
+</RCC>

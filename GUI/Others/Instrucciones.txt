@@ -1,0 +1,20 @@
+# Linux
+
+sudo apt update
+sudo apt install socat
+
+
+socat -d -d PTY,raw,echo=0 PTY,raw,echo=0
+
+
+puerto = '/dev/pts/6'  # Escribe
+
+puerto = '/dev/pts/7'  # Lee
+
+# Windows
+
+Simulador puertos activos
+
+puerto = 'COM7' #Escribe
+
+m_serialReader->start("COM6"); #Lee

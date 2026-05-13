@@ -1,0 +1,75 @@
+🔹1. Crear el entorno virtual
+
+Linux/Mac:
+
+    python3 -m venv sensor_env
+
+
+Windows (PowerShell o CMD):
+
+    python -m venv sensor_env
+
+🔹2. Activar el entorno
+
+Linux/Mac:
+
+    source sensor_env/bin/activate
+
+
+Windows CMD:
+
+    sensor_env\Scripts\activate
+
+Windows PowerShell:
+
+    sensor_env\Scripts\Activate.ps1
+
+Bash:
+# en Git Bash
+source ./sensor_env/Scripts/activate   # o
+. ./sensor_env/Scripts/activate
+
+🔹3. Instalar dependencias
+
+Dentro del entorno activado:
+
+    pip install pyqt5
+    pip install PyQt6 PyQt6-WebEngine pyqtgraph numpy trimesh numpy-stl shapely rtree
+    pip install PyOpenGL PyOpenGL-accelerate pyserial
+    pip install pyvista vtk matplotlib PyOpenGL PyOpenGL-accelerate pyserial
+    pip install pyvistaqt
+    pip install pyinstaller
+    
+🔹 4. Ejecutar tu cliente
+
+python client_viewer.py
+
+🔹 5. Desactivar el entorno (cuando termines)
+
+ deactivate
+
+
+
+
+ 🔹 6. Crear .exe
+
+Paso 1
+    Windows
+        rmdir /S /Q build dist
+
+        pyinstaller --clean --noconfirm --onefile --name FRECCIA_XAE client_viewer.py \
+        --add-data "Map;Map" \
+        --icon "Map/assets/logo_xae.png"
+
+    Linux
+        pyinstaller --clean --onefile --name FRECCIA_XAE \
+        --add-data "Map:Map" \
+        --icon "Map/assets/logo_xae.png" \
+        client_viewer.py
+
+Paso 2 
+    Linux
+        cd dist
+        ./FRECCIA_XAE
+
+        chmod +x dist/FRECCIA_XAE
