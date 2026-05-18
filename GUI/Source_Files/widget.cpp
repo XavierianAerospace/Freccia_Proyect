@@ -54,13 +54,11 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     setWindowTitle("FRECCIA_XAE - Gráficas 2D");
     setStyleSheet("background-color: black;");
     QGridLayout* layout = new QGridLayout();
-    layout->setSpacing(4);
-    layout->setContentsMargins(4, 4, 4, 4);
+    layout->setSpacing(0);
+    layout->setContentsMargins(0, 0, 0, 0);
 
     for (int col = 0; col < 4; ++col) layout->setColumnStretch(col, 1);
-    layout->setRowStretch(0, 3);
-    layout->setRowStretch(1, 3);
-    layout->setRowStretch(2, 2);
+    for (int row = 0; row < 3; ++row) layout->setRowStretch(row, 1);
 
     setWindowIcon(QIcon("./assets/logo_xae.png"));
 
@@ -708,7 +706,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
        // --- View con soporte de hover ---
         auto* hview = new HoverChartView();
         hview->setRenderHint(QPainter::Antialiasing, true);
-        hview->setMinimumSize(200, 150);
+        hview->setMinimumSize(200, 200);
         hview->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         hview->setChart(chart);
         view = hview;
@@ -836,7 +834,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     gridServos->setHorizontalSpacing(24);
     gridServos->setVerticalSpacing(24);
 
-    const qreal k = 1.2;                   // escala de tamaño
+    const qreal k = 1.0;                   // escala de tamaño
     const int  cardSize = int(100 * k);    // lado de la tarjeta
     const int  rCorner  = int(10  * k);    // radio de esquina
     const int  titlePt  = int(8   * k);    // tamaño título "Servo N"
@@ -908,8 +906,8 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     QWidget* winBox = new QWidget();
     winBox->setStyleSheet("background-color: #2c2c2c; border-radius: 10px;");
     QVBoxLayout* winLay = new QVBoxLayout(winBox);
-    winLay->setContentsMargins(10, 8, 10, 8);
-    winLay->setSpacing(6);
+    winLay->setContentsMargins(4, 2, 4, 2);
+    winLay->setSpacing(2);
 
     // Texto / valor seleccionado
     winText = new QLabel(tr("Ventana: Máx"));
@@ -972,7 +970,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
         }
 
         card->setStyleSheet("background-color: #2c2c2c; border-radius: 10px;");
-        card->setMinimumHeight(56);
+        card->setMinimumHeight(40);
         card->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
         QVBoxLayout* cardLayout = new QVBoxLayout(card);
@@ -1001,7 +999,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     // === Tarjetas separadas: "Puerto (COM)" y "Velocidad" lado a lado ===
     QFrame* puertoCard = new QFrame();
     puertoCard->setStyleSheet("background-color: #2c2c2c; border-radius: 10px;");
-    puertoCard->setMinimumHeight(56);
+    puertoCard->setMinimumHeight(40);
     puertoCard->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
     QVBoxLayout* puertoCardLayout = new QVBoxLayout(puertoCard);
@@ -1022,7 +1020,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     // ---
     QFrame* baudCard = new QFrame();
     baudCard->setStyleSheet("background-color: #2c2c2c; border-radius: 10px;");
-    baudCard->setMinimumHeight(56);
+    baudCard->setMinimumHeight(40);
     baudCard->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
     QVBoxLayout* baudCardLayout = new QVBoxLayout(baudCard);
@@ -1053,8 +1051,8 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     labelRaw->setStyleSheet("color: white; font-size: 10px; background-color: #1e1e1e; padding: 6px;");
     labelRaw->setWordWrap(true);
     labelRaw->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-    labelRaw->setMinimumHeight(30);
-    labelRaw->setMaximumHeight(36);
+    labelRaw->setMinimumHeight(24);
+    labelRaw->setMaximumHeight(30);
     labelRaw->setMinimumWidth(300);
     labelRaw->setMaximumWidth(300);
     labelRaw->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);

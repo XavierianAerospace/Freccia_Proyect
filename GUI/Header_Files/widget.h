@@ -104,7 +104,7 @@ protected:
 
         if (m_isPanning) {
             QPoint delta = e->pos() - m_lastMousePos;
-            chart()->scroll(-delta.x(), delta.y());
+            chart()->scroll(-delta.x(), -delta.y());
             m_lastMousePos = e->pos();
         }
 
