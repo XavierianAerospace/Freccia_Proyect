@@ -23,16 +23,23 @@ public:
         // Default ranges
         m_ranges["Roll"] = {-30.0, 30.0, -45.0, 45.0};
         m_ranges["Pitch"] = {-30.0, 30.0, -45.0, 45.0};
+        m_ranges["Yaw"] = {-45.0, 45.0, -60.0, 60.0};
         m_ranges["Satélites"] = {5.5, 100.0, 3.5, 100.0};
         m_ranges["HDOP"] = {0.0, 2.0, 0.0, 5.0};
         m_ranges["Temperatura"] = {0.0, 45.0, -10.0, 60.0};
         m_ranges["Presión"] = {800.0, 1200.0, 700.0, 1300.0};
+        m_ranges["AltDiff"] = {-10.0, 500.0, -20.0, 1000.0};
+    }
+
+    void setRange(const QString& name, const Range& r) {
+        m_ranges[name] = r;
     }
 
     AlertLevel check(const QString& name, double value) {
-        if (m_ranges.find(name) == m_ranges.end()) return OK;
+        auto it = m_ranges.find(name);
+        if (it == m_ranges.end()) return OK;
 
-        const Range& r = m_ranges[name];
+        const Range& r = it->second;
         if (name == "Satélites") {
             if (value < r.min_crit) return Critical;
             if (value < r.min_warn) return Warning;
