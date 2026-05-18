@@ -23,7 +23,7 @@ public:
         // Default ranges
         m_ranges["Roll"] = {-30.0, 30.0, -45.0, 45.0};
         m_ranges["Pitch"] = {-30.0, 30.0, -45.0, 45.0};
-        m_ranges["Satélites"] = {6.0, 100.0, 4.0, 100.0};
+        m_ranges["Satélites"] = {5.5, 100.0, 3.5, 100.0};
         m_ranges["HDOP"] = {0.0, 2.0, 0.0, 5.0};
         m_ranges["Temperatura"] = {0.0, 45.0, -10.0, 60.0};
         m_ranges["Presión"] = {800.0, 1200.0, 700.0, 1300.0};

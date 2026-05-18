@@ -1110,7 +1110,14 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
    static RangeChecker rangeChecker;
 
    connect(DataTopic::instance(), &DataTopic::dataPublished, this, [this](const QString& line) {
-        SensorData d = SensorData::deserialize(line);
+        // Strip prefix like "#6456: " if present
+        QString cleanLine = line;
+        int colonIndex = line.indexOf(':');
+        if (line.startsWith('#') && colonIndex != -1) {
+            cleanLine = line.mid(colonIndex + 1).trimmed();
+        }
+
+        SensorData d = SensorData::deserialize(cleanLine);
         static int t = 0;
 
         if (resetTimeBase_) { t = 0; resetTimeBase_ = false; }
