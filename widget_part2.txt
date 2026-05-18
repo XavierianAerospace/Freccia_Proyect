@@ -1,0 +1,500 @@
+
+    // Acciones
+    pantalla1 = menuDesplegable->addAction("Pantalla Gráficas 2D");
+    pantalla2 = menuDesplegable->addAction("Pantalla Gráficas 3D y OSM");
+
+    // Estilo para el menú completo
+    menuDesplegable->setStyleSheet(R"(
+        QMenu {
+            background-color: black;
+            color: white;
+        }
+        QMenu::item {
+            padding: 6px 24px;
+            background-color: black;
+            color: white;
+        }
+        QMenu::item:disabled {
+            background-color: green;
+            color: white;
+        }
+        QMenu::item:selected:enabled {
+            background-color: #444;
+        }
+    )");
+
+    // === Detectar si ya está abierta ===
+    if (ventanaUnica && ventanaUnica != this) {
+            close();
+            return;
+        }
+        ventanaUnica = this;
+        pantalla1->setEnabled(false);
+        QObject::connect(this, &QWidget::destroyed, []() {
+            ventanaUnica = nullptr;
+    });
+
+    // === Boton Pantalla Gráficas 2D ===
+    connect(pantalla1, &QAction::triggered, this, [manager]() {
+        if (!ventanaUnica) {
+            ventanaUnica = new Widget(manager);
+            ventanaUnica->resize(1280, 720);
+            ventanaUnica->show();
+        } else {
+            ventanaUnica->raise();
+            ventanaUnica->activateWindow();
+        }
+    });
+
+    if (ventanaGraph3D) {
+        pantalla2->setEnabled(false);
+        pantalla1Activa = false;
+        actualizarEstilosMenu();
+    }
+
+    // === Botón Pantalla Gráficas ===
+    connect(pantalla2, &QAction::triggered, this, [this, manager]() {
+        if (ventanaGraph3D) {
+            ventanaGraph3D->raise();
+            ventanaGraph3D->activateWindow();
+            return;
+        }
+
+        pantalla1Activa = false;
+        actualizarEstilosMenu();
+
+        pantalla2->setEnabled(false);
+
+        ventanaGraph3D = new Graph3DWindow(manager);
+        ventanaGraph3D->setAttribute(Qt::WA_DeleteOnClose);
+        ventanaGraph3D->resize(1280, 720);
+        ventanaGraph3D->show();
+
+        connect(ventanaGraph3D, &QWidget::destroyed, this, [this]() {
+            pantalla2->setEnabled(true);
+            actualizarEstilosMenu();
+            ventanaGraph3D = nullptr;
+        });
+    });
+
+    // --- Menú: acciones de configuración y cerrar ---
+    menuDesplegable->addSeparator();
+
+    QAction* configCom  = menuDesplegable->addAction("Configurar COM y Baud");
+    QAction* configAcc  = menuDesplegable->addAction("Calibrar Acelerómetro");
+    QAction* configGyro = menuDesplegable->addAction("Calibrar Giroscopio");
+
+    menuDesplegable->addSeparator();
+
+    QWidgetAction* cerrarWidgetAction = new QWidgetAction(this);
+    QPushButton* cerrarBtn = new QPushButton("Close the program");
+    cerrarBtn->setStyleSheet("color: white; background-color: red; border: none; padding: 4px;");
+    cerrarWidgetAction->setDefaultWidget(cerrarBtn);
+    menuDesplegable->addAction(cerrarWidgetAction);
+
+    // Ventana de selección de puerto/baud
+    connect(configCom, &QAction::triggered, this, [this]() {
+        abrirDialogoSerial();
+    });
+
+    // Mantener sincronizados los labels cuando SensorManager reconfigure el puerto
+    connect(m_sensorManager, &SensorManager::serialReconfigured,
+            this, [this](const QString& port, int baud, bool ok) {
+        // Si estamos en modo archivo, NO toques las etiquetas
+        if ((labelCom  && labelCom->property("fileMode").toBool()) ||
+            (labelBaud && labelBaud->property("fileMode").toBool())) {
+            return;
+        }
+        if (labelCom)  labelCom->setText(QString(" %1%2").arg(port, ok ? "" : " (error)"));
+        if (labelBaud) labelBaud->setText(QString(" %1").arg(baud));
+    });
+
+    // Confirmación para cerrar
+    connect(cerrarBtn, &QPushButton::clicked, this, []() {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Critical);
+        msgBox.setWindowTitle("Exit Confirmation");
+        msgBox.setText("Are you sure about closing the program?");
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        msgBox.setDefaultButton(QMessageBox::No);
+        msgBox.setWindowIcon(QIcon("./assets/logo_xae.png"));
+        if (msgBox.exec() == QMessageBox::Yes) {
+            QCoreApplication::quit();
+        }
+    });
+
+    btnMenu->setMenu(menuDesplegable);
+
+    // === Añadir a layout superior ===
+    topLayout->addWidget(leftButtons);
+    topLayout->addStretch();
+    topLayout->addWidget(labelTiempo);
+    topLayout->addStretch();
+    topLayout->addWidget(rightButtons);
+    topLayout->addWidget(btnMenu);
+
+    // === Añadir barra al layout principal ===
+    QVBoxLayout* globalLayout = new QVBoxLayout(this);
+    globalLayout->setContentsMargins(0, 0, 0, 0);
+    globalLayout->addSpacing(10);
+    globalLayout->addWidget(topBar);
+    globalLayout->addLayout(layout);
+
+    auto crearGrafica = [&](QChart*& chart,
+                        QLineSeries*& series,
+                        QChartView*& view,
+                        QLabel*& label,
+                        QValueAxis*& ejeX,
+                        QValueAxis*& ejeY,
+                        const QString& nombre,
+                        const QString& yTitulo,
+                        const QString& unidad,
+                        int fila,
+                        int columna)
+    {
+        static const QVector<QColor> colores = {
+            Qt::cyan, Qt::magenta, Qt::green,  Qt::yellow,
+            Qt::red,  Qt::blue,    Qt::gray,   Qt::darkCyan,
+            Qt::darkMagenta, Qt::darkYellow, Qt::darkRed, Qt::darkBlue
+        };
+        static int colorIndex = 0;
+
+        // --- Chart y serie ---
+        chart  = new QChart();
+        series = new QLineSeries();
+
+        // 1) nombre base
+        series->setObjectName(nombre);
+        // 2) unidad como propiedad
+        series->setProperty("tipoDato", unidad);
+        // 3) texto inicial
+        series->setName(QString("%1: %2 %3").arg(nombre).arg(0).arg(unidad));
+        // 4) color
+        series->setColor(colores[colores.isEmpty() ? 0 : (colorIndex++ % colores.size())]);
+
+        chart->addSeries(series);
+
+        // --- Ejes ---
+        ejeX = new QValueAxis();
+        ejeY = new QValueAxis();
+        ejeX->setTitleText("Tiempo (s)");
+        ejeY->setTitleText(QString("%1 (%2)").arg(yTitulo, unidad));
+        ejeX->setLabelsColor(Qt::white);
+        ejeY->setLabelsColor(Qt::white);
+        ejeX->setTitleBrush(QBrush(Qt::white));
+        ejeY->setTitleBrush(QBrush(Qt::white));
+        ejeX->setRange(0, 1);
+        ejeY->setRange(0, 1);
+
+        chart->addAxis(ejeX, Qt::AlignBottom);
+        chart->addAxis(ejeY, Qt::AlignLeft);
+        series->attachAxis(ejeX);
+        series->attachAxis(ejeY);
+
+        chart->setTitle("");
+        chart->setTitleBrush(QBrush(Qt::white));
+        chart->legend()->setLabelColor(Qt::white);
+        chart->setBackgroundBrush(QBrush(Qt::black));
+
+       // --- View con soporte de hover ---
+        auto* hview = new HoverChartView();
+        hview->setRenderHint(QPainter::Antialiasing, true);
+        hview->setMinimumSize(400, 250);
+        hview->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        hview->setChart(chart);
+        view = hview;
+        layout->addWidget(hview, fila, columna);
+
+        // *** CREA EL LABEL ANTES DE LAS LAMBDAS ***
+        label = new QLabel(nombre + ": 0");
+        label->setStyleSheet("color: white; font-weight: bold;");
+
+        // --- Overlay (línea, punto, tooltip) por cada gráfica ---
+        struct Overlay {
+            QGraphicsLineItem*    line = nullptr;
+            QGraphicsEllipseItem* dot  = nullptr;
+            QGraphicsTextItem*    text = nullptr;
+            bool   inside  = false;
+            double lastX   = 0.0;
+        };
+        auto overlay = std::make_shared<Overlay>();
+
+        auto clearOverlay = [hview, overlay]() {
+            if (!hview->scene()) return;
+            if (overlay->line) { hview->scene()->removeItem(overlay->line); delete overlay->line; overlay->line=nullptr; }
+            if (overlay->dot)  { hview->scene()->removeItem(overlay->dot);  delete overlay->dot;  overlay->dot =nullptr; }
+            if (overlay->text) { hview->scene()->removeItem(overlay->text); delete overlay->text; overlay->text=nullptr; }
+        };
+
+        // Búsqueda rápida del punto más cercano por X
+        auto nearestByX = [series](double x)->QPointF {
+            const auto pts = series->points();
+            if (pts.isEmpty()) return QPointF(x, 0);
+            int lo = 0, hi = pts.size()-1, idx = 0;
+            while (lo <= hi) {
+                int m = (lo+hi)/2;
+                if (pts[m].x() < x) lo = m+1;
+                else { idx = m; hi = m-1; }
+            }
+            if (idx > 0 && std::abs(pts[idx-1].x()-x) < std::abs(pts[idx].x()-x)) idx--;
+            return pts[idx];
+        };
+
+        auto drawOverlayNow = [hview, chart, series, unidad, label, overlay, clearOverlay, nearestByX]() {
+            if (!overlay->inside) { clearOverlay(); return; }
+            if (!chart || !series || series->count()==0) { clearOverlay(); return; }
+
+            const QPointF p = nearestByX(overlay->lastX);
+            const QPointF scene = chart->mapToPosition(p, series);
+            if (!chart->plotArea().contains(scene)) { clearOverlay(); return; }
+
+            clearOverlay();
+
+            overlay->line = hview->scene()->addLine(
+                scene.x(), chart->plotArea().top(),
+                scene.x(), chart->plotArea().bottom(),
+                QPen(Qt::white, 1, Qt::DashLine));
+
+            overlay->dot = hview->scene()->addEllipse(
+                scene.x()-4, scene.y()-4, 8, 8,
+                QPen(series->color(), 2),
+                QBrush(series->color()));
+
+            QString txt = QString("t: %1 s\nv: %2 %3")
+                            .arg(p.x(), 0, 'f', 2)
+                            .arg(p.y(), 0, 'f', 3)
+                            .arg(unidad);
+
+            overlay->text = hview->scene()->addText(txt);
+            overlay->text->setDefaultTextColor(Qt::white);
+            QFont f = overlay->text->font(); f.setBold(true); f.setPointSize(9);
+            overlay->text->setFont(f);
+
+            // Actualiza leyenda y label con el valor bajo el mouse
+            const QString nombreSerie = series->objectName();
+            const QString textoHover  = QString("%1: %2 %3")
+                                        .arg(nombreSerie).arg(p.y(), 0, 'f', 3).arg(unidad);
+            series->setName(textoHover);
+            if (label) label->setText(textoHover);
+
+            // Mantén el tooltip dentro del plot
+            const QRectF pr = chart->plotArea();
+            const QRectF tr = overlay->text->boundingRect();
+            QPointF tp(scene.x()+12, scene.y()-tr.height()-6);
+            if (tp.x()+tr.width() > pr.right())   tp.setX(scene.x()-tr.width()-12);
+            if (tp.y() < pr.top())                tp.setY(scene.y()+12);
+            if (tp.y()+tr.height() > pr.bottom()) tp.setY(pr.bottom()-tr.height()-6);
+            overlay->text->setPos(tp);
+        };
+
+        QObject::connect(hview, &HoverChartView::hoverUpdate, hview,
+            [overlay, clearOverlay, drawOverlayNow](QPointF chartPos, QPoint, bool inside) {
+                overlay->inside = inside;
+                if (!inside) { clearOverlay(); return; }
+                overlay->lastX = chartPos.x();
+                drawOverlayNow();
+            });
+
+        QObject::connect(series, &QLineSeries::pointAdded,    hview, [drawOverlayNow](int){ drawOverlayNow(); });
+        QObject::connect(series, &QLineSeries::pointRemoved,  hview, [drawOverlayNow](int){ drawOverlayNow(); });
+        QObject::connect(series, &QLineSeries::pointReplaced, hview, [drawOverlayNow](int){ drawOverlayNow(); });
+        QObject::connect(ejeX,   &QValueAxis::rangeChanged,   hview, [drawOverlayNow](qreal, qreal){ drawOverlayNow(); });
+        QObject::connect(ejeY,   &QValueAxis::rangeChanged,   hview, [drawOverlayNow](qreal, qreal){ drawOverlayNow(); });
+
+        // Registrar para gestión de ventana de tiempo
+        seriesAndXAxis.push_back({series, ejeX});
+    };
+
+    // Fila 0
+    crearGrafica(chartRoll, seriesRoll, viewRoll, labelRoll, axisX_Roll, axisY_Roll, "Roll", "Ángulo", "°", 0, 0);
+    crearGrafica(chartPitch, seriesPitch, viewPitch, labelPitch, axisX_Pitch, axisY_Pitch, "Pitch", "Ángulo", "°", 0, 1);
+    crearGrafica(chartYaw, seriesYaw, viewYaw, labelYaw, axisX_Yaw, axisY_Yaw, "Yaw", "Ángulo", "°", 0, 2);
+    crearGrafica(chartSats, seriesSats, viewSats, labelSats, axisX_Sats, axisY_Sats, "Satélites", "Conexiones", "Conexiones", 0, 3);
+
+    // Fila 1
+    crearGrafica(chartLat, seriesLat, viewLat, labelLat, axisX_Lat, axisY_Lat, "Latitud", "Grados", "°", 1, 0);
+    crearGrafica(chartLon, seriesLon, viewLon, labelLon, axisX_Lon, axisY_Lon, "Longitud", "Grados", "°", 1, 1);
+    crearGrafica(chartAlt, seriesAlt, viewAlt, labelAlt, axisX_Alt, axisY_Alt, "AltDiff", "Metros", "m", 1, 2);
+    crearGrafica(chartHdop, seriesHdop, viewHdop, labelHdop, axisX_Hdop, axisY_Hdop, "HDOP", "Precisión", "°", 1, 3);
+
+    // Fila 2
+    crearGrafica(chartPresion, seriesPressure, viewPressure, labelPressure, axisX_Pressure, axisY_Pressure, "Presión", "Presión", "hPa", 2, 0);
+    crearGrafica(chartTemp, seriesTemp, viewTemp, labelTemp, axisX_Temp, axisY_Temp, "Temperatura", "Temperatura", "°C", 2, 1);
+
+    // === SERVOS (2,2) ahora 3x2 para 6 servos ===
+    QGridLayout* gridServos = new QGridLayout();
+    gridServos->setContentsMargins(8, 8, 8, 8);
+    gridServos->setHorizontalSpacing(24);
+    gridServos->setVerticalSpacing(24);
+
+    const qreal k = 1.6;                   // escala de tamaño
+    const int  cardSize = int(100 * k);    // lado de la tarjeta
+    const int  rCorner  = int(10  * k);    // radio de esquina
+    const int  titlePt  = int(8   * k);    // tamaño título "Servo N"
+    const int  valuePt  = int(6  * k * 1.9); // tamaño valor
+
+    // Ahora 6 unidades
+    QStringList unidadesServo = {"°", "°", "°", "°", "°", "°"};
+
+    for (int i = 0; i < 6; ++i) {
+        QFrame* card = new QFrame();
+        card->setFrameShape(QFrame::NoFrame);
+        card->setStyleSheet(QString(
+            "background-color: #2c2c2c;"
+            "border-radius: %1px;"
+        ).arg(rCorner));
+        card->setFixedSize(cardSize, cardSize);
+
+        QVBoxLayout* cardLayout = new QVBoxLayout(card);
+        cardLayout->setAlignment(Qt::AlignCenter);
+        cardLayout->setSpacing(int(4 * k));
+        cardLayout->setContentsMargins(int(6 * k), int(6 * k), int(6 * k), int(6 * k));
+
+        // Título
+        QLabel* labelTitulo = new QLabel(QString("Servo %1").arg(i + 1));
+        QFont tituloFont;
+        tituloFont.setPointSize(titlePt);
+        tituloFont.setBold(true);
+        labelTitulo->setFont(tituloFont);
+        labelTitulo->setStyleSheet("color: white;");
+        labelTitulo->setAlignment(Qt::AlignCenter);
+
+        // Valor
+        if (i >= 6) continue;
+        labelServos[i] = new QLabel("0" + unidadesServo[i]);
+        QFont valorFont;
+        valorFont.setPointSize(valuePt);
+        valorFont.setBold(true);
+        labelServos[i]->setFont(valorFont);
+        labelServos[i]->setStyleSheet("color: white;");
+        labelServos[i]->setAlignment(Qt::AlignCenter);
+
+        cardLayout->addWidget(labelTitulo);
+        cardLayout->addStretch(1);
+        cardLayout->addWidget(labelServos[i]);
+        cardLayout->addStretch(1);
+
+        // Colocar en una grilla de 2 filas × 3 columnas
+        gridServos->addWidget(card, i / 3, i % 3);
+    }
+
+    // Stretch para llenar el espacio disponible
+    for (int col = 0; col < 3; ++col) gridServos->setColumnStretch(col, 1);
+    for (int row = 0; row < 2; ++row) gridServos->setRowStretch(row, 1);
+
+    QWidget* servoWidget = new QWidget();
+    servoWidget->setLayout(gridServos);
+    layout->addWidget(servoWidget, 2, 2);
+
+    // === ESTADO DEL SISTEMA (2,3) con distribución 3 filas x 2 columnas ===
+    QGridLayout* gridEstado = new QGridLayout();
+    gridEstado->setSpacing(8);
+    gridEstado->setContentsMargins(0, 0, 0, 0);
+
+    gridEstado->setHorizontalSpacing(16);
+    gridEstado->setVerticalSpacing(10);
+    gridEstado->setColumnStretch(0, 1);
+    gridEstado->setColumnStretch(1, 1);
+
+    QWidget* winBox = new QWidget();
+    winBox->setStyleSheet("background-color: #2c2c2c; border-radius: 10px;");
+    QVBoxLayout* winLay = new QVBoxLayout(winBox);
+    winLay->setContentsMargins(10, 8, 10, 8);
+    winLay->setSpacing(6);
+
+    // Texto / valor seleccionado
+    winText = new QLabel(tr("Ventana: Máx"));
+    winText->setAlignment(Qt::AlignCenter);
+    winText->setStyleSheet("color: white; font-weight: bold;");
+
+    // Slider con 8 posiciones: 5,10,20,30,40,50,60, Máx
+    winSlider = new QSlider(Qt::Horizontal);
+    winSlider->setRange(0, 7);
+    winSlider->setValue(7); // 7 = Máx por defecto
+    winSlider->setTickPosition(QSlider::TicksBelow);
+    winSlider->setTickInterval(1);
+    winSlider->setSingleStep(1);
+
+    // Estilo
+    winSlider->setStyleSheet(R"(
+    QSlider::groove:horizontal {
+        height: 16px; border-radius: 8px;
+        margin: 8px 10px;
+        background: qlineargradient(x1:0, y1:0.5, x2:1, y2:0.5,
+        stop:0 #2ecc71, stop:0.5 #f1c40f, stop:1 #e74c3c);
+    }
+    QSlider::handle:horizontal {
+        background: white; border: 1px solid #bbb;
+        width: 24px; height: 24px; margin: -6px 0;
+        border-radius: 12px;
+    }
+    QSlider::sub-page:horizontal { background: transparent; }
+    QSlider::add-page:horizontal { background: transparent; }
+    QSlider::tick-position:below { color: #aaa; }
+    )");
+
+    // Etiquetas “5s ... Máx”
+    QStringList tickText = {"5s","10s","20s","30s","40s","50s","60s","Máx"};
+    QHBoxLayout* ticks = new QHBoxLayout();
+    ticks->setContentsMargins(14, 0, 14, 0);
+    for (int i=0;i<tickText.size();++i) {
+        QLabel* t = new QLabel(tickText[i]);
+        t->setStyleSheet("color:#bbb; font-size:10px;");
+        t->setAlignment(Qt::AlignCenter);
+        ticks->addWidget(t, 1);
+    }
+
+    winLay->addWidget(winText);
+    winLay->addWidget(winSlider);
+    winLay->addLayout(ticks);
+
+  // Contenedor vertical de la columna derecha
+    QVBoxLayout* estadoFinal = new QVBoxLayout();
+    estadoFinal->setContentsMargins(0,0,0,0);
+    estadoFinal->addWidget(winBox);
+
+    QStringList campos = {"Conexión", "Tiempo Para Inicio", "Paracaídas", "Fecha Satélital", "Fecha Local", "Hora Local"};
+
+    for (int i = 0; i < campos.size(); ++i) {
+        QFrame* card = new QFrame();
+        if (!card) {
+            qDebug() << "Error: card es nullptr en índice" << i;
+            continue;
+        }
+
+        card->setStyleSheet("background-color: #2c2c2c; border-radius: 10px;");
+        card->setMinimumHeight(56);
+        card->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+
+        QVBoxLayout* cardLayout = new QVBoxLayout(card);
+        cardLayout->setAlignment(Qt::AlignCenter);
+        cardLayout->setContentsMargins(4, 2, 4, 2);
+
+        QLabel* titulo = new QLabel(campos[i]);
+        titulo->setStyleSheet("color: white; font-size: 10px;");
+        titulo->setAlignment(Qt::AlignCenter);
+
+        labelStatus[i] = new QLabel("Esperando...");
+        labelStatus[i]->setStyleSheet("color: white; font-weight: bold; font-size: 12px;");
+        labelStatus[i]->setAlignment(Qt::AlignCenter);
+
+        cardLayout->addWidget(titulo);
+        cardLayout->addWidget(labelStatus[i]);
+
+        if (labelStatus[i] == nullptr || titulo == nullptr || cardLayout == nullptr) {
+            qDebug() << "Fallo en creación de widgets para campo" << campos[i];
+            continue;
+        }
+
+        gridEstado->addWidget(card, i / 2, i % 2);
+    }
+
+    // === Tarjetas separadas: "Puerto (COM)" y "Velocidad" lado a lado ===
+    QFrame* puertoCard = new QFrame();
+    puertoCard->setStyleSheet("background-color: #2c2c2c; border-radius: 10px;");
+    puertoCard->setMinimumHeight(56);
+    puertoCard->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+
+    QVBoxLayout* puertoCardLayout = new QVBoxLayout(puertoCard);
+    puertoCardLayout->setAlignment(Qt::AlignCenter);
+    puertoCardLayout->setContentsMargins(8, 4, 8, 4);

@@ -1,6 +1,7 @@
 #include "widget.h"
 #include "Graph3DWindow.h"
 #include "data/FileHelper.h"
+#include "data/RangeChecker.h"
 #include "data/DataTopic.h"
 #include <QSlider>
 #include <cmath>
@@ -53,7 +54,12 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     setWindowTitle("FRECCIA_XAE - Gráficas 2D");
     setStyleSheet("background-color: black;");
     QGridLayout* layout = new QGridLayout();
-    layout->setSpacing(2);
+    layout->setSpacing(4);
+    layout->setContentsMargins(4, 4, 4, 4);
+
+    for (int col = 0; col < 4; ++col) layout->setColumnStretch(col, 1);
+    for (int row = 0; row < 3; ++row) layout->setRowStretch(row, 1);
+
     setWindowIcon(QIcon("./assets/logo_xae.png"));
 
     pantalla1Activa = true;
@@ -642,7 +648,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
 
     auto crearGrafica = [&](QChart*& chart,
                         QLineSeries*& series,
-                        QChartView*& view, 
+                        HoverChartView*& view,
                         QLabel*& label,
                         QValueAxis*& ejeX,
                         QValueAxis*& ejeY,
@@ -695,11 +701,12 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
         chart->setTitleBrush(QBrush(Qt::white));
         chart->legend()->setLabelColor(Qt::white);
         chart->setBackgroundBrush(QBrush(Qt::black));
+        chart->setAnimationOptions(QChart::SeriesAnimations);
 
        // --- View con soporte de hover ---
         auto* hview = new HoverChartView();
         hview->setRenderHint(QPainter::Antialiasing, true);
-        hview->setMinimumSize(400, 250);
+        hview->setMinimumSize(200, 150);
         hview->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         hview->setChart(chart);
         view = hview;
@@ -1100,6 +1107,8 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     });
 
     // === Suscripción a DataTopic ===
+   static RangeChecker rangeChecker;
+
    connect(DataTopic::instance(), &DataTopic::dataPublished, this, [this](const QString& line) {
         SensorData d = SensorData::deserialize(line);
         static int t = 0;
@@ -1110,11 +1119,16 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
                              double valor,
                              QLabel*     label,
                              QValueAxis* axisX,
-                             QValueAxis* axisY)
+                             QValueAxis* axisY,
+                             HoverChartView* hview)
         {
             if (!series || !label || !axisX || !axisY
                 || std::isnan(valor) || std::isinf(valor))
                 return;
+
+            if (hview) {
+                hview->setAlertLevel(rangeChecker.check(series->objectName(), valor));
+            }
 
             // 1) apuntamos el nuevo valor en la curva
             series->append(t, valor);
@@ -1151,16 +1165,16 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
             }
         };
 
-        actualizarGrafica(seriesRoll, d.Roll, labelRoll, axisX_Roll, axisY_Roll);
-        actualizarGrafica(seriesPitch, d.Pitch, labelPitch, axisX_Pitch, axisY_Pitch);
-        actualizarGrafica(seriesYaw, d.Yaw, labelYaw, axisX_Yaw, axisY_Yaw);
-        actualizarGrafica(seriesSats, d.satellites, labelSats, axisX_Sats, axisY_Sats);
-        actualizarGrafica(seriesLat, d.latitude, labelLat, axisX_Lat, axisY_Lat);
-        actualizarGrafica(seriesLon, d.longitude, labelLon, axisX_Lon, axisY_Lon);
-        actualizarGrafica(seriesAlt, d.AltDiff, labelAlt, axisX_Alt, axisY_Alt);
-        actualizarGrafica(seriesHdop, d.hdop, labelHdop, axisX_Hdop, axisY_Hdop);
-        actualizarGrafica(seriesPressure, d.pressure, labelPressure, axisX_Pressure, axisY_Pressure);
-        actualizarGrafica(seriesTemp, d.temperature, labelTemp, axisX_Temp, axisY_Temp);
+        actualizarGrafica(seriesRoll, d.Roll, labelRoll, axisX_Roll, axisY_Roll, viewRoll);
+        actualizarGrafica(seriesPitch, d.Pitch, labelPitch, axisX_Pitch, axisY_Pitch, viewPitch);
+        actualizarGrafica(seriesYaw, d.Yaw, labelYaw, axisX_Yaw, axisY_Yaw, viewYaw);
+        actualizarGrafica(seriesSats, d.satellites, labelSats, axisX_Sats, axisY_Sats, viewSats);
+        actualizarGrafica(seriesLat, d.latitude, labelLat, axisX_Lat, axisY_Lat, viewLat);
+        actualizarGrafica(seriesLon, d.longitude, labelLon, axisX_Lon, axisY_Lon, viewLon);
+        actualizarGrafica(seriesAlt, d.AltDiff, labelAlt, axisX_Alt, axisY_Alt, viewAlt);
+        actualizarGrafica(seriesHdop, d.hdop, labelHdop, axisX_Hdop, axisY_Hdop, viewHdop);
+        actualizarGrafica(seriesPressure, d.pressure, labelPressure, axisX_Pressure, axisY_Pressure, viewPressure);
+        actualizarGrafica(seriesTemp, d.temperature, labelTemp, axisX_Temp, axisY_Temp, viewTemp);
 
         labelServos[0]->setText(QString::number(d.Servo1) + "°");
         labelServos[1]->setText(QString::number(d.Servo2) + "°");

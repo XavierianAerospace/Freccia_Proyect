@@ -1,0 +1,394 @@
+
+    QLabel* tituloPuerto = new QLabel("Puerto");
+    tituloPuerto->setStyleSheet("color: white; font-size: 10px;");
+    tituloPuerto->setAlignment(Qt::AlignCenter);
+
+    labelCom = new QLabel("Esperando...");
+    labelCom->setStyleSheet("color: white; font-weight: bold; font-size: 12px;");
+    labelCom->setAlignment(Qt::AlignCenter);
+
+    puertoCardLayout->addWidget(tituloPuerto);
+    puertoCardLayout->addWidget(labelCom);
+
+    // ---
+    QFrame* baudCard = new QFrame();
+    baudCard->setStyleSheet("background-color: #2c2c2c; border-radius: 10px;");
+    baudCard->setMinimumHeight(56);
+    baudCard->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+
+    QVBoxLayout* baudCardLayout = new QVBoxLayout(baudCard);
+    baudCardLayout->setAlignment(Qt::AlignCenter);
+    baudCardLayout->setContentsMargins(8, 4, 8, 4);
+
+    QLabel* tituloBaud = new QLabel("Velocidad");
+    tituloBaud->setStyleSheet("color: white; font-size: 10px;");
+    tituloBaud->setAlignment(Qt::AlignCenter);
+
+    labelBaud = new QLabel("Esperando...");
+    labelBaud->setStyleSheet("color: white; font-weight: bold; font-size: 12px;");
+    labelBaud->setAlignment(Qt::AlignCenter);
+
+    baudCardLayout->addWidget(tituloBaud);
+    baudCardLayout->addWidget(labelBaud);
+
+    // Añade ambas tarjetas a la MISMA fila del grid (una izquierda, otra derecha)
+    const int nextRow = campos.size() / 2; // con 6 campos, nextRow = 3
+    gridEstado->addWidget(puertoCard, nextRow, 0);
+    gridEstado->addWidget(baudCard,   nextRow, 1);
+
+    // Añade el grid de estado al contenedor
+    estadoFinal->addLayout(gridEstado);
+
+    // === Línea final con paquete RAW ===
+    labelRaw = new QLabel("Paquete: Esperando...\n");
+    labelRaw->setStyleSheet("color: white; font-size: 10px; background-color: #1e1e1e; padding: 6px;");
+    labelRaw->setWordWrap(true);
+    labelRaw->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+    labelRaw->setMinimumHeight(30);
+    labelRaw->setMaximumHeight(36);
+    labelRaw->setMinimumWidth(300);
+    labelRaw->setMaximumWidth(300);
+    labelRaw->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+
+    labelRaw->setMaximumWidth(475);
+    labelRaw->setTextInteractionFlags(Qt::TextSelectableByMouse);
+
+    QFont mono;
+    mono.setFamily("Consolas");
+    mono.setStyleHint(QFont::Monospace);
+    labelRaw->setFont(mono);
+
+    if (labelRaw) {
+        estadoFinal->addWidget(labelRaw);
+    } else {
+        QLabel* fallbackRaw = new QLabel("Error: RAW no inicializado");
+        fallbackRaw->setStyleSheet("color: red;");
+        estadoFinal->addWidget(fallbackRaw);
+    }
+
+    QWidget* estadoWidget = new QWidget();
+    estadoWidget->setLayout(estadoFinal);
+    layout->addWidget(estadoWidget, 2, 3);
+
+    // === Ventana de tiempo ===
+    auto secsAt = [](int pos)->int {
+        static const int map[8] = {5,10,20,30,40,50,60,0};
+        return map[qBound(0,pos,7)];
+    };
+
+    connect(winSlider, &QSlider::valueChanged, this, [this, secsAt](int pos){
+        windowSec = secsAt(pos);
+        winText->setText(windowSec == 0 ? tr("Ventana: Máx")
+                                        : tr("Ventana: %1 s").arg(windowSec));
+
+        // Reencuadra TODAS las gráficas SIN eliminar datos
+        for (auto &p : seriesAndXAxis) {
+            auto* s  = p.first;
+            auto* ax = p.second;
+            if (!s || !ax || s->count() == 0) continue;
+
+            const auto pts = s->points();
+            const double last = pts.constLast().x();
+
+            if (windowSec == 0) {
+                ax->setRange(0.0, last);
+            } else {
+                const double from = std::max(0.0, last - double(windowSec));
+                ax->setRange(from, last);
+            }
+        }
+    });
+
+    // === Suscripción a DataTopic ===
+   connect(DataTopic::instance(), &DataTopic::dataPublished, this, [this](const QString& line) {
+        SensorData d = SensorData::deserialize(line);
+        static int t = 0;
+
+        if (resetTimeBase_) { t = 0; resetTimeBase_ = false; }
+
+        auto actualizarGrafica = [&](QLineSeries* series,
+                             double valor,
+                             QLabel*     label,
+                             QValueAxis* axisX,
+                             QValueAxis* axisY)
+        {
+            if (!series || !label || !axisX || !axisY
+                || std::isnan(valor) || std::isinf(valor))
+                return;
+
+            // 1) apuntamos el nuevo valor en la curva
+            series->append(t, valor);
+
+            // 2) recuperamos nombre + unidad
+            QString nombre = series->objectName();
+            QString unidad = series->property("tipoDato").toString();
+
+            // 3) montamos el texto: "AltDiff: 3.50 m"
+            QString texto  = QString("%1: %2 %3")
+                            .arg(nombre)
+                            .arg(valor, 0, 'f', 3)
+                            .arg(unidad);
+
+            // 4) actualizamos leyenda *y* etiqueta
+            series->setName(texto);
+            label->setText(texto);
+
+            // 5) reajustamos ejes X según la ventana seleccionada (SIN borrar puntos)
+            if (windowSec == 0) {
+                // Máx: mostrar todo lo acumulado desde t = 0 hasta t
+                axisX->setRange(0, t);
+            } else {
+                // Ventana deslizante: últimos windowSec segundos
+                axisX->setRange(std::max(0, t - windowSec), t);
+            }
+
+            // 6) reajustamos ejes Y dinámicamente
+            if (axisY->min() == axisY->max())
+                axisY->setRange(valor, valor+1);
+            else {
+                if (valor > axisY->max()) axisY->setMax(valor);
+                if (valor < axisY->min()) axisY->setMin(valor);
+            }
+        };
+
+        actualizarGrafica(seriesRoll, d.Roll, labelRoll, axisX_Roll, axisY_Roll);
+        actualizarGrafica(seriesPitch, d.Pitch, labelPitch, axisX_Pitch, axisY_Pitch);
+        actualizarGrafica(seriesYaw, d.Yaw, labelYaw, axisX_Yaw, axisY_Yaw);
+        actualizarGrafica(seriesSats, d.satellites, labelSats, axisX_Sats, axisY_Sats);
+        actualizarGrafica(seriesLat, d.latitude, labelLat, axisX_Lat, axisY_Lat);
+        actualizarGrafica(seriesLon, d.longitude, labelLon, axisX_Lon, axisY_Lon);
+        actualizarGrafica(seriesAlt, d.AltDiff, labelAlt, axisX_Alt, axisY_Alt);
+        actualizarGrafica(seriesHdop, d.hdop, labelHdop, axisX_Hdop, axisY_Hdop);
+        actualizarGrafica(seriesPressure, d.pressure, labelPressure, axisX_Pressure, axisY_Pressure);
+        actualizarGrafica(seriesTemp, d.temperature, labelTemp, axisX_Temp, axisY_Temp);
+
+        labelServos[0]->setText(QString::number(d.Servo1) + "°");
+        labelServos[1]->setText(QString::number(d.Servo2) + "°");
+        labelServos[2]->setText(QString::number(d.Servo3) + "°");
+        labelServos[3]->setText(QString::number(d.Servo4) + "°");
+
+        labelStatus[0]->setText("Estable: 3");
+        labelStatus[1]->setText("Inicializado");
+        labelStatus[2]->setText("N/A");
+        labelStatus[3]->setText(QString::fromStdString(d.date));
+        labelStatus[4]->setText(QDate::currentDate().toString("dd-MMMM-yyyy"));
+        labelStatus[5]->setText(QTime::currentTime().toString("hh:mm:ss"));
+
+        labelRaw->setText("Paquete: " + line);
+
+        if (!modoArchivo_) {
+            if (timeoutTimer) timeoutTimer->start();
+
+            if (!tiempoIniciado) {
+                tiempoInicio = QTime::currentTime();
+                tiempoIniciado = true;
+                if (timer) timer->start(1000);
+            } else if (timer && !timer->isActive()) {
+                timer->start(1000);
+                qDebug() << "Señal recuperada. Reanudando cronómetro.";
+            }
+        }
+
+        ++t;
+
+        procesarDatos(d);
+    }, Qt::QueuedConnection);
+
+    this->timer = new QTimer(this);
+    timeoutTimer = new QTimer(this);
+    timeoutTimer->setInterval(30000);
+    timeoutTimer->setSingleShot(true);
+
+    connect(timer, &QTimer::timeout, this, [this]() {
+
+        if (modoArchivo_) return;
+        int secs = tiempoInicio.secsTo(QTime::currentTime());
+        QTime t(0, 0);
+        t = t.addSecs(secs);
+        labelTiempo->setText("Tiempo: " + t.toString("hh:mm:ss"));
+    });
+
+    connect(timeoutTimer, &QTimer::timeout, this, [this]() {
+        qWarning() << "No se han recibido datos en 20 segundos. Deteniendo el contador.";
+        if (timer->isActive()) {
+            timer->stop();
+            labelTiempo->setText("Señal perdida. Cronómetro detenido.");
+        }
+    });
+
+    connect(cerrarBtn, &QPushButton::clicked, this, []() {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Critical);
+        msgBox.setWindowTitle("Exit Confirmation");
+        msgBox.setText("Are you sure about closing the program?");
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        msgBox.setDefaultButton(QMessageBox::No);
+
+        msgBox.setWindowIcon(QIcon("./assets/logo_xae.png"));
+
+        int reply = msgBox.exec();
+        if (reply == QMessageBox::Yes)
+            QCoreApplication::quit();
+    });
+    pantalla1Activa = true;
+    actualizarEstilosMenu();
+}
+
+void Widget::actualizarEstilosMenu() {
+    if (pantalla1 && pantalla2) {
+        pantalla1->setIcon(pantalla1Activa ? QIcon(":/icons/activo.png") : QIcon());
+    pantalla2->setIcon(!pantalla1Activa ? QIcon(":/icons/activo.png") : QIcon());
+    }
+}
+
+void Widget::abrirVentana3DDesdeExterno() {
+    if (ventanaGraph3D) return;
+    pantalla2->setEnabled(false);
+    actualizarEstilosMenu();
+
+    connect(ventanaGraph3D, &QWidget::destroyed, this, [this]() {
+        pantalla2->setEnabled(true);
+        actualizarEstilosMenu();
+        ventanaGraph3D = nullptr;
+    });
+}
+
+void Widget::procesarDatos(const SensorData& data) {
+    fileHelper->escribirDuranteGrabacion(data);
+}
+
+void Widget::abrirDialogoSerial() {
+    auto leerPuertoActual = [this]() -> QString {
+
+        // Espera formato "COM: <puerto>" o "COM: <puerto> (error)"
+        QString txt = labelCom && !labelCom->text().isEmpty() ? labelCom->text() : QString();
+
+        // quita prefijo "COM: "
+        if (txt.startsWith("COM: ")) txt = txt.mid(5);
+
+        // quita los errores
+        txt.replace(" (error)", "");
+        return txt.trimmed();
+    };
+    auto leerBaudActual = [this]() -> int {
+
+        // Espera formato "Velocidad: <baud>"
+        QString txt = labelBaud && !labelBaud->text().isEmpty() ? labelBaud->text() : QString();
+        txt.replace("Velocidad:", "").remove(' ');
+        bool ok = false; int b = txt.toInt(&ok);
+        return ok ? b : 115200;
+    };
+
+    QDialog dlg(this);
+    dlg.setWindowTitle("Configurar puerto serie");
+    dlg.setModal(true);
+    dlg.resize(360, 120);
+
+    auto* cbOS      = new QComboBox(&dlg);
+    auto* cbPuertos = new QComboBox(&dlg);
+    auto* cbBaud    = new QComboBox(&dlg);
+    auto* btns      = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dlg);
+
+    cbOS->addItems({"Linux", "Windows"});
+
+    // bauds predefinidos
+    const QList<int> bauds = {9600, 19200, 38400, 57600, 115200, 230400, 460800};
+    for (int b : bauds) cbBaud->addItem(QString::number(b), b);
+
+    // Puertos disponibles según OS
+    auto listarPuertosLinux = []() -> QStringList {
+        QStringList out;
+        const auto infos = QSerialPortInfo::availablePorts();
+        for (const auto& info : infos) out << info.systemLocation();
+        for (int i = 0; i < 32; ++i) out << QString("/dev/pts/%1").arg(i);
+        out.removeDuplicates();
+        out.sort();
+        return out;
+    };
+    auto listarPuertosWindows = []() -> QStringList {
+        QStringList out;
+        const auto infos = QSerialPortInfo::availablePorts();
+        for (const auto& info : infos) out << info.portName();
+        if (out.isEmpty()) {
+            for (int i = 1; i <= 100; ++i) out << QString("COM%1").arg(i);
+        }
+        out.removeDuplicates();
+        out.sort();
+        return out;
+    };
+
+    auto poblarPuertos = [&](const QString& osName, const QString& preselect) {
+        cbPuertos->clear();
+        QStringList lista = (osName == "Windows") ? listarPuertosWindows()
+                                                  : listarPuertosLinux();
+        cbPuertos->setEditable(true);
+        cbPuertos->addItems(lista);
+        int idx = lista.indexOf(preselect);
+        if (idx >= 0) cbPuertos->setCurrentIndex(idx);
+        else if (!preselect.isEmpty()) cbPuertos->setEditText(preselect);
+    };
+
+    // --- layout ---
+    auto* lay = new QFormLayout(&dlg);
+    lay->setContentsMargins(20, 20, 20, 20);
+    lay->setSpacing(14);
+    lay->addRow("Sistema:", cbOS);
+    lay->addRow("Puerto:",  cbPuertos);
+    lay->addRow("Baud:",    cbBaud);
+    lay->addRow(btns);
+
+    // --- valores actuales para preseleccionar ---
+    const QString puertoActual = leerPuertoActual();
+    const int     baudActual   = leerBaudActual();
+
+    #ifdef Q_OS_WIN
+        cbOS->setCurrentText("Windows");
+    #else
+        cbOS->setCurrentText("Linux");
+    #endif
+
+    poblarPuertos(cbOS->currentText(), puertoActual);
+
+    // preselección de baud
+    int idxBaud = cbBaud->findData(baudActual);
+    cbBaud->setCurrentIndex(idxBaud >= 0 ? idxBaud : cbBaud->findData(115200));
+
+    // Cambios en OS o puerto
+    connect(cbOS, &QComboBox::currentTextChanged, &dlg, [&, this](const QString& osName){
+        const QString textoActual = cbPuertos->currentText().trimmed();
+        poblarPuertos(osName, textoActual.isEmpty() ? puertoActual : textoActual);
+    });
+
+    // botones
+    QObject::connect(btns, &QDialogButtonBox::accepted, &dlg, &QDialog::accept);
+    QObject::connect(btns, &QDialogButtonBox::rejected, &dlg, &QDialog::reject);
+
+    // Aplicacion de cambios
+    if (dlg.exec() == QDialog::Accepted) {
+        const QString port = cbPuertos->currentText().trimmed();
+        const int baud     = cbBaud->currentData().toInt();
+        if (port.isEmpty() || baud <= 0) {
+            QMessageBox::warning(this, "Configurar COM", "Selecciona un puerto y un baudrate válido.");
+            return;
+        }
+
+        const bool ok = m_sensorManager->setSerial(port, baud);
+
+        // Actualización inmediata de labels (además del signal serialReconfigured)
+        labelCom->setText(QString(" %1%2").arg(port, ok ? "" : " (error)"));
+        labelBaud->setText(QString(" %1").arg(baud));
+
+            if (!ok) {
+                QMessageBox::critical(this, "Puerto serie",
+                                    "No se pudo abrir el puerto.\n"
+            #ifdef Q_OS_WIN
+                                            "Prueba con otro COM o reconecta el dispositivo."
+            #else
+                                            "Prueba con otro /dev/* o revisa permisos (grupo dialout/tty)."
+            #endif
+            );
+        }
+    }
+}
+
+Widget::~Widget() {}

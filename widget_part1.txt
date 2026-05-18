@@ -1,0 +1,500 @@
+#include "widget.h"
+#include "Graph3DWindow.h"
+#include "data/FileHelper.h"
+#include "data/DataTopic.h"
+#include <QSlider>
+#include <cmath>
+#include <algorithm>
+#include <QGraphicsSimpleTextItem>
+#include <QGraphicsTextItem>
+#include <QGraphicsEllipseItem>
+#include <QGraphicsLineItem>
+#include <QMenu>
+#include <QWidgetAction>
+#include <QPushButton>
+#include <QMessageBox>
+#include <QGridLayout>
+#include <QLabel>
+#include <QChartView>
+#include <QDateTime>
+#include <QTimer>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QtCharts/QValueAxis>
+#include <QtCharts/QLineSeries>
+#include <QtCharts/QChart>
+#include <QDialog>
+#include <QComboBox>
+#include <QDialogButtonBox>
+#include <QFormLayout>
+#include <QtSerialPort/QSerialPortInfo>
+#include <QButtonGroup>
+#include <QFileDialog>
+#include <QFileInfo>
+#include <QFile>
+#include <QTextStream>
+
+static Widget* ventanaUnica = nullptr;
+Graph3DWindow* ventanaGraph3D = nullptr;
+
+Widget::Widget(SensorManager* manager, QWidget* parent)
+    : QWidget(parent), m_sensorManager(manager) {
+
+    // === Verificación de instancia única ===
+    if (ventanaUnica && ventanaUnica != this) {
+        close();
+        return;
+    }
+    ventanaUnica = this;
+
+    for (int i = 0; i < 6; ++i) labelStatus[i] = nullptr;
+    for (int i = 0; i < 4; ++i) labelServos[i] = nullptr;
+
+    setWindowTitle("FRECCIA_XAE - Gráficas 2D");
+    setStyleSheet("background-color: black;");
+    QGridLayout* layout = new QGridLayout();
+    layout->setSpacing(2);
+    setWindowIcon(QIcon("./assets/logo_xae.png"));
+
+    pantalla1Activa = true;
+    actualizarEstilosMenu();
+
+    // === Menu ===
+    QWidget* topBar = new QWidget();
+    topBar->setStyleSheet("background-color: black; color: white;");
+    topBar->setFixedHeight(30);
+
+    QHBoxLayout* topLayout = new QHBoxLayout(topBar);
+    topLayout->setContentsMargins(5, 0, 5, 0);
+
+    // === Botones ===
+    QPushButton* btnRecord = new QPushButton("● Grabar");
+    btnRecord->setStyleSheet(
+        "QPushButton { "
+        "color: white; "
+        "background-color: red; "
+        "border: none; "
+        "padding: 6px 14px; "
+        "font-size: 15px; "
+        "border-radius: 8px; "
+        "}"
+        "QPushButton:hover { background-color: darkred; }"
+    );
+
+    QPushButton* btnStop = new QPushButton("■ Detener");
+    btnStop->setStyleSheet(
+        "QPushButton { "
+        "color: white; "
+        "background-color: transparent; "
+        "border: none; "
+        "padding: 6px 14px; "
+        "font-size: 15px; "
+        "border-radius: 8px; "
+        "}"
+        "QPushButton:hover { background-color: #444; }"
+    );
+
+    QPushButton* btnVerAntiguos = new QPushButton("Ver antiguos");
+    btnVerAntiguos->setStyleSheet(
+        "QPushButton { "
+        "color: white; "
+        "background-color: transparent; "
+        "border: none; "
+        "padding: 6px 14px; "
+        "font-size: 15px; "
+        "border-radius: 8px; "
+        "}"
+        "QPushButton:hover { background-color: #444; }"
+    );
+
+    // FileHelper inicializado
+    fileHelper = new FileHelper();
+
+    // Inicialmente solo el botón Grabar está habilitado
+    btnRecord->setEnabled(true);
+    btnStop->setEnabled(false);
+
+    // === Conexión botón GRABAR ===
+    connect(btnRecord, &QPushButton::clicked, this, [this, btnRecord, btnStop]() {
+        fileHelper->iniciarGrabacion();
+
+        // Reiniciar tiempo y contador
+        tiempoGrabacion = QTime(0, 0, 0);
+
+        if (!timerGrabacion) {
+            timerGrabacion = new QTimer(this);
+            connect(timerGrabacion, &QTimer::timeout, this, [this, btnRecord]() {
+                QString tiempoTexto = tiempoGrabacion.toString("hh:mm:ss");
+                btnRecord->setText("● Grabando " + tiempoTexto);
+                tiempoGrabacion = tiempoGrabacion.addSecs(1);
+                fileHelper->tiempoGrabado = tiempoGrabacion;
+            });
+        }
+
+        timerGrabacion->start(1000);
+        btnRecord->setText("● Grabando 00:00:00");
+
+        // Cambiar estilo a activo
+        btnRecord->setStyleSheet(
+            "QPushButton { "
+            "color: red; "
+            "background-color: black; "
+            "border: none; "
+            "padding: 6px 14px; "
+            "font-size: 15px; "
+            "border-radius: 8px; "
+            "} "
+            "QPushButton:hover { background-color: #222; }"
+        );
+
+        btnRecord->setEnabled(false);
+        btnStop->setEnabled(true);
+    });
+
+    // === Conexión botón DETENER ===
+    connect(btnStop, &QPushButton::clicked, this, [this, btnStop, btnRecord]() {
+        fileHelper->detenerGrabacion();
+
+        // Detener y ocultar contador
+        if (timerGrabacion) timerGrabacion->stop();
+        btnRecord->setText("● Grabar");
+
+        // Restaurar estilo original
+        btnRecord->setStyleSheet(
+            "QPushButton { "
+            "color: white; "
+            "background-color: red; "
+            "border: none; "
+            "padding: 6px 14px; "
+            "font-size: 15px; "
+            "border-radius: 8px; "
+            "} "
+            "QPushButton:hover { background-color: darkred; }"
+        );
+
+        // Estilo temporal rojo para detener
+        btnStop->setStyleSheet(
+            "QPushButton { "
+            "color: red; "
+            "background-color: transparent; "
+            "border: none; "
+            "padding: 6px 14px; "
+            "font-size: 15px; "
+            "border-radius: 8px; "
+            "} "
+            "QPushButton:hover { background-color: #444; }"
+        );
+
+        QTimer::singleShot(1200, this, [btnStop]() {
+            btnStop->setStyleSheet(
+                "QPushButton { "
+                "color: white; "
+                "background-color: transparent; "
+                "border: none; "
+                "padding: 6px 14px; "
+                "font-size: 15px; "
+                "border-radius: 8px; "
+                "} "
+                "QPushButton:hover { background-color: #444; }"
+            );
+        });
+
+        btnRecord->setEnabled(true);
+        btnStop->setEnabled(false);
+    });
+
+    QWidget* leftButtons = new QWidget();
+    QHBoxLayout* leftLayout = new QHBoxLayout(leftButtons);
+    leftLayout->setContentsMargins(0, 0, 0, 0);
+    leftLayout->addWidget(btnRecord);
+    leftLayout->addWidget(btnStop);
+    leftLayout->addWidget(btnVerAntiguos);
+
+    // === Tiempo ===
+    labelTiempo = new QLabel("Tiempo: 00:00:00");
+    labelTiempo->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);  // centrado horizontal y vertical
+    labelTiempo->setStyleSheet(
+        "color: white;"
+        "font-weight: bold;"
+        "font-size: 18px;"
+    );
+
+    // === Controles de recepción  ===
+    QWidget* rightButtons = new QWidget();
+    QHBoxLayout* rightLayout = new QHBoxLayout(rightButtons);
+    rightLayout->setContentsMargins(0, 0, 8, 0);
+    rightLayout->setSpacing(6);
+
+    QPushButton* btnRxOn  = new QPushButton("Recibir datos");
+    QPushButton* btnRxOff = new QPushButton("No recibir");
+    btnRxOn->setCheckable(true);
+    btnRxOff->setCheckable(true);
+
+    btnRxOn->setStyleSheet(
+        "QPushButton { "
+            "color: white; "
+            "background-color: black; "
+            "padding: 6px 10px; "
+            "font-size: 13px; "
+            "border-radius: 8px; "
+        "} "
+        "QPushButton:hover { "
+            "background-color: #444; "
+        "} "
+        "QPushButton:checked { "
+            "color: black; "
+            "background-color: #00cc44; "
+            "border-color: #00cc44; "
+        "}"
+    );
+
+    btnRxOff->setStyleSheet(
+        "QPushButton { "
+            "color: white; "
+            "background-color: black; "
+            "padding: 6px 10px; "
+            "font-size: 13px; "
+            "border-radius: 8px; "
+        "} "
+        "QPushButton:hover { "
+            "background-color: #444; "
+        "} "
+        "QPushButton:checked { "
+            "background-color: #b33939; "
+            "border-color: #b33939; "
+        "}"
+    );
+
+    QButtonGroup* rxGroup = new QButtonGroup(this);
+    rxGroup->setExclusive(true);
+    rxGroup->addButton(btnRxOn);
+    rxGroup->addButton(btnRxOff);
+
+    // Estado inicial
+    btnRxOn->setChecked(true);
+    m_sensorManager->setReceivingEnabled(true);
+
+    // Conexiones
+    connect(btnRxOn, &QPushButton::toggled, this, [this](bool checked){
+        if (checked) m_sensorManager->setReceivingEnabled(true);
+    });
+    connect(btnRxOff, &QPushButton::toggled, this, [this, btnRxOff]() {
+        if (btnRxOff->isChecked()) {
+            m_sensorManager->setReceivingEnabled(false);
+            if (timer && timer->isActive()) {
+                timer->stop();
+                labelTiempo->setText("Recepción pausada.");
+            }
+        }
+    });
+
+    rightLayout->addWidget(btnRxOn);
+    rightLayout->addWidget(btnRxOff);
+
+    // --- Botón de reinicio ---
+    QPushButton* btnReset = new QPushButton("Reiniciar");
+    btnReset->setStyleSheet(
+        "QPushButton { "
+            "color: white; "
+            "background-color: black; "
+            "padding: 6px 10px; "
+            "font-size: 13px; "
+            "border-radius: 8px; "
+        "} "
+        "QPushButton:hover { "
+            "background-color: #444; "
+        "} "
+        "QPushButton:pressed { "
+            "background-color: #ffaa00; "
+            "border-color: #ffaa00; "
+        "}"
+    );
+
+    connect(btnReset, &QPushButton::clicked, this, [this, btnRxOn, btnRxOff]() {
+        // 1) Respetar el estado actual del usuario (si estaba en "No recibir", NO activar)
+        const bool wasReceiving = btnRxOn->isChecked();
+        m_sensorManager->setReceivingEnabled(false);
+
+        // 2) Limpiar datos en el manager
+        if (m_sensorManager) m_sensorManager->clearData();
+
+        // 3) Reiniciar cronómetro correctamente
+        tiempoIniciado = false;
+        tiempoInicio = QTime();
+        if (timer && timer->isActive()) timer->stop();
+        if (timeoutTimer && timeoutTimer->isActive()) timeoutTimer->stop();
+        labelTiempo->setText("Tiempo: 00:00:00");
+
+        // 4) Vaciar series y RESETEAR ejes X e Y a 0..1
+        for (auto* chartView : findChildren<QChartView*>()) {
+            if (auto* chart = chartView->chart()) {
+                // Borrar curvas
+                for (auto* s : chart->series()) {
+                    if (auto* line = qobject_cast<QLineSeries*>(s)) line->clear();
+                }
+                // Ejes X
+                for (auto* ax : chart->axes(Qt::Horizontal)) {
+                    if (auto* v = qobject_cast<QValueAxis*>(ax)) v->setRange(0.0, 1.0);
+                }
+                // Ejes Y
+                for (auto* ax : chart->axes(Qt::Vertical)) {
+                    if (auto* v = qobject_cast<QValueAxis*>(ax)) v->setRange(0.0, 1.0);
+                }
+            }
+        }
+
+        // 5) Restablecer textos
+        auto restLabel = [](QLabel* lbl, const QString& nombre, const QString& unidad){
+            if (lbl) lbl->setText(QString("%1: 0 %2").arg(nombre, unidad));
+        };
+        restLabel(labelRoll,  "Roll",        "°");
+        restLabel(labelPitch, "Pitch",       "°");
+        restLabel(labelYaw,   "Yaw",         "°");
+        restLabel(labelSats,  "Satélites",   "Conexiones");
+        restLabel(labelLat,   "Latitud",     "°");
+        restLabel(labelLon,   "Longitud",    "°");
+        restLabel(labelAlt,   "AltDiff",     "m");
+        restLabel(labelHdop,  "HDOP",        "°");
+        restLabel(labelPressure, "Presión",  "hPa");
+        restLabel(labelTemp,     "Temperatura", "°C");
+
+        for (int i = 0; i < 6; ++i) if (labelStatus[i]) labelStatus[i]->setText("Esperando...");
+        if (labelRaw) labelRaw->setText("Paquete: Esperando...");
+        for (int i = 0; i < 6; ++i) if (labelServos[i]) labelServos[i]->setText("0°");
+
+        // 6) Pedir que el manejador de datos reinicie su índice de tiempo 't'
+        resetTimeBase_ = true;
+
+        // 7) Volver al estado de recepción que eligió el usuario
+        m_sensorManager->setReceivingEnabled(wasReceiving);
+
+        // Salir de modo archivo
+        if (labelCom)  { labelCom->setProperty("fileMode", false);  labelCom->setText("Esperando..."); }
+        if (labelBaud) { labelBaud->setProperty("fileMode", false); labelBaud->setText("Esperando..."); }
+        setWindowTitle("FRECCIA_XAE - Gráficas 2D");
+
+        // Rehabilitar toggles de recepción
+        if (btnRxOn)  btnRxOn->setEnabled(true);
+        if (btnRxOff) btnRxOff->setEnabled(true);
+
+        // Si veníamos de modo archivo, limpiar bandera y restaurar labels/título
+        if (labelCom && labelCom->property("fileMode").toBool()) {
+            labelCom->setProperty("fileMode", false);
+            labelCom->setText("Esperando...");
+        }
+        if (labelBaud && labelBaud->property("fileMode").toBool()) {
+            labelBaud->setProperty("fileMode", false);
+            labelBaud->setText("Esperando...");
+        }
+        setWindowTitle("FRECCIA_XAE - Gráficas 2D");
+        modoArchivo_ = false;
+
+        if (ventanaGraph3D) {
+            ventanaGraph3D->resetData();
+        }
+    });
+
+    // Agregar al layout
+    rightLayout->addWidget(btnReset);
+
+    // Menú desplegable y acciones
+   QPushButton* btnMenu = new QPushButton();
+    btnMenu->setIcon(QIcon("./assets/Menu.png"));
+    btnMenu->setIconSize(QSize(35, 35));
+    btnMenu->setStyleSheet("background-color: transparent; border: none;");
+
+    // Menú
+    QMenu* menuDesplegable = new QMenu(this);
+    menuDesplegable->setStyleSheet("QMenu { background-color: black; color: white; }"
+                                "QMenu::item:selected { background-color: #444; }");
+
+    btnMenu->setMenu(menuDesplegable);
+
+    // --- Ver antiguos: abrir CSV y poblar gráficas ---
+    auto abrirAntiguos = [this, btnRecord, btnStop, btnRxOn, btnRxOff, btnMenu, btnVerAntiguos, btnReset]() {
+        const QString file = QFileDialog::getOpenFileName(
+            this,
+            tr("Abrir sesión CSV"),
+            "../data",
+            tr("CSV (*.csv)")
+        );
+        if (file.isEmpty()) return;
+
+        // Pausar recepción y reiniciar base de tiempo
+        m_sensorManager->setReceivingEnabled(false);
+
+        if (timer && timer->isActive()) timer->stop();
+        tiempoIniciado = false;
+        tiempoInicio = QTime();
+        if (labelTiempo) labelTiempo->setText("Tiempo: 00:00:00");
+
+        // Asegurar que 't' empiece en 0 en el slot de graficación
+        resetTimeBase_ = true;
+
+        // Limpiar series y devolver ejes X a 0..1
+        for (auto& p : seriesAndXAxis) {
+            if (p.first)  p.first->clear();
+            if (p.second) p.second->setRange(0.0, 1.0);
+        }
+
+        // Cargar CSV y emitir datos hacia las gráficas
+        m_sensorManager->loadFromCsv(file);
+        modoArchivo_ = true;
+
+        // Parar timers para que no sobreescriban títulos
+        if (timer && timer->isActive())         timer->stop();
+        if (timeoutTimer && timeoutTimer->isActive()) timeoutTimer->stop();
+
+        // Mostrar COM/Baud como "No aplica" y marcar modo archivo (hasta Reiniciar)
+        if (labelCom)  { labelCom->setText(" No aplica");        labelCom->setProperty("fileMode", true); }
+        if (labelBaud) { labelBaud->setText(" No aplica"); labelBaud->setProperty("fileMode", true); }
+
+        // Fijar título con el nombre del CSV
+        setWindowTitle(QString("FRECCIA_XAE - Gráficas 2D (CSV: %1)").arg(QFileInfo(file).fileName()));
+
+        // Dejar los controles en modo "solo lectura de archivo"
+        m_sensorManager->setReceivingEnabled(false);
+        if (btnRxOff)   btnRxOff->setChecked(true);
+        if (btnRxOn)    btnRxOn->setEnabled(false);
+        if (btnRxOff)   btnRxOff->setEnabled(false);
+        if (btnRecord)  btnRecord->setEnabled(false);
+        if (btnStop)    btnStop->setEnabled(false);
+        if (btnMenu)    btnMenu->setEnabled(true);
+        if (btnVerAntiguos) btnVerAntiguos->setEnabled(true);
+
+        // Mostrar en el label el tiempo TOTAL (columna 0 = "Hora" en segundos) + nombre del documento
+        if (labelTiempo) {
+            QFile f2(file);
+            if (f2.open(QIODevice::ReadOnly | QIODevice::Text)) {
+                QTextStream in(&f2);
+        #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+                in.setEncoding(QStringConverter::Utf8);
+        #endif
+            QString last;
+            while (!in.atEnd()) {
+                const QString line = in.readLine().trimmed();
+                if (line.isEmpty()) continue;
+                if (line.startsWith("Hora,")) continue; // saltar encabezado
+                last = line;
+            }
+            f2.close();
+
+            if (!last.isEmpty()) {
+                const QStringList v = last.split(',', Qt::KeepEmptyParts);
+                bool ok = false;
+                const double secs = v.value(0).toDouble(&ok); // "Hora" relativa
+                if (ok) {
+                    const int msec = int(std::llround(secs * 1000.0));
+                    const QTime dur = QTime(0,0,0).addMSecs(msec);
+                    labelTiempo->setText(
+                        tr("Tiempo total: %1   |   Datos Documento: \"%2\"")
+                        .arg(dur.toString("hh:mm:ss"))
+                        .arg(QFileInfo(file).fileName())
+                    );
+                }
+            }
+        }
+    }
+    };
+
+    connect(btnVerAntiguos, &QPushButton::clicked, this, abrirAntiguos);
