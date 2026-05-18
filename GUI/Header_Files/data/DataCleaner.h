@@ -11,6 +11,7 @@
 class DataCleaner {
 public:
     void clean(std::vector<SensorData>& data);
+    void reset();
 private:
     bool isValid(const SensorData& d, std::string& errorDetail);
     void correctIfNeeded(SensorData& d);

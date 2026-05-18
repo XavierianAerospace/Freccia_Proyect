@@ -25,24 +25,25 @@ struct SensorData {
     float temperature;
 
     QString serialize() const {
-        return QString("%1,%2,%3,%4,%5,%6,%7,%8,%9,%10,%11,%12,%13,%14,%15,%16,%17")
-            .arg(latitude, 0, 'f', 8)
-            .arg(longitude, 0, 'f', 8)
-            .arg(QString::fromStdString(date))
-            .arg(QString::fromStdString(utc_time))
-            .arg(secs)
-            .arg(satellites)
-            .arg(hdop)
-            .arg(Roll)
-            .arg(Pitch)
-            .arg(Yaw)
-            .arg(Servo1)
-            .arg(Servo2)
-            .arg(Servo3)
-            .arg(Servo4)
-            .arg(AltDiff)
-            .arg(pressure)
-            .arg(temperature);
+        QStringList fields;
+        fields << QString::number(latitude, 'f', 8);
+        fields << QString::number(longitude, 'f', 8);
+        fields << QString::fromStdString(date);
+        fields << QString::fromStdString(utc_time);
+        fields << QString::number(secs, 'f', 2);
+        fields << QString::number(satellites);
+        fields << QString::number(hdop, 'f', 2);
+        fields << QString::number(Roll, 'f', 2);
+        fields << QString::number(Pitch, 'f', 2);
+        fields << QString::number(Yaw, 'f', 2);
+        fields << QString::number(Servo1, 'f', 2);
+        fields << QString::number(Servo2, 'f', 2);
+        fields << QString::number(Servo3, 'f', 2);
+        fields << QString::number(Servo4, 'f', 2);
+        fields << QString::number(AltDiff, 'f', 2);
+        fields << QString::number(pressure, 'f', 2);
+        fields << QString::number(temperature, 'f', 2);
+        return fields.join(",");
     }
 
     static SensorData deserialize(const QString& line) {

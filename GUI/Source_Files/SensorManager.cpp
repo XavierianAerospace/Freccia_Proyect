@@ -101,6 +101,7 @@ void SensorManager::processRawData(const QByteArray& line) {
 
 void SensorManager::clearData() {
     vectorData.clear();
+    cleaner.reset();
     DataTopic::instance()->publish(SensorData{}.serialize());
 }
 

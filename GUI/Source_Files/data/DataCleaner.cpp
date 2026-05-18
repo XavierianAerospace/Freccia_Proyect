@@ -41,13 +41,6 @@ void DataCleaner::clean(std::vector<SensorData>& data) {
 
     if (!isValid(d, errorDetail)) {
         FileHelper::appendErrorData(errorFile, d, errorDetail); 
-    } else {
-        // Guardar también OK con hora absoluta
-        std::ofstream file(errorFile, std::ios::app);
-        file << d.latitude << "," << d.longitude << ","
-             << fechaAbs.str() << "," << horaAbs.str() << ","
-             << d.satellites << "," << d.hdop << ",OK\n";
-        file.close();
     }
 
     correctIfNeeded(d);
@@ -56,20 +49,13 @@ void DataCleaner::clean(std::vector<SensorData>& data) {
     updateHistory(d);
 
     // ================= MANEJO DE SESIÓN =================
-    const bool contadorReiniciado = (lastSecs >= 0.0 && d.secs < lastSecs);
-
-    if (!sesionAbierta || contadorReiniciado) {
-        if (sesionAbierta) {
-            fhSesion.cerrarSesionLimpios();
-        }
-
+    if (!sesionAbierta) {
         // Guardar fecha/hora de inicio completas
         fechaPrimeraISO  = fechaAbs.str();
         horaPrimeraISO   = horaAbs.str();
         fhSesion.iniciarSesionLimpios(fechaPrimeraISO, horaPrimeraISO);
         primerRegistro   = true;
         sesionAbierta    = true;
-        lastSecs         = -1.0; 
     }
 
     fhSesion.escribirLimpioDuranteSesion(static_cast<double>(d.secs), d, primerRegistro,
@@ -176,4 +162,14 @@ double DataCleaner::getStdDev(const std::deque<double>& history, double mean) {
     double sq_sum = std::accumulate(history.begin(), history.end(), 0.0,
         [mean](double acc, double x) { return acc + (x - mean) * (x - mean); });
     return std::sqrt(sq_sum / history.size());
+}
+
+void DataCleaner::reset() {
+    if (sesionAbierta) {
+        fhSesion.cerrarSesionLimpios();
+    }
+    sesionAbierta = false;
+    primerRegistro = false;
+    lastSecs = -1.0;
+    historyBuffers.clear();
 }
