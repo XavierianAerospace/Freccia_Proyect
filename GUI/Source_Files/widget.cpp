@@ -642,7 +642,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     // === Añadir barra al layout principal ===
     QVBoxLayout* globalLayout = new QVBoxLayout(this);
     globalLayout->setContentsMargins(0, 0, 0, 0);
-    globalLayout->addSpacing(10);
+    globalLayout->setSpacing(0);
     globalLayout->addWidget(topBar);
     globalLayout->addLayout(layout);
 
@@ -702,6 +702,8 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
         chart->legend()->setLabelColor(Qt::white);
         chart->setBackgroundBrush(QBrush(Qt::black));
         chart->setAnimationOptions(QChart::SeriesAnimations);
+        chart->setMargins(QMargins(0, 0, 0, 0));
+        chart->layout()->setContentsMargins(0, 0, 0, 0);
 
        // --- View con soporte de hover ---
         auto* hview = new HoverChartView();
