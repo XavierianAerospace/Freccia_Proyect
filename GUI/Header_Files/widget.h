@@ -26,6 +26,10 @@ class Graph3DWindow;
 #include <QGraphicsLineItem>
 #include <QGraphicsEllipseItem>
 #include <QGraphicsSimpleTextItem>
+#include <QPainter>
+#include <QBrush>
+#include <QColor>
+#include <QRectF>
 
 extern Graph3DWindow* ventanaGraph3D;
 
@@ -89,7 +93,7 @@ protected:
     void mousePressEvent(QMouseEvent* e) override {
         if (e->button() == Qt::LeftButton) {
             m_isPanning = true;
-            m_autoFollow = false; // Desactivar auto-seguimiento al mover manualmente
+            m_autoFollow = false;
             m_lastMousePos = e->pos();
             setCursor(Qt::ClosedHandCursor);
         }
@@ -105,7 +109,7 @@ protected:
     }
 
     void mouseDoubleClickEvent(QMouseEvent* e) override {
-        m_autoFollow = true; // Re-activar auto-seguimiento al hacer doble clic
+        m_autoFollow = true;
         QChartView::mouseDoubleClickEvent(e);
     }
 
@@ -207,7 +211,7 @@ private:
 
     // === Labels de servo y estado ===
     QLabel* labelServos[6];   // <- ahora 6 servos
-    QLabel* labelStatus[6];
+    QLabel* labelStatus[8];   // Ampliado para incluir Puerto y Velocidad
 
     // === Ejes dinámicos para cada gráfica ===
     QValueAxis *axisX_Roll, *axisY_Roll;

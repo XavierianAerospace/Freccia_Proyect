@@ -49,8 +49,8 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     }
     ventanaUnica = this;
 
-    for (int i = 0; i < 6; ++i) labelStatus[i] = nullptr;
-    for (int i = 0; i < 4; ++i) labelServos[i] = nullptr;
+    for (int i = 0; i < 8; ++i) labelStatus[i] = nullptr;
+    for (int i = 0; i < 6; ++i) labelServos[i] = nullptr;
 
     setWindowTitle("FRECCIA_XAE - Gráficas 2D");
     setStyleSheet("background-color: black;");
@@ -60,6 +60,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
 
     for (int col = 0; col < 4; ++col) layout->setColumnStretch(col, 1);
     for (int row = 0; row < 3; ++row) layout->setRowStretch(row, 1);
+    layout->setRowStretch(3, 0); // Fila compacta para el panel de estado inferior
 
     setWindowIcon(QIcon("./assets/logo_xae.png"));
 
@@ -368,8 +369,8 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
         restLabel(labelPressure, "Presión",  "hPa");
         restLabel(labelTemp,     "Temperatura", "°C");
 
-        for (int i = 0; i < 6; ++i) if (labelStatus[i]) labelStatus[i]->setText("Esperando...");
-        if (labelRaw) labelRaw->setText("Paquete: Esperando...");
+        for (int i = 0; i < 8; ++i) if (labelStatus[i]) labelStatus[i]->setText("...");
+        if (labelRaw) labelRaw->setText("Paquete: ...");
         for (int i = 0; i < 6; ++i) if (labelServos[i]) labelServos[i]->setText("0°");
 
         // 6) Pedir que el manejador de datos reinicie su índice de tiempo 't'
@@ -379,24 +380,14 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
         m_sensorManager->setReceivingEnabled(wasReceiving);
 
         // Salir de modo archivo
-        if (labelCom)  { labelCom->setProperty("fileMode", false);  labelCom->setText("Esperando..."); }
-        if (labelBaud) { labelBaud->setProperty("fileMode", false); labelBaud->setText("Esperando..."); }
+        if (labelCom)  { labelCom->setProperty("fileMode", false);  labelCom->setText("..."); }
+        if (labelBaud) { labelBaud->setProperty("fileMode", false); labelBaud->setText("..."); }
         setWindowTitle("FRECCIA_XAE - Gráficas 2D");
 
         // Rehabilitar toggles de recepción
         if (btnRxOn)  btnRxOn->setEnabled(true);
         if (btnRxOff) btnRxOff->setEnabled(true);
 
-        // Si veníamos de modo archivo, limpiar bandera y restaurar labels/título
-        if (labelCom && labelCom->property("fileMode").toBool()) {
-            labelCom->setProperty("fileMode", false);
-            labelCom->setText("Esperando...");
-        }
-        if (labelBaud && labelBaud->property("fileMode").toBool()) {
-            labelBaud->setProperty("fileMode", false);
-            labelBaud->setText("Esperando...");
-        }
-        setWindowTitle("FRECCIA_XAE - Gráficas 2D");
         modoArchivo_ = false;
 
         if (ventanaGraph3D) {
@@ -712,7 +703,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
        // --- View con soporte de hover ---
         auto* hview = new HoverChartView();
         hview->setRenderHint(QPainter::Antialiasing, true);
-        hview->setMinimumSize(200, 200);
+        hview->setMinimumSize(150, 150);
         hview->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         hview->setChart(chart);
         view = hview;
@@ -856,7 +847,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
             "background-color: #2c2c2c;"
             "border-radius: %1px;"
         ).arg(rCorner));
-        card->setFixedSize(cardSize, cardSize);
+        card->setMinimumSize(cardSize, cardSize);
 
         QVBoxLayout* cardLayout = new QVBoxLayout(card);
         cardLayout->setAlignment(Qt::AlignCenter);
@@ -897,191 +888,87 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
 
     QWidget* servoWidget = new QWidget();
     servoWidget->setLayout(gridServos);
-    layout->addWidget(servoWidget, 2, 2);
+    layout->addWidget(servoWidget, 2, 2, 1, 2);
 
-    // === ESTADO DEL SISTEMA (2,3) con distribución 3 filas x 2 columnas ===
-    QGridLayout* gridEstado = new QGridLayout();
-    gridEstado->setSpacing(8);
-    gridEstado->setContentsMargins(0, 0, 0, 0);
+    // === ESTADO DEL SISTEMA (Inferior completamente horizontal) ===
+    QVBoxLayout* statusBottomLayout = new QVBoxLayout();
+    statusBottomLayout->setContentsMargins(5, 5, 5, 5);
+    statusBottomLayout->setSpacing(5);
 
-    gridEstado->setHorizontalSpacing(16);
-    gridEstado->setVerticalSpacing(10);
-    gridEstado->setColumnStretch(0, 1);
-    gridEstado->setColumnStretch(1, 1);
+    QHBoxLayout* indicatorsLayout = new QHBoxLayout();
+    indicatorsLayout->setSpacing(10);
 
+    // --- Ventana de tiempo (Slider) ---
     QWidget* winBox = new QWidget();
     winBox->setStyleSheet("background-color: #2c2c2c; border-radius: 10px;");
+    winBox->setMinimumWidth(250);
     QVBoxLayout* winLay = new QVBoxLayout(winBox);
     winLay->setContentsMargins(4, 2, 4, 2);
     winLay->setSpacing(2);
 
-    // Texto / valor seleccionado
     winText = new QLabel(tr("Ventana: Máx"));
     winText->setAlignment(Qt::AlignCenter);
-    winText->setStyleSheet("color: white; font-weight: bold;");
+    winText->setStyleSheet("color: white; font-weight: bold; font-size: 10px;");
 
-    // Slider con 8 posiciones: 5,10,20,30,40,50,60, Máx
     winSlider = new QSlider(Qt::Horizontal);
     winSlider->setRange(0, 7);
-    winSlider->setValue(7); // 7 = Máx por defecto
+    winSlider->setValue(7);
     winSlider->setTickPosition(QSlider::TicksBelow);
     winSlider->setTickInterval(1);
-    winSlider->setSingleStep(1);
-
-    // Estilo
     winSlider->setStyleSheet(R"(
     QSlider::groove:horizontal {
-        height: 16px; border-radius: 8px;
-        margin: 8px 10px;
-        background: qlineargradient(x1:0, y1:0.5, x2:1, y2:0.5,
-        stop:0 #2ecc71, stop:0.5 #f1c40f, stop:1 #e74c3c);
+        height: 12px; border-radius: 6px;
+        background: qlineargradient(x1:0, y1:0.5, x2:1, y2:0.5, stop:0 #2ecc71, stop:0.5 #f1c40f, stop:1 #e74c3c);
     }
     QSlider::handle:horizontal {
         background: white; border: 1px solid #bbb;
-        width: 24px; height: 24px; margin: -6px 0;
-        border-radius: 12px;
+        width: 18px; height: 18px; margin: -4px 0;
+        border-radius: 9px;
     }
-    QSlider::sub-page:horizontal { background: transparent; }
-    QSlider::add-page:horizontal { background: transparent; }
-    QSlider::tick-position:below { color: #aaa; }
     )");
-
-    // Etiquetas “5s ... Máx”
-    QStringList tickText = {"5s","10s","20s","30s","40s","50s","60s","Máx"};
-    QHBoxLayout* ticks = new QHBoxLayout();
-    ticks->setContentsMargins(14, 0, 14, 0);
-    for (int i=0;i<tickText.size();++i) {
-        QLabel* t = new QLabel(tickText[i]);
-        t->setStyleSheet("color:#bbb; font-size:10px;");
-        t->setAlignment(Qt::AlignCenter);
-        ticks->addWidget(t, 1);
-    }
-
     winLay->addWidget(winText);
     winLay->addWidget(winSlider);
-    winLay->addLayout(ticks);
+    indicatorsLayout->addWidget(winBox);
 
-  // Contenedor vertical de la columna derecha
-    QVBoxLayout* estadoFinal = new QVBoxLayout();
-    estadoFinal->setContentsMargins(0,0,0,0);
-    estadoFinal->addWidget(winBox);
-
-    QStringList campos = {"Conexión", "Tiempo Para Inicio", "Paracaídas", "Fecha Satélital", "Fecha Local", "Hora Local"};
-
+    // --- Indicadores de estado ---
+    QStringList campos = {"Conexión", "T. Inicio", "Paracaídas", "Satélital", "F. Local", "H. Local", "Puerto", "Velocidad"};
     for (int i = 0; i < campos.size(); ++i) {
         QFrame* card = new QFrame();
-        if (!card) {
-            qDebug() << "Error: card es nullptr en índice" << i;
-            continue;
-        }
-
-        card->setStyleSheet("background-color: #2c2c2c; border-radius: 10px;");
-        card->setMinimumHeight(40);
-        card->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-
-        QVBoxLayout* cardLayout = new QVBoxLayout(card);
-        cardLayout->setAlignment(Qt::AlignCenter);
-        cardLayout->setContentsMargins(4, 2, 4, 2);
+        card->setStyleSheet("background-color: #2c2c2c; border-radius: 8px;");
+        card->setMinimumSize(85, 40);
+        QVBoxLayout* cardLay = new QVBoxLayout(card);
+        cardLay->setContentsMargins(2, 2, 2, 2);
+        cardLay->setSpacing(0);
 
         QLabel* titulo = new QLabel(campos[i]);
-        titulo->setStyleSheet("color: white; font-size: 10px;");
+        titulo->setStyleSheet("color: #aaa; font-size: 9px;");
         titulo->setAlignment(Qt::AlignCenter);
 
-        labelStatus[i] = new QLabel("Esperando...");
-        labelStatus[i]->setStyleSheet("color: white; font-weight: bold; font-size: 12px;");
+        labelStatus[i] = new QLabel("...");
+        labelStatus[i]->setStyleSheet("color: white; font-weight: bold; font-size: 10px;");
         labelStatus[i]->setAlignment(Qt::AlignCenter);
 
-        cardLayout->addWidget(titulo);
-        cardLayout->addWidget(labelStatus[i]);
+        if (i == 6) labelCom = labelStatus[i];
+        if (i == 7) labelBaud = labelStatus[i];
 
-        if (labelStatus[i] == nullptr || titulo == nullptr || cardLayout == nullptr) {
-            qDebug() << "Fallo en creación de widgets para campo" << campos[i];
-            continue;
-        }
-
-        gridEstado->addWidget(card, i / 2, i % 2);
+        cardLay->addWidget(titulo);
+        cardLay->addWidget(labelStatus[i]);
+        indicatorsLayout->addWidget(card);
     }
+    statusBottomLayout->addLayout(indicatorsLayout);
 
-    // === Tarjetas separadas: "Puerto (COM)" y "Velocidad" lado a lado ===
-    QFrame* puertoCard = new QFrame();
-    puertoCard->setStyleSheet("background-color: #2c2c2c; border-radius: 10px;");
-    puertoCard->setMinimumHeight(40);
-    puertoCard->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-
-    QVBoxLayout* puertoCardLayout = new QVBoxLayout(puertoCard);
-    puertoCardLayout->setAlignment(Qt::AlignCenter);
-    puertoCardLayout->setContentsMargins(8, 4, 8, 4);
-
-    QLabel* tituloPuerto = new QLabel("Puerto");
-    tituloPuerto->setStyleSheet("color: white; font-size: 10px;");
-    tituloPuerto->setAlignment(Qt::AlignCenter);
-
-    labelCom = new QLabel("Esperando...");
-    labelCom->setStyleSheet("color: white; font-weight: bold; font-size: 12px;");
-    labelCom->setAlignment(Qt::AlignCenter);
-
-    puertoCardLayout->addWidget(tituloPuerto);
-    puertoCardLayout->addWidget(labelCom);
-
-    // ---
-    QFrame* baudCard = new QFrame();
-    baudCard->setStyleSheet("background-color: #2c2c2c; border-radius: 10px;");
-    baudCard->setMinimumHeight(40);
-    baudCard->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-
-    QVBoxLayout* baudCardLayout = new QVBoxLayout(baudCard);
-    baudCardLayout->setAlignment(Qt::AlignCenter);
-    baudCardLayout->setContentsMargins(8, 4, 8, 4);
-
-    QLabel* tituloBaud = new QLabel("Velocidad");
-    tituloBaud->setStyleSheet("color: white; font-size: 10px;");
-    tituloBaud->setAlignment(Qt::AlignCenter);
-
-    labelBaud = new QLabel("Esperando...");
-    labelBaud->setStyleSheet("color: white; font-weight: bold; font-size: 12px;");
-    labelBaud->setAlignment(Qt::AlignCenter);
-
-    baudCardLayout->addWidget(tituloBaud);
-    baudCardLayout->addWidget(labelBaud);
-
-    // Añade ambas tarjetas a la MISMA fila del grid (una izquierda, otra derecha)
-    const int nextRow = campos.size() / 2; // con 6 campos, nextRow = 3
-    gridEstado->addWidget(puertoCard, nextRow, 0);
-    gridEstado->addWidget(baudCard,   nextRow, 1);
-
-    // Añade el grid de estado al contenedor
-    estadoFinal->addLayout(gridEstado);
-
-    // === Línea final con paquete RAW ===
-    labelRaw = new QLabel("Paquete: Esperando...\n");
-    labelRaw->setStyleSheet("color: white; font-size: 10px; background-color: #1e1e1e; padding: 6px;");
+    // --- Paquete RAW (Paquete) al fondo absoluto ---
+    labelRaw = new QLabel("Paquete: ...");
+    labelRaw->setStyleSheet("color: #00ff00; font-size: 10px; background-color: #1a1a1a; padding: 5px; border-radius: 4px; border: 1px solid #333;");
     labelRaw->setWordWrap(true);
-    labelRaw->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-    labelRaw->setMinimumHeight(24);
-    labelRaw->setMaximumHeight(30);
-    labelRaw->setMinimumWidth(300);
-    labelRaw->setMaximumWidth(300);
-    labelRaw->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    labelRaw->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    QFont mono("Consolas"); mono.setPointSizeF(9); labelRaw->setFont(mono);
 
-    labelRaw->setMaximumWidth(475);
-    labelRaw->setTextInteractionFlags(Qt::TextSelectableByMouse);
+    statusBottomLayout->addWidget(labelRaw);
 
-    QFont mono;
-    mono.setFamily("Consolas");
-    mono.setStyleHint(QFont::Monospace);
-    labelRaw->setFont(mono);
-
-    if (labelRaw) {
-        estadoFinal->addWidget(labelRaw);
-    } else {
-        QLabel* fallbackRaw = new QLabel("Error: RAW no inicializado");
-        fallbackRaw->setStyleSheet("color: red;");
-        estadoFinal->addWidget(fallbackRaw);
-    }
-
-    QWidget* estadoWidget = new QWidget();
-    estadoWidget->setLayout(estadoFinal);
-    layout->addWidget(estadoWidget, 2, 3);
+    QWidget* bottomWidget = new QWidget();
+    bottomWidget->setLayout(statusBottomLayout);
+    layout->addWidget(bottomWidget, 3, 0, 1, 4);
 
     // === Ventana de tiempo ===
     auto secsAt = [](int pos)->int {
@@ -1202,7 +1089,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
         labelStatus[1]->setText("Inicializado");
         labelStatus[2]->setText("N/A");
         labelStatus[3]->setText(QString::fromStdString(d.date));
-        labelStatus[4]->setText(QDate::currentDate().toString("dd-MMMM-yyyy"));
+        labelStatus[4]->setText(QDate::currentDate().toString("dd-MM-yy"));
         labelStatus[5]->setText(QTime::currentTime().toString("hh:mm:ss"));
 
         labelRaw->setText("Paquete: " + line);
@@ -1406,8 +1293,8 @@ void Widget::abrirDialogoSerial() {
         const bool ok = m_sensorManager->setSerial(port, baud);
 
         // Actualización inmediata de labels (además del signal serialReconfigured)
-        labelCom->setText(QString(" %1%2").arg(port, ok ? "" : " (error)"));
-        labelBaud->setText(QString(" %1").arg(baud));
+        if(labelCom) labelCom->setText(QString(" %1%2").arg(port, ok ? "" : " (error)"));
+        if(labelBaud) labelBaud->setText(QString(" %1").arg(baud));
 
             if (!ok) {
                 QMessageBox::critical(this, "Puerto serie",
