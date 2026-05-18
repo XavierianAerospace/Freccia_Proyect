@@ -58,7 +58,9 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     layout->setContentsMargins(4, 4, 4, 4);
 
     for (int col = 0; col < 4; ++col) layout->setColumnStretch(col, 1);
-    for (int row = 0; row < 3; ++row) layout->setRowStretch(row, 1);
+    layout->setRowStretch(0, 3);
+    layout->setRowStretch(1, 3);
+    layout->setRowStretch(2, 2);
 
     setWindowIcon(QIcon("./assets/logo_xae.png"));
 
@@ -834,7 +836,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     gridServos->setHorizontalSpacing(24);
     gridServos->setVerticalSpacing(24);
 
-    const qreal k = 1.6;                   // escala de tamaño
+    const qreal k = 1.2;                   // escala de tamaño
     const int  cardSize = int(100 * k);    // lado de la tarjeta
     const int  rCorner  = int(10  * k);    // radio de esquina
     const int  titlePt  = int(8   * k);    // tamaño título "Servo N"
