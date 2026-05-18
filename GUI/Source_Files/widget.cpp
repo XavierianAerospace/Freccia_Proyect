@@ -348,6 +348,9 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
                     if (auto* v = qobject_cast<QValueAxis*>(ax)) v->setRange(0.0, 1.0);
                 }
             }
+            if (auto* hview = qobject_cast<HoverChartView*>(chartView)) {
+                hview->setAutoFollow(true);
+            }
         }
 
         // 5) Restablecer textos
@@ -1158,7 +1161,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
             label->setText(texto);
 
             // 5) reajustamos ejes X según la ventana seleccionada (SIN borrar puntos)
-            if (hview && !hview->isPanning()) {
+            if (hview && hview->autoFollow()) {
                 if (windowSec == 0) {
                     // Máx: mostrar todo lo acumulado desde t = 0 hasta t
                     axisX->setRange(0, t);
@@ -1169,7 +1172,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
             }
 
             // 6) reajustamos ejes Y dinámicamente
-            if (hview && !hview->isPanning()) {
+            if (hview && hview->autoFollow()) {
                 if (axisY->min() == axisY->max())
                     axisY->setRange(valor, valor+1);
                 else {

@@ -35,7 +35,7 @@ public:
     explicit HoverChartView(QWidget* parent=nullptr)
         : QChartView(parent),
           hover_line_(nullptr), hover_point_(nullptr), hover_text_(nullptr),
-          m_isPanning(false), m_alertLevel(0), m_blinkState(false)
+          m_isPanning(false), m_autoFollow(true), m_alertLevel(0), m_blinkState(false)
     {
         setMouseTracking(true);
         setRenderHint(QPainter::Antialiasing, true);
@@ -67,6 +67,10 @@ public:
         }
     }
 
+    bool isPanning() const { return m_isPanning; }
+    bool autoFollow() const { return m_autoFollow; }
+    void setAutoFollow(bool f) { m_autoFollow = f; }
+
 private slots:
     void onBlinkTimeout() {
         m_blinkState = !m_blinkState;
@@ -78,8 +82,6 @@ private slots:
         if (chart()) chart()->setBackgroundBrush(QBrush(color));
     }
 
-    bool isPanning() const { return m_isPanning; }
-
 signals:
     void hoverUpdate(QPointF chartPos, QPoint scenePos, bool insidePlot);
 
@@ -87,6 +89,7 @@ protected:
     void mousePressEvent(QMouseEvent* e) override {
         if (e->button() == Qt::LeftButton) {
             m_isPanning = true;
+            m_autoFollow = false; // Desactivar auto-seguimiento al mover manualmente
             m_lastMousePos = e->pos();
             setCursor(Qt::ClosedHandCursor);
         }
@@ -99,6 +102,11 @@ protected:
             setCursor(Qt::ArrowCursor);
         }
         QChartView::mouseReleaseEvent(e);
+    }
+
+    void mouseDoubleClickEvent(QMouseEvent* e) override {
+        m_autoFollow = true; // Re-activar auto-seguimiento al hacer doble clic
+        QChartView::mouseDoubleClickEvent(e);
     }
 
     void mouseMoveEvent(QMouseEvent* e) override {
@@ -128,6 +136,7 @@ public:
 
 private:
     bool m_isPanning;
+    bool m_autoFollow;
     QPoint m_lastMousePos;
     int m_alertLevel;
     QTimer* m_blinkTimer;
