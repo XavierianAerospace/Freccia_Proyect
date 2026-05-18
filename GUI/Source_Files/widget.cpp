@@ -28,6 +28,7 @@
 #include <QComboBox>
 #include <QDialogButtonBox>
 #include <QFormLayout>
+#include <QGraphicsLayout>
 #include <QtSerialPort/QSerialPortInfo>
 #include <QButtonGroup>
 #include <QFileDialog>
@@ -1157,20 +1158,24 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
             label->setText(texto);
 
             // 5) reajustamos ejes X según la ventana seleccionada (SIN borrar puntos)
-            if (windowSec == 0) {
-                // Máx: mostrar todo lo acumulado desde t = 0 hasta t
-                axisX->setRange(0, t);
-            } else {
-                // Ventana deslizante: últimos windowSec segundos
-                axisX->setRange(std::max(0, t - windowSec), t);
+            if (hview && !hview->isPanning()) {
+                if (windowSec == 0) {
+                    // Máx: mostrar todo lo acumulado desde t = 0 hasta t
+                    axisX->setRange(0, t);
+                } else {
+                    // Ventana deslizante: últimos windowSec segundos
+                    axisX->setRange(std::max(0, t - windowSec), t);
+                }
             }
 
             // 6) reajustamos ejes Y dinámicamente
-            if (axisY->min() == axisY->max())
-                axisY->setRange(valor, valor+1);
-            else {
-                if (valor > axisY->max()) axisY->setMax(valor);
-                if (valor < axisY->min()) axisY->setMin(valor);
+            if (hview && !hview->isPanning()) {
+                if (axisY->min() == axisY->max())
+                    axisY->setRange(valor, valor+1);
+                else {
+                    if (valor > axisY->max()) axisY->setMax(valor);
+                    if (valor < axisY->min()) axisY->setMin(valor);
+                }
             }
         };
 

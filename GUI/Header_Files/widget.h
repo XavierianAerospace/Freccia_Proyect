@@ -78,6 +78,8 @@ private slots:
         if (chart()) chart()->setBackgroundBrush(QBrush(color));
     }
 
+    bool isPanning() const { return m_isPanning; }
+
 signals:
     void hoverUpdate(QPointF chartPos, QPoint scenePos, bool insidePlot);
 
