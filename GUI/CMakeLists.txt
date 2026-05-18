@@ -47,6 +47,7 @@ qt_add_executable(GUI_FRECCIA
   Header_Files/data/FileHelper.h
   Header_Files/data/SensorData.h
   Header_Files/data/DataTopic.h
+  Header_Files/data/RangeChecker.h
 )
 
 configure_file(

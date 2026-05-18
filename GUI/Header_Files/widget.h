@@ -34,10 +34,14 @@ class HoverChartView : public QChartView {
 public:
     explicit HoverChartView(QWidget* parent=nullptr)
         : QChartView(parent),
-          hover_line_(nullptr), hover_point_(nullptr), hover_text_(nullptr)
+          hover_line_(nullptr), hover_point_(nullptr), hover_text_(nullptr),
+          m_isPanning(false), m_autoFollow(true), m_alertLevel(0), m_blinkState(false)
     {
         setMouseTracking(true);
         setRenderHint(QPainter::Antialiasing, true);
+
+        m_blinkTimer = new QTimer(this);
+        connect(m_blinkTimer, &QTimer::timeout, this, &HoverChartView::onBlinkTimeout);
     }
 
     void clearHoverElements() {
@@ -47,12 +51,73 @@ public:
         if (hover_text_)  { scene()->removeItem(hover_text_);  delete hover_text_;  hover_text_  = nullptr; }
     }
 
+    void setAlertLevel(int level) {
+        if (m_alertLevel == level) return;
+        m_alertLevel = level;
+        m_blinkTimer->stop();
+
+        if (m_alertLevel == 1) { // Warning: Yellow fixed
+            updateVisuals(QColor(100, 100, 0));
+        } else if (m_alertLevel == 2) { // Critical: Red blinking
+            m_blinkTimer->start(500);
+            m_blinkState = true;
+            updateVisuals(QColor(120, 0, 0));
+        } else {
+            updateVisuals(Qt::black);
+        }
+    }
+
+    bool isPanning() const { return m_isPanning; }
+    bool autoFollow() const { return m_autoFollow; }
+    void setAutoFollow(bool f) { m_autoFollow = f; }
+
+private slots:
+    void onBlinkTimeout() {
+        m_blinkState = !m_blinkState;
+        updateVisuals(m_blinkState ? QColor(120, 0, 0) : Qt::black);
+    }
+
+    void updateVisuals(const QColor& color) {
+        setBackgroundBrush(QBrush(color));
+        if (chart()) chart()->setBackgroundBrush(QBrush(color));
+    }
+
 signals:
     void hoverUpdate(QPointF chartPos, QPoint scenePos, bool insidePlot);
 
 protected:
+    void mousePressEvent(QMouseEvent* e) override {
+        if (e->button() == Qt::LeftButton) {
+            m_isPanning = true;
+            m_autoFollow = false; // Desactivar auto-seguimiento al mover manualmente
+            m_lastMousePos = e->pos();
+            setCursor(Qt::ClosedHandCursor);
+        }
+        QChartView::mousePressEvent(e);
+    }
+
+    void mouseReleaseEvent(QMouseEvent* e) override {
+        if (e->button() == Qt::LeftButton) {
+            m_isPanning = false;
+            setCursor(Qt::ArrowCursor);
+        }
+        QChartView::mouseReleaseEvent(e);
+    }
+
+    void mouseDoubleClickEvent(QMouseEvent* e) override {
+        m_autoFollow = true; // Re-activar auto-seguimiento al hacer doble clic
+        QChartView::mouseDoubleClickEvent(e);
+    }
+
     void mouseMoveEvent(QMouseEvent* e) override {
         if (!chart()) { QChartView::mouseMoveEvent(e); return; }
+
+        if (m_isPanning) {
+            QPoint delta = e->pos() - m_lastMousePos;
+            chart()->scroll(-delta.x(), -delta.y());
+            m_lastMousePos = e->pos();
+        }
+
         const QRectF pa = chart()->plotArea();
         const QPoint p  = e->pos();
         emit hoverUpdate(chart()->mapToValue(p), p, pa.contains(p));
@@ -68,6 +133,14 @@ public:
     QGraphicsLineItem*       hover_line_;
     QGraphicsEllipseItem*    hover_point_;
     QGraphicsSimpleTextItem* hover_text_;
+
+private:
+    bool m_isPanning;
+    bool m_autoFollow;
+    QPoint m_lastMousePos;
+    int m_alertLevel;
+    QTimer* m_blinkTimer;
+    bool m_blinkState;
 };
 
 class Widget : public QWidget {
@@ -121,10 +194,10 @@ private:
     QLineSeries *seriesPressure, *seriesTemp;
 
     // === Vistas ===
-    QChartView *viewRoll, *viewPitch, *viewYaw;
-    QChartView *viewSats, *viewLat, *viewLon;
-    QChartView *viewAlt, *viewHdop;
-    QChartView *viewPressure, *viewTemp;
+    HoverChartView *viewRoll, *viewPitch, *viewYaw;
+    HoverChartView *viewSats, *viewLat, *viewLon;
+    HoverChartView *viewAlt, *viewHdop;
+    HoverChartView *viewPressure, *viewTemp;
 
     // === Labels ===
     QLabel *labelRoll, *labelPitch, *labelYaw;

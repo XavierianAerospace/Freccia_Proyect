@@ -1,6 +1,7 @@
 #include "widget.h"
 #include "Graph3DWindow.h"
 #include "data/FileHelper.h"
+#include "data/RangeChecker.h"
 #include "data/DataTopic.h"
 #include <QSlider>
 #include <cmath>
@@ -27,6 +28,7 @@
 #include <QComboBox>
 #include <QDialogButtonBox>
 #include <QFormLayout>
+#include <QGraphicsLayout>
 #include <QtSerialPort/QSerialPortInfo>
 #include <QButtonGroup>
 #include <QFileDialog>
@@ -53,7 +55,12 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     setWindowTitle("FRECCIA_XAE - Gráficas 2D");
     setStyleSheet("background-color: black;");
     QGridLayout* layout = new QGridLayout();
-    layout->setSpacing(2);
+    layout->setSpacing(0);
+    layout->setContentsMargins(0, 0, 0, 0);
+
+    for (int col = 0; col < 4; ++col) layout->setColumnStretch(col, 1);
+    for (int row = 0; row < 3; ++row) layout->setRowStretch(row, 1);
+
     setWindowIcon(QIcon("./assets/logo_xae.png"));
 
     pantalla1Activa = true;
@@ -340,6 +347,9 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
                 for (auto* ax : chart->axes(Qt::Vertical)) {
                     if (auto* v = qobject_cast<QValueAxis*>(ax)) v->setRange(0.0, 1.0);
                 }
+            }
+            if (auto* hview = qobject_cast<HoverChartView*>(chartView)) {
+                hview->setAutoFollow(true);
             }
         }
 
@@ -636,13 +646,13 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     // === Añadir barra al layout principal ===
     QVBoxLayout* globalLayout = new QVBoxLayout(this);
     globalLayout->setContentsMargins(0, 0, 0, 0);
-    globalLayout->addSpacing(10);
+    globalLayout->setSpacing(0);
     globalLayout->addWidget(topBar);
     globalLayout->addLayout(layout);
 
     auto crearGrafica = [&](QChart*& chart,
                         QLineSeries*& series,
-                        QChartView*& view, 
+                        HoverChartView*& view,
                         QLabel*& label,
                         QValueAxis*& ejeX,
                         QValueAxis*& ejeY,
@@ -695,11 +705,14 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
         chart->setTitleBrush(QBrush(Qt::white));
         chart->legend()->setLabelColor(Qt::white);
         chart->setBackgroundBrush(QBrush(Qt::black));
+        chart->setAnimationOptions(QChart::SeriesAnimations);
+        chart->setMargins(QMargins(0, 0, 0, 0));
+        chart->layout()->setContentsMargins(0, 0, 0, 0);
 
        // --- View con soporte de hover ---
         auto* hview = new HoverChartView();
         hview->setRenderHint(QPainter::Antialiasing, true);
-        hview->setMinimumSize(400, 250);
+        hview->setMinimumSize(200, 200);
         hview->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         hview->setChart(chart);
         view = hview;
@@ -827,7 +840,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     gridServos->setHorizontalSpacing(24);
     gridServos->setVerticalSpacing(24);
 
-    const qreal k = 1.6;                   // escala de tamaño
+    const qreal k = 1.0;                   // escala de tamaño
     const int  cardSize = int(100 * k);    // lado de la tarjeta
     const int  rCorner  = int(10  * k);    // radio de esquina
     const int  titlePt  = int(8   * k);    // tamaño título "Servo N"
@@ -899,8 +912,8 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     QWidget* winBox = new QWidget();
     winBox->setStyleSheet("background-color: #2c2c2c; border-radius: 10px;");
     QVBoxLayout* winLay = new QVBoxLayout(winBox);
-    winLay->setContentsMargins(10, 8, 10, 8);
-    winLay->setSpacing(6);
+    winLay->setContentsMargins(4, 2, 4, 2);
+    winLay->setSpacing(2);
 
     // Texto / valor seleccionado
     winText = new QLabel(tr("Ventana: Máx"));
@@ -963,7 +976,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
         }
 
         card->setStyleSheet("background-color: #2c2c2c; border-radius: 10px;");
-        card->setMinimumHeight(56);
+        card->setMinimumHeight(40);
         card->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
         QVBoxLayout* cardLayout = new QVBoxLayout(card);
@@ -992,7 +1005,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     // === Tarjetas separadas: "Puerto (COM)" y "Velocidad" lado a lado ===
     QFrame* puertoCard = new QFrame();
     puertoCard->setStyleSheet("background-color: #2c2c2c; border-radius: 10px;");
-    puertoCard->setMinimumHeight(56);
+    puertoCard->setMinimumHeight(40);
     puertoCard->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
     QVBoxLayout* puertoCardLayout = new QVBoxLayout(puertoCard);
@@ -1013,7 +1026,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     // ---
     QFrame* baudCard = new QFrame();
     baudCard->setStyleSheet("background-color: #2c2c2c; border-radius: 10px;");
-    baudCard->setMinimumHeight(56);
+    baudCard->setMinimumHeight(40);
     baudCard->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
     QVBoxLayout* baudCardLayout = new QVBoxLayout(baudCard);
@@ -1044,8 +1057,8 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     labelRaw->setStyleSheet("color: white; font-size: 10px; background-color: #1e1e1e; padding: 6px;");
     labelRaw->setWordWrap(true);
     labelRaw->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-    labelRaw->setMinimumHeight(30);
-    labelRaw->setMaximumHeight(36);
+    labelRaw->setMinimumHeight(24);
+    labelRaw->setMaximumHeight(30);
     labelRaw->setMinimumWidth(300);
     labelRaw->setMaximumWidth(300);
     labelRaw->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
@@ -1100,8 +1113,17 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     });
 
     // === Suscripción a DataTopic ===
+   static RangeChecker rangeChecker;
+
    connect(DataTopic::instance(), &DataTopic::dataPublished, this, [this](const QString& line) {
-        SensorData d = SensorData::deserialize(line);
+        // Strip prefix like "#6456: " if present
+        QString cleanLine = line;
+        int colonIndex = line.indexOf(':');
+        if (line.startsWith('#') && colonIndex != -1) {
+            cleanLine = line.mid(colonIndex + 1).trimmed();
+        }
+
+        SensorData d = SensorData::deserialize(cleanLine);
         static int t = 0;
 
         if (resetTimeBase_) { t = 0; resetTimeBase_ = false; }
@@ -1110,11 +1132,16 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
                              double valor,
                              QLabel*     label,
                              QValueAxis* axisX,
-                             QValueAxis* axisY)
+                             QValueAxis* axisY,
+                             HoverChartView* hview)
         {
             if (!series || !label || !axisX || !axisY
                 || std::isnan(valor) || std::isinf(valor))
                 return;
+
+            if (hview) {
+                hview->setAlertLevel(rangeChecker.check(series->objectName(), valor));
+            }
 
             // 1) apuntamos el nuevo valor en la curva
             series->append(t, valor);
@@ -1134,33 +1161,37 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
             label->setText(texto);
 
             // 5) reajustamos ejes X según la ventana seleccionada (SIN borrar puntos)
-            if (windowSec == 0) {
-                // Máx: mostrar todo lo acumulado desde t = 0 hasta t
-                axisX->setRange(0, t);
-            } else {
-                // Ventana deslizante: últimos windowSec segundos
-                axisX->setRange(std::max(0, t - windowSec), t);
+            if (hview && hview->autoFollow()) {
+                if (windowSec == 0) {
+                    // Máx: mostrar todo lo acumulado desde t = 0 hasta t
+                    axisX->setRange(0, t);
+                } else {
+                    // Ventana deslizante: últimos windowSec segundos
+                    axisX->setRange(std::max(0, t - windowSec), t);
+                }
             }
 
             // 6) reajustamos ejes Y dinámicamente
-            if (axisY->min() == axisY->max())
-                axisY->setRange(valor, valor+1);
-            else {
-                if (valor > axisY->max()) axisY->setMax(valor);
-                if (valor < axisY->min()) axisY->setMin(valor);
+            if (hview && hview->autoFollow()) {
+                if (axisY->min() == axisY->max())
+                    axisY->setRange(valor, valor+1);
+                else {
+                    if (valor > axisY->max()) axisY->setMax(valor);
+                    if (valor < axisY->min()) axisY->setMin(valor);
+                }
             }
         };
 
-        actualizarGrafica(seriesRoll, d.Roll, labelRoll, axisX_Roll, axisY_Roll);
-        actualizarGrafica(seriesPitch, d.Pitch, labelPitch, axisX_Pitch, axisY_Pitch);
-        actualizarGrafica(seriesYaw, d.Yaw, labelYaw, axisX_Yaw, axisY_Yaw);
-        actualizarGrafica(seriesSats, d.satellites, labelSats, axisX_Sats, axisY_Sats);
-        actualizarGrafica(seriesLat, d.latitude, labelLat, axisX_Lat, axisY_Lat);
-        actualizarGrafica(seriesLon, d.longitude, labelLon, axisX_Lon, axisY_Lon);
-        actualizarGrafica(seriesAlt, d.AltDiff, labelAlt, axisX_Alt, axisY_Alt);
-        actualizarGrafica(seriesHdop, d.hdop, labelHdop, axisX_Hdop, axisY_Hdop);
-        actualizarGrafica(seriesPressure, d.pressure, labelPressure, axisX_Pressure, axisY_Pressure);
-        actualizarGrafica(seriesTemp, d.temperature, labelTemp, axisX_Temp, axisY_Temp);
+        actualizarGrafica(seriesRoll, d.Roll, labelRoll, axisX_Roll, axisY_Roll, viewRoll);
+        actualizarGrafica(seriesPitch, d.Pitch, labelPitch, axisX_Pitch, axisY_Pitch, viewPitch);
+        actualizarGrafica(seriesYaw, d.Yaw, labelYaw, axisX_Yaw, axisY_Yaw, viewYaw);
+        actualizarGrafica(seriesSats, d.satellites, labelSats, axisX_Sats, axisY_Sats, viewSats);
+        actualizarGrafica(seriesLat, d.latitude, labelLat, axisX_Lat, axisY_Lat, viewLat);
+        actualizarGrafica(seriesLon, d.longitude, labelLon, axisX_Lon, axisY_Lon, viewLon);
+        actualizarGrafica(seriesAlt, d.AltDiff, labelAlt, axisX_Alt, axisY_Alt, viewAlt);
+        actualizarGrafica(seriesHdop, d.hdop, labelHdop, axisX_Hdop, axisY_Hdop, viewHdop);
+        actualizarGrafica(seriesPressure, d.pressure, labelPressure, axisX_Pressure, axisY_Pressure, viewPressure);
+        actualizarGrafica(seriesTemp, d.temperature, labelTemp, axisX_Temp, axisY_Temp, viewTemp);
 
         labelServos[0]->setText(QString::number(d.Servo1) + "°");
         labelServos[1]->setText(QString::number(d.Servo2) + "°");
