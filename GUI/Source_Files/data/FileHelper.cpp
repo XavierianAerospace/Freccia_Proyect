@@ -69,7 +69,6 @@ void FileHelper::appendRawData(const std::string& path, const SensorData& d) {
     writeHeaderIfNew(path, RAW_HEADER);
 
     std::ofstream file(path, std::ios::app);
-    file << "\n---- Entrada cruda: " << nowTimestamp() << " ----\n";
     file << d.latitude << "," << d.longitude << "," << d.date << "," << d.utc_time << "," << d.secs << ","
          << d.satellites << "," << d.hdop << "," << d.Roll << "," << d.Pitch << "," << d.Yaw << ","
          << d.Servo1 << "," << d.Servo2 << "," << d.Servo3 << "," << d.Servo4 << "," << d.AltDiff << ","
