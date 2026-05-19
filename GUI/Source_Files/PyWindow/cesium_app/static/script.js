@@ -1,7 +1,7 @@
 // Initialize Cesium Viewer
 const viewer = new Cesium.Viewer('cesiumContainer', {
     imageryProvider: new Cesium.UrlTemplateImageryProvider({
-        url: 'mbtiles://local/tile/{z}/{x}/{y}',
+        url: '/tile/{z}/{x}/{y}',
         maximumLevel: 19,
         credit: '© MapTiler © OpenStreetMap contributors'
     }),
@@ -46,23 +46,11 @@ window.updatePosition = function(lat, lon, alt) {
     const position = Cesium.Cartesian3.fromDegrees(lon, lat, alt);
     rocketEntity.position = position;
 
-    // Smoothly fly to the new position if it's the first update or significant change
-    // For continuous tracking, we might want to follow the entity
+    // Smoothly fly to the new position
     viewer.camera.flyTo({
         destination: Cesium.Cartesian3.fromDegrees(lon, lat, alt + 1000), // view from 1km above
         duration: 2.0
     });
 };
 
-// Global function to set camera follow mode
-let followMode = false;
-window.setFollowMode = function(enabled) {
-    followMode = enabled;
-    if (followMode) {
-        viewer.trackedEntity = rocketEntity;
-    } else {
-        viewer.trackedEntity = undefined;
-    }
-};
-
-console.log("Cesium initialized offline.");
+console.log("Cesium initialized offline via Flask.");
