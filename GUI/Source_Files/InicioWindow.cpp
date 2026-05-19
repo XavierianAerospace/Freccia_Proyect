@@ -1,21 +1,22 @@
 #include "InicioWindow.h"
+#include "WindowManager.h"
 #include <QMovie>
 #include <QProcess>
 #include <QDebug>
 #include <QFile>
 #include <QFileInfo>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 InicioWindow::InicioWindow(QWidget* parent) : QWidget(parent) {
     setWindowTitle("FRECCIA_XAE - Inicio");
     setFixedSize(600, 400);
     setWindowIcon(QIcon("./assets/logo_xae.png"));
 
-    // === Título superior ===
     QLabel* titulo = new QLabel("Bienvenido a la interfaz gráfica del proyecto FRECCIA");
     titulo->setAlignment(Qt::AlignCenter);
     titulo->setStyleSheet("color: white; font-size: 16px; font-weight: bold;");
 
-    // === Logo izquierdo ===
     QLabel* logo = new QLabel;
     QPixmap logoPixmap("./assets/logo_xae.png");
     if (!logoPixmap.isNull()) {
@@ -24,7 +25,6 @@ InicioWindow::InicioWindow(QWidget* parent) : QWidget(parent) {
         qDebug() << "Error: No se cargó el logo desde el sistema de archivos.";
     }
 
-    // === Checkboxes ===
     check2D = new QCheckBox("Gráficas  Principales 2D");
     check3D = new QCheckBox("Gráficas Secundarias 3D");
     checkPy = new QCheckBox("Graficas Map - Angulo Ataque");
@@ -32,7 +32,6 @@ InicioWindow::InicioWindow(QWidget* parent) : QWidget(parent) {
     connect(check3D, &QCheckBox::stateChanged, this, &InicioWindow::checkSelection);
     connect(checkPy, &QCheckBox::stateChanged, this, &InicioWindow::checkSelection);
 
-    // === Botones ===
     btnIniciar = new QPushButton("Iniciar Simulación");
     btnIniciar->setEnabled(false);
     btnExit = new QPushButton("Exit");
@@ -46,31 +45,31 @@ InicioWindow::InicioWindow(QWidget* parent) : QWidget(parent) {
             qDebug() << "[LOG] Intentando ejecutar:" << rutaAbsoluta;
             
             if (fileInfo.exists()) {
-                bool exito = QProcess::startDetached(rutaAbsoluta);
+                QProcess* process = new QProcess();
+                process->setProgram(rutaAbsoluta);
+                process->start();
                 
-                if (exito) {
+                if (process->waitForStarted()) {
                     qDebug() << "[LOG] Ejecutable FRECCIA_XAE iniciado correctamente";
                     qDebug() << "[LOG] Ruta:" << rutaAbsoluta;
+                    WindowManager::instance()->setMapProcess(process);
                 } else {
                     qDebug() << "[ERROR] No se pudo iniciar el ejecutable";
+                    delete process;
                 }
             } else {
                 qDebug() << "[ERROR] No se encontró el archivo en" << rutaAbsoluta;
             }
-            // NO hacemos close() aquí - la ventana de inicio se mantiene abierta
-            // Solo para los casos 2D/3D - aquí sí cerramos la ventana
         }
         emit iniciar(check2D->isChecked(), check3D->isChecked());
         close();
     });
 
-    // === Layout vertical del logo ===
     QVBoxLayout* logoLayout = new QVBoxLayout;
-    logoLayout->addStretch();  // centra verticalmente dentro del espacio disponible
-    logoLayout->addWidget(logo, 0, Qt::AlignHCenter);  // horizontalmente centrado
+    logoLayout->addStretch();
+    logoLayout->addWidget(logo, 0, Qt::AlignHCenter);
     logoLayout->addStretch();
 
-    // === Layout vertical de los controles ===
     QVBoxLayout* controlesLayout = new QVBoxLayout;
     controlesLayout->addWidget(check2D);
     controlesLayout->addWidget(check3D);
@@ -78,17 +77,15 @@ InicioWindow::InicioWindow(QWidget* parent) : QWidget(parent) {
     controlesLayout->addSpacing(10);
     controlesLayout->addWidget(btnIniciar);
     controlesLayout->addWidget(btnExit);
-    controlesLayout->setAlignment(Qt::AlignVCenter);  // centra verticalmente los controles
+    controlesLayout->setAlignment(Qt::AlignVCenter);
 
-    // === Layout horizontal principal (logo a la izquierda, controles a la derecha) ===
     QHBoxLayout* mainLayout = new QHBoxLayout;
-    mainLayout->addStretch();  // espacio vacío izquierda
+    mainLayout->addStretch();
     mainLayout->addLayout(logoLayout);
-    mainLayout->addSpacing(40);  // espacio entre logo y controles
+    mainLayout->addSpacing(40);
     mainLayout->addLayout(controlesLayout);
-    mainLayout->addStretch();  // espacio vacío derecha
+    mainLayout->addStretch();
 
-    // === GIF inferior ===
     gifLabel = new QLabel;
     gifLabel->setFixedHeight(120);
     gifLabel->setAlignment(Qt::AlignCenter);
@@ -101,7 +98,6 @@ InicioWindow::InicioWindow(QWidget* parent) : QWidget(parent) {
         movie->start();
     }
 
-    // === Layout final (todo incluido) ===
     QVBoxLayout* finalLayout = new QVBoxLayout;
     finalLayout->addWidget(titulo);
     finalLayout->addSpacing(30);
@@ -111,10 +107,7 @@ InicioWindow::InicioWindow(QWidget* parent) : QWidget(parent) {
 
     setLayout(finalLayout);
 
-    // === Estilo general ===
     setupStyle();
-    qDebug() << "Logo visible:" << !logoPixmap.isNull();
-    qDebug() << "GIF cargado:" << movie->isValid();
 }
 
 void InicioWindow::checkSelection() {
@@ -166,4 +159,3 @@ void InicioWindow::onFinished(int exitCode, QProcess::ExitStatus exitStatus) {
         qDebug() << "El proceso Python terminó correctamente.";
     }
 }
-

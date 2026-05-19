@@ -3,6 +3,8 @@
 
 #include "SensorManager.h"
 #include "data/FileHelper.h"
+#include "WindowManager.h"
+#include "TopToolbar.h"
 
 class Graph3DWindow;
 
@@ -157,6 +159,10 @@ public:
     void abrirVentana3DDesdeExterno();
     void procesarDatos(const SensorData& data);
 
+public slots:
+    void abrirDialogoSerial();
+    void resetCharts();
+
 private:
     int xIndex = 0;
 
@@ -164,21 +170,13 @@ private:
     SensorManager* m_sensorManager = nullptr;
     Graph3DWindow* m_graph3DWindow = nullptr;
 
-    // === Menu ===
-    QLabel* labelTiempo;
+    // === Menu and Toolbar ===
+    TopToolbar* m_topToolbar = nullptr;
+
     QTimer* timer;
     QTime tiempoInicio;
     bool tiempoIniciado = false;
     QTimer* timeoutTimer;
-    bool pantalla1Activa = true;
-    QAction* pantalla1 = nullptr;
-    QAction* pantalla2 = nullptr;
-    void actualizarEstilosMenu();
-    Widget* ventanaPantalla1 = nullptr;
-    Graph3DWindow* ventanaGraph3D = nullptr;
-    FileHelper* fileHelper = nullptr;
-    QTimer* timerGrabacion = nullptr;
-    QTime tiempoGrabacion;
 
     // --- contador global de muestras para X ---
     int t_ = 0;
@@ -237,9 +235,6 @@ private:
 
     // Actualizacion de las gráficas con el slider
     QVector<std::pair<QLineSeries*, QValueAxis*>> seriesAndXAxis;
-
-    //Configuracion de puertos
-    void abrirDialogoSerial();
 
     bool modoArchivo_ = false;
 };

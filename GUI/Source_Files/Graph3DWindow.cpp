@@ -1,6 +1,7 @@
 #include "Graph3DWindow.h"
 #include "SensorData.h"
 #include "data/DataTopic.h"
+#include "WindowManager.h"
 
 #include <QVBoxLayout>
 #include <QGridLayout>
@@ -26,8 +27,6 @@
 #include <Qt3DCore/QTransform>
 #include <Qt3DRender/QPointLight>
 
-static Graph3DWindow* ventanaGraph3D = nullptr;
-
 void Graph3DWindow::aplicarEstiloGrafico(QChart* chart, QValueAxis* axisX, QValueAxis* axisY) {
     chart->setBackgroundBrush(QBrush(Qt::black));
     chart->legend()->setLabelColor(Qt::white);
@@ -43,9 +42,21 @@ Graph3DWindow::Graph3DWindow(SensorManager* manager, QWidget* parent)
     : QWidget(parent), m_sensorManager(manager) {
     setWindowIcon(QIcon("./assets/logo_xae.png"));
     setWindowTitle("FRECCIA_XAE - Gráficas 3D y OSM");
-    mainLayout = new QGridLayout(this);
+    WindowManager::instance()->registerGraph3D(this);
+
+    QVBoxLayout* globalLayout = new QVBoxLayout(this);
+    globalLayout->setContentsMargins(0, 0, 0, 0);
+    globalLayout->setSpacing(0);
+
+    m_topToolbar = new TopToolbar(this);
+    globalLayout->addWidget(m_topToolbar);
+
+    QWidget* centralWidget = new QWidget();
+    mainLayout = new QGridLayout(centralWidget);
     mainLayout->setSpacing(4);
     mainLayout->setContentsMargins(4, 4, 4, 4);
+    globalLayout->addWidget(centralWidget);
+
     this->setAttribute(Qt::WA_DeleteOnClose);
 
     // === Gráfica 2D con nuevas variables ===
@@ -149,7 +160,6 @@ Graph3DWindow::Graph3DWindow(SensorManager* manager, QWidget* parent)
     // === Layout general ===
     mainLayout->addWidget(containerGeneral2D, 0, 0);
     mainLayout->addWidget(container3D,         0, 1);
-    setLayout(mainLayout);
 
     // === Suscripción a DataTopic ===
     connect(DataTopic::instance(), &DataTopic::dataPublished, this, [=](const QString& line) {
@@ -163,7 +173,6 @@ Graph3DWindow::Graph3DWindow(SensorManager* manager, QWidget* parent)
         seriesSats->append(xIndex2D, d.satellites);
         seriesHDOP->append(xIndex2D, d.hdop);
 
-        // === Ajuste dinámico eje X (tiempo) ===
         if (xIndex2D > axisX1->max()) {
             axisX1->setMax(xIndex2D);
         }
@@ -171,7 +180,6 @@ Graph3DWindow::Graph3DWindow(SensorManager* manager, QWidget* parent)
             axisX1->setMin(xIndex2D);
         }
 
-        // === Ajuste dinámico eje Y ===
         double nuevoMaxY = std::numeric_limits<double>::lowest();
         double nuevoMinY = std::numeric_limits<double>::max();
 
@@ -182,27 +190,24 @@ Graph3DWindow::Graph3DWindow(SensorManager* manager, QWidget* parent)
             }
         }
 
-        // Le damos un pequeño margen visual para que no quede pegado
         double margen = (nuevoMaxY - nuevoMinY) * 0.1;
         axisY1->setRange(nuevoMinY - margen, nuevoMaxY + margen);
 
         ++xIndex2D;
 
-        // Limpiar anteriores
         for (auto item : tooltipTexts) delete item;
         for (auto line : tooltipLines) delete line;
         tooltipTexts.clear();
         tooltipLines.clear();
 
         int lastIndex = seriesRoll->count() - 1;
-        QList<QRectF> ocupados;  // Para controlar colisiones
+        QList<QRectF> ocupados;
 
         for (auto serie : {seriesRoll, seriesPitch, seriesYaw, seriesAlt, seriesSats, seriesHDOP, seriesLat, seriesLon}) {
             if (serie->count() > 0) {
                 serie->setPointsVisible(true);
                 QPointF punto = serie->at(lastIndex);
 
-                // Unidad
                 QString unidad;
                 if (serie == seriesAlt)          unidad = " m";
                 else if (serie == seriesHDOP)    unidad = "";
@@ -215,25 +220,21 @@ Graph3DWindow::Graph3DWindow(SensorManager* manager, QWidget* parent)
 
                 QString texto = QString("%1%2").arg(QString::number(punto.y(), 'f', 2)).arg(unidad);
 
-                // Texto
                 QGraphicsTextItem* etiqueta = new QGraphicsTextItem(texto);
                 etiqueta->setFont(QFont("Arial", 10, QFont::Bold));
                 etiqueta->setDefaultTextColor(Qt::white);
                 QRectF textRect = etiqueta->boundingRect();
 
-                // Fondo
                 QGraphicsRectItem* fondo = new QGraphicsRectItem(textRect.adjusted(-6, -4, 6, 4));
                 fondo->setBrush(Qt::black);
                 fondo->setPen(QPen(serie->color(), 1));
                 fondo->setZValue(0);
 
-                // Posición base
                 QPointF puntoGraf = chartAllView->chart()->mapToPosition(punto, serie);
                 QPointF posEtiqueta = puntoGraf + QPointF(10, -textRect.height() - 6);
 
                 QRectF nuevaCaja(posEtiqueta, fondo->rect().size());
 
-                // Desplazar si se superpone
                 for (const QRectF& ocupado : ocupados) {
                     while (nuevaCaja.intersects(ocupado)) {
                         posEtiqueta.ry() -= 20;
@@ -245,25 +246,21 @@ Graph3DWindow::Graph3DWindow(SensorManager* manager, QWidget* parent)
                 fondo->setPos(posEtiqueta);
                 etiqueta->setPos(posEtiqueta);
 
-                // Línea de unión
                 QPointF centroEtiqueta = posEtiqueta + QPointF(fondo->rect().width() / 2, fondo->rect().height() / 2);
                 QGraphicsLineItem* linea = new QGraphicsLineItem(QLineF(puntoGraf, centroEtiqueta));
                 linea->setPen(QPen(serie->color(), 1, Qt::DashLine));
                 linea->setZValue(-1);
 
-                // Añadir a escena
                 chartAllView->scene()->addItem(fondo);
                 chartAllView->scene()->addItem(etiqueta);
                 chartAllView->scene()->addItem(linea);
 
-                // Guardar para limpiar luego
                 tooltipTexts.append(fondo);
                 tooltipTexts.append(etiqueta);
                 tooltipLines.append(linea);
             }
         }
 
-         // === Gráfico 3D ===
         QVector3D pos(d.longitude, xIndex3D, d.latitude);
         pointHistory.append(pos);
 
@@ -291,39 +288,31 @@ Graph3DWindow::Graph3DWindow(SensorManager* manager, QWidget* parent)
         xIndex3D++;
     });
 
+    connect(WindowManager::instance(), &WindowManager::dataResetRequested, this, &Graph3DWindow::resetData);
 }
 
 void Graph3DWindow::resetData()
 {
-    // ===== HARD RESET 2D =====
-    // Destruye POR COMPLETO el chart y todo lo que cuelga de él,
-    // y crea uno nuevo limpio. Así no queda ninguna serie/axis previa.
-
     QChart* oldChart = chartAllView ? chartAllView->chart() : nullptr;
     if (oldChart) {
-        // Quitar y destruir todas las series
         const auto seriesList = oldChart->series();
         for (QAbstractSeries* s : seriesList) {
             oldChart->removeSeries(s);
             delete s;
         }
-        // Quitar y destruir todos los ejes
         const auto axesList = oldChart->axes();
         for (QAbstractAxis* ax : axesList) {
             oldChart->removeAxis(ax);
             delete ax;
         }
-        // Destruir el propio chart
         delete oldChart;
     }
 
-    // Crear chart nuevo y ponerlo en el view
     QChart* newChart = new QChart();
     newChart->setMargins(QMargins(0, 0, 60, 0));
     newChart->setTitle("Datos Generales");
     chartAllView->setChart(newChart);
 
-    // Ejes nuevos
     axisX1 = new QValueAxis();
     axisY1 = new QValueAxis();
     axisX1->setTitleText("Tiempo");
@@ -333,7 +322,6 @@ void Graph3DWindow::resetData()
     newChart->addAxis(axisX1, Qt::AlignBottom);
     newChart->addAxis(axisY1, Qt::AlignLeft);
 
-    // Series 2D NUEVAS (sin heredar nada viejo)
     seriesLat   = new QLineSeries(); seriesLat->setName("Latitud");    seriesLat->setColor(QColor("#bcbd22"));
     seriesLon   = new QLineSeries(); seriesLon->setName("Longitud");   seriesLon->setColor(QColor("#d62728"));
     seriesRoll  = new QLineSeries(); seriesRoll->setName("Roll");      seriesRoll->setColor(QColor("#1f77b4"));
@@ -355,18 +343,15 @@ void Graph3DWindow::resetData()
 
     xIndex2D = 0;
 
-    // Limpieza de overlays/etiquetas
     for (auto* it : tooltipTexts) delete it;
     tooltipTexts.clear();
     for (auto* it : tooltipLines) delete it;
     tooltipLines.clear();
     tooltipDots.clear();
 
-    // ===== HARD RESET 3D =====
     pointHistory.clear();
     xIndex3D = 0;
 
-    // Eliminar y recrear las series 3D (para no heredar proxies viejos)
     if (mainSeries) { scatterGraph->removeSeries(mainSeries); delete mainSeries; mainSeries = nullptr; }
     if (trailSeries){ scatterGraph->removeSeries(trailSeries); delete trailSeries; trailSeries = nullptr; }
 
@@ -380,11 +365,9 @@ void Graph3DWindow::resetData()
     scatterGraph->addSeries(mainSeries);
     scatterGraph->addSeries(trailSeries);
 
-    // Proxies vacíos (sin puntos)
     mainSeries->dataProxy()->resetArray(new QScatterDataArray());
     trailSeries->dataProxy()->resetArray(new QScatterDataArray());
 
-    // Ejes del scatter en auto (por si habían quedado fijos)
     if (scatterGraph) {
         scatterGraph->axisX()->setAutoAdjustRange(true);
         scatterGraph->axisY()->setAutoAdjustRange(true);
