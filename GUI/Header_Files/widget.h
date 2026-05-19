@@ -173,7 +173,7 @@ private:
     TopToolbar* m_topToolbar = nullptr;
 
     QTimer* timer;
-    QTime tiempoInicio;
+    int m_accumulatedSecs = 0;
     bool tiempoIniciado = false;
     QTimer* timeoutTimer;
 

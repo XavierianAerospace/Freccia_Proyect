@@ -536,11 +536,12 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
             if (timeoutTimer) timeoutTimer->start();
 
             if (!tiempoIniciado) {
-                tiempoInicio = QTime::currentTime();
+                m_accumulatedSecs = 0;
                 tiempoIniciado = true;
                 if (timer) timer->start(1000);
             } else if (timer && !timer->isActive()) {
                 timer->start(1000);
+                qDebug() << "Señal recuperada. Reanudando cronómetro.";
             }
         }
 
@@ -556,15 +557,17 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
 
     connect(timer, &QTimer::timeout, this, [this]() {
         if (modoArchivo_) return;
-        int secs = tiempoInicio.secsTo(QTime::currentTime());
+        m_accumulatedSecs++;
         QTime t(0, 0);
-        t = t.addSecs(secs);
-        WindowManager::instance()->updateSessionTimer(t);
+        t = t.addSecs(m_accumulatedSecs);
+        WindowManager::instance()->setSessionTimerText(t.toString("hh:mm:ss"));
     });
     
     connect(timeoutTimer, &QTimer::timeout, this, [this]() {
+        qWarning() << "No se han recibido datos en 30 segundos. Deteniendo el contador.";
         if (timer->isActive()) {
             timer->stop();
+            WindowManager::instance()->setSessionTimerText("Señal perdida. Cronómetro detenido.");
         }
     });
 
@@ -585,7 +588,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
 
 void Widget::resetCharts() {
         tiempoIniciado = false;
-        tiempoInicio = QTime();
+        m_accumulatedSecs = 0;
         if (timer && timer->isActive()) timer->stop();
         if (timeoutTimer && timeoutTimer->isActive()) timeoutTimer->stop();
 
@@ -620,7 +623,7 @@ void Widget::resetCharts() {
         restLabel(labelPressure, "Presión",  "hPa");
         restLabel(labelTemp,     "Temperatura", "°C");
 
-        for (int i = 0; i < 8; ++i) if (labelStatus[i]) labelStatus[i]->setText("...");
+        for (int i = 0; i < 6; ++i) if (labelStatus[i]) labelStatus[i]->setText("...");
         if (labelRaw) labelRaw->setText("Paquete: ...");
         for (int i = 0; i < 6; ++i) if (labelServos[i]) labelServos[i]->setText("0°");
 

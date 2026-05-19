@@ -38,7 +38,7 @@ public:
     bool isReceivingEnabled() const;
 
     // Session Timer logic
-    void updateSessionTimer(const QTime& time);
+    void setSessionTimerText(const QString& text);
     QString sessionTimerTexto() const { return m_sessionTimer; }
 
     // Reset logic

@@ -92,8 +92,8 @@ bool WindowManager::isReceivingEnabled() const {
     return true;
 }
 
-void WindowManager::updateSessionTimer(const QTime& time) {
-    m_sessionTimer = time.toString("hh:mm:ss");
+void WindowManager::setSessionTimerText(const QString& text) {
+    m_sessionTimer = text;
     emit sessionTimerUpdated(m_sessionTimer);
 }
 
