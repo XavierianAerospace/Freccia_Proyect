@@ -44,6 +44,14 @@ void WindowManager::registerGraph3D(Graph3DWindow* g) {
     m_graph3D = g;
 }
 
+Widget* WindowManager::widget() const {
+    return m_widget;
+}
+
+Graph3DWindow* WindowManager::graph3D() const {
+    return m_graph3D;
+}
+
 void WindowManager::iniciarGrabacion() {
     if (m_recording) return;
 

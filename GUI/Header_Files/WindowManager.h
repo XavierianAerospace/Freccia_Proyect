@@ -24,8 +24,8 @@ public:
     void registerWidget(Widget* w);
     void registerGraph3D(Graph3DWindow* g);
 
-    Widget* widget() const { return m_widget; }
-    Graph3DWindow* graph3D() const { return m_graph3D; }
+    Widget* widget() const;
+    Graph3DWindow* graph3D() const;
 
     // Recording logic
     void iniciarGrabacion();
