@@ -33,7 +33,6 @@ class Graph3DWindow;
 #include <QColor>
 #include <QRectF>
 
-extern Graph3DWindow* ventanaGraph3D;
 
 class HoverChartView : public QChartView {
     Q_OBJECT

@@ -626,8 +626,8 @@ void Widget::resetCharts() {
 
         resetTimeBase_ = true;
 
-        if (ventanaGraph3D) {
-            ventanaGraph3D->resetData();
+        if (WindowManager::instance()->graph3D()) {
+            WindowManager::instance()->graph3D()->resetData();
         }
 }
 
