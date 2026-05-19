@@ -98,9 +98,22 @@ void TopToolbar::setupUI() {
 
     QMenu* menu = new QMenu(this);
     menu->setStyleSheet(R"(
-        QMenu { background-color: black; color: white; }
-        QMenu::item { padding: 6px 24px; background-color: black; color: white; }
-        QMenu::item:selected { background-color: #444; }
+        QMenu {
+            background-color: black;
+            color: white;
+        }
+        QMenu::item {
+            padding: 6px 24px;
+            background-color: black;
+            color: white;
+        }
+        QMenu::item:disabled {
+            background-color: green;
+            color: white;
+        }
+        QMenu::item:selected:enabled {
+            background-color: #444;
+        }
     )");
 
     action2D = menu->addAction("Pantalla Gráficas 2D");
@@ -153,10 +166,8 @@ void TopToolbar::setupConnections() {
 }
 
 void TopToolbar::actualizarEstilosMenu() {
-    action2D->setCheckable(true);
-    action3D->setCheckable(true);
-    action2D->setChecked(m_pantalla1Activa);
-    action3D->setChecked(!m_pantalla1Activa);
+    action2D->setEnabled(!m_pantalla1Activa);
+    action3D->setEnabled(m_pantalla1Activa);
 }
 
 void TopToolbar::updateRecordingStatus(bool recording) {
