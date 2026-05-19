@@ -32,6 +32,8 @@ qt_add_executable(GUI_FRECCIA
   Source_Files/SerialReader.cpp
   Source_Files/Graph3DWindow.cpp
   Source_Files/InicioWindow.cpp
+  Source_Files/WindowManager.cpp
+  Source_Files/TopToolbar.cpp
 
   Source_Files/data/DataCleaner.cpp
   Source_Files/data/FileHelper.cpp
@@ -42,6 +44,8 @@ qt_add_executable(GUI_FRECCIA
   Header_Files/SerialReader.h
   Header_Files/Graph3DWindow.h
   Header_Files/InicioWindow.h
+  Header_Files/WindowManager.h
+  Header_Files/TopToolbar.h
 
   Header_Files/data/DataCleaner.h
   Header_Files/data/FileHelper.h

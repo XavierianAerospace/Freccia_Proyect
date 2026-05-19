@@ -2,6 +2,7 @@
 #define GRAPH3DWINDOW_H
 
 #include "SensorManager.h"
+#include "TopToolbar.h"
 
 // Qt Widgets y Layouts
 #include <QWidget>
@@ -47,6 +48,7 @@ public slots:
 private:
     void aplicarEstiloGrafico(QChart* chart, QValueAxis* axisX, QValueAxis* axisY);
     SensorManager* m_sensorManager = nullptr;
+    TopToolbar* m_topToolbar = nullptr;
 
     // === Layout principal ===
     QGridLayout* mainLayout;
