@@ -41,7 +41,6 @@ public slots:
     void resetData();
 
 private:
-    void aplicarEstiloGrafico(QChart* chart, QValueAxis* axisX, QValueAxis* axisY);
     SensorManager* m_sensorManager = nullptr;
     TopToolbar* m_topToolbar = nullptr;
     CameraWidget* m_camera1 = nullptr;
@@ -62,13 +61,6 @@ private:
     QVector<QVector3D> pointHistory;
     int xIndex3D = 0;
 
-    // === LLMAP ===
-
-    QGraphicsView* llmap;
-    QGraphicsScene* llmapScene;
-    QGraphicsEllipseItem* mapDot = nullptr;
-    QPainterPath trayecto;
-    QGraphicsPathItem* pathItem = nullptr;
 
     // === Series y ejes para gráfica 3D ===
     Qt3DCore::QEntity* rootEntity;
