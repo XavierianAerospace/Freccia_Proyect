@@ -7,6 +7,7 @@
 // Forward declarations for FFmpeg to avoid header dependency in H files
 struct AVFormatContext;
 struct AVPacket;
+struct AVCodecParameters;
 
 class VideoManager : public QObject {
     Q_OBJECT
@@ -20,6 +21,7 @@ public slots:
 
 signals:
     void packetReceived(AVPacket* packet);
+    void codecParametersDetected(AVCodecParameters* params);
     void rawPacketReceived(const QByteArray& data);
     void connectionStatusChanged(bool connected);
 

@@ -137,6 +137,7 @@ void CameraWidget::VideoRenderer::paintGL() {
     if (!m_hasFrame) return;
 
     glBindTexture(GL_TEXTURE_2D, m_texture);
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_currentFrame.width(), m_currentFrame.height(), 0, GL_RGB, GL_UNSIGNED_BYTE, m_currentFrame.bits());
 
     glBegin(GL_QUADS);
