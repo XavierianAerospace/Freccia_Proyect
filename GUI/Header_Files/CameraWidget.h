@@ -7,6 +7,8 @@
 #include <QVBoxLayout>
 #include <QGridLayout>
 #include <QFrame>
+#include <QOpenGLWidget>
+#include <QOpenGLFunctions>
 
 class CameraWidget : public QWidget {
     Q_OBJECT
@@ -24,8 +26,22 @@ private slots:
     void handleTimeout();
 
 private:
+    class VideoRenderer : public QOpenGLWidget, protected QOpenGLFunctions {
+    public:
+        VideoRenderer(QWidget* parent = nullptr);
+        void updateFrame(const QImage& frame);
+    protected:
+        void initializeGL() override;
+        void paintGL() override;
+        void resizeGL(int w, int h) override;
+    private:
+        QImage m_currentFrame;
+        GLuint m_texture;
+        bool m_hasFrame;
+    };
+
     QString m_cameraName;
-    QLabel* m_videoPlaceholder;
+    VideoRenderer* m_videoRenderer;
     QLabel* m_overlayLabel;
 
     QLabel* m_labelImgQuality;

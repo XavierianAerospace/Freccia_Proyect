@@ -19,13 +19,11 @@ void CameraWidget::setupUI() {
     QVBoxLayout* mainLayout = new QVBoxLayout(this);
     mainLayout->setContentsMargins(5, 5, 5, 5);
 
-    m_videoPlaceholder = new QLabel("VIDEO STREAM: " + m_cameraName, this);
-    m_videoPlaceholder->setAlignment(Qt::AlignCenter);
-    m_videoPlaceholder->setStyleSheet("background-color: #000; color: #444; font-size: 16px; border: 1px solid #333;");
-    m_videoPlaceholder->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    m_videoPlaceholder->setMinimumHeight(200);
+    m_videoRenderer = new VideoRenderer(this);
+    m_videoRenderer->setMinimumHeight(200);
+    m_videoRenderer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    mainLayout->addWidget(m_videoPlaceholder);
+    mainLayout->addWidget(m_videoRenderer);
 
     // Telemetry Panel
     QFrame* telemetryFrame = new QFrame(this);
@@ -44,7 +42,7 @@ void CameraWidget::setupUI() {
 
     mainLayout->addWidget(telemetryFrame);
 
-    m_overlayLabel = new QLabel("CONNECTION LOST", m_videoPlaceholder);
+    m_overlayLabel = new QLabel("CONNECTION LOST", m_videoRenderer);
     m_overlayLabel->setAlignment(Qt::AlignCenter);
     m_overlayLabel->setStyleSheet("background-color: rgba(255, 0, 0, 80); color: white; font-size: 20px; font-weight: bold; border: 2px solid red;");
     m_overlayLabel->setVisible(false);
@@ -61,7 +59,7 @@ void CameraWidget::paintEvent(QPaintEvent* event) {
 
 void CameraWidget::resizeEvent(QResizeEvent* event) {
     QWidget::resizeEvent(event);
-    m_overlayLabel->setGeometry(m_videoPlaceholder->rect());
+    m_overlayLabel->setGeometry(m_videoRenderer->rect());
 }
 
 void CameraWidget::updateTelemetry(float imgQuality, float signalQuality) {
@@ -70,8 +68,6 @@ void CameraWidget::updateTelemetry(float imgQuality, float signalQuality) {
         m_overlayLabel->setVisible(false);
         m_labelStatus->setText("Estado: CONECTADO");
         m_labelStatus->setStyleSheet("color: #0f0; font-weight: bold;");
-        m_videoPlaceholder->setStyleSheet("background-color: #000; color: #0f0; font-size: 16px; border: 1px solid #0f0;");
-        m_videoPlaceholder->setText("");
         update();
     }
 
@@ -87,7 +83,7 @@ void CameraWidget::setFrame(const QImage& frame) {
         setConnectionStatus(true);
     }
 
-    m_videoPlaceholder->setPixmap(QPixmap::fromImage(frame).scaled(m_videoPlaceholder->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    m_videoRenderer->updateFrame(frame);
     m_watchdogTimer->start();
 }
 
@@ -97,8 +93,6 @@ void CameraWidget::setConnectionStatus(bool connected) {
         m_overlayLabel->setVisible(false);
         m_labelStatus->setText("Estado: CONECTADO");
         m_labelStatus->setStyleSheet("color: #0f0; font-weight: bold;");
-        m_videoPlaceholder->setStyleSheet("background-color: #000; color: #0f0; font-size: 16px; border: 1px solid #0f0;");
-        m_videoPlaceholder->setText("");
     } else {
         handleTimeout();
     }
@@ -107,12 +101,52 @@ void CameraWidget::setConnectionStatus(bool connected) {
 
 void CameraWidget::handleTimeout() {
     m_connectionLost = true;
-    m_overlayLabel->setGeometry(m_videoPlaceholder->rect());
+    m_overlayLabel->setGeometry(m_videoRenderer->rect());
     m_overlayLabel->setVisible(true);
     m_labelStatus->setText("Estado: DESCONECTADO");
     m_labelStatus->setStyleSheet("color: red; font-weight: bold;");
-    m_videoPlaceholder->setStyleSheet("background-color: #1a1a1a; color: #444; font-size: 16px; border: 1px solid red;");
     m_labelImgQuality->setText("Calidad Imagen: --%");
     m_labelSignalQuality->setText("Calidad Señal: --%");
     update();
+}
+
+// === VideoRenderer Implementation ===
+
+CameraWidget::VideoRenderer::VideoRenderer(QWidget* parent)
+    : QOpenGLWidget(parent), m_texture(0), m_hasFrame(false) {
+}
+
+void CameraWidget::VideoRenderer::updateFrame(const QImage& frame) {
+    m_currentFrame = frame;
+    m_hasFrame = true;
+    update();
+}
+
+void CameraWidget::VideoRenderer::initializeGL() {
+    initializeOpenGLFunctions();
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glEnable(GL_TEXTURE_2D);
+    glGenTextures(1, &m_texture);
+    glBindTexture(GL_TEXTURE_2D, m_texture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+}
+
+void CameraWidget::VideoRenderer::paintGL() {
+    glClear(GL_COLOR_BUFFER_BIT);
+    if (!m_hasFrame) return;
+
+    glBindTexture(GL_TEXTURE_2D, m_texture);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_currentFrame.width(), m_currentFrame.height(), 0, GL_RGB, GL_UNSIGNED_BYTE, m_currentFrame.bits());
+
+    glBegin(GL_QUADS);
+    glTexCoord2f(0, 1); glVertex2f(-1, -1);
+    glTexCoord2f(1, 1); glVertex2f(1, -1);
+    glTexCoord2f(1, 0); glVertex2f(1, 1);
+    glTexCoord2f(0, 0); glVertex2f(-1, 1);
+    glEnd();
+}
+
+void CameraWidget::VideoRenderer::resizeGL(int w, int h) {
+    glViewport(0, 0, w, h);
 }

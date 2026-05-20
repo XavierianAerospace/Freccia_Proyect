@@ -23,14 +23,34 @@ find_package(Qt6 REQUIRED COMPONENTS
     Network
 )
 
-# FFmpeg find_package is non-standard, usually handled via PkgConfig
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(FFMPEG REQUIRED IMPORTED_TARGET
-    libavcodec
-    libavformat
-    libswscale
-    libavutil
-)
+# FFmpeg configuration (Manual lookup if PkgConfig fails)
+find_package(PkgConfig)
+if(PkgConfig_FOUND)
+    pkg_check_modules(FFMPEG IMPORTED_TARGET
+        libavcodec
+        libavformat
+        libswscale
+        libavutil
+    )
+endif()
+
+if(NOT FFMPEG_FOUND)
+    message(STATUS "FFmpeg not found via PkgConfig, attempting manual search...")
+    find_path(AVCODEC_INCLUDE_DIR libavcodec/avcodec.h)
+    find_library(AVCODEC_LIBRARY avcodec)
+    find_library(AVFORMAT_LIBRARY avformat)
+    find_library(SWSCALE_LIBRARY swscale)
+    find_library(AVUTIL_LIBRARY avutil)
+
+    if(AVCODEC_INCLUDE_DIR AND AVCODEC_LIBRARY)
+        set(FFMPEG_FOUND TRUE)
+        add_library(FFMPEG::FFMPEG INTERFACE IMPORTED)
+        set_target_properties(FFMPEG::FFMPEG PROPERTIES
+            INTERFACE_INCLUDE_DIRECTORIES "${AVCODEC_INCLUDE_DIR}"
+            INTERFACE_LINK_LIBRARIES "${AVCODEC_LIBRARY};${AVFORMAT_LIBRARY};${SWSCALE_LIBRARY};${AVUTIL_LIBRARY}"
+        )
+    endif()
+endif()
 
 qt_standard_project_setup()
 
@@ -116,8 +136,15 @@ target_link_libraries(GUI_FRECCIA PUBLIC
     Qt::3DLogic
     Qt::3DAnimation
     Qt::Network
-    PkgConfig::FFMPEG
 )
+
+if(FFMPEG_FOUND)
+    if(TARGET PkgConfig::FFMPEG)
+        target_link_libraries(GUI_FRECCIA PUBLIC PkgConfig::FFMPEG)
+    else()
+        target_link_libraries(GUI_FRECCIA PUBLIC FFMPEG::FFMPEG)
+    endif()
+endif()
 
 install(TARGETS GUI_FRECCIA
     RUNTIME DESTINATION "${INSTALL_EXAMPLEDIR}"
