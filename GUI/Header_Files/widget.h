@@ -3,6 +3,8 @@
 
 #include "SensorManager.h"
 #include "data/FileHelper.h"
+#include "WindowManager.h"
+#include "TopToolbar.h"
 
 class Graph3DWindow;
 
@@ -26,18 +28,25 @@ class Graph3DWindow;
 #include <QGraphicsLineItem>
 #include <QGraphicsEllipseItem>
 #include <QGraphicsSimpleTextItem>
+#include <QPainter>
+#include <QBrush>
+#include <QColor>
+#include <QRectF>
 
-extern Graph3DWindow* ventanaGraph3D;
 
 class HoverChartView : public QChartView {
     Q_OBJECT
 public:
     explicit HoverChartView(QWidget* parent=nullptr)
         : QChartView(parent),
-          hover_line_(nullptr), hover_point_(nullptr), hover_text_(nullptr)
+          hover_line_(nullptr), hover_point_(nullptr), hover_text_(nullptr),
+          m_isPanning(false), m_autoFollow(true), m_alertLevel(0), m_blinkState(false)
     {
         setMouseTracking(true);
         setRenderHint(QPainter::Antialiasing, true);
+
+        m_blinkTimer = new QTimer(this);
+        connect(m_blinkTimer, &QTimer::timeout, this, &HoverChartView::onBlinkTimeout);
     }
 
     void clearHoverElements() {
@@ -47,12 +56,73 @@ public:
         if (hover_text_)  { scene()->removeItem(hover_text_);  delete hover_text_;  hover_text_  = nullptr; }
     }
 
+    void setAlertLevel(int level) {
+        if (m_alertLevel == level) return;
+        m_alertLevel = level;
+        m_blinkTimer->stop();
+
+        if (m_alertLevel == 1) { // Warning: Yellow fixed
+            updateVisuals(QColor(100, 100, 0));
+        } else if (m_alertLevel == 2) { // Critical: Red blinking
+            m_blinkTimer->start(500);
+            m_blinkState = true;
+            updateVisuals(QColor(120, 0, 0));
+        } else {
+            updateVisuals(Qt::black);
+        }
+    }
+
+    bool isPanning() const { return m_isPanning; }
+    bool autoFollow() const { return m_autoFollow; }
+    void setAutoFollow(bool f) { m_autoFollow = f; }
+
+private slots:
+    void onBlinkTimeout() {
+        m_blinkState = !m_blinkState;
+        updateVisuals(m_blinkState ? QColor(120, 0, 0) : Qt::black);
+    }
+
+    void updateVisuals(const QColor& color) {
+        setBackgroundBrush(QBrush(color));
+        if (chart()) chart()->setBackgroundBrush(QBrush(color));
+    }
+
 signals:
     void hoverUpdate(QPointF chartPos, QPoint scenePos, bool insidePlot);
 
 protected:
+    void mousePressEvent(QMouseEvent* e) override {
+        if (e->button() == Qt::LeftButton) {
+            m_isPanning = true;
+            m_autoFollow = false;
+            m_lastMousePos = e->pos();
+            setCursor(Qt::ClosedHandCursor);
+        }
+        QChartView::mousePressEvent(e);
+    }
+
+    void mouseReleaseEvent(QMouseEvent* e) override {
+        if (e->button() == Qt::LeftButton) {
+            m_isPanning = false;
+            setCursor(Qt::ArrowCursor);
+        }
+        QChartView::mouseReleaseEvent(e);
+    }
+
+    void mouseDoubleClickEvent(QMouseEvent* e) override {
+        m_autoFollow = true;
+        QChartView::mouseDoubleClickEvent(e);
+    }
+
     void mouseMoveEvent(QMouseEvent* e) override {
         if (!chart()) { QChartView::mouseMoveEvent(e); return; }
+
+        if (m_isPanning) {
+            QPoint delta = e->pos() - m_lastMousePos;
+            chart()->scroll(-delta.x(), -delta.y());
+            m_lastMousePos = e->pos();
+        }
+
         const QRectF pa = chart()->plotArea();
         const QPoint p  = e->pos();
         emit hoverUpdate(chart()->mapToValue(p), p, pa.contains(p));
@@ -68,6 +138,14 @@ public:
     QGraphicsLineItem*       hover_line_;
     QGraphicsEllipseItem*    hover_point_;
     QGraphicsSimpleTextItem* hover_text_;
+
+private:
+    bool m_isPanning;
+    bool m_autoFollow;
+    QPoint m_lastMousePos;
+    int m_alertLevel;
+    QTimer* m_blinkTimer;
+    bool m_blinkState;
 };
 
 class Widget : public QWidget {
@@ -80,6 +158,10 @@ public:
     void abrirVentana3DDesdeExterno();
     void procesarDatos(const SensorData& data);
 
+public slots:
+    void abrirDialogoSerial();
+    void resetCharts();
+
 private:
     int xIndex = 0;
 
@@ -87,21 +169,13 @@ private:
     SensorManager* m_sensorManager = nullptr;
     Graph3DWindow* m_graph3DWindow = nullptr;
 
-    // === Menu ===
-    QLabel* labelTiempo;
+    // === Menu and Toolbar ===
+    TopToolbar* m_topToolbar = nullptr;
+
     QTimer* timer;
-    QTime tiempoInicio;
+    int m_accumulatedSecs = 0;
     bool tiempoIniciado = false;
     QTimer* timeoutTimer;
-    bool pantalla1Activa = true;
-    QAction* pantalla1 = nullptr;
-    QAction* pantalla2 = nullptr;
-    void actualizarEstilosMenu();
-    Widget* ventanaPantalla1 = nullptr;
-    Graph3DWindow* ventanaGraph3D = nullptr;
-    FileHelper* fileHelper = nullptr;
-    QTimer* timerGrabacion = nullptr;
-    QTime tiempoGrabacion;
 
     // --- contador global de muestras para X ---
     int t_ = 0;
@@ -121,10 +195,10 @@ private:
     QLineSeries *seriesPressure, *seriesTemp;
 
     // === Vistas ===
-    QChartView *viewRoll, *viewPitch, *viewYaw;
-    QChartView *viewSats, *viewLat, *viewLon;
-    QChartView *viewAlt, *viewHdop;
-    QChartView *viewPressure, *viewTemp;
+    HoverChartView *viewRoll, *viewPitch, *viewYaw;
+    HoverChartView *viewSats, *viewLat, *viewLon;
+    HoverChartView *viewAlt, *viewHdop;
+    HoverChartView *viewPressure, *viewTemp;
 
     // === Labels ===
     QLabel *labelRoll, *labelPitch, *labelYaw;
@@ -134,7 +208,7 @@ private:
 
     // === Labels de servo y estado ===
     QLabel* labelServos[6];   // <- ahora 6 servos
-    QLabel* labelStatus[6];
+    QLabel* labelStatus[8];   // Ampliado para incluir Puerto y Velocidad
 
     // === Ejes dinámicos para cada gráfica ===
     QValueAxis *axisX_Roll, *axisY_Roll;
@@ -160,9 +234,6 @@ private:
 
     // Actualizacion de las gráficas con el slider
     QVector<std::pair<QLineSeries*, QValueAxis*>> seriesAndXAxis;
-
-    //Configuracion de puertos
-    void abrirDialogoSerial();
 
     bool modoArchivo_ = false;
 };

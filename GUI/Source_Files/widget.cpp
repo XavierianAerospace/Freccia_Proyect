@@ -1,7 +1,11 @@
 #include "widget.h"
 #include "Graph3DWindow.h"
 #include "data/FileHelper.h"
+#include "data/RangeChecker.h"
 #include "data/DataTopic.h"
+#include "WindowManager.h"
+#include "TopToolbar.h"
+
 #include <QSlider>
 #include <cmath>
 #include <algorithm> 
@@ -27,6 +31,7 @@
 #include <QComboBox>
 #include <QDialogButtonBox>
 #include <QFormLayout>
+#include <QGraphicsLayout>
 #include <QtSerialPort/QSerialPortInfo>
 #include <QButtonGroup>
 #include <QFileDialog>
@@ -35,7 +40,6 @@
 #include <QTextStream>
 
 static Widget* ventanaUnica = nullptr;
-Graph3DWindow* ventanaGraph3D = nullptr;
 
 Widget::Widget(SensorManager* manager, QWidget* parent)
     : QWidget(parent), m_sensorManager(manager) {
@@ -46,603 +50,36 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
         return;
     }
     ventanaUnica = this;
+    WindowManager::instance()->registerWidget(this);
 
-    for (int i = 0; i < 6; ++i) labelStatus[i] = nullptr;
-    for (int i = 0; i < 4; ++i) labelServos[i] = nullptr;
+    for (int i = 0; i < 8; ++i) labelStatus[i] = nullptr;
+    for (int i = 0; i < 6; ++i) labelServos[i] = nullptr;
 
     setWindowTitle("FRECCIA_XAE - Gráficas 2D");
     setStyleSheet("background-color: black;");
     QGridLayout* layout = new QGridLayout();
-    layout->setSpacing(2);
+    layout->setSpacing(0);
+    layout->setContentsMargins(0, 0, 0, 0);
+
+    for (int col = 0; col < 4; ++col) layout->setColumnStretch(col, 1);
+    for (int row = 0; row < 3; ++row) layout->setRowStretch(row, 1);
+    layout->setRowStretch(3, 0); // Fila compacta para el panel de estado inferior
+
     setWindowIcon(QIcon("./assets/logo_xae.png"));
 
-    pantalla1Activa = true;
-    actualizarEstilosMenu();
-
-    // === Menu ===
-    QWidget* topBar = new QWidget();
-    topBar->setStyleSheet("background-color: black; color: white;");
-    topBar->setFixedHeight(30);
-
-    QHBoxLayout* topLayout = new QHBoxLayout(topBar);
-    topLayout->setContentsMargins(5, 0, 5, 0);
-
-    // === Botones ===
-    QPushButton* btnRecord = new QPushButton("● Grabar");
-    btnRecord->setStyleSheet(
-        "QPushButton { "
-        "color: white; "
-        "background-color: red; "
-        "border: none; "
-        "padding: 6px 14px; "
-        "font-size: 15px; "
-        "border-radius: 8px; "
-        "}"
-        "QPushButton:hover { background-color: darkred; }"
-    );
-
-    QPushButton* btnStop = new QPushButton("■ Detener");
-    btnStop->setStyleSheet(
-        "QPushButton { "
-        "color: white; "
-        "background-color: transparent; "
-        "border: none; "
-        "padding: 6px 14px; "
-        "font-size: 15px; "
-        "border-radius: 8px; "
-        "}"
-        "QPushButton:hover { background-color: #444; }"
-    );
-
-    QPushButton* btnVerAntiguos = new QPushButton("Ver antiguos");
-    btnVerAntiguos->setStyleSheet(
-        "QPushButton { "
-        "color: white; "
-        "background-color: transparent; "
-        "border: none; "
-        "padding: 6px 14px; "
-        "font-size: 15px; "
-        "border-radius: 8px; "
-        "}"
-        "QPushButton:hover { background-color: #444; }"
-    );
-
-    // FileHelper inicializado
-    fileHelper = new FileHelper();
-
-    // Inicialmente solo el botón Grabar está habilitado
-    btnRecord->setEnabled(true);
-    btnStop->setEnabled(false);
-
-    // === Conexión botón GRABAR ===
-    connect(btnRecord, &QPushButton::clicked, this, [this, btnRecord, btnStop]() {
-        fileHelper->iniciarGrabacion();
-
-        // Reiniciar tiempo y contador
-        tiempoGrabacion = QTime(0, 0, 0);
-
-        if (!timerGrabacion) {
-            timerGrabacion = new QTimer(this);
-            connect(timerGrabacion, &QTimer::timeout, this, [this, btnRecord]() {
-                QString tiempoTexto = tiempoGrabacion.toString("hh:mm:ss");
-                btnRecord->setText("● Grabando " + tiempoTexto);
-                tiempoGrabacion = tiempoGrabacion.addSecs(1);
-                fileHelper->tiempoGrabado = tiempoGrabacion;
-            });
-        }
-
-        timerGrabacion->start(1000);
-        btnRecord->setText("● Grabando 00:00:00");
-
-        // Cambiar estilo a activo
-        btnRecord->setStyleSheet(
-            "QPushButton { "
-            "color: red; "
-            "background-color: black; "
-            "border: none; "
-            "padding: 6px 14px; "
-            "font-size: 15px; "
-            "border-radius: 8px; "
-            "} "
-            "QPushButton:hover { background-color: #222; }"
-        );
-
-        btnRecord->setEnabled(false);
-        btnStop->setEnabled(true);
-    });
-
-    // === Conexión botón DETENER ===
-    connect(btnStop, &QPushButton::clicked, this, [this, btnStop, btnRecord]() {
-        fileHelper->detenerGrabacion();
-
-        // Detener y ocultar contador
-        if (timerGrabacion) timerGrabacion->stop();
-        btnRecord->setText("● Grabar");
-
-        // Restaurar estilo original
-        btnRecord->setStyleSheet(
-            "QPushButton { "
-            "color: white; "
-            "background-color: red; "
-            "border: none; "
-            "padding: 6px 14px; "
-            "font-size: 15px; "
-            "border-radius: 8px; "
-            "} "
-            "QPushButton:hover { background-color: darkred; }"
-        );
-
-        // Estilo temporal rojo para detener
-        btnStop->setStyleSheet(
-            "QPushButton { "
-            "color: red; "
-            "background-color: transparent; "
-            "border: none; "
-            "padding: 6px 14px; "
-            "font-size: 15px; "
-            "border-radius: 8px; "
-            "} "
-            "QPushButton:hover { background-color: #444; }"
-        );
-
-        QTimer::singleShot(1200, this, [btnStop]() {
-            btnStop->setStyleSheet(
-                "QPushButton { "
-                "color: white; "
-                "background-color: transparent; "
-                "border: none; "
-                "padding: 6px 14px; "
-                "font-size: 15px; "
-                "border-radius: 8px; "
-                "} "
-                "QPushButton:hover { background-color: #444; }"
-            );
-        });
-
-        btnRecord->setEnabled(true);
-        btnStop->setEnabled(false);
-    });
-
-    QWidget* leftButtons = new QWidget();
-    QHBoxLayout* leftLayout = new QHBoxLayout(leftButtons);
-    leftLayout->setContentsMargins(0, 0, 0, 0);
-    leftLayout->addWidget(btnRecord);
-    leftLayout->addWidget(btnStop);
-    leftLayout->addWidget(btnVerAntiguos);
-
-    // === Tiempo ===
-    labelTiempo = new QLabel("Tiempo: 00:00:00");
-    labelTiempo->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);  // centrado horizontal y vertical
-    labelTiempo->setStyleSheet(
-        "color: white;"
-        "font-weight: bold;"
-        "font-size: 18px;"
-    );
-
-    // === Controles de recepción  ===
-    QWidget* rightButtons = new QWidget();
-    QHBoxLayout* rightLayout = new QHBoxLayout(rightButtons);
-    rightLayout->setContentsMargins(0, 0, 8, 0);
-    rightLayout->setSpacing(6);
-
-    QPushButton* btnRxOn  = new QPushButton("Recibir datos");
-    QPushButton* btnRxOff = new QPushButton("No recibir");
-    btnRxOn->setCheckable(true);
-    btnRxOff->setCheckable(true);
-
-    btnRxOn->setStyleSheet(
-        "QPushButton { "
-            "color: white; "
-            "background-color: black; "
-            "padding: 6px 10px; "
-            "font-size: 13px; "
-            "border-radius: 8px; "
-        "} "
-        "QPushButton:hover { "
-            "background-color: #444; "
-        "} "
-        "QPushButton:checked { "
-            "color: black; "
-            "background-color: #00cc44; " 
-            "border-color: #00cc44; "
-        "}"
-    );
-
-    btnRxOff->setStyleSheet(
-        "QPushButton { "
-            "color: white; "
-            "background-color: black; "
-            "padding: 6px 10px; "
-            "font-size: 13px; "
-            "border-radius: 8px; "
-        "} "
-        "QPushButton:hover { "
-            "background-color: #444; "
-        "} "
-        "QPushButton:checked { "
-            "background-color: #b33939; "
-            "border-color: #b33939; "
-        "}"
-    );
-
-    QButtonGroup* rxGroup = new QButtonGroup(this);
-    rxGroup->setExclusive(true);
-    rxGroup->addButton(btnRxOn);
-    rxGroup->addButton(btnRxOff);
-
-    // Estado inicial
-    btnRxOn->setChecked(true);
-    m_sensorManager->setReceivingEnabled(true);
-
-    // Conexiones
-    connect(btnRxOn, &QPushButton::toggled, this, [this](bool checked){
-        if (checked) m_sensorManager->setReceivingEnabled(true);
-    });
-    connect(btnRxOff, &QPushButton::toggled, this, [this, btnRxOff]() {
-        if (btnRxOff->isChecked()) {
-            m_sensorManager->setReceivingEnabled(false);
-            if (timer && timer->isActive()) {
-                timer->stop();
-                labelTiempo->setText("Recepción pausada.");
-            }
-        }
-    });
-
-    rightLayout->addWidget(btnRxOn);
-    rightLayout->addWidget(btnRxOff);
-
-    // --- Botón de reinicio ---
-    QPushButton* btnReset = new QPushButton("Reiniciar");
-    btnReset->setStyleSheet(
-        "QPushButton { "
-            "color: white; "
-            "background-color: black; "
-            "padding: 6px 10px; "
-            "font-size: 13px; "
-            "border-radius: 8px; "
-        "} "
-        "QPushButton:hover { "
-            "background-color: #444; "
-        "} "
-        "QPushButton:pressed { "
-            "background-color: #ffaa00; " 
-            "border-color: #ffaa00; "
-        "}"
-    );
-
-    connect(btnReset, &QPushButton::clicked, this, [this, btnRxOn, btnRxOff]() {
-        // 1) Respetar el estado actual del usuario (si estaba en "No recibir", NO activar)
-        const bool wasReceiving = btnRxOn->isChecked();
-        m_sensorManager->setReceivingEnabled(false);
-
-        // 2) Limpiar datos en el manager
-        if (m_sensorManager) m_sensorManager->clearData();
-
-        // 3) Reiniciar cronómetro correctamente
-        tiempoIniciado = false;
-        tiempoInicio = QTime();
-        if (timer && timer->isActive()) timer->stop();
-        if (timeoutTimer && timeoutTimer->isActive()) timeoutTimer->stop();
-        labelTiempo->setText("Tiempo: 00:00:00");
-
-        // 4) Vaciar series y RESETEAR ejes X e Y a 0..1
-        for (auto* chartView : findChildren<QChartView*>()) {
-            if (auto* chart = chartView->chart()) {
-                // Borrar curvas
-                for (auto* s : chart->series()) {
-                    if (auto* line = qobject_cast<QLineSeries*>(s)) line->clear();
-                }
-                // Ejes X
-                for (auto* ax : chart->axes(Qt::Horizontal)) {
-                    if (auto* v = qobject_cast<QValueAxis*>(ax)) v->setRange(0.0, 1.0);
-                }
-                // Ejes Y
-                for (auto* ax : chart->axes(Qt::Vertical)) {
-                    if (auto* v = qobject_cast<QValueAxis*>(ax)) v->setRange(0.0, 1.0);
-                }
-            }
-        }
-
-        // 5) Restablecer textos
-        auto restLabel = [](QLabel* lbl, const QString& nombre, const QString& unidad){
-            if (lbl) lbl->setText(QString("%1: 0 %2").arg(nombre, unidad));
-        };
-        restLabel(labelRoll,  "Roll",        "°");
-        restLabel(labelPitch, "Pitch",       "°");
-        restLabel(labelYaw,   "Yaw",         "°");
-        restLabel(labelSats,  "Satélites",   "Conexiones");
-        restLabel(labelLat,   "Latitud",     "°");
-        restLabel(labelLon,   "Longitud",    "°");
-        restLabel(labelAlt,   "AltDiff",     "m");
-        restLabel(labelHdop,  "HDOP",        "°");
-        restLabel(labelPressure, "Presión",  "hPa");
-        restLabel(labelTemp,     "Temperatura", "°C");
-
-        for (int i = 0; i < 6; ++i) if (labelStatus[i]) labelStatus[i]->setText("Esperando...");
-        if (labelRaw) labelRaw->setText("Paquete: Esperando...");
-        for (int i = 0; i < 6; ++i) if (labelServos[i]) labelServos[i]->setText("0°");
-
-        // 6) Pedir que el manejador de datos reinicie su índice de tiempo 't'
-        resetTimeBase_ = true;
-
-        // 7) Volver al estado de recepción que eligió el usuario
-        m_sensorManager->setReceivingEnabled(wasReceiving);
-
-        // Salir de modo archivo
-        if (labelCom)  { labelCom->setProperty("fileMode", false);  labelCom->setText("Esperando..."); }
-        if (labelBaud) { labelBaud->setProperty("fileMode", false); labelBaud->setText("Esperando..."); }
-        setWindowTitle("FRECCIA_XAE - Gráficas 2D");
-
-        // Rehabilitar toggles de recepción
-        if (btnRxOn)  btnRxOn->setEnabled(true);
-        if (btnRxOff) btnRxOff->setEnabled(true);
-
-        // Si veníamos de modo archivo, limpiar bandera y restaurar labels/título
-        if (labelCom && labelCom->property("fileMode").toBool()) {
-            labelCom->setProperty("fileMode", false);
-            labelCom->setText("Esperando...");
-        }
-        if (labelBaud && labelBaud->property("fileMode").toBool()) {
-            labelBaud->setProperty("fileMode", false);
-            labelBaud->setText("Esperando...");
-        }
-        setWindowTitle("FRECCIA_XAE - Gráficas 2D");
-        modoArchivo_ = false;
-
-        if (ventanaGraph3D) {
-            ventanaGraph3D->resetData();
-        }
-    });
-
-    // Agregar al layout
-    rightLayout->addWidget(btnReset);
-
-    // Menú desplegable y acciones
-   QPushButton* btnMenu = new QPushButton();
-    btnMenu->setIcon(QIcon("./assets/Menu.png"));
-    btnMenu->setIconSize(QSize(35, 35));
-    btnMenu->setStyleSheet("background-color: transparent; border: none;");
-
-    // Menú
-    QMenu* menuDesplegable = new QMenu(this);
-    menuDesplegable->setStyleSheet("QMenu { background-color: black; color: white; }"
-                                "QMenu::item:selected { background-color: #444; }");
-
-    btnMenu->setMenu(menuDesplegable);
-
-    // --- Ver antiguos: abrir CSV y poblar gráficas ---
-    auto abrirAntiguos = [this, btnRecord, btnStop, btnRxOn, btnRxOff, btnMenu, btnVerAntiguos, btnReset]() {
-        const QString file = QFileDialog::getOpenFileName(
-            this,
-            tr("Abrir sesión CSV"),
-            "../data",
-            tr("CSV (*.csv)")
-        );
-        if (file.isEmpty()) return;
-
-        // Pausar recepción y reiniciar base de tiempo
-        m_sensorManager->setReceivingEnabled(false);
-
-        if (timer && timer->isActive()) timer->stop();
-        tiempoIniciado = false;
-        tiempoInicio = QTime();
-        if (labelTiempo) labelTiempo->setText("Tiempo: 00:00:00");
-
-        // Asegurar que 't' empiece en 0 en el slot de graficación
-        resetTimeBase_ = true;
-
-        // Limpiar series y devolver ejes X a 0..1
-        for (auto& p : seriesAndXAxis) {
-            if (p.first)  p.first->clear();
-            if (p.second) p.second->setRange(0.0, 1.0);
-        }
-        
-        // Cargar CSV y emitir datos hacia las gráficas
-        m_sensorManager->loadFromCsv(file);
-        modoArchivo_ = true;
-
-        // Parar timers para que no sobreescriban títulos
-        if (timer && timer->isActive())         timer->stop();
-        if (timeoutTimer && timeoutTimer->isActive()) timeoutTimer->stop();
-
-        // Mostrar COM/Baud como "No aplica" y marcar modo archivo (hasta Reiniciar)
-        if (labelCom)  { labelCom->setText(" No aplica");        labelCom->setProperty("fileMode", true); }
-        if (labelBaud) { labelBaud->setText(" No aplica"); labelBaud->setProperty("fileMode", true); }
-
-        // Fijar título con el nombre del CSV
-        setWindowTitle(QString("FRECCIA_XAE - Gráficas 2D (CSV: %1)").arg(QFileInfo(file).fileName()));
-
-        // Dejar los controles en modo "solo lectura de archivo"
-        m_sensorManager->setReceivingEnabled(false);
-        if (btnRxOff)   btnRxOff->setChecked(true);
-        if (btnRxOn)    btnRxOn->setEnabled(false);
-        if (btnRxOff)   btnRxOff->setEnabled(false);
-        if (btnRecord)  btnRecord->setEnabled(false);
-        if (btnStop)    btnStop->setEnabled(false);
-        if (btnMenu)    btnMenu->setEnabled(true);
-        if (btnVerAntiguos) btnVerAntiguos->setEnabled(true);
-
-        // Mostrar en el label el tiempo TOTAL (columna 0 = "Hora" en segundos) + nombre del documento
-        if (labelTiempo) {
-            QFile f2(file);
-            if (f2.open(QIODevice::ReadOnly | QIODevice::Text)) {
-                QTextStream in(&f2);
-        #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
-                in.setEncoding(QStringConverter::Utf8);
-        #endif
-            QString last;
-            while (!in.atEnd()) {
-                const QString line = in.readLine().trimmed();
-                if (line.isEmpty()) continue;
-                if (line.startsWith("Hora,")) continue; // saltar encabezado
-                last = line;
-            }
-            f2.close();
-
-            if (!last.isEmpty()) {
-                const QStringList v = last.split(',', Qt::KeepEmptyParts);
-                bool ok = false;
-                const double secs = v.value(0).toDouble(&ok); // "Hora" relativa
-                if (ok) {
-                    const int msec = int(std::llround(secs * 1000.0));
-                    const QTime dur = QTime(0,0,0).addMSecs(msec);
-                    labelTiempo->setText(
-                        tr("Tiempo total: %1   |   Datos Documento: \"%2\"")
-                        .arg(dur.toString("hh:mm:ss"))
-                        .arg(QFileInfo(file).fileName())
-                    );
-                }
-            }
-        }
-    }
-    };
-
-    connect(btnVerAntiguos, &QPushButton::clicked, this, abrirAntiguos);
-
-    // Acciones
-    pantalla1 = menuDesplegable->addAction("Pantalla Gráficas 2D");
-    pantalla2 = menuDesplegable->addAction("Pantalla Gráficas 3D y OSM");
-
-    // Estilo para el menú completo
-    menuDesplegable->setStyleSheet(R"(
-        QMenu {
-            background-color: black;
-            color: white;
-        }
-        QMenu::item {
-            padding: 6px 24px;
-            background-color: black;
-            color: white;
-        }
-        QMenu::item:disabled {
-            background-color: green;
-            color: white;
-        }
-        QMenu::item:selected:enabled {
-            background-color: #444;
-        }
-    )");
-
-    // === Detectar si ya está abierta ===
-    if (ventanaUnica && ventanaUnica != this) {
-            close();
-            return;
-        }
-        ventanaUnica = this;
-        pantalla1->setEnabled(false);
-        QObject::connect(this, &QWidget::destroyed, []() {
-            ventanaUnica = nullptr;
-    });
-
-    // === Boton Pantalla Gráficas 2D ===
-    connect(pantalla1, &QAction::triggered, this, [manager]() {
-        if (!ventanaUnica) {
-            ventanaUnica = new Widget(manager);
-            ventanaUnica->resize(1280, 720);
-            ventanaUnica->show();
-        } else {
-            ventanaUnica->raise();
-            ventanaUnica->activateWindow();
-        }
-    });
-
-    if (ventanaGraph3D) {
-        pantalla2->setEnabled(false);
-        pantalla1Activa = false;
-        actualizarEstilosMenu();
-    }
-
-    // === Botón Pantalla Gráficas ===
-    connect(pantalla2, &QAction::triggered, this, [this, manager]() {
-        if (ventanaGraph3D) {
-            ventanaGraph3D->raise();
-            ventanaGraph3D->activateWindow();
-            return;
-        }
-
-        pantalla1Activa = false;
-        actualizarEstilosMenu();
-
-        pantalla2->setEnabled(false);
-
-        ventanaGraph3D = new Graph3DWindow(manager);
-        ventanaGraph3D->setAttribute(Qt::WA_DeleteOnClose);
-        ventanaGraph3D->resize(1280, 720);
-        ventanaGraph3D->show();
-
-        connect(ventanaGraph3D, &QWidget::destroyed, this, [this]() {
-            pantalla2->setEnabled(true);
-            actualizarEstilosMenu();
-            ventanaGraph3D = nullptr;
-        });
-    });
-
-    // --- Menú: acciones de configuración y cerrar ---
-    menuDesplegable->addSeparator();
-
-    QAction* configCom  = menuDesplegable->addAction("Configurar COM y Baud");
-    QAction* configAcc  = menuDesplegable->addAction("Calibrar Acelerómetro");
-    QAction* configGyro = menuDesplegable->addAction("Calibrar Giroscopio");
-
-    menuDesplegable->addSeparator();
-
-    QWidgetAction* cerrarWidgetAction = new QWidgetAction(this);
-    QPushButton* cerrarBtn = new QPushButton("Close the program");
-    cerrarBtn->setStyleSheet("color: white; background-color: red; border: none; padding: 4px;");
-    cerrarWidgetAction->setDefaultWidget(cerrarBtn);
-    menuDesplegable->addAction(cerrarWidgetAction);
-
-    // Ventana de selección de puerto/baud
-    connect(configCom, &QAction::triggered, this, [this]() {
-        abrirDialogoSerial();
-    });
-
-    // Mantener sincronizados los labels cuando SensorManager reconfigure el puerto
-    connect(m_sensorManager, &SensorManager::serialReconfigured,
-            this, [this](const QString& port, int baud, bool ok) {
-        // Si estamos en modo archivo, NO toques las etiquetas
-        if ((labelCom  && labelCom->property("fileMode").toBool()) ||
-            (labelBaud && labelBaud->property("fileMode").toBool())) {
-            return;
-        }
-        if (labelCom)  labelCom->setText(QString(" %1%2").arg(port, ok ? "" : " (error)"));
-        if (labelBaud) labelBaud->setText(QString(" %1").arg(baud));
-    });
-
-    // Confirmación para cerrar
-    connect(cerrarBtn, &QPushButton::clicked, this, []() {
-        QMessageBox msgBox;
-        msgBox.setIcon(QMessageBox::Critical);
-        msgBox.setWindowTitle("Exit Confirmation");
-        msgBox.setText("Are you sure about closing the program?");
-        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-        msgBox.setDefaultButton(QMessageBox::No);
-        msgBox.setWindowIcon(QIcon("./assets/logo_xae.png"));
-        if (msgBox.exec() == QMessageBox::Yes) {
-            QCoreApplication::quit();
-        }
-    });
-
-    btnMenu->setMenu(menuDesplegable);
-
-    // === Añadir a layout superior ===
-    topLayout->addWidget(leftButtons);
-    topLayout->addStretch();
-    topLayout->addWidget(labelTiempo);
-    topLayout->addStretch();
-    topLayout->addWidget(rightButtons); 
-    topLayout->addWidget(btnMenu);
+    // === Menu and Toolbar ===
+    m_topToolbar = new TopToolbar(this);
 
     // === Añadir barra al layout principal ===
     QVBoxLayout* globalLayout = new QVBoxLayout(this);
     globalLayout->setContentsMargins(0, 0, 0, 0);
-    globalLayout->addSpacing(10);
-    globalLayout->addWidget(topBar);
+    globalLayout->setSpacing(0);
+    globalLayout->addWidget(m_topToolbar);
     globalLayout->addLayout(layout);
 
     auto crearGrafica = [&](QChart*& chart,
                         QLineSeries*& series,
-                        QChartView*& view, 
+                        HoverChartView*& view,
                         QLabel*& label,
                         QValueAxis*& ejeX,
                         QValueAxis*& ejeY,
@@ -695,11 +132,14 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
         chart->setTitleBrush(QBrush(Qt::white));
         chart->legend()->setLabelColor(Qt::white);
         chart->setBackgroundBrush(QBrush(Qt::black));
+        chart->setAnimationOptions(QChart::SeriesAnimations);
+        chart->setMargins(QMargins(0, 0, 0, 0));
+        chart->layout()->setContentsMargins(0, 0, 0, 0);
 
        // --- View con soporte de hover ---
         auto* hview = new HoverChartView();
         hview->setRenderHint(QPainter::Antialiasing, true);
-        hview->setMinimumSize(400, 250);
+        hview->setMinimumSize(150, 150);
         hview->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         hview->setChart(chart);
         view = hview;
@@ -827,7 +267,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     gridServos->setHorizontalSpacing(24);
     gridServos->setVerticalSpacing(24);
 
-    const qreal k = 1.6;                   // escala de tamaño
+    const qreal k = 1.0;                   // escala de tamaño
     const int  cardSize = int(100 * k);    // lado de la tarjeta
     const int  rCorner  = int(10  * k);    // radio de esquina
     const int  titlePt  = int(8   * k);    // tamaño título "Servo N"
@@ -843,7 +283,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
             "background-color: #2c2c2c;"
             "border-radius: %1px;"
         ).arg(rCorner));
-        card->setFixedSize(cardSize, cardSize);
+        card->setMinimumSize(cardSize, cardSize);
 
         QVBoxLayout* cardLayout = new QVBoxLayout(card);
         cardLayout->setAlignment(Qt::AlignCenter);
@@ -884,191 +324,87 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
 
     QWidget* servoWidget = new QWidget();
     servoWidget->setLayout(gridServos);
-    layout->addWidget(servoWidget, 2, 2);
+    layout->addWidget(servoWidget, 2, 2, 1, 2);
 
-    // === ESTADO DEL SISTEMA (2,3) con distribución 3 filas x 2 columnas ===
-    QGridLayout* gridEstado = new QGridLayout();
-    gridEstado->setSpacing(8);
-    gridEstado->setContentsMargins(0, 0, 0, 0);
+    // === ESTADO DEL SISTEMA (Inferior completamente horizontal) ===
+    QVBoxLayout* statusBottomLayout = new QVBoxLayout();
+    statusBottomLayout->setContentsMargins(5, 5, 5, 5);
+    statusBottomLayout->setSpacing(5);
 
-    gridEstado->setHorizontalSpacing(16);
-    gridEstado->setVerticalSpacing(10);
-    gridEstado->setColumnStretch(0, 1);
-    gridEstado->setColumnStretch(1, 1);
+    QHBoxLayout* indicatorsLayout = new QHBoxLayout();
+    indicatorsLayout->setSpacing(10);
 
+    // --- Ventana de tiempo (Slider) ---
     QWidget* winBox = new QWidget();
     winBox->setStyleSheet("background-color: #2c2c2c; border-radius: 10px;");
+    winBox->setMinimumWidth(250);
     QVBoxLayout* winLay = new QVBoxLayout(winBox);
-    winLay->setContentsMargins(10, 8, 10, 8);
-    winLay->setSpacing(6);
+    winLay->setContentsMargins(4, 2, 4, 2);
+    winLay->setSpacing(2);
 
-    // Texto / valor seleccionado
     winText = new QLabel(tr("Ventana: Máx"));
     winText->setAlignment(Qt::AlignCenter);
-    winText->setStyleSheet("color: white; font-weight: bold;");
+    winText->setStyleSheet("color: white; font-weight: bold; font-size: 10px;");
 
-    // Slider con 8 posiciones: 5,10,20,30,40,50,60, Máx
     winSlider = new QSlider(Qt::Horizontal);
     winSlider->setRange(0, 7);
-    winSlider->setValue(7); // 7 = Máx por defecto
+    winSlider->setValue(7);
     winSlider->setTickPosition(QSlider::TicksBelow);
     winSlider->setTickInterval(1);
-    winSlider->setSingleStep(1);
-
-    // Estilo
     winSlider->setStyleSheet(R"(
     QSlider::groove:horizontal {
-        height: 16px; border-radius: 8px;
-        margin: 8px 10px;
-        background: qlineargradient(x1:0, y1:0.5, x2:1, y2:0.5,
-        stop:0 #2ecc71, stop:0.5 #f1c40f, stop:1 #e74c3c);
+        height: 12px; border-radius: 6px;
+        background: qlineargradient(x1:0, y1:0.5, x2:1, y2:0.5, stop:0 #2ecc71, stop:0.5 #f1c40f, stop:1 #e74c3c);
     }
     QSlider::handle:horizontal {
         background: white; border: 1px solid #bbb;
-        width: 24px; height: 24px; margin: -6px 0;
-        border-radius: 12px;
+        width: 18px; height: 18px; margin: -4px 0;
+        border-radius: 9px;
     }
-    QSlider::sub-page:horizontal { background: transparent; }
-    QSlider::add-page:horizontal { background: transparent; }
-    QSlider::tick-position:below { color: #aaa; }
     )");
-
-    // Etiquetas “5s ... Máx”
-    QStringList tickText = {"5s","10s","20s","30s","40s","50s","60s","Máx"};
-    QHBoxLayout* ticks = new QHBoxLayout();
-    ticks->setContentsMargins(14, 0, 14, 0);
-    for (int i=0;i<tickText.size();++i) {
-        QLabel* t = new QLabel(tickText[i]);
-        t->setStyleSheet("color:#bbb; font-size:10px;");
-        t->setAlignment(Qt::AlignCenter);
-        ticks->addWidget(t, 1);
-    }
-
     winLay->addWidget(winText);
     winLay->addWidget(winSlider);
-    winLay->addLayout(ticks);
+    indicatorsLayout->addWidget(winBox);
 
-  // Contenedor vertical de la columna derecha
-    QVBoxLayout* estadoFinal = new QVBoxLayout();
-    estadoFinal->setContentsMargins(0,0,0,0);
-    estadoFinal->addWidget(winBox);
-
-    QStringList campos = {"Conexión", "Tiempo Para Inicio", "Paracaídas", "Fecha Satélital", "Fecha Local", "Hora Local"};
-
+    // --- Indicadores de estado ---
+    QStringList campos = {"Conexión", "T. Inicio", "Paracaídas", "Satélital", "F. Local", "H. Local", "Puerto", "Velocidad"};
     for (int i = 0; i < campos.size(); ++i) {
         QFrame* card = new QFrame();
-        if (!card) {
-            qDebug() << "Error: card es nullptr en índice" << i;
-            continue;
-        }
-
-        card->setStyleSheet("background-color: #2c2c2c; border-radius: 10px;");
-        card->setMinimumHeight(56);
-        card->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-
-        QVBoxLayout* cardLayout = new QVBoxLayout(card);
-        cardLayout->setAlignment(Qt::AlignCenter);
-        cardLayout->setContentsMargins(4, 2, 4, 2);
+        card->setStyleSheet("background-color: #2c2c2c; border-radius: 8px;");
+        card->setMinimumSize(85, 40);
+        QVBoxLayout* cardLay = new QVBoxLayout(card);
+        cardLay->setContentsMargins(2, 2, 2, 2);
+        cardLay->setSpacing(0);
 
         QLabel* titulo = new QLabel(campos[i]);
-        titulo->setStyleSheet("color: white; font-size: 10px;");
+        titulo->setStyleSheet("color: #aaa; font-size: 9px;");
         titulo->setAlignment(Qt::AlignCenter);
 
-        labelStatus[i] = new QLabel("Esperando...");
-        labelStatus[i]->setStyleSheet("color: white; font-weight: bold; font-size: 12px;");
+        labelStatus[i] = new QLabel("...");
+        labelStatus[i]->setStyleSheet("color: white; font-weight: bold; font-size: 10px;");
         labelStatus[i]->setAlignment(Qt::AlignCenter);
 
-        cardLayout->addWidget(titulo);
-        cardLayout->addWidget(labelStatus[i]);
+        if (i == 6) labelCom = labelStatus[i];
+        if (i == 7) labelBaud = labelStatus[i];
 
-        if (labelStatus[i] == nullptr || titulo == nullptr || cardLayout == nullptr) {
-            qDebug() << "Fallo en creación de widgets para campo" << campos[i];
-            continue;
-        }
-
-        gridEstado->addWidget(card, i / 2, i % 2);
+        cardLay->addWidget(titulo);
+        cardLay->addWidget(labelStatus[i]);
+        indicatorsLayout->addWidget(card);
     }
+    statusBottomLayout->addLayout(indicatorsLayout);
 
-    // === Tarjetas separadas: "Puerto (COM)" y "Velocidad" lado a lado ===
-    QFrame* puertoCard = new QFrame();
-    puertoCard->setStyleSheet("background-color: #2c2c2c; border-radius: 10px;");
-    puertoCard->setMinimumHeight(56);
-    puertoCard->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-
-    QVBoxLayout* puertoCardLayout = new QVBoxLayout(puertoCard);
-    puertoCardLayout->setAlignment(Qt::AlignCenter);
-    puertoCardLayout->setContentsMargins(8, 4, 8, 4);
-
-    QLabel* tituloPuerto = new QLabel("Puerto");
-    tituloPuerto->setStyleSheet("color: white; font-size: 10px;");
-    tituloPuerto->setAlignment(Qt::AlignCenter);
-
-    labelCom = new QLabel("Esperando...");
-    labelCom->setStyleSheet("color: white; font-weight: bold; font-size: 12px;");
-    labelCom->setAlignment(Qt::AlignCenter);
-
-    puertoCardLayout->addWidget(tituloPuerto);
-    puertoCardLayout->addWidget(labelCom);
-
-    // ---
-    QFrame* baudCard = new QFrame();
-    baudCard->setStyleSheet("background-color: #2c2c2c; border-radius: 10px;");
-    baudCard->setMinimumHeight(56);
-    baudCard->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-
-    QVBoxLayout* baudCardLayout = new QVBoxLayout(baudCard);
-    baudCardLayout->setAlignment(Qt::AlignCenter);
-    baudCardLayout->setContentsMargins(8, 4, 8, 4);
-
-    QLabel* tituloBaud = new QLabel("Velocidad");
-    tituloBaud->setStyleSheet("color: white; font-size: 10px;");
-    tituloBaud->setAlignment(Qt::AlignCenter);
-
-    labelBaud = new QLabel("Esperando...");
-    labelBaud->setStyleSheet("color: white; font-weight: bold; font-size: 12px;");
-    labelBaud->setAlignment(Qt::AlignCenter);
-
-    baudCardLayout->addWidget(tituloBaud);
-    baudCardLayout->addWidget(labelBaud);
-
-    // Añade ambas tarjetas a la MISMA fila del grid (una izquierda, otra derecha)
-    const int nextRow = campos.size() / 2; // con 6 campos, nextRow = 3
-    gridEstado->addWidget(puertoCard, nextRow, 0);
-    gridEstado->addWidget(baudCard,   nextRow, 1);
-
-    // Añade el grid de estado al contenedor
-    estadoFinal->addLayout(gridEstado);
-
-    // === Línea final con paquete RAW ===
-    labelRaw = new QLabel("Paquete: Esperando...\n");
-    labelRaw->setStyleSheet("color: white; font-size: 10px; background-color: #1e1e1e; padding: 6px;");
+    // --- Paquete RAW (Paquete) al fondo absoluto ---
+    labelRaw = new QLabel("Paquete: ...");
+    labelRaw->setStyleSheet("color: #00ff00; font-size: 10px; background-color: #1a1a1a; padding: 5px; border-radius: 4px; border: 1px solid #333;");
     labelRaw->setWordWrap(true);
-    labelRaw->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-    labelRaw->setMinimumHeight(30);
-    labelRaw->setMaximumHeight(36);
-    labelRaw->setMinimumWidth(300);
-    labelRaw->setMaximumWidth(300);
-    labelRaw->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    labelRaw->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    QFont mono("Consolas"); mono.setPointSizeF(9); labelRaw->setFont(mono);
 
-    labelRaw->setMaximumWidth(475);
-    labelRaw->setTextInteractionFlags(Qt::TextSelectableByMouse);
+    statusBottomLayout->addWidget(labelRaw);
 
-    QFont mono;
-    mono.setFamily("Consolas");
-    mono.setStyleHint(QFont::Monospace);
-    labelRaw->setFont(mono);
-
-    if (labelRaw) {
-        estadoFinal->addWidget(labelRaw);
-    } else {
-        QLabel* fallbackRaw = new QLabel("Error: RAW no inicializado");
-        fallbackRaw->setStyleSheet("color: red;");
-        estadoFinal->addWidget(fallbackRaw);
-    }
-
-    QWidget* estadoWidget = new QWidget();
-    estadoWidget->setLayout(estadoFinal);
-    layout->addWidget(estadoWidget, 2, 3);
+    QWidget* bottomWidget = new QWidget();
+    bottomWidget->setLayout(statusBottomLayout);
+    layout->addWidget(bottomWidget, 3, 0, 1, 4);
 
     // === Ventana de tiempo ===
     auto secsAt = [](int pos)->int {
@@ -1099,9 +435,28 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
         }
     });
 
+    // Mantener sincronizados los labels cuando SensorManager reconfigure el puerto
+    connect(m_sensorManager, &SensorManager::serialReconfigured,
+            this, [this](const QString& port, int baud, bool ok) {
+        if ((labelCom  && labelCom->property("fileMode").toBool()) ||
+            (labelBaud && labelBaud->property("fileMode").toBool())) {
+            return;
+        }
+        if (labelCom)  labelCom->setText(QString(" %1%2").arg(port, ok ? "" : " (error)"));
+        if (labelBaud) labelBaud->setText(QString(" %1").arg(baud));
+    });
+
     // === Suscripción a DataTopic ===
+   static RangeChecker rangeChecker;
+
    connect(DataTopic::instance(), &DataTopic::dataPublished, this, [this](const QString& line) {
-        SensorData d = SensorData::deserialize(line);
+        QString cleanLine = line;
+        int colonIndex = line.indexOf(':');
+        if (line.startsWith('#') && colonIndex != -1) {
+            cleanLine = line.mid(colonIndex + 1).trimmed();
+        }
+
+        SensorData d = SensorData::deserialize(cleanLine);
         static int t = 0;
 
         if (resetTimeBase_) { t = 0; resetTimeBase_ = false; }
@@ -1110,57 +465,58 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
                              double valor,
                              QLabel*     label,
                              QValueAxis* axisX,
-                             QValueAxis* axisY)
+                             QValueAxis* axisY,
+                             HoverChartView* hview)
         {
             if (!series || !label || !axisX || !axisY
                 || std::isnan(valor) || std::isinf(valor))
                 return;
 
-            // 1) apuntamos el nuevo valor en la curva
+            if (hview) {
+                hview->setAlertLevel(rangeChecker.check(series->objectName(), valor));
+            }
+
             series->append(t, valor);
 
-            // 2) recuperamos nombre + unidad
             QString nombre = series->objectName();                
             QString unidad = series->property("tipoDato").toString();
 
-            // 3) montamos el texto: "AltDiff: 3.50 m"
             QString texto  = QString("%1: %2 %3")
                             .arg(nombre)                        
                             .arg(valor, 0, 'f', 3)              
                             .arg(unidad);  
 
-            // 4) actualizamos leyenda *y* etiqueta
             series->setName(texto);
             label->setText(texto);
 
-            // 5) reajustamos ejes X según la ventana seleccionada (SIN borrar puntos)
-            if (windowSec == 0) {
-                // Máx: mostrar todo lo acumulado desde t = 0 hasta t
-                axisX->setRange(0, t);
-            } else {
-                // Ventana deslizante: últimos windowSec segundos
-                axisX->setRange(std::max(0, t - windowSec), t);
+            if (hview && hview->autoFollow()) {
+                if (windowSec == 0) {
+                    axisX->setRange(0, t);
+                } else {
+                    axisX->setRange(std::max(0, t - windowSec), t);
+                }
             }
 
-            // 6) reajustamos ejes Y dinámicamente
-            if (axisY->min() == axisY->max())
-                axisY->setRange(valor, valor+1);
-            else {
-                if (valor > axisY->max()) axisY->setMax(valor);
-                if (valor < axisY->min()) axisY->setMin(valor);
+            if (hview && hview->autoFollow()) {
+                if (axisY->min() == axisY->max())
+                    axisY->setRange(valor, valor+1);
+                else {
+                    if (valor > axisY->max()) axisY->setMax(valor);
+                    if (valor < axisY->min()) axisY->setMin(valor);
+                }
             }
         };
 
-        actualizarGrafica(seriesRoll, d.Roll, labelRoll, axisX_Roll, axisY_Roll);
-        actualizarGrafica(seriesPitch, d.Pitch, labelPitch, axisX_Pitch, axisY_Pitch);
-        actualizarGrafica(seriesYaw, d.Yaw, labelYaw, axisX_Yaw, axisY_Yaw);
-        actualizarGrafica(seriesSats, d.satellites, labelSats, axisX_Sats, axisY_Sats);
-        actualizarGrafica(seriesLat, d.latitude, labelLat, axisX_Lat, axisY_Lat);
-        actualizarGrafica(seriesLon, d.longitude, labelLon, axisX_Lon, axisY_Lon);
-        actualizarGrafica(seriesAlt, d.AltDiff, labelAlt, axisX_Alt, axisY_Alt);
-        actualizarGrafica(seriesHdop, d.hdop, labelHdop, axisX_Hdop, axisY_Hdop);
-        actualizarGrafica(seriesPressure, d.pressure, labelPressure, axisX_Pressure, axisY_Pressure);
-        actualizarGrafica(seriesTemp, d.temperature, labelTemp, axisX_Temp, axisY_Temp);
+        actualizarGrafica(seriesRoll, d.Roll, labelRoll, axisX_Roll, axisY_Roll, viewRoll);
+        actualizarGrafica(seriesPitch, d.Pitch, labelPitch, axisX_Pitch, axisY_Pitch, viewPitch);
+        actualizarGrafica(seriesYaw, d.Yaw, labelYaw, axisX_Yaw, axisY_Yaw, viewYaw);
+        actualizarGrafica(seriesSats, d.satellites, labelSats, axisX_Sats, axisY_Sats, viewSats);
+        actualizarGrafica(seriesLat, d.latitude, labelLat, axisX_Lat, axisY_Lat, viewLat);
+        actualizarGrafica(seriesLon, d.longitude, labelLon, axisX_Lon, axisY_Lon, viewLon);
+        actualizarGrafica(seriesAlt, d.AltDiff, labelAlt, axisX_Alt, axisY_Alt, viewAlt);
+        actualizarGrafica(seriesHdop, d.hdop, labelHdop, axisX_Hdop, axisY_Hdop, viewHdop);
+        actualizarGrafica(seriesPressure, d.pressure, labelPressure, axisX_Pressure, axisY_Pressure, viewPressure);
+        actualizarGrafica(seriesTemp, d.temperature, labelTemp, axisX_Temp, axisY_Temp, viewTemp);
 
         labelServos[0]->setText(QString::number(d.Servo1) + "°");
         labelServos[1]->setText(QString::number(d.Servo2) + "°");
@@ -1171,7 +527,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
         labelStatus[1]->setText("Inicializado");
         labelStatus[2]->setText("N/A");
         labelStatus[3]->setText(QString::fromStdString(d.date));
-        labelStatus[4]->setText(QDate::currentDate().toString("dd-MMMM-yyyy"));
+        labelStatus[4]->setText(QDate::currentDate().toString("dd-MM-yy"));
         labelStatus[5]->setText(QTime::currentTime().toString("hh:mm:ss"));
 
         labelRaw->setText("Paquete: " + line);
@@ -1180,7 +536,7 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
             if (timeoutTimer) timeoutTimer->start();
 
             if (!tiempoIniciado) {
-                tiempoInicio = QTime::currentTime();
+                m_accumulatedSecs = 0;
                 tiempoIniciado = true;
                 if (timer) timer->start(1000);
             } else if (timer && !timer->isActive()) {
@@ -1200,79 +556,98 @@ Widget::Widget(SensorManager* manager, QWidget* parent)
     timeoutTimer->setSingleShot(true);
 
     connect(timer, &QTimer::timeout, this, [this]() {
-
         if (modoArchivo_) return;
-        int secs = tiempoInicio.secsTo(QTime::currentTime());
+        m_accumulatedSecs++;
         QTime t(0, 0);
-        t = t.addSecs(secs);
-        labelTiempo->setText("Tiempo: " + t.toString("hh:mm:ss"));
+        t = t.addSecs(m_accumulatedSecs);
+        WindowManager::instance()->setSessionTimerText(t.toString("hh:mm:ss"));
     });
     
     connect(timeoutTimer, &QTimer::timeout, this, [this]() {
-        qWarning() << "No se han recibido datos en 20 segundos. Deteniendo el contador.";
+        qWarning() << "No se han recibido datos en 30 segundos. Deteniendo el contador.";
         if (timer->isActive()) {
             timer->stop();
-            labelTiempo->setText("Señal perdida. Cronómetro detenido.");
+            WindowManager::instance()->setSessionTimerText("Señal perdida. Cronómetro detenido.");
         }
     });
 
-    connect(cerrarBtn, &QPushButton::clicked, this, []() {
-        QMessageBox msgBox;
-        msgBox.setIcon(QMessageBox::Critical);
-        msgBox.setWindowTitle("Exit Confirmation");
-        msgBox.setText("Are you sure about closing the program?");
-        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-        msgBox.setDefaultButton(QMessageBox::No);
-
-        msgBox.setWindowIcon(QIcon("./assets/logo_xae.png"));
-
-        int reply = msgBox.exec();
-        if (reply == QMessageBox::Yes)
-            QCoreApplication::quit();
-    });
-    pantalla1Activa = true;
-    actualizarEstilosMenu();
-}
-
-void Widget::actualizarEstilosMenu() {
-    if (pantalla1 && pantalla2) {
-        pantalla1->setIcon(pantalla1Activa ? QIcon(":/icons/activo.png") : QIcon());
-    pantalla2->setIcon(!pantalla1Activa ? QIcon(":/icons/activo.png") : QIcon());
-    }
-}
-
-void Widget::abrirVentana3DDesdeExterno() {
-    if (ventanaGraph3D) return;
-    pantalla2->setEnabled(false);
-    actualizarEstilosMenu();
-
-    connect(ventanaGraph3D, &QWidget::destroyed, this, [this]() {
-        pantalla2->setEnabled(true);
-        actualizarEstilosMenu();
-        ventanaGraph3D = nullptr;
+    connect(WindowManager::instance(), &WindowManager::dataResetRequested, this, &Widget::resetCharts);
+    connect(WindowManager::instance(), &WindowManager::modoArchivoChanged, this, [this](bool enabled, const QString& fileName){
+         modoArchivo_ = enabled;
+         if (enabled) {
+              if (labelCom)  { labelCom->setText(" No aplica");        labelCom->setProperty("fileMode", true); }
+              if (labelBaud) { labelBaud->setText(" No aplica"); labelBaud->setProperty("fileMode", true); }
+              setWindowTitle(QString("FRECCIA_XAE - Gráficas 2D (CSV: %1)").arg(fileName));
+         } else {
+              if (labelCom)  { labelCom->setProperty("fileMode", false);  labelCom->setText("..."); }
+              if (labelBaud) { labelBaud->setProperty("fileMode", false); labelBaud->setText("..."); }
+              setWindowTitle("FRECCIA_XAE - Gráficas 2D");
+         }
     });
 }
+
+void Widget::resetCharts() {
+        tiempoIniciado = false;
+        m_accumulatedSecs = 0;
+        if (timer && timer->isActive()) timer->stop();
+        if (timeoutTimer && timeoutTimer->isActive()) timeoutTimer->stop();
+
+        for (auto* chartView : findChildren<QChartView*>()) {
+            if (auto* chart = chartView->chart()) {
+                for (auto* s : chart->series()) {
+                    if (auto* line = qobject_cast<QLineSeries*>(s)) line->clear();
+                }
+                for (auto* ax : chart->axes(Qt::Horizontal)) {
+                    if (auto* v = qobject_cast<QValueAxis*>(ax)) v->setRange(0.0, 1.0);
+                }
+                for (auto* ax : chart->axes(Qt::Vertical)) {
+                    if (auto* v = qobject_cast<QValueAxis*>(ax)) v->setRange(0.0, 1.0);
+                }
+            }
+            if (auto* hview = qobject_cast<HoverChartView*>(chartView)) {
+                hview->setAutoFollow(true);
+            }
+        }
+
+        auto restLabel = [](QLabel* lbl, const QString& nombre, const QString& unidad){
+            if (lbl) lbl->setText(QString("%1: 0 %2").arg(nombre, unidad));
+        };
+        restLabel(labelRoll,  "Roll",        "°");
+        restLabel(labelPitch, "Pitch",       "°");
+        restLabel(labelYaw,   "Yaw",         "°");
+        restLabel(labelSats,  "Satélites",   "Conexiones");
+        restLabel(labelLat,   "Latitud",     "°");
+        restLabel(labelLon,   "Longitud",    "°");
+        restLabel(labelAlt,   "AltDiff",     "m");
+        restLabel(labelHdop,  "HDOP",        "°");
+        restLabel(labelPressure, "Presión",  "hPa");
+        restLabel(labelTemp,     "Temperatura", "°C");
+
+        for (int i = 0; i < 6; ++i) if (labelStatus[i]) labelStatus[i]->setText("...");
+        if (labelRaw) labelRaw->setText("Paquete: ...");
+        for (int i = 0; i < 6; ++i) if (labelServos[i]) labelServos[i]->setText("0°");
+
+        resetTimeBase_ = true;
+
+        if (WindowManager::instance()->graph3D()) {
+            WindowManager::instance()->graph3D()->resetData();
+        }
+}
+
+void Widget::abrirVentana3DDesdeExterno() {}
 
 void Widget::procesarDatos(const SensorData& data) {
-    fileHelper->escribirDuranteGrabacion(data);
+    WindowManager::instance()->procesarDatos(data);
 }
 
 void Widget::abrirDialogoSerial() {
     auto leerPuertoActual = [this]() -> QString {
-
-        // Espera formato "COM: <puerto>" o "COM: <puerto> (error)"
         QString txt = labelCom && !labelCom->text().isEmpty() ? labelCom->text() : QString();
-
-        // quita prefijo "COM: "
         if (txt.startsWith("COM: ")) txt = txt.mid(5);
-
-        // quita los errores
         txt.replace(" (error)", "");
         return txt.trimmed();
     };
     auto leerBaudActual = [this]() -> int {
-
-        // Espera formato "Velocidad: <baud>"
         QString txt = labelBaud && !labelBaud->text().isEmpty() ? labelBaud->text() : QString();
         txt.replace("Velocidad:", "").remove(' ');
         bool ok = false; int b = txt.toInt(&ok);
@@ -1291,11 +666,9 @@ void Widget::abrirDialogoSerial() {
 
     cbOS->addItems({"Linux", "Windows"});
 
-    // bauds predefinidos
     const QList<int> bauds = {9600, 19200, 38400, 57600, 115200, 230400, 460800};
     for (int b : bauds) cbBaud->addItem(QString::number(b), b);
 
-    // Puertos disponibles según OS
     auto listarPuertosLinux = []() -> QStringList {
         QStringList out;
         const auto infos = QSerialPortInfo::availablePorts();
@@ -1328,7 +701,6 @@ void Widget::abrirDialogoSerial() {
         else if (!preselect.isEmpty()) cbPuertos->setEditText(preselect);
     };
 
-    // --- layout ---
     auto* lay = new QFormLayout(&dlg);
     lay->setContentsMargins(20, 20, 20, 20);
     lay->setSpacing(14);
@@ -1337,7 +709,6 @@ void Widget::abrirDialogoSerial() {
     lay->addRow("Baud:",    cbBaud);
     lay->addRow(btns);
 
-    // --- valores actuales para preseleccionar ---
     const QString puertoActual = leerPuertoActual();
     const int     baudActual   = leerBaudActual();
 
@@ -1349,21 +720,17 @@ void Widget::abrirDialogoSerial() {
 
     poblarPuertos(cbOS->currentText(), puertoActual);
 
-    // preselección de baud
     int idxBaud = cbBaud->findData(baudActual);
     cbBaud->setCurrentIndex(idxBaud >= 0 ? idxBaud : cbBaud->findData(115200));
 
-    // Cambios en OS o puerto
     connect(cbOS, &QComboBox::currentTextChanged, &dlg, [&, this](const QString& osName){
         const QString textoActual = cbPuertos->currentText().trimmed();
         poblarPuertos(osName, textoActual.isEmpty() ? puertoActual : textoActual);
     });
 
-    // botones
     QObject::connect(btns, &QDialogButtonBox::accepted, &dlg, &QDialog::accept);
     QObject::connect(btns, &QDialogButtonBox::rejected, &dlg, &QDialog::reject);
 
-    // Aplicacion de cambios
     if (dlg.exec() == QDialog::Accepted) {
         const QString port = cbPuertos->currentText().trimmed();
         const int baud     = cbBaud->currentData().toInt();
@@ -1374,9 +741,8 @@ void Widget::abrirDialogoSerial() {
 
         const bool ok = m_sensorManager->setSerial(port, baud);
 
-        // Actualización inmediata de labels (además del signal serialReconfigured)
-        labelCom->setText(QString(" %1%2").arg(port, ok ? "" : " (error)"));
-        labelBaud->setText(QString(" %1").arg(baud));
+        if(labelCom) labelCom->setText(QString(" %1%2").arg(port, ok ? "" : " (error)"));
+        if(labelBaud) labelBaud->setText(QString(" %1").arg(baud));
 
             if (!ok) {
                 QMessageBox::critical(this, "Puerto serie",

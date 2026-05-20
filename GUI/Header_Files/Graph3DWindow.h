@@ -2,6 +2,8 @@
 #define GRAPH3DWINDOW_H
 
 #include "SensorManager.h"
+#include "TopToolbar.h"
+#include "CameraWidget.h"
 
 // Qt Widgets y Layouts
 #include <QWidget>
@@ -13,12 +15,6 @@
 #include <QPushButton>
 #include <QVector3D>
 #include <QList>
-
-// Qt Charts
-#include <QtCharts/QChart>
-#include <QtCharts/QChartView>
-#include <QtCharts/QLineSeries>
-#include <QtCharts/QValueAxis>
 
 // Qt Data Visualization
 #include <QtDataVisualization/Q3DScatter>
@@ -45,8 +41,10 @@ public slots:
     void resetData();
 
 private:
-    void aplicarEstiloGrafico(QChart* chart, QValueAxis* axisX, QValueAxis* axisY);
     SensorManager* m_sensorManager = nullptr;
+    TopToolbar* m_topToolbar = nullptr;
+    CameraWidget* m_camera1 = nullptr;
+    CameraWidget* m_camera2 = nullptr;
 
     // === Layout principal ===
     QGridLayout* mainLayout;
@@ -56,22 +54,6 @@ private:
     QWidget* container3D;
     
 
-    // === Series para gráfica 2D (nuevas variables) ===
-    QChart* chartAll;
-    QChartView* chartAllView;
-    QValueAxis* axisX1;
-    QValueAxis* axisY1;
-    int xIndex2D = 0;
-
-    QLineSeries* seriesLat;
-    QLineSeries* seriesLon;
-    QLineSeries* seriesRoll;
-    QLineSeries* seriesPitch;
-    QLineSeries* seriesYaw;
-    QLineSeries* seriesAlt;
-    QLineSeries* seriesSats;
-    QLineSeries* seriesHDOP;
-
     // === Gráfico 3D ===
     Q3DScatter* scatterGraph;
     QScatter3DSeries* mainSeries;
@@ -79,13 +61,6 @@ private:
     QVector<QVector3D> pointHistory;
     int xIndex3D = 0;
 
-    // === LLMAP ===
-
-    QGraphicsView* llmap;
-    QGraphicsScene* llmapScene;
-    QGraphicsEllipseItem* mapDot = nullptr;
-    QPainterPath trayecto;
-    QGraphicsPathItem* pathItem = nullptr;
 
     // === Series y ejes para gráfica 3D ===
     Qt3DCore::QEntity* rootEntity;
@@ -94,13 +69,7 @@ private:
     QWidget* container3DModel;
 
     // === Métodos ===
-    void setupGeneral2DChart();
 
-    QList<QGraphicsItem*> tooltipTexts;
-    QList<QGraphicsEllipseItem*> tooltipDots;
-    QList<QGraphicsLineItem*> tooltipLines;
-    QGridLayout* contenedorValoresArriba;
-    QList<QLabel*> etiquetasValores;
 
 };
 

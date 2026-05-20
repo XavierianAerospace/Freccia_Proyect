@@ -72,19 +72,26 @@ void SensorManager::processRawData(const QByteArray& line) {
         sensor.Servo4      = values[13].toFloat();
         sensor.AltDiff     = values[14].toFloat();
 
-        sensor.pressure    = 0.0f;
-        sensor.temperature = 0.0f;
+        if (values.size() >= 17) {
+            sensor.pressure    = values[15].toFloat();
+            sensor.temperature = values[16].toFloat();
+        } else {
+            sensor.pressure    = 0.0f;
+            sensor.temperature = 0.0f;
+        }
 
-        // Limpieza y corrección de datos
+        // 1. Guardar RAW inmediatamente
+        FileHelper::appendRawData(std::string("../data/raw_data.csv"), sensor);
+
+        // 2. Limpieza y corrección de datos
         std::vector<SensorData> tempVec = {sensor};
         cleaner.clean(tempVec);
         sensor = tempVec.back();
 
+        // 3. Guardar en historial interno
         vectorData.push_back(sensor);
 
-        FileHelper::appendRawData(std::string("../data/raw_data.csv"), sensor);
-
-        // Publicar a través de DataTopic
+        // 4. Publicar a través de DataTopic (DATOS LIMPIOS)
         DataTopic::instance()->publish(sensor.serialize());
 
     } catch (...) {
@@ -94,6 +101,7 @@ void SensorManager::processRawData(const QByteArray& line) {
 
 void SensorManager::clearData() {
     vectorData.clear();
+    cleaner.reset();
     DataTopic::instance()->publish(SensorData{}.serialize());
 }
 

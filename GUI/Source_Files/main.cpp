@@ -1,6 +1,8 @@
 #include "widget.h"
 #include "Graph3DWindow.h"
 #include "InicioWindow.h" 
+#include "WindowManager.h"
+#include "VideoSubsystem.h"
 
 #include <QApplication>
 
@@ -14,15 +16,12 @@ int main(int argc, char *argv[]) {
     QObject::connect(&inicio, &InicioWindow::iniciar, [&](bool abrir2D, bool abrir3D) {
 
         SensorManager* manager = new SensorManager();
+        WindowManager::instance()->setSensorManager(manager);
         
         if (abrir2D) {
             Widget* w = new Widget(manager);
             w->resize(1280, 720);
             w->show();
-
-            if (abrir3D) {
-                w->abrirVentana3DDesdeExterno();
-            }
         }
 
         if (abrir3D) {
