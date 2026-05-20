@@ -14,6 +14,7 @@ public:
     explicit CameraWidget(const QString& cameraName, QWidget* parent = nullptr);
     void updateTelemetry(float imgQuality, float signalQuality); // Heartbeat and data update
     void setFrame(const QImage& frame);
+    void setConnectionStatus(bool connected);
 
 protected:
     void paintEvent(QPaintEvent* event) override;

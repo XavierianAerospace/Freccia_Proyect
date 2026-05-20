@@ -23,6 +23,15 @@ find_package(Qt6 REQUIRED COMPONENTS
     Network
 )
 
+# FFmpeg find_package is non-standard, usually handled via PkgConfig
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(FFMPEG REQUIRED IMPORTED_TARGET
+    libavcodec
+    libavformat
+    libswscale
+    libavutil
+)
+
 qt_standard_project_setup()
 
 qt_add_executable(GUI_FRECCIA
@@ -107,6 +116,7 @@ target_link_libraries(GUI_FRECCIA PUBLIC
     Qt::3DLogic
     Qt::3DAnimation
     Qt::Network
+    PkgConfig::FFMPEG
 )
 
 install(TARGETS GUI_FRECCIA

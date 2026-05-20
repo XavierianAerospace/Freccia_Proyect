@@ -4,11 +4,12 @@
 #include <QObject>
 #include <QImage>
 
-/**
- * Wrapper for Video Decoding.
- * Note: Actual FFmpeg integration requires linking against libavcodec, libavformat, etc.
- * This class provides the structure to receive NAL units and emit QImages.
- */
+extern "C" {
+#include <libavcodec/avcodec.h>
+#include <libswscale/swscale.h>
+#include <libavutil/imgutils.h>
+}
+
 class VideoDecoder : public QObject {
     Q_OBJECT
 public:
@@ -16,16 +17,21 @@ public:
     ~VideoDecoder();
 
 public slots:
-    void decodePacket(const QByteArray& data);
+    void decodePacket(AVPacket* packet);
 
 signals:
     void frameDecoded(const QImage& frame);
 
 private:
-    // FFmpeg context pointers would go here
-    // AVCodecContext *m_codecCtx;
-    // AVFrame *m_frame;
-    // ...
+    void initCodec();
+    void cleanup();
+
+    AVCodecContext* m_codecCtx;
+    AVFrame* m_frame;
+    AVFrame* m_rgbFrame;
+    SwsContext* m_swsCtx;
+    uint8_t* m_rgbBuffer;
+    int m_bufferSize;
 };
 
 #endif // VIDEODECODER_H

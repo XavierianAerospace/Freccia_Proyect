@@ -84,11 +84,25 @@ void CameraWidget::updateTelemetry(float imgQuality, float signalQuality) {
 void CameraWidget::setFrame(const QImage& frame) {
     // Frame reception also counts as a heartbeat
     if (m_connectionLost) {
-        updateTelemetry(95.0f, 98.0f); // Reset state
+        setConnectionStatus(true);
     }
 
     m_videoPlaceholder->setPixmap(QPixmap::fromImage(frame).scaled(m_videoPlaceholder->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
     m_watchdogTimer->start();
+}
+
+void CameraWidget::setConnectionStatus(bool connected) {
+    if (connected) {
+        m_connectionLost = false;
+        m_overlayLabel->setVisible(false);
+        m_labelStatus->setText("Estado: CONECTADO");
+        m_labelStatus->setStyleSheet("color: #0f0; font-weight: bold;");
+        m_videoPlaceholder->setStyleSheet("background-color: #000; color: #0f0; font-size: 16px; border: 1px solid #0f0;");
+        m_videoPlaceholder->setText("");
+    } else {
+        handleTimeout();
+    }
+    update();
 }
 
 void CameraWidget::handleTimeout() {

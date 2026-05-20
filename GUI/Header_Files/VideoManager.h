@@ -2,8 +2,12 @@
 #define VIDEOMANAGER_H
 
 #include <QObject>
-#include <QUdpSocket>
 #include <QThread>
+
+extern "C" {
+#include <libavformat/avformat.h>
+#include <libavcodec/avcodec.h>
+}
 
 class VideoManager : public QObject {
     Q_OBJECT
@@ -11,19 +15,20 @@ public:
     explicit VideoManager(quint16 port = 5600, QObject* parent = nullptr);
     ~VideoManager();
 
+public slots:
     void start();
     void stop();
 
 signals:
-    void packetReceived(const QByteArray& data);
-
-private slots:
-    void processPendingDatagrams();
+    void packetReceived(AVPacket* packet);
+    void connectionStatusChanged(bool connected);
 
 private:
-    QUdpSocket* m_udpSocket;
+    void runReceptionLoop();
+
     quint16 m_port;
     bool m_running;
+    AVFormatContext* m_formatCtx;
 };
 
 #endif // VIDEOMANAGER_H
