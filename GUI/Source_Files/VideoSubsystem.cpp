@@ -31,6 +31,7 @@ void VideoSubsystem::start(int camId, quint16 port) {
 
     connect(vc->thread, &QThread::started, vc->manager, &VideoManager::start);
     connect(vc->manager, &VideoManager::packetReceived, vc->decoder, &VideoDecoder::decodePacket);
+    connect(vc->manager, &VideoManager::rawPacketReceived, vc->decoder, &VideoDecoder::decodeRawPacket);
 
     connect(vc->decoder, &VideoDecoder::frameDecoded, this, [=](const QImage& frame) {
         emit frameReady(camId, frame);

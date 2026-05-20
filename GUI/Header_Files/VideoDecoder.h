@@ -4,11 +4,11 @@
 #include <QObject>
 #include <QImage>
 
-extern "C" {
-#include <libavcodec/avcodec.h>
-#include <libswscale/swscale.h>
-#include <libavutil/imgutils.h>
-}
+// Forward declarations for FFmpeg
+struct AVCodecContext;
+struct AVFrame;
+struct AVPacket;
+struct SwsContext;
 
 class VideoDecoder : public QObject {
     Q_OBJECT
@@ -18,6 +18,7 @@ public:
 
 public slots:
     void decodePacket(AVPacket* packet);
+    void decodeRawPacket(const QByteArray& data);
 
 signals:
     void frameDecoded(const QImage& frame);
@@ -30,7 +31,7 @@ private:
     AVFrame* m_frame;
     AVFrame* m_rgbFrame;
     SwsContext* m_swsCtx;
-    uint8_t* m_rgbBuffer;
+    unsigned char* m_rgbBuffer;
     int m_bufferSize;
 };
 

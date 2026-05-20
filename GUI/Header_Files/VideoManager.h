@@ -4,10 +4,9 @@
 #include <QObject>
 #include <QThread>
 
-extern "C" {
-#include <libavformat/avformat.h>
-#include <libavcodec/avcodec.h>
-}
+// Forward declarations for FFmpeg to avoid header dependency in H files
+struct AVFormatContext;
+struct AVPacket;
 
 class VideoManager : public QObject {
     Q_OBJECT
@@ -21,10 +20,12 @@ public slots:
 
 signals:
     void packetReceived(AVPacket* packet);
+    void rawPacketReceived(const QByteArray& data);
     void connectionStatusChanged(bool connected);
 
 private:
     void runReceptionLoop();
+    void runMockLoop();
 
     quint16 m_port;
     bool m_running;

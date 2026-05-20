@@ -32,18 +32,31 @@ if(PkgConfig_FOUND)
         libswscale
         libavutil
     )
+    if(FFMPEG_FOUND)
+        add_definitions(-DHAS_FFMPEG)
+    endif()
 endif()
 
 if(NOT FFMPEG_FOUND)
     message(STATUS "FFmpeg not found via PkgConfig, attempting manual search...")
-    find_path(AVCODEC_INCLUDE_DIR libavcodec/avcodec.h)
-    find_library(AVCODEC_LIBRARY avcodec)
-    find_library(AVFORMAT_LIBRARY avformat)
-    find_library(SWSCALE_LIBRARY swscale)
-    find_library(AVUTIL_LIBRARY avutil)
+
+    # Common paths for MinGW/Windows and Linux
+    set(FFMPEG_PATHS
+        "C:/ffmpeg"
+        "C:/ffmpeg/include"
+        "/usr/local/include"
+        "/usr/include"
+    )
+
+    find_path(AVCODEC_INCLUDE_DIR libavcodec/avcodec.h PATHS ${FFMPEG_PATHS})
+    find_library(AVCODEC_LIBRARY avcodec PATHS ${FFMPEG_PATHS})
+    find_library(AVFORMAT_LIBRARY avformat PATHS ${FFMPEG_PATHS})
+    find_library(SWSCALE_LIBRARY swscale PATHS ${FFMPEG_PATHS})
+    find_library(AVUTIL_LIBRARY avutil PATHS ${FFMPEG_PATHS})
 
     if(AVCODEC_INCLUDE_DIR AND AVCODEC_LIBRARY)
         set(FFMPEG_FOUND TRUE)
+        add_definitions(-DHAS_FFMPEG)
         add_library(FFMPEG::FFMPEG INTERFACE IMPORTED)
         set_target_properties(FFMPEG::FFMPEG PROPERTIES
             INTERFACE_INCLUDE_DIRECTORIES "${AVCODEC_INCLUDE_DIR}"

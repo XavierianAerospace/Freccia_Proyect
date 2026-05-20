@@ -1,5 +1,14 @@
 #include "VideoDecoder.h"
 #include <QDebug>
+#include <QColor>
+
+#ifdef HAS_FFMPEG
+extern "C" {
+#include <libavcodec/avcodec.h>
+#include <libswscale/swscale.h>
+#include <libavutil/imgutils.h>
+}
+#endif
 
 VideoDecoder::VideoDecoder(QObject* parent)
     : QObject(parent), m_codecCtx(nullptr), m_frame(nullptr), m_rgbFrame(nullptr),
@@ -12,6 +21,7 @@ VideoDecoder::~VideoDecoder() {
 }
 
 void VideoDecoder::initCodec() {
+#ifdef HAS_FFMPEG
     const AVCodec* codec = avcodec_find_decoder(AV_CODEC_ID_H264);
     if (!codec) return;
 
@@ -20,9 +30,11 @@ void VideoDecoder::initCodec() {
 
     m_frame = av_frame_alloc();
     m_rgbFrame = av_frame_alloc();
+#endif
 }
 
 void VideoDecoder::decodePacket(AVPacket* packet) {
+#ifdef HAS_FFMPEG
     if (!m_codecCtx || !packet) return;
 
     int ret = avcodec_send_packet(m_codecCtx, packet);
@@ -33,7 +45,6 @@ void VideoDecoder::decodePacket(AVPacket* packet) {
         if (ret == AVERROR(EAGAIN) || ret == AVERROR_EOF) break;
         else if (ret < 0) return;
 
-        // Perform YUV420P -> RGB24 conversion
         if (!m_swsCtx) {
             m_swsCtx = sws_getContext(m_frame->width, m_frame->height, (AVPixelFormat)m_frame->format,
                                        m_frame->width, m_frame->height, AV_PIX_FMT_RGB24,
@@ -46,16 +57,30 @@ void VideoDecoder::decodePacket(AVPacket* packet) {
 
         sws_scale(m_swsCtx, m_frame->data, m_frame->linesize, 0, m_frame->height, m_rgbFrame->data, m_rgbFrame->linesize);
 
-        // Convert to QImage and emit
         QImage image(m_rgbBuffer, m_frame->width, m_frame->height, QImage::Format_RGB888);
-        emit frameDecoded(image.copy()); // Deep copy for safe thread emission
+        emit frameDecoded(image.copy());
+    }
+#endif
+}
+
+void VideoDecoder::decodeRawPacket(const QByteArray& data) {
+    if (data.isEmpty()) return;
+
+    static int packetCounter = 0;
+    if (++packetCounter % 10 == 0) {
+        static int frameCounter = 0;
+        QImage mockFrame(640, 480, QImage::Format_RGB888);
+        mockFrame.fill(QColor::fromHsv((frameCounter++) % 360, 200, 150));
+        emit frameDecoded(mockFrame);
     }
 }
 
 void VideoDecoder::cleanup() {
+#ifdef HAS_FFMPEG
     if (m_swsCtx) sws_freeContext(m_swsCtx);
     if (m_rgbBuffer) av_free(m_rgbBuffer);
     if (m_rgbFrame) av_frame_free(&m_rgbFrame);
     if (m_frame) av_frame_free(&m_frame);
     if (m_codecCtx) avcodec_free_context(&m_codecCtx);
+#endif
 }

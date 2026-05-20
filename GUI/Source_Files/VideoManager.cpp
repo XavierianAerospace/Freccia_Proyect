@@ -1,5 +1,14 @@
 #include "VideoManager.h"
 #include <QDebug>
+#include <QUdpSocket>
+#include <QNetworkDatagram>
+
+#ifdef HAS_FFMPEG
+extern "C" {
+#include <libavformat/avformat.h>
+#include <libavcodec/avcodec.h>
+}
+#endif
 
 VideoManager::VideoManager(quint16 port, QObject* parent)
     : QObject(parent), m_port(port), m_running(false), m_formatCtx(nullptr) {
@@ -12,7 +21,12 @@ VideoManager::~VideoManager() {
 void VideoManager::start() {
     if (m_running) return;
     m_running = true;
+
+#ifdef HAS_FFMPEG
     runReceptionLoop();
+#else
+    runMockLoop();
+#endif
 }
 
 void VideoManager::stop() {
@@ -20,6 +34,7 @@ void VideoManager::stop() {
 }
 
 void VideoManager::runReceptionLoop() {
+#ifdef HAS_FFMPEG
     QString url = QString("udp://0.0.0.0:%1").arg(m_port);
 
     AVDictionary* options = nullptr;
@@ -51,7 +66,6 @@ void VideoManager::runReceptionLoop() {
                 emit packetReceived(packet);
                 av_packet_unref(packet);
             } else {
-                // Read error or timeout, break inner loop to attempt reconnect
                 qWarning() << "Stream read error. Attempting reconnect...";
                 emit connectionStatusChanged(false);
                 break;
@@ -61,5 +75,20 @@ void VideoManager::runReceptionLoop() {
 
         av_packet_free(&packet);
         avformat_close_input(&m_formatCtx);
+    }
+#endif
+}
+
+void VideoManager::runMockLoop() {
+    QUdpSocket socket;
+    socket.bind(QHostAddress::Any, m_port);
+    emit connectionStatusChanged(true);
+
+    while (m_running) {
+        while (socket.hasPendingDatagrams()) {
+            QNetworkDatagram datagram = socket.receiveDatagram();
+            emit rawPacketReceived(datagram.data());
+        }
+        QThread::msleep(10);
     }
 }
