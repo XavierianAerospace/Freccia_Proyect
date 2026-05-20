@@ -10,16 +10,28 @@ VideoDecoder::~VideoDecoder() {
 }
 
 void VideoDecoder::decodePacket(const QByteArray& data) {
-    // Actual decoding logic (FFmpeg) goes here.
-    // For now, we process packets to simulate live rendering.
+    /**
+     * CORRECTION: H264 is NOT an image.
+     * PIPELINE: UDP -> MPEGTS -> H264 Decoder -> YUV -> RGB -> Render
+     */
 
     if (data.isEmpty()) return;
 
-    // MOCK: Generate a static color frame or noise to prove rendering is working
-    // In a real scenario, data is parsed for NAL units and sent to FFmpeg.
-    static int frameCounter = 0;
-    QImage mockFrame(640, 480, QImage::Format_RGB32);
-    mockFrame.fill(QColor::fromHsv((frameCounter++) % 360, 150, 100));
+    // Optimization: Only process enough data to simulate frame boundaries.
+    // In real H264, we search for NAL start codes: 00 00 00 01.
 
-    emit frameDecoded(mockFrame);
+    static int packetCounter = 0;
+    packetCounter++;
+
+    // MOCK: Emit a frame approximately every 10 packets to simulate 30-60 FPS
+    // depending on network throughput, instead of every UDP datagram.
+    if (packetCounter % 10 == 0) {
+        static int frameCounter = 0;
+        QImage mockFrame(640, 480, QImage::Format_RGB32);
+
+        // Simulate high-speed asynchronous frame delivery with rotating colors
+        mockFrame.fill(QColor::fromHsv((frameCounter++) % 360, 200, 150));
+
+        emit frameDecoded(mockFrame);
+    }
 }

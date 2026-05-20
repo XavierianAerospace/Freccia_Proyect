@@ -2,8 +2,10 @@
 #include "SensorData.h"
 #include "data/DataTopic.h"
 #include "WindowManager.h"
+#include "VideoSubsystem.h"
 
 #include <QVBoxLayout>
+#include <cstdlib>
 #include <QGridLayout>
 #include <QtDataVisualization/Q3DTheme>
 #include <QtDataVisualization/Q3DScatter>
@@ -55,26 +57,15 @@ Graph3DWindow::Graph3DWindow(SensorManager* manager, QWidget* parent)
     camLayout->addWidget(m_camera1);
     camLayout->addWidget(m_camera2);
 
-    // === Nuevo Canal de Video (UDP Port 5600) ===
-    m_videoManager = new VideoManager(5600);
-    m_videoDecoder = new VideoDecoder();
+    // === Conexión a VideoSubsystem central ===
+    connect(VideoSubsystem::instance(), &VideoSubsystem::frameReady, this, [=](int camId, const QImage& frame) {
+        if (camId == 1 && m_camera1) m_camera1->setFrame(frame);
+        if (camId == 2 && m_camera2) m_camera2->setFrame(frame);
+    });
 
-    QThread* videoThread = new QThread(this);
-    m_videoManager->moveToThread(videoThread);
-    m_videoDecoder->moveToThread(videoThread);
-
-    connect(videoThread, &QThread::started, m_videoManager, &VideoManager::start);
-    connect(videoThread, &QThread::finished, videoThread, &QObject::deleteLater);
-    connect(videoThread, &QThread::finished, m_videoManager, &QObject::deleteLater);
-    connect(videoThread, &QThread::finished, m_videoDecoder, &QObject::deleteLater);
-
-    connect(m_videoManager, &VideoManager::packetReceived, m_videoDecoder, &VideoDecoder::decodePacket);
-
-    // Conectar el decoder a las cámaras (pueden mostrar el mismo stream o filtrado)
-    connect(m_videoDecoder, &VideoDecoder::frameDecoded, m_camera1, &CameraWidget::setFrame);
-    connect(m_videoDecoder, &VideoDecoder::frameDecoded, m_camera2, &CameraWidget::setFrame);
-
-    videoThread->start();
+    // Iniciar canales independientes
+    VideoSubsystem::instance()->start(1, 5600);
+    VideoSubsystem::instance()->start(2, 5601);
 
     // === Gráfico 3D ===
     scatterGraph = new Q3DScatter();

@@ -1,6 +1,7 @@
 #include "CameraWidget.h"
 #include <QPainter>
 #include <QDateTime>
+#include <QPixmap>
 
 CameraWidget::CameraWidget(const QString& cameraName, QWidget* parent)
     : QWidget(parent), m_cameraName(cameraName), m_connectionLost(true) {
@@ -81,9 +82,13 @@ void CameraWidget::updateTelemetry(float imgQuality, float signalQuality) {
 }
 
 void CameraWidget::setFrame(const QImage& frame) {
-    if (m_connectionLost) return;
+    // Frame reception also counts as a heartbeat
+    if (m_connectionLost) {
+        updateTelemetry(95.0f, 98.0f); // Reset state
+    }
 
     m_videoPlaceholder->setPixmap(QPixmap::fromImage(frame).scaled(m_videoPlaceholder->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    m_watchdogTimer->start();
 }
 
 void CameraWidget::handleTimeout() {

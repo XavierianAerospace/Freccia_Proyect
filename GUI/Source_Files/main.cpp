@@ -2,6 +2,7 @@
 #include "Graph3DWindow.h"
 #include "InicioWindow.h" 
 #include "WindowManager.h"
+#include "VideoSubsystem.h"
 
 #include <QApplication>
 
