@@ -55,6 +55,27 @@ Graph3DWindow::Graph3DWindow(SensorManager* manager, QWidget* parent)
     camLayout->addWidget(m_camera1);
     camLayout->addWidget(m_camera2);
 
+    // === Nuevo Canal de Video (UDP Port 5600) ===
+    m_videoManager = new VideoManager(5600);
+    m_videoDecoder = new VideoDecoder();
+
+    QThread* videoThread = new QThread(this);
+    m_videoManager->moveToThread(videoThread);
+    m_videoDecoder->moveToThread(videoThread);
+
+    connect(videoThread, &QThread::started, m_videoManager, &VideoManager::start);
+    connect(videoThread, &QThread::finished, videoThread, &QObject::deleteLater);
+    connect(videoThread, &QThread::finished, m_videoManager, &QObject::deleteLater);
+    connect(videoThread, &QThread::finished, m_videoDecoder, &QObject::deleteLater);
+
+    connect(m_videoManager, &VideoManager::packetReceived, m_videoDecoder, &VideoDecoder::decodePacket);
+
+    // Conectar el decoder a las cámaras (pueden mostrar el mismo stream o filtrado)
+    connect(m_videoDecoder, &VideoDecoder::frameDecoded, m_camera1, &CameraWidget::setFrame);
+    connect(m_videoDecoder, &VideoDecoder::frameDecoded, m_camera2, &CameraWidget::setFrame);
+
+    videoThread->start();
+
     // === Gráfico 3D ===
     scatterGraph = new Q3DScatter();
     auto theme = scatterGraph->activeTheme();

@@ -35,6 +35,8 @@ qt_add_executable(GUI_FRECCIA
   Source_Files/WindowManager.cpp
   Source_Files/TopToolbar.cpp
   Source_Files/CameraWidget.cpp
+  Source_Files/VideoManager.cpp
+  Source_Files/VideoDecoder.cpp
 
   Source_Files/data/DataCleaner.cpp
   Source_Files/data/FileHelper.cpp
@@ -48,6 +50,8 @@ qt_add_executable(GUI_FRECCIA
   Header_Files/WindowManager.h
   Header_Files/TopToolbar.h
   Header_Files/CameraWidget.h
+  Header_Files/VideoManager.h
+  Header_Files/VideoDecoder.h
 
   Header_Files/data/DataCleaner.h
   Header_Files/data/FileHelper.h

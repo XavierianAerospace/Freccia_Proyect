@@ -4,6 +4,8 @@
 #include "SensorManager.h"
 #include "TopToolbar.h"
 #include "CameraWidget.h"
+#include "VideoManager.h"
+#include "VideoDecoder.h"
 
 // Qt Widgets y Layouts
 #include <QWidget>
@@ -45,6 +47,8 @@ private:
     TopToolbar* m_topToolbar = nullptr;
     CameraWidget* m_camera1 = nullptr;
     CameraWidget* m_camera2 = nullptr;
+    VideoManager* m_videoManager = nullptr;
+    VideoDecoder* m_videoDecoder = nullptr;
 
     // === Layout principal ===
     QGridLayout* mainLayout;

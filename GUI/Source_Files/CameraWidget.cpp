@@ -70,14 +70,20 @@ void CameraWidget::updateTelemetry(float imgQuality, float signalQuality) {
         m_labelStatus->setText("Estado: CONECTADO");
         m_labelStatus->setStyleSheet("color: #0f0; font-weight: bold;");
         m_videoPlaceholder->setStyleSheet("background-color: #000; color: #0f0; font-size: 16px; border: 1px solid #0f0;");
+        m_videoPlaceholder->setText("");
         update();
     }
 
     m_labelImgQuality->setText(QString("Calidad Imagen: %1%").arg(imgQuality, 0, 'f', 1));
     m_labelSignalQuality->setText(QString("Calidad Señal: %1%").arg(signalQuality, 0, 'f', 1));
-    m_videoPlaceholder->setText("LIVE STREAM: " + m_cameraName + "\n" + QDateTime::currentDateTime().toString("hh:mm:ss.zzz"));
 
     m_watchdogTimer->start();
+}
+
+void CameraWidget::setFrame(const QImage& frame) {
+    if (m_connectionLost) return;
+
+    m_videoPlaceholder->setPixmap(QPixmap::fromImage(frame).scaled(m_videoPlaceholder->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
 }
 
 void CameraWidget::handleTimeout() {

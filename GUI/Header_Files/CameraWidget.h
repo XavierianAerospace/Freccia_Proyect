@@ -13,6 +13,7 @@ class CameraWidget : public QWidget {
 public:
     explicit CameraWidget(const QString& cameraName, QWidget* parent = nullptr);
     void updateTelemetry(float imgQuality, float signalQuality); // Heartbeat and data update
+    void setFrame(const QImage& frame);
 
 protected:
     void paintEvent(QPaintEvent* event) override;
