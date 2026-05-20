@@ -21,7 +21,10 @@ find_package(Qt6 REQUIRED COMPONENTS
     3DLogic
     3DAnimation
     Network
+    OpenGLWidgets
 )
+
+find_package(OpenGL REQUIRED)
 
 # FFmpeg configuration (Manual lookup if PkgConfig fails)
 find_package(PkgConfig)
@@ -149,6 +152,8 @@ target_link_libraries(GUI_FRECCIA PUBLIC
     Qt::3DLogic
     Qt::3DAnimation
     Qt::Network
+    Qt::OpenGLWidgets
+    OpenGL::GL
 )
 
 if(FFMPEG_FOUND)
