@@ -596,14 +596,7 @@
 		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/GNUInstallDirs.cmake",
 		"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/assets/logo_xae.png",
 		"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/assets/Inicio.gif",
-		"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/assets/Menu.png",
-		"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Py/build.spec",
-		"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Py/client_viewer.py",
-		"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Py/client_viewer2.py",
-		"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Py/CoheteGUI.STL",
-		"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Py/FRECCIA_XAE.spec",
-		"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Py/Instrucciones.txt",
-		"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Py/stl_rotator_pyglet.py"
+		"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/assets/Menu.png"
 	],
 	"CMAKE_SOURCE_DIR" : "C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI",
 	"CROSS_CONFIG" : false,
@@ -651,6 +644,12 @@
 			"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/data/FileHelper.h",
 			"MU",
 			"BDBYVKFZ5G/moc_FileHelper.cpp",
+			null
+		],
+		[
+			"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/data/RangeChecker.h",
+			"MU",
+			"BDBYVKFZ5G/moc_RangeChecker.cpp",
 			null
 		],
 		[

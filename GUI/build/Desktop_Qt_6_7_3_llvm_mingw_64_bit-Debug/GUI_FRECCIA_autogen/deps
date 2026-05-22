@@ -1477,6 +1477,7 @@ GUI_FRECCIA_autogen/timestamp: \
 	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/data/DataCleaner.h \
 	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/data/DataTopic.h \
 	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/data/FileHelper.h \
+	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/data/RangeChecker.h \
 	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/data/SensorData.h \
 	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/widget.h \
 	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Files/Graph3DWindow.cpp \
@@ -1488,13 +1489,6 @@ GUI_FRECCIA_autogen/timestamp: \
 	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Files/data/FileHelper.cpp \
 	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Files/main.cpp \
 	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Files/widget.cpp \
-	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Py/CoheteGUI.STL \
-	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Py/FRECCIA_XAE.spec \
-	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Py/Instrucciones.txt \
-	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Py/build.spec \
-	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Py/client_viewer.py \
-	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Py/client_viewer2.py \
-	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Py/stl_rotator_pyglet.py \
 	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/assets/Inicio.gif \
 	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/assets/Menu.png \
 	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/assets/logo_xae.png \

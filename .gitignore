@@ -4,3 +4,4 @@ GUI/Source_Py/sensor_env/
 GUI/Source_Py/dist/
 GUI/Source_Py/build/
 *.exe
+*.mbtiles
