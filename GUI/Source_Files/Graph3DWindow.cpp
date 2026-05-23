@@ -146,10 +146,41 @@ Graph3DWindow::Graph3DWindow(SensorManager* manager, QWidget* parent)
     pal.setColor(QPalette::Window, Qt::white);
     container3D->setPalette(pal);
 
+    // === Botón Lanzar Mapa (Submódulo) ===
+    QPushButton* btnLanzarMapa = new QPushButton("Lanzar Mapa Offline");
+    btnLanzarMapa->setStyleSheet(
+        "QPushButton { background-color: #0078d7; color: white; border-radius: 4px; padding: 10px; font-weight: bold; }"
+        "QPushButton:hover { background-color: #005a9e; }"
+    );
+    connect(btnLanzarMapa, &QPushButton::clicked, this, [this]() {
+        if (m_mapProcess && m_mapProcess->state() == QProcess::Running) {
+            return;
+        }
+        if (!m_mapProcess) {
+            m_mapProcess = new QProcess(this);
+        }
+        QString appDir = QCoreApplication::applicationDirPath();
+        QString pyWindowDir = appDir + "/Source_Files/PyWindow";
+        QString rutaScript = pyWindowDir + "/client_viewer.py";
+
+        QString pythonPath = QStandardPaths::findExecutable("python");
+        if (pythonPath.isEmpty()) pythonPath = QStandardPaths::findExecutable("python3");
+
+        if (!pythonPath.isEmpty() && QFile::exists(rutaScript)) {
+            m_mapProcess->setWorkingDirectory(pyWindowDir);
+            m_mapProcess->start(pythonPath, {rutaScript});
+        }
+    });
+
+    auto* layout3D = new QVBoxLayout();
+    layout3D->addWidget(btnLanzarMapa);
+    layout3D->addWidget(container3D);
+    QWidget* widget3D = new QWidget();
+    widget3D->setLayout(layout3D);
+
     // === Layout general ===
     mainLayout->addWidget(containerGeneral2D, 0, 0);
-    mainLayout->addWidget(container3D,         0, 1);
-    setLayout(mainLayout);
+    mainLayout->addWidget(widget3D,           0, 1);
 
     // === Suscripción a DataTopic ===
     connect(DataTopic::instance(), &DataTopic::dataPublished, this, [=](const QString& line) {
@@ -389,5 +420,12 @@ void Graph3DWindow::resetData()
         scatterGraph->axisX()->setAutoAdjustRange(true);
         scatterGraph->axisY()->setAutoAdjustRange(true);
         scatterGraph->axisZ()->setAutoAdjustRange(true);
+    }
+}
+
+Graph3DWindow::~Graph3DWindow() {
+    if (m_mapProcess) {
+        m_mapProcess->terminate();
+        m_mapProcess->waitForFinished(1000);
     }
 }

@@ -10,6 +10,7 @@ import os
 # ── Solo flags de Chromium/WebEngine, NO tocar QT_OPENGL ─────────────────────
 os.environ.setdefault(
     "QTWEBENGINE_CHROMIUM_FLAGS",
+    "--disable-gpu-compositing "
     "--disable-gpu-sandbox "
     "--enable-webgl "
     "--enable-unsafe-webgl "
@@ -26,7 +27,8 @@ from pathlib import Path
 # AA_ShareOpenGLContexts debe ir antes de crear QApplication
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import Qt
-# QApplication.setAttribute(Qt.ApplicationAttribute.AA_ShareOpenGLContexts)
+QApplication.setAttribute(Qt.ApplicationAttribute.AA_UseDesktopOpenGL)
+QApplication.setAttribute(Qt.ApplicationAttribute.AA_ShareOpenGLContexts)
 
 # Resto de imports Qt
 from PyQt6.QtWidgets import (
@@ -196,7 +198,7 @@ class SensorClientWindow(QWidget):
         self.view3d = gl.GLViewWidget()
         self.view3d.opts["distance"] = 200
         self.view3d.setCameraPosition(distance=200, elevation=30, azimuth=45)
-        self.view3d.setStyleSheet("background:#0d0d1a;")
+        # self.view3d.setStyleSheet("background:#0d0d1a;") # Removed to prevent GL context issues
         rl.addWidget(self.view3d, stretch=1)
 
         info = QWidget()

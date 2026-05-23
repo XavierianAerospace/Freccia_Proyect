@@ -13,6 +13,7 @@
 #include <QPushButton>
 #include <QVector3D>
 #include <QList>
+#include <QProcess>
 
 // Qt Charts
 #include <QtCharts/QChart>
@@ -40,6 +41,7 @@ class Graph3DWindow : public QWidget {
 
 public:
     explicit Graph3DWindow(SensorManager* manager, QWidget* parent = nullptr);
+    ~Graph3DWindow();
 
 public slots:
     void resetData();
@@ -101,6 +103,8 @@ private:
     QList<QGraphicsLineItem*> tooltipLines;
     QGridLayout* contenedorValoresArriba;
     QList<QLabel*> etiquetasValores;
+
+    QProcess* m_mapProcess = nullptr;
 
 };
 
