@@ -10,7 +10,7 @@ import os
 # ── Solo flags de Chromium/WebEngine, NO tocar QT_OPENGL ─────────────────────
 os.environ.setdefault(
     "QTWEBENGINE_CHROMIUM_FLAGS",
-    "--disable-gpu-compositing "
+    "--disable-gpu-sandbox "
     "--enable-webgl "
     "--enable-unsafe-webgl "
     "--ignore-gpu-blocklist"
@@ -26,7 +26,7 @@ from pathlib import Path
 # AA_ShareOpenGLContexts debe ir antes de crear QApplication
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import Qt
-QApplication.setAttribute(Qt.ApplicationAttribute.AA_ShareOpenGLContexts)
+# QApplication.setAttribute(Qt.ApplicationAttribute.AA_ShareOpenGLContexts)
 
 # Resto de imports Qt
 from PyQt6.QtWidgets import (
@@ -258,12 +258,14 @@ class SensorClientWindow(QWidget):
             # 1. .mbtiles
             try:
                 mbtiles = freccia_main.resolve_mbtiles_path(base_dir)
+                print(f"DEBUG: mbtiles resolved to: {mbtiles}")
             except FileNotFoundError as e:
                 self.signals.status.emit(f"mbtiles no encontrado: {e}")
                 return
 
             # 2. TileServer-GL
             try:
+                print("DEBUG: Starting TileServer-GL...")
                 freccia_main.run_tileserver(base_dir, mbtiles)
             except Exception as e:
                 self.signals.status.emit(f"TileServer error: {e}")

@@ -4,6 +4,8 @@
 #include <QDebug>
 #include <QFile>
 #include <QFileInfo>
+#include <QCoreApplication>
+#include <QStandardPaths>
 
 InicioWindow::InicioWindow(QWidget* parent) : QWidget(parent) {
     setWindowTitle("FRECCIA_XAE - Inicio");
@@ -39,26 +41,30 @@ InicioWindow::InicioWindow(QWidget* parent) : QWidget(parent) {
     connect(btnExit, &QPushButton::clicked, this, &QWidget::close);
     connect(btnIniciar, &QPushButton::clicked, this, [=]() {
         if (checkPy->isChecked()) {
-            QString rutaExe = "./Source_Py/dist/FRECCIA_XAE.exe";
-            QFileInfo fileInfo(rutaExe);
-            QString rutaAbsoluta = fileInfo.absoluteFilePath();
-            
-            qDebug() << "[LOG] Intentando ejecutar:" << rutaAbsoluta;
-            
-            if (fileInfo.exists()) {
-                bool exito = QProcess::startDetached(rutaAbsoluta);
-                
-                if (exito) {
-                    qDebug() << "[LOG] Ejecutable FRECCIA_XAE iniciado correctamente";
-                    qDebug() << "[LOG] Ruta:" << rutaAbsoluta;
-                } else {
-                    qDebug() << "[ERROR] No se pudo iniciar el ejecutable";
-                }
+            QString appDir = QCoreApplication::applicationDirPath();
+            QString pyWindowDir = appDir + "/Source_Files/PyWindow";
+            QString rutaScript = pyWindowDir + "/client_viewer.py";
+            QString rutaExe = appDir + "/Source_Py/dist/FRECCIA_XAE.exe";
+
+            qDebug() << "[LOG] Buscando Map Viewer en:" << pyWindowDir;
+
+            if (QFile::exists(rutaExe)) {
+                qDebug() << "[LOG] Iniciando ejecutable compilado:" << rutaExe;
+                QProcess::startDetached(rutaExe, {}, appDir + "/Source_Py/dist");
             } else {
-                qDebug() << "[ERROR] No se encontró el archivo en" << rutaAbsoluta;
+                qDebug() << "[LOG] Ejecutable no encontrado, buscando interprete Python para:" << rutaScript;
+                QString pythonPath = QStandardPaths::findExecutable("python");
+                if (pythonPath.isEmpty()) {
+                    pythonPath = QStandardPaths::findExecutable("python3");
+                }
+
+                if (!pythonPath.isEmpty() && QFile::exists(rutaScript)) {
+                    qDebug() << "[LOG] Iniciando script con:" << pythonPath;
+                    QProcess::startDetached(pythonPath, {rutaScript}, pyWindowDir);
+                } else {
+                    qDebug() << "[ERROR] No se pudo encontrar Python o el script en" << rutaScript;
+                }
             }
-            // NO hacemos close() aquí - la ventana de inicio se mantiene abierta
-            // Solo para los casos 2D/3D - aquí sí cerramos la ventana
         }
         emit iniciar(check2D->isChecked(), check3D->isChecked());
         close();
