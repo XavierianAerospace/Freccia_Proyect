@@ -118,8 +118,42 @@ Graph3DWindow::Graph3DWindow(SensorManager* manager, QWidget* parent)
 
     // WebView para el Mapa (Submódulo)
     m_mapView = new QWebEngineView();
-    m_mapView->setMinimumSize(1000, 400);
+    m_mapView->setMinimumSize(1000, 500);
+    m_mapView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_mapView->hide(); // Oculto hasta que se inicie el backend
+    m_mapView->setStyleSheet("background-color: black; border: 1px solid #333;");
+
+    m_mapLoadingLabel = new QLabel("⏳ Cargando Mapa Cesium...");
+    m_mapLoadingLabel->setAlignment(Qt::AlignCenter);
+    m_mapLoadingLabel->setStyleSheet("color: #90caf9; font-size: 16px; background: #0d0d1a; padding: 20px;");
+    m_mapLoadingLabel->hide();
+    layout2DConValores->addWidget(m_mapLoadingLabel);
+
+    // Configuración de WebEngine
+    m_mapView->settings()->setAttribute(QWebEngineSettings::JavascriptEnabled, true);
+    m_mapView->settings()->setAttribute(QWebEngineSettings::WebGLEnabled, true);
+    m_mapView->settings()->setAttribute(QWebEngineSettings::Accelerated2dCanvasEnabled, true);
+    m_mapView->settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessRemoteUrls, true);
+
+    connect(m_mapView, &QWebEngineView::loadFinished, this, [this](bool ok) {
+        if (ok) {
+            // Un pequeño delay adicional para asegurar que Cesium renderizó el primer frame
+            QTimer::singleShot(2000, this, [this]() {
+                m_mapLoadingLabel->hide();
+                m_mapView->show();
+                btnLaunchMap->setText("Cerrar Mapa Offline");
+                btnLaunchMap->setEnabled(true);
+                btnLaunchMap->setStyleSheet("background-color: #c62828; color: white; font-weight: bold; padding: 5px;");
+            });
+        } else {
+            qDebug() << "Error al cargar Cesium en el WebView";
+            m_mapLoadingLabel->setText("❌ Error al conectar con el servidor de mapas.");
+            btnLaunchMap->setEnabled(true);
+            btnLaunchMap->setText("Error de Carga - Reintentar");
+            btnLaunchMap->setStyleSheet("background-color: #2e7d32; color: white; font-weight: bold; padding: 5px;");
+        }
+    });
+
     layout2DConValores->addWidget(m_mapView);
 
     // Contenedor general 2D
@@ -321,6 +355,7 @@ void Graph3DWindow::toggleMap() {
     if (m_mapProcess && m_mapProcess->state() == QProcess::Running) {
         m_mapProcess->terminate();
         m_mapView->hide();
+        m_mapLoadingLabel->hide();
         btnLaunchMap->setText("Lanzar Mapa Offline");
         btnLaunchMap->setStyleSheet("background-color: #2e7d32; color: white; font-weight: bold; padding: 5px;");
         return;
@@ -336,11 +371,10 @@ void Graph3DWindow::toggleMap() {
                 int end = output.indexOf("\n", start);
                 QString url = output.mid(start, end - start).trimmed();
 
+                btnLaunchMap->setText("Conectando...");
+                m_mapLoadingLabel->show();
                 m_mapView->load(QUrl(url));
-                m_mapView->show();
-                btnLaunchMap->setEnabled(true);
-                btnLaunchMap->setText("Cerrar Mapa Offline");
-                btnLaunchMap->setStyleSheet("background-color: #c62828; color: white; font-weight: bold; padding: 5px;");
+                // m_mapView->show() se llamará en el slot loadFinished
             }
         });
 

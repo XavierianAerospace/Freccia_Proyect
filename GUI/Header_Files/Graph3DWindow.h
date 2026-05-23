@@ -110,6 +110,7 @@ private:
     QPushButton* btnLaunchMap = nullptr;
     QProcess* m_mapProcess = nullptr;
     QWebEngineView* m_mapView = nullptr;
+    QLabel* m_mapLoadingLabel = nullptr;
     void setupMapView();
 
 };

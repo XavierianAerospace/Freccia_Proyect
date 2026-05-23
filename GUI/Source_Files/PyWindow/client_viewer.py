@@ -294,9 +294,9 @@ class SensorClientWindow(QWidget):
             from backend.server import create_app
 
             # Descubrimiento de puerto dinámico para Flask si el 5001 está ocupado
-            current_flask_port = FLASK_PORT
+            current_flask_port = 5001
             if _is_port_open(FLASK_HOST, current_flask_port):
-                for p in range(5001, 5100):
+                for p in range(5002, 5100):
                     if not _is_port_open(FLASK_HOST, p):
                         current_flask_port = p
                         break
@@ -326,18 +326,29 @@ class SensorClientWindow(QWidget):
             print(f"DEBUG backend: {e}")
 
     def _load_cesium_url(self):
-        self._loading_lbl.hide()
-        self.webview.setVisible(True)
+        self._loading_lbl.show()
+        self.webview.setVisible(False)
         print(f"DEBUG: Cargando {CESIUM_URL}")
         self.webview.load(QUrl(CESIUM_URL))
+        # Conectar solo una vez
+        try:
+            self.webview.loadFinished.disconnect(self._on_loaded)
+        except:
+            pass
         self.webview.loadFinished.connect(self._on_loaded)
 
     def _on_loaded(self, ok: bool):
         if ok:
-            self.signals.status.emit("Mapa Cesium listo ✓")
+            # Delay para asegurar renderizado
+            QTimer.singleShot(1500, self._show_map_final)
         else:
             self.signals.status.emit("Error Cesium — reintentando…")
             QTimer.singleShot(3000, self._load_cesium_url)
+
+    def _show_map_final(self):
+        self.signals.status.emit("Mapa Cesium listo ✓")
+        self._loading_lbl.hide()
+        self.webview.setVisible(True)
 
     # ── Escena 3D ─────────────────────────────────────────────────────────────
     def _init_3d_scene(self):
