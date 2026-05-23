@@ -21,6 +21,8 @@ find_package(Qt6 REQUIRED COMPONENTS
     3DLogic
     3DAnimation
     Network
+    WebEngineWidgets
+    WebEngineCore
 )
 
 qt_standard_project_setup()
@@ -95,6 +97,8 @@ target_link_libraries(GUI_FRECCIA PUBLIC
     Qt::3DLogic
     Qt::3DAnimation
     Qt::Network
+    Qt::WebEngineWidgets
+    Qt::WebEngineCore
 )
 
 install(TARGETS GUI_FRECCIA

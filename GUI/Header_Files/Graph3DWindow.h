@@ -34,15 +34,19 @@
 #include <QCoreApplication>
 #include <Qt3DExtras/QOrbitCameraController>
 #include <Qt3DRender/QCamera>
+#include <QProcess>
+#include <QtWebEngineWidgets/QWebEngineView>
 
 class Graph3DWindow : public QWidget {
     Q_OBJECT
 
 public:
     explicit Graph3DWindow(SensorManager* manager, QWidget* parent = nullptr);
+    ~Graph3DWindow();
 
 public slots:
     void resetData();
+    void toggleMap();
 
 private:
     void aplicarEstiloGrafico(QChart* chart, QValueAxis* axisX, QValueAxis* axisY);
@@ -101,6 +105,12 @@ private:
     QList<QGraphicsLineItem*> tooltipLines;
     QGridLayout* contenedorValoresArriba;
     QList<QLabel*> etiquetasValores;
+
+    // === Mapa Offline ===
+    QPushButton* btnLaunchMap = nullptr;
+    QProcess* m_mapProcess = nullptr;
+    QWebEngineView* m_mapView = nullptr;
+    void setupMapView();
 
 };
 

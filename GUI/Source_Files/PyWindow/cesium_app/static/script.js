@@ -1,6 +1,6 @@
-console.log("Starting Cesium offline viewer...");
+console.log("Starting Cesium viewer...");
 
-Cesium.Ion.defaultAccessToken = "";
+Cesium.Ion.defaultAccessToken = window.CESIUM_ION_TOKEN || "";
 window.CESIUM_BASE_URL = "/static/Cesium/";
 
 const TILESERVER_BASE_URL =
@@ -167,14 +167,25 @@ try {
         vrButton: false
     });
 
+    // Intentar verificar si el TileServer local responde (esto es asíncrono, pero Cesium intentará cargar)
+    // De forma dinámica, si el token existe y falla el local, se podría alternar.
+    // Por ahora, priorizamos el local como se pidió.
+
     const imageryProvider = new Cesium.UrlTemplateImageryProvider({
         url: `${TILESERVER_BASE_URL}/{z}/{x}/{y}.png`,
         minimumLevel: 0,
-        maximumLevel: 14,
+        maximumLevel: 18,
         credit: "OpenFreeMap + TileServer-GL"
     });
 
     viewer.imageryLayers.addImageryProvider(imageryProvider);
+
+    // Si hay token de Ion y no hay TileServer configurado (o como fallback), Cesium Ion ya está habilitado por defecto
+    // si no se pasa imageryProvider: false en el constructor. Pero aquí lo pusimos en false.
+    if (!window.FRECCIA_TILESERVER_BASE_URL && Cesium.Ion.defaultAccessToken) {
+        console.log("Priorizando Cesium Ion por falta de TileServer local.");
+        viewer.imageryLayers.addImageryProvider(Cesium.createWorldImagery());
+    }
     viewer.scene.globe.enableLighting = false;
     viewer.cesiumWidget.creditContainer.style.display = "none";
 

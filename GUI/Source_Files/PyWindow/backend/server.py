@@ -10,10 +10,15 @@ def create_app(mbtiles_path, static_folder, template_folder):
     tileserver_port = os.environ.get("FRECCIA_TILESERVER_PORT", "8080")
     tileserver_style = os.environ.get("FRECCIA_TILESERVER_STYLE", "basic-preview")
     tileserver_base_url = f"http://{tileserver_host}:{tileserver_port}/styles/{tileserver_style}"
+    cesium_ion_token = os.environ.get("CESIUM_ION_TOKEN", "")
 
     @app.route("/")
     def index():
-        return render_template("index.html", tileserver_base_url=tileserver_base_url)
+        return render_template(
+            "index.html",
+            tileserver_base_url=tileserver_base_url,
+            cesium_ion_token=cesium_ion_token
+        )
 
     @app.route("/tile/<int:z>/<int:x>/<int:y>")
     def get_tile(z, x, y):

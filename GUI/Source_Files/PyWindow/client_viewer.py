@@ -11,6 +11,7 @@ import os
 os.environ.setdefault(
     "QTWEBENGINE_CHROMIUM_FLAGS",
     "--disable-gpu-compositing "
+    "--disable-gpu-sandbox "
     "--enable-webgl "
     "--enable-unsafe-webgl "
     "--ignore-gpu-blocklist"
@@ -23,10 +24,11 @@ import threading
 import time
 from pathlib import Path
 
-# AA_ShareOpenGLContexts debe ir antes de crear QApplication
+# AA_ShareOpenGLContexts y AA_UseDesktopOpenGL deben ir antes de crear QApplication
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import Qt
 QApplication.setAttribute(Qt.ApplicationAttribute.AA_ShareOpenGLContexts)
+QApplication.setAttribute(Qt.ApplicationAttribute.AA_UseDesktopOpenGL)
 
 # Resto de imports Qt
 from PyQt6.QtWidgets import (
@@ -57,6 +59,9 @@ except Exception:
 FLASK_HOST = os.environ.get("FRECCIA_FLASK_HOST", "127.0.0.1")
 FLASK_PORT = int(os.environ.get("FRECCIA_FLASK_PORT", "5001"))
 CESIUM_URL = f"http://{FLASK_HOST}:{FLASK_PORT}"
+
+# Lista de puertos candidatos para TileServer-GL
+TILESERVER_CANDIDATE_PORTS = [8080, 8099, 8081, 8888]
 # ─────────────────────────────────────────────────────────────────────────────
 
 
@@ -196,7 +201,8 @@ class SensorClientWindow(QWidget):
         self.view3d = gl.GLViewWidget()
         self.view3d.opts["distance"] = 200
         self.view3d.setCameraPosition(distance=200, elevation=30, azimuth=45)
-        self.view3d.setStyleSheet("background:#0d0d1a;")
+        # NO usar setStyleSheet en GLViewWidget para evitar corrupción de contexto OpenGL
+        self.view3d.setBackgroundColor('#0d0d1a')
         rl.addWidget(self.view3d, stretch=1)
 
         info = QWidget()
@@ -253,6 +259,15 @@ class SensorClientWindow(QWidget):
 
             import main as freccia_main
 
+            # Detectar puerto de TileServer dinámicamente
+            ts_port = int(os.environ.get("FRECCIA_TILESERVER_PORT", "8080"))
+            if not _is_port_open(FLASK_HOST, ts_port):
+                for p in TILESERVER_CANDIDATE_PORTS:
+                    if _is_port_open(FLASK_HOST, p):
+                        ts_port = p
+                        os.environ["FRECCIA_TILESERVER_PORT"] = str(p)
+                        break
+
             base_dir = Path(freccia_main.__file__).resolve().parent
 
             # 1. .mbtiles
@@ -264,6 +279,8 @@ class SensorClientWindow(QWidget):
 
             # 2. TileServer-GL
             try:
+                # Actualizar el puerto en el módulo main antes de correrlo
+                freccia_main.TILESERVER_PORT = ts_port
                 freccia_main.run_tileserver(base_dir, mbtiles)
             except Exception as e:
                 self.signals.status.emit(f"TileServer error: {e}")
@@ -273,14 +290,15 @@ class SensorClientWindow(QWidget):
             static   = base_dir / "cesium_app" / "static"
             template = base_dir / "cesium_app" / "templates"
             from backend.server import create_app
+            # El create_app de backend.server usa env vars para tileserver_port
             app = create_app(str(mbtiles), str(static), str(template))
 
             threading.Thread(
                 target=freccia_main.run_flask,
                 args=(app,), daemon=True).start()
 
-            # 4. Esperar Flask
-            deadline = time.time() + 60
+            # 4. Esperar Flask (reducido a 30s según plan)
+            deadline = time.time() + 30
             while time.time() < deadline:
                 if _is_port_open(FLASK_HOST, FLASK_PORT):
                     self.signals.status.emit(f"Backend listo — {CESIUM_URL}")
@@ -288,7 +306,7 @@ class SensorClientWindow(QWidget):
                     return
                 time.sleep(0.5)
 
-            self.signals.status.emit("TIMEOUT: Flask no respondió en 60 s")
+            self.signals.status.emit("TIMEOUT: Flask no respondió en 30 s")
 
         except Exception as e:
             self.signals.status.emit(f"Error backend: {e}")

@@ -425,14 +425,19 @@ def main():
 
         if headless_mode:
             print("Modo headless activo. Backend listo sin abrir pywebview.\n")
+            # En modo headless, nos quedamos esperando a que el proceso padre nos mate o Ctrl+C
             try:
                 while True:
                     time.sleep(1)
-            except KeyboardInterrupt:
+            except (KeyboardInterrupt, SystemExit):
                 print("Cerrando backend headless...")
             return
 
-        import webview
+        try:
+            import webview
+        except ImportError:
+            print("Error: 'pywebview' no está instalado. Use --headless si solo necesita el backend.")
+            sys.exit(1)
 
         print("Abriendo ventana PyWindow...\n")
         window = webview.create_window(

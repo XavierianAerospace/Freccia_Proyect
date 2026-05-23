@@ -25,6 +25,8 @@
 #include <Qt3DExtras/QPhongAlphaMaterial>
 #include <Qt3DCore/QTransform>
 #include <Qt3DRender/QPointLight>
+#include <QFileInfo>
+#include <QDir>
 
 static Graph3DWindow* ventanaGraph3D = nullptr;
 
@@ -105,8 +107,20 @@ Graph3DWindow::Graph3DWindow(SensorManager* manager, QWidget* parent)
     // Layout contenedor
     auto* layout2DConValores = new QVBoxLayout();
     contenedorValoresArriba = new QGridLayout();
+
+    btnLaunchMap = new QPushButton("Lanzar Mapa Offline");
+    btnLaunchMap->setStyleSheet("background-color: #2e7d32; color: white; font-weight: bold; padding: 5px;");
+    connect(btnLaunchMap, &QPushButton::clicked, this, &Graph3DWindow::toggleMap);
+    contenedorValoresArriba->addWidget(btnLaunchMap, 0, 0, 1, 1, Qt::AlignLeft);
+
     layout2DConValores->addLayout(contenedorValoresArriba);
     layout2DConValores->addWidget(chartAllView);
+
+    // WebView para el Mapa (Submódulo)
+    m_mapView = new QWebEngineView();
+    m_mapView->setMinimumSize(1000, 400);
+    m_mapView->hide(); // Oculto hasta que se inicie el backend
+    layout2DConValores->addWidget(m_mapView);
 
     // Contenedor general 2D
     auto* widget2D = new QWidget();
@@ -291,6 +305,67 @@ Graph3DWindow::Graph3DWindow(SensorManager* manager, QWidget* parent)
         xIndex3D++;
     });
 
+}
+
+Graph3DWindow::~Graph3DWindow() {
+    if (m_mapProcess) {
+        m_mapProcess->terminate();
+        m_mapProcess->waitForFinished(3000);
+        if (m_mapProcess->state() != QProcess::NotRunning) {
+            m_mapProcess->kill();
+        }
+    }
+}
+
+void Graph3DWindow::toggleMap() {
+    if (m_mapProcess && m_mapProcess->state() == QProcess::Running) {
+        m_mapProcess->terminate();
+        m_mapView->hide();
+        btnLaunchMap->setText("Lanzar Mapa Offline");
+        btnLaunchMap->setStyleSheet("background-color: #2e7d32; color: white; font-weight: bold; padding: 5px;");
+        return;
+    }
+
+    if (!m_mapProcess) {
+        m_mapProcess = new QProcess(this);
+        connect(m_mapProcess, &QProcess::finished, this, [this]() {
+            btnLaunchMap->setText("Lanzar Mapa Offline");
+            btnLaunchMap->setStyleSheet("background-color: #2e7d32; color: white; font-weight: bold; padding: 5px;");
+            m_mapView->hide();
+        });
+    }
+
+    QString program = "python";
+    QStringList arguments;
+
+    // Lanzamos main.py con --headless para que solo levante el backend
+    QString scriptPath = QCoreApplication::applicationDirPath() + "/Source_Files/PyWindow/main.py";
+    if (!QFileInfo::exists(scriptPath)) {
+        scriptPath = "./GUI/Source_Files/PyWindow/main.py";
+    }
+    if (!QFileInfo::exists(scriptPath)) {
+        scriptPath = "../GUI/Source_Files/PyWindow/main.py";
+    }
+
+    arguments << scriptPath << "--headless";
+
+    m_mapProcess->start(program, arguments);
+
+    if (m_mapProcess->waitForStarted()) {
+        btnLaunchMap->setText("Iniciando Backend...");
+        btnLaunchMap->setEnabled(false);
+
+        // Esperar a que el servidor Flask esté listo (usando el puerto por defecto 5001 de main.py)
+        QTimer::singleShot(5000, this, [this]() {
+            m_mapView->load(QUrl("http://127.0.0.1:5001"));
+            m_mapView->show();
+            btnLaunchMap->setEnabled(true);
+            btnLaunchMap->setText("Cerrar Mapa Offline");
+            btnLaunchMap->setStyleSheet("background-color: #c62828; color: white; font-weight: bold; padding: 5px;");
+        });
+    } else {
+        qDebug() << "No se pudo iniciar el backend del mapa:" << m_mapProcess->errorString();
+    }
 }
 
 void Graph3DWindow::resetData()
