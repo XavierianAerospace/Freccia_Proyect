@@ -21,8 +21,8 @@ TILESERVER_STARTUP_TIMEOUT_SECONDS = 120
 FLASK_STARTUP_TIMEOUT_SECONDS = 30
 
 
-def run_flask(app):
-    app.run(host=TILESERVER_HOST, port=FLASK_PORT, threaded=True, debug=False, use_reloader=False)
+def run_flask(app, port):
+    app.run(host=TILESERVER_HOST, port=port, threaded=True, debug=False, use_reloader=False)
 
 
 def parse_args():
@@ -404,11 +404,22 @@ def main():
         template_folder = base_dir / "cesium_app" / "templates"
         app = create_app(str(mbtiles_path), str(static_folder), str(template_folder))
 
-        server_thread = threading.Thread(target=run_flask, args=(app,), daemon=True)
-        server_thread.start()
-        wait_for_port(TILESERVER_HOST, FLASK_PORT, FLASK_STARTUP_TIMEOUT_SECONDS, "Flask")
+        # Descubrimiento de puerto dinámico para Flask
+        flask_port = FLASK_PORT
+        if not is_port_open(TILESERVER_HOST, flask_port):
+            for p in range(5001, 5100):
+                if is_port_open(TILESERVER_HOST, p):
+                    # El puerto está ocupado, probar siguiente
+                    continue
+                flask_port = p
+                break
 
-        print(f"Flask iniciado en http://{TILESERVER_HOST}:{FLASK_PORT}")
+        server_thread = threading.Thread(target=run_flask, args=(app, flask_port), daemon=True)
+        server_thread.start()
+        wait_for_port(TILESERVER_HOST, flask_port, FLASK_STARTUP_TIMEOUT_SECONDS, "Flask")
+
+        print(f"FLASK_READY:http://{TILESERVER_HOST}:{flask_port}")
+        print(f"Flask iniciado en http://{TILESERVER_HOST}:{flask_port}")
         print("\n" + "=" * 60)
         print("ARQUITECTURA ACTIVA:")
         print("=" * 60)

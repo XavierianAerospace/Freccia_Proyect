@@ -167,25 +167,31 @@ try {
         vrButton: false
     });
 
-    // Intentar verificar si el TileServer local responde (esto es asíncrono, pero Cesium intentará cargar)
-    // De forma dinámica, si el token existe y falla el local, se podría alternar.
-    // Por ahora, priorizamos el local como se pidió.
-
-    const imageryProvider = new Cesium.UrlTemplateImageryProvider({
-        url: `${TILESERVER_BASE_URL}/{z}/{x}/{y}.png`,
-        minimumLevel: 0,
-        maximumLevel: 18,
-        credit: "OpenFreeMap + TileServer-GL"
-    });
-
-    viewer.imageryLayers.addImageryProvider(imageryProvider);
-
-    // Si hay token de Ion y no hay TileServer configurado (o como fallback), Cesium Ion ya está habilitado por defecto
-    // si no se pasa imageryProvider: false en el constructor. Pero aquí lo pusimos en false.
-    if (!window.FRECCIA_TILESERVER_BASE_URL && Cesium.Ion.defaultAccessToken) {
-        console.log("Priorizando Cesium Ion por falta de TileServer local.");
-        viewer.imageryLayers.addImageryProvider(Cesium.createWorldImagery());
-    }
+    // Verificación dinámica de disponibilidad de TileServer local
+    fetch(TILESERVER_BASE_URL + "/0/0/0.png")
+        .then(response => {
+            if (response.ok) {
+                console.log("TileServer local detectado. Usando tiles offline.");
+                const imageryProvider = new Cesium.UrlTemplateImageryProvider({
+                    url: `${TILESERVER_BASE_URL}/{z}/{x}/{y}.png`,
+                    minimumLevel: 0,
+                    maximumLevel: 18,
+                    credit: "OpenFreeMap + TileServer-GL"
+                });
+                viewer.imageryLayers.addImageryProvider(imageryProvider);
+            } else {
+                throw new Error("TileServer respondió con error.");
+            }
+        })
+        .catch(err => {
+            console.warn("TileServer local no disponible o error:", err);
+            if (Cesium.Ion.defaultAccessToken) {
+                console.log("Cargando Cesium Ion (Internet requerido).");
+                viewer.imageryLayers.addImageryProvider(Cesium.createWorldImagery());
+            } else {
+                console.error("Sin TileServer local ni Token de Cesium Ion.");
+            }
+        });
     viewer.scene.globe.enableLighting = false;
     viewer.cesiumWidget.creditContainer.style.display = "none";
 

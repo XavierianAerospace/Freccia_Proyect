@@ -328,6 +328,22 @@ void Graph3DWindow::toggleMap() {
 
     if (!m_mapProcess) {
         m_mapProcess = new QProcess(this);
+
+        connect(m_mapProcess, &QProcess::readyReadStandardOutput, this, [this]() {
+            QString output = m_mapProcess->readAllStandardOutput();
+            if (output.contains("FLASK_READY:")) {
+                int start = output.indexOf("FLASK_READY:") + 12;
+                int end = output.indexOf("\n", start);
+                QString url = output.mid(start, end - start).trimmed();
+
+                m_mapView->load(QUrl(url));
+                m_mapView->show();
+                btnLaunchMap->setEnabled(true);
+                btnLaunchMap->setText("Cerrar Mapa Offline");
+                btnLaunchMap->setStyleSheet("background-color: #c62828; color: white; font-weight: bold; padding: 5px;");
+            }
+        });
+
         connect(m_mapProcess, &QProcess::finished, this, [this]() {
             btnLaunchMap->setText("Lanzar Mapa Offline");
             btnLaunchMap->setStyleSheet("background-color: #2e7d32; color: white; font-weight: bold; padding: 5px;");
@@ -354,15 +370,6 @@ void Graph3DWindow::toggleMap() {
     if (m_mapProcess->waitForStarted()) {
         btnLaunchMap->setText("Iniciando Backend...");
         btnLaunchMap->setEnabled(false);
-
-        // Esperar a que el servidor Flask esté listo (usando el puerto por defecto 5001 de main.py)
-        QTimer::singleShot(5000, this, [this]() {
-            m_mapView->load(QUrl("http://127.0.0.1:5001"));
-            m_mapView->show();
-            btnLaunchMap->setEnabled(true);
-            btnLaunchMap->setText("Cerrar Mapa Offline");
-            btnLaunchMap->setStyleSheet("background-color: #c62828; color: white; font-weight: bold; padding: 5px;");
-        });
     } else {
         qDebug() << "No se pudo iniciar el backend del mapa:" << m_mapProcess->errorString();
     }

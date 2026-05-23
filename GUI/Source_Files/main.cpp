@@ -5,6 +5,10 @@
 #include <QApplication>
 
 int main(int argc, char *argv[]) {
+    // Configuración para compatibilidad entre OpenGL y WebEngine
+    QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
+    QCoreApplication::setAttribute(Qt::AA_UseDesktopOpenGL);
+
     QApplication a(argc, argv);
 
     InicioWindow inicio;

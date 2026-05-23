@@ -14,7 +14,9 @@ os.environ.setdefault(
     "--disable-gpu-sandbox "
     "--enable-webgl "
     "--enable-unsafe-webgl "
-    "--ignore-gpu-blocklist"
+    "--ignore-gpu-blocklist "
+    "--enable-gpu-rasterization "
+    "--enable-zero-copy"
 )
 os.environ.setdefault("QTWEBENGINE_DISABLE_SANDBOX", "1")
 # ─────────────────────────────────────────────────────────────────────────────
@@ -29,6 +31,7 @@ from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import Qt
 QApplication.setAttribute(Qt.ApplicationAttribute.AA_ShareOpenGLContexts)
 QApplication.setAttribute(Qt.ApplicationAttribute.AA_UseDesktopOpenGL)
+QApplication.setAttribute(Qt.ApplicationAttribute.AA_EnableHighDpiScaling)
 
 # Resto de imports Qt
 from PyQt6.QtWidgets import (
@@ -290,17 +293,28 @@ class SensorClientWindow(QWidget):
             static   = base_dir / "cesium_app" / "static"
             template = base_dir / "cesium_app" / "templates"
             from backend.server import create_app
-            # El create_app de backend.server usa env vars para tileserver_port
+
+            # Descubrimiento de puerto dinámico para Flask si el 5001 está ocupado
+            current_flask_port = FLASK_PORT
+            if _is_port_open(FLASK_HOST, current_flask_port):
+                for p in range(5001, 5100):
+                    if not _is_port_open(FLASK_HOST, p):
+                        current_flask_port = p
+                        break
+
+            global CESIUM_URL
+            CESIUM_URL = f"http://{FLASK_HOST}:{current_flask_port}"
+
             app = create_app(str(mbtiles), str(static), str(template))
 
             threading.Thread(
                 target=freccia_main.run_flask,
-                args=(app,), daemon=True).start()
+                args=(app, current_flask_port), daemon=True).start()
 
-            # 4. Esperar Flask (reducido a 30s según plan)
+            # 4. Esperar Flask
             deadline = time.time() + 30
             while time.time() < deadline:
-                if _is_port_open(FLASK_HOST, FLASK_PORT):
+                if _is_port_open(FLASK_HOST, current_flask_port):
                     self.signals.status.emit(f"Backend listo — {CESIUM_URL}")
                     self.signals.backend_ready.emit()
                     return
