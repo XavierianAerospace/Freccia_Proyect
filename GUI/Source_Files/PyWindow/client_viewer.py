@@ -31,7 +31,6 @@ from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import Qt
 QApplication.setAttribute(Qt.ApplicationAttribute.AA_ShareOpenGLContexts)
 QApplication.setAttribute(Qt.ApplicationAttribute.AA_UseDesktopOpenGL)
-QApplication.setAttribute(Qt.ApplicationAttribute.AA_EnableHighDpiScaling)
 
 # Resto de imports Qt
 from PyQt6.QtWidgets import (
