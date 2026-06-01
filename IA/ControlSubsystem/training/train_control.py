@@ -6,7 +6,6 @@ import numpy as np
 import sys
 import os
 
-# Add parent directory to path to import simulation module
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from simulation.environment import RocketControlEnv
 
@@ -43,7 +42,8 @@ class ValueNetwork(nn.Module):
         return self.fc(state)
 
 def train():
-    env = RocketControlEnv()
+    batch_size = 16 # Vectorized training
+    env = RocketControlEnv(batch_size=batch_size)
     state_dim = 8
     action_dim = 4
 
@@ -53,59 +53,55 @@ def train():
     actor_opt = optim.Adam(actor.parameters(), lr=3e-4)
     critic_opt = optim.Adam(critic.parameters(), lr=1e-3)
 
-    num_episodes = 50
+    num_iterations = 20
     gamma = 0.99
 
-    print(f"Starting training for {num_episodes} episodes...")
+    print(f"Starting Vectorized Training: {batch_size} agents in parallel.")
 
-    for ep in range(num_episodes):
-        state = env.reset()
-        log_probs = []
-        values = []
-        rewards = []
-        masks = []
+    for itr in range(num_iterations):
+        states = env.reset() # (Batch, State)
 
-        # Rollout
+        all_log_probs = []
+        all_values = []
+        all_rewards = []
+        all_masks = []
+
         for t in range(400):
-            state_t = torch.FloatTensor(state)
-            mu, sigma = actor(state_t)
+            states_pt = torch.FloatTensor(states)
+            mu, sigma = actor(states_pt)
             dist = Normal(mu, sigma)
-            action = dist.sample()
+            actions = dist.sample()
 
-            next_state, reward, done, _ = env.step(action.numpy())
+            next_states, rewards, dones, _ = env.step(actions.numpy())
 
-            log_prob = dist.log_prob(action).sum()
-            value = critic(state_t)
+            log_prob = dist.log_prob(actions).sum(dim=1)
+            value = critic(states_pt)
 
-            log_probs.append(log_prob)
-            values.append(value)
-            rewards.append(torch.FloatTensor([reward]))
-            masks.append(torch.FloatTensor([1 - done]))
+            all_log_probs.append(log_prob)
+            all_values.append(value.squeeze())
+            all_rewards.append(torch.FloatTensor(rewards))
+            all_masks.append(torch.FloatTensor(1 - dones))
 
-            state = next_state
-            if done:
-                break
+            states = next_states
+            if dones.all(): break
 
         # Compute Returns and Advantages
         returns = []
-        R = 0
-        for r, m in zip(reversed(rewards), reversed(masks)):
+        R = torch.zeros(batch_size)
+        for r, m in zip(reversed(all_rewards), reversed(all_masks)):
             R = r + gamma * R * m
-            returns.insert(0, R)
+            returns.insert(0, R.clone())
 
-        returns = torch.stack(returns).detach()
-        log_probs = torch.stack(log_probs)
-        values = torch.stack(values)
+        returns = torch.stack(returns).detach() # (T, Batch)
+        log_probs = torch.stack(all_log_probs)   # (T, Batch)
+        values = torch.stack(all_values)       # (T, Batch)
 
         advantages = returns - values
 
-        # Actor Loss (REINFORCE with Baseline)
+        # Optimize
         actor_loss = -(log_probs * advantages.detach()).mean()
-
-        # Critic Loss
         critic_loss = advantages.pow(2).mean()
 
-        # Optimization
         actor_opt.zero_grad()
         actor_loss.backward()
         actor_opt.step()
@@ -114,13 +110,11 @@ def train():
         critic_loss.backward()
         critic_opt.step()
 
-        if (ep + 1) % 10 == 0:
-            total_reward = sum(rewards).item()
-            print(f"Episode {ep+1} | Total Reward: {total_reward:.2f} | Loss: {actor_loss.item():.4f}")
+        avg_reward = torch.stack(all_rewards).sum(dim=0).mean().item()
+        print(f"Iteration {itr+1} | Mean Reward: {avg_reward:.2f} | Loss: {actor_loss.item():.4f}")
 
-    # Save models
     torch.save(actor.state_dict(), "IA/ControlSubsystem/models/actor_stable.pth")
-    print("Training complete. Model saved.")
+    print("Training complete.")
 
 if __name__ == "__main__":
     train()

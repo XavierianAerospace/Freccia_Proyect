@@ -6,76 +6,60 @@ except ImportError:
 
 class RocketControlEnv:
     """
-    Gym-like environment for Reinforcement Learning training.
+    Optimized environment supporting batch observations and vectorized steps.
     """
-    def __init__(self):
+    def __init__(self, batch_size=1):
+        self.batch_size = batch_size
         self.physics = RocketPhysicsEngine()
-        self.dt = 0.05 # 20Hz control loop
-        self.max_steps = 400 # 20 seconds of flight
-
-        # Action space: 4 servos, range [-15, 15] degrees
-        self.action_low = -15.0
-        self.action_high = 15.0
-
-        # State space: [roll, pitch, yaw, p, q, r, alt, vel]
-        # Normalized for better training performance
+        self.dt = 0.05
+        self.max_steps = 400
         self.reset()
 
     def reset(self):
-        # Initial state [x, y, z, vx, vy, vz, phi, theta, psi, p, q, r]
-        # Start with some random attitude perturbation
-        self.state = np.zeros(12)
-        self.state[2] = 100.0 # Start at 100m altitude
-        self.state[3] = 150.0 # 150 m/s vertical velocity
-        self.state[6:9] = np.random.uniform(-5, 5, 3) # Small initial tilt
+        # Initial state (Batch, 12)
+        self.state = np.zeros((self.batch_size, 12))
+        self.state[:, 2] = 100.0 # Altitude
+        self.state[:, 3] = 150.0 # Velocity
+        self.state[:, 6:9] = np.random.uniform(-5, 5, (self.batch_size, 3))
 
         self.steps = 0
+        self.dones = np.zeros(self.batch_size, dtype=bool)
         return self._get_obs()
 
     def _get_obs(self):
-        # Return normalized observation for RL
-        obs = np.array([
-            self.state[6], # Roll
-            self.state[7], # Pitch
-            self.state[8], # Yaw
-            self.state[9], # p
-            self.state[10],# q
-            self.state[11],# r
-            self.state[2] / 1000.0, # Altitude (km)
-            self.state[3] / 300.0   # Velocity (scaled)
-        ])
+        obs = np.zeros((self.batch_size, 8))
+        obs[:, 0:3] = self.state[:, 6:9]  # RPY
+        obs[:, 3:6] = self.state[:, 9:12] # pqr
+        obs[:, 6] = self.state[:, 2] / 1000.0
+        obs[:, 7] = self.state[:, 3] / 300.0
         return obs
 
-    def step(self, action):
+    def step(self, actions):
         """
-        Apply servo angles and propagate simulation.
-        action: [s1, s2, s3, s4] in range [-1, 1]
+        actions: (Batch, 4) in range [-1, 1]
         """
-        # 1. Denormalize actions to degrees
-        servo_angles = np.clip(action, -1, 1) * 15.0
+        servo_angles = np.clip(actions, -1, 1) * 15.0
 
-        # 2. Physics step
-        thrust = 100.0 if self.steps < 200 else 0 # 10s of thrust
+        thrust = 100.0 if self.steps < 200 else 0.0
         self.state = self.physics.step(self.state, servo_angles, thrust, self.dt)
 
-        # 3. Calculate reward
-        # Goal: Keep Roll, Pitch, Yaw at 0.
-        attitude_error = np.sum(np.square(self.state[6:9]))
-        angular_rate_penalty = 0.1 * np.sum(np.square(self.state[9:12]))
-        control_effort = 0.01 * np.sum(np.square(action))
+        # Rewards
+        attitude_error = np.sum(np.square(self.state[:, 6:9]), axis=1)
+        angular_rate_penalty = 0.1 * np.sum(np.square(self.state[:, 9:12]), axis=1)
+        control_penalty = 0.01 * np.sum(np.square(actions), axis=1)
 
-        reward = -(attitude_error + angular_rate_penalty + control_effort)
+        rewards = -(attitude_error + angular_rate_penalty + control_penalty)
 
-        # 4. Check if done
         self.steps += 1
-        done = (self.steps >= self.max_steps) or (self.state[2] < 0)
 
-        # 5. Survival bonus
-        if not done:
-            reward += 1.0
+        # Check terminations
+        step_done = self.steps >= self.max_steps
+        crashed = self.state[:, 2] < 0
 
-        return self._get_obs(), reward, done, {}
+        new_dones = step_done | crashed
+        self.dones = self.dones | new_dones
 
-    def render(self):
-        # Optional: Print state for debugging
-        print(f"Step: {self.steps} | Alt: {self.state[2]:.1f} | Att: {self.state[6:9]}")
+        # Survival bonus for active agents
+        rewards[~self.dones] += 1.0
+
+        return self._get_obs(), rewards, self.dones, {}
