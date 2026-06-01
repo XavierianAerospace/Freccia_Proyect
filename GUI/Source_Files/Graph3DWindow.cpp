@@ -47,15 +47,21 @@ Graph3DWindow::Graph3DWindow(SensorManager* manager, QWidget* parent)
 
     // === Cámaras ===
     containerGeneral2D = new QWidget();
-    QVBoxLayout* camLayout = new QVBoxLayout(containerGeneral2D);
-    camLayout->setContentsMargins(0, 0, 0, 0);
-    camLayout->setSpacing(4);
+    m_camLayout = new QVBoxLayout(containerGeneral2D);
+    m_camLayout->setContentsMargins(0, 0, 0, 0);
+    m_camLayout->setSpacing(4);
 
     m_camera1 = new CameraWidget("Cámara Principal", containerGeneral2D);
     m_camera2 = new CameraWidget("Cámara Secundaria", containerGeneral2D);
 
-    camLayout->addWidget(m_camera1);
-    camLayout->addWidget(m_camera2);
+    m_camLayout->addWidget(m_camera1);
+    m_camLayout->addWidget(m_camera2);
+
+    m_cameras << m_camera1 << m_camera2;
+
+    for (CameraWidget* cam : m_cameras) {
+        connect(cam, &CameraWidget::clicked, this, &Graph3DWindow::toggleCameraMaximize);
+    }
 
     // === Conexión a VideoSubsystem central ===
     connect(VideoSubsystem::instance(), &VideoSubsystem::frameReady, this, [=](int camId, const QImage& frame) {
@@ -103,6 +109,8 @@ Graph3DWindow::Graph3DWindow(SensorManager* manager, QWidget* parent)
     // === Layout general ===
     mainLayout->addWidget(containerGeneral2D, 0, 0);
     mainLayout->addWidget(container3D,         0, 1);
+    mainLayout->setColumnStretch(0, 1);
+    mainLayout->setColumnStretch(1, 1);
 
     // === Suscripción a DataTopic ===
     connect(DataTopic::instance(), &DataTopic::dataPublished, this, [=](const QString& line) {
@@ -168,5 +176,33 @@ void Graph3DWindow::resetData()
         scatterGraph->axisX()->setAutoAdjustRange(true);
         scatterGraph->axisY()->setAutoAdjustRange(true);
         scatterGraph->axisZ()->setAutoAdjustRange(true);
+    }
+}
+
+void Graph3DWindow::toggleCameraMaximize(CameraWidget* clickedCamera) {
+    if (m_maximizedCamera == clickedCamera) {
+        // Restore
+        container3D->show();
+        for (CameraWidget* cam : m_cameras) {
+            cam->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+            cam->setMaximumHeight(QWIDGETSIZE_MAX);
+            m_camLayout->setStretchFactor(cam, 1);
+        }
+        m_maximizedCamera = nullptr;
+    } else {
+        // Maximize
+        container3D->hide();
+        for (CameraWidget* cam : m_cameras) {
+            if (cam == clickedCamera) {
+                cam->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+                cam->setMaximumHeight(QWIDGETSIZE_MAX);
+                m_camLayout->setStretchFactor(cam, 10);
+            } else {
+                cam->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+                cam->setMaximumHeight(150);
+                m_camLayout->setStretchFactor(cam, 1);
+            }
+        }
+        m_maximizedCamera = clickedCamera;
     }
 }

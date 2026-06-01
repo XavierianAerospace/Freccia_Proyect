@@ -9,6 +9,7 @@
 #include <QFrame>
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
+#include <QMouseEvent>
 
 class CameraWidget : public QWidget {
     Q_OBJECT
@@ -18,9 +19,13 @@ public:
     void setFrame(const QImage& frame);
     void setConnectionStatus(bool connected);
 
+signals:
+    void clicked(CameraWidget* widget);
+
 protected:
     void paintEvent(QPaintEvent* event) override;
     void resizeEvent(QResizeEvent* event) override;
+    void mousePressEvent(QMouseEvent* event) override;
 
 private slots:
     void handleTimeout();

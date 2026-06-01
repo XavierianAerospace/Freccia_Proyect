@@ -7,6 +7,7 @@ CameraWidget::CameraWidget(const QString& cameraName, QWidget* parent)
     : QWidget(parent), m_cameraName(cameraName), m_connectionLost(true) {
 
     setupUI();
+    setCursor(Qt::PointingHandCursor);
 
     m_watchdogTimer = new QTimer(this);
     m_watchdogTimer->setInterval(3000);
@@ -20,7 +21,7 @@ void CameraWidget::setupUI() {
     mainLayout->setContentsMargins(5, 5, 5, 5);
 
     m_videoRenderer = new VideoRenderer(this);
-    m_videoRenderer->setMinimumHeight(200);
+    m_videoRenderer->setMinimumHeight(100);
     m_videoRenderer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     mainLayout->addWidget(m_videoRenderer);
@@ -60,6 +61,11 @@ void CameraWidget::paintEvent(QPaintEvent* event) {
 void CameraWidget::resizeEvent(QResizeEvent* event) {
     QWidget::resizeEvent(event);
     m_overlayLabel->setGeometry(m_videoRenderer->rect());
+}
+
+void CameraWidget::mousePressEvent(QMouseEvent* event) {
+    Q_UNUSED(event);
+    emit clicked(this);
 }
 
 void CameraWidget::updateTelemetry(float imgQuality, float signalQuality) {

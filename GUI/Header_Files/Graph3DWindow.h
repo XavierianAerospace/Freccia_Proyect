@@ -45,6 +45,9 @@ private:
     TopToolbar* m_topToolbar = nullptr;
     CameraWidget* m_camera1 = nullptr;
     CameraWidget* m_camera2 = nullptr;
+    QList<CameraWidget*> m_cameras;
+    CameraWidget* m_maximizedCamera = nullptr;
+    QVBoxLayout* m_camLayout = nullptr;
 
     // === Layout principal ===
     QGridLayout* mainLayout;
@@ -70,6 +73,8 @@ private:
 
     // === Métodos ===
 
+private slots:
+    void toggleCameraMaximize(CameraWidget* clickedCamera);
 
 };
 
