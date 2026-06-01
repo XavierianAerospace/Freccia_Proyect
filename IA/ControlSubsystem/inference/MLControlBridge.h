@@ -18,8 +18,9 @@ public:
     };
 
     MLControlBridge() {
-        // In a full implementation, this would load the TorchScript model
-        std::cout << "[ML Bridge] Initializing Neural Network Inference..." << std::endl;
+        // In a full implementation with libtorch:
+        // module = torch::jit::load("IA/ControlSubsystem/models/actor_traced.pt");
+        std::cout << "[ML Bridge] Architecture ready. Model path: IA/ControlSubsystem/models/actor_traced.pt" << std::endl;
     }
 
     /**

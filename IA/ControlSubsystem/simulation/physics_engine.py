@@ -23,6 +23,15 @@ class RocketPhysicsEngine:
         self.I_inv = np.linalg.inv(self.I)
         self.g = 9.81 # m/s^2
 
+        # Wind model parameters
+        self.wind_vector = np.array([0.0, 0.0, 0.0])
+        self.wind_gustiness = 0.5
+
+    def set_wind(self, base_wind, gustiness=0.5):
+        """Set environmental wind conditions"""
+        self.wind_vector = np.array(base_wind)
+        self.wind_gustiness = gustiness
+
     def get_atmospheric_density(self, altitude):
         """Standard atmosphere model (simplified)"""
         rho0 = 1.225 # kg/m^3
@@ -36,7 +45,9 @@ class RocketPhysicsEngine:
         State: [x, y, z, vx, vy, vz, phi, theta, psi, p, q, r]
         Servo_angles: [s1, s2, s3, s4] (in degrees)
         """
-        v_body = state[3:6]
+        # Apply wind to velocity
+        v_air = state[3:6] - (self.wind_vector + np.random.normal(0, self.wind_gustiness, 3))
+        v_body = v_air
         omega = state[9:12]
         altitude = state[2]
 
