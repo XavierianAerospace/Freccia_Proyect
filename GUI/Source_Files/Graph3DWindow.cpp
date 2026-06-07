@@ -37,25 +37,25 @@ Graph3DWindow::Graph3DWindow(SensorManager* manager, QWidget* parent)
     m_topToolbar = new TopToolbar(this);
     globalLayout->addWidget(m_topToolbar);
 
-    QWidget* centralWidget = new QWidget();
-    mainLayout = new QGridLayout(centralWidget);
+    m_centralWidget = new QWidget();
+    mainLayout = new QGridLayout(m_centralWidget);
     mainLayout->setSpacing(4);
     mainLayout->setContentsMargins(4, 4, 4, 4);
-    globalLayout->addWidget(centralWidget);
+    globalLayout->addWidget(m_centralWidget);
 
     this->setAttribute(Qt::WA_DeleteOnClose);
 
     // === Cámaras ===
     containerGeneral2D = new QWidget();
-    m_camLayout = new QVBoxLayout(containerGeneral2D);
+    m_camLayout = new QGridLayout(containerGeneral2D);
     m_camLayout->setContentsMargins(0, 0, 0, 0);
     m_camLayout->setSpacing(4);
 
     m_camera1 = new CameraWidget("Cámara Principal", containerGeneral2D);
     m_camera2 = new CameraWidget("Cámara Secundaria", containerGeneral2D);
 
-    m_camLayout->addWidget(m_camera1);
-    m_camLayout->addWidget(m_camera2);
+    m_camLayout->addWidget(m_camera1, 0, 0);
+    m_camLayout->addWidget(m_camera2, 1, 0);
 
     m_cameras << m_camera1 << m_camera2;
 
@@ -101,6 +101,7 @@ Graph3DWindow::Graph3DWindow(SensorManager* manager, QWidget* parent)
 
     container3D = QWidget::createWindowContainer(scatterGraph);
     container3D->setMinimumSize(QSize(460, 500));
+    container3D->installEventFilter(this);
     container3D->setAutoFillBackground(true);
     QPalette pal = container3D->palette();
     pal.setColor(QPalette::Window, Qt::white);
@@ -179,30 +180,97 @@ void Graph3DWindow::resetData()
     }
 }
 
+bool Graph3DWindow::eventFilter(QObject* watched, QEvent* event) {
+    if (watched == container3D && event->type() == QEvent::MouseButtonDblClick) {
+        if (m_maximizeMode == Graph3D) m_maximizeMode = Grid;
+        else m_maximizeMode = Graph3D;
+        applyLayout();
+        return true;
+    }
+    return QWidget::eventFilter(watched, event);
+}
+
 void Graph3DWindow::toggleCameraMaximize(CameraWidget* clickedCamera) {
-    if (m_maximizedCamera == clickedCamera) {
-        // Restore
-        container3D->show();
-        for (CameraWidget* cam : m_cameras) {
-            cam->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-            cam->setMaximumHeight(QWIDGETSIZE_MAX);
-            m_camLayout->setStretchFactor(cam, 1);
+    if (clickedCamera == m_camera1) {
+        if (m_maximizeMode == Cam1) m_maximizeMode = Grid;
+        else m_maximizeMode = Cam1;
+    } else if (clickedCamera == m_camera2) {
+        if (m_maximizeMode == Cam2) m_maximizeMode = Grid;
+        else m_maximizeMode = Cam2;
+    }
+    applyLayout();
+}
+
+void Graph3DWindow::applyLayout() {
+    // 1. Clear everything from layouts
+    mainLayout->removeWidget(containerGeneral2D);
+    mainLayout->removeWidget(container3D);
+    m_camLayout->removeWidget(m_camera1);
+    m_camLayout->removeWidget(m_camera2);
+
+    // 2. Reset visibility and size constraints
+    containerGeneral2D->show();
+    containerGeneral2D->setMinimumSize(0, 0);
+    containerGeneral2D->setMaximumSize(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX);
+
+    container3D->show();
+    for (CameraWidget* cam : m_cameras) {
+        cam->show();
+        cam->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        cam->setMinimumSize(0, 0);
+        cam->setMaximumSize(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX);
+    }
+    container3D->setMinimumSize(0, 0);
+    container3D->setMaximumSize(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX);
+
+    mainLayout->setColumnStretch(0, 1);
+    mainLayout->setColumnStretch(1, 1);
+
+    // 3. Apply layout based on mode
+    switch (m_maximizeMode) {
+        case Grid:
+            mainLayout->addWidget(containerGeneral2D, 0, 0);
+            mainLayout->addWidget(container3D, 0, 1);
+            m_camLayout->addWidget(m_camera1, 0, 0);
+            m_camLayout->addWidget(m_camera2, 1, 0);
+            container3D->setMinimumSize(460, 500);
+            break;
+
+        case Cam1:
+        case Cam2: {
+            CameraWidget* mainCam = (m_maximizeMode == Cam1) ? m_camera1 : m_camera2;
+            CameraWidget* pipCam = (m_maximizeMode == Cam1) ? m_camera2 : m_camera1;
+
+            // Standard columns: Cameras (left), 3D Graph (right)
+            mainLayout->addWidget(containerGeneral2D, 0, 0);
+            mainLayout->addWidget(container3D, 0, 1);
+            mainLayout->setColumnStretch(0, 2); // Give more space to cameras
+            mainLayout->setColumnStretch(1, 1);
+
+            // Main camera fills its container
+            m_camLayout->addWidget(mainCam, 0, 0);
+
+            // Other camera as PiP (Top Right of the camera container)
+            m_camLayout->addWidget(pipCam, 0, 0, Qt::AlignTop | Qt::AlignRight);
+            pipCam->setFixedSize(240, 180);
+            pipCam->raise();
+
+            container3D->setMinimumSize(460, 500);
+            break;
         }
-        m_maximizedCamera = nullptr;
-    } else {
-        // Maximize
-        container3D->hide();
-        for (CameraWidget* cam : m_cameras) {
-            if (cam == clickedCamera) {
-                cam->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-                cam->setMaximumHeight(QWIDGETSIZE_MAX);
-                m_camLayout->setStretchFactor(cam, 10);
-            } else {
-                cam->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-                cam->setMaximumHeight(150);
-                m_camLayout->setStretchFactor(cam, 1);
-            }
-        }
-        m_maximizedCamera = clickedCamera;
+
+        case Graph3D:
+            // 3D Graph spans the whole window area
+            mainLayout->addWidget(container3D, 0, 0, 1, 2);
+            mainLayout->setColumnStretch(0, 0);
+            mainLayout->setColumnStretch(1, 1);
+
+            // Cameras as PiP overlay on top of 3D graph
+            mainLayout->addWidget(containerGeneral2D, 0, 0, 1, 2, Qt::AlignTop | Qt::AlignRight);
+            containerGeneral2D->setFixedSize(240, 360);
+            m_camLayout->addWidget(m_camera1, 0, 0);
+            m_camLayout->addWidget(m_camera2, 1, 0);
+            containerGeneral2D->raise();
+            break;
     }
 }
