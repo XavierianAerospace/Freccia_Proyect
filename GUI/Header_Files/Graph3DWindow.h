@@ -40,14 +40,23 @@ public:
 public slots:
     void resetData();
 
+protected:
+    bool eventFilter(QObject* watched, QEvent* event) override;
+
 private:
+    enum MaximizeMode { Grid, Cam1, Cam2, Graph3D };
+    MaximizeMode m_maximizeMode = Grid;
+
     SensorManager* m_sensorManager = nullptr;
     TopToolbar* m_topToolbar = nullptr;
     CameraWidget* m_camera1 = nullptr;
     CameraWidget* m_camera2 = nullptr;
+    QList<CameraWidget*> m_cameras;
+    QGridLayout* m_camLayout = nullptr;
 
     // === Layout principal ===
     QGridLayout* mainLayout;
+    QWidget* m_centralWidget;
 
     // === Contenedores de visualización ===
     QWidget* containerGeneral2D;
@@ -69,7 +78,10 @@ private:
     QWidget* container3DModel;
 
     // === Métodos ===
+    void applyLayout();
 
+private slots:
+    void toggleCameraMaximize(CameraWidget* clickedCamera);
 
 };
 
