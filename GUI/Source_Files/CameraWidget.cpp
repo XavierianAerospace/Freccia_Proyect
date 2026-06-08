@@ -2,6 +2,7 @@
 #include <QPainter>
 #include <QDateTime>
 #include <QPixmap>
+#include <cstring>
 
 CameraWidget::CameraWidget(const QString& cameraName, QWidget* parent)
     : QWidget(parent), m_cameraName(cameraName), m_connectionLost(true) {
@@ -69,18 +70,9 @@ void CameraWidget::mousePressEvent(QMouseEvent* event) {
 }
 
 void CameraWidget::updateTelemetry(float imgQuality, float signalQuality) {
-    if (m_connectionLost) {
-        m_connectionLost = false;
-        m_overlayLabel->setVisible(false);
-        m_labelStatus->setText("Estado: CONECTADO");
-        m_labelStatus->setStyleSheet("color: #0f0; font-weight: bold;");
-        update();
-    }
-
     m_labelImgQuality->setText(QString("Calidad Imagen: %1%").arg(imgQuality, 0, 'f', 1));
     m_labelSignalQuality->setText(QString("Calidad Señal: %1%").arg(signalQuality, 0, 'f', 1));
 
-    m_watchdogTimer->start();
 }
 
 void CameraWidget::setFrame(const QImage& frame) {
@@ -135,7 +127,18 @@ CameraWidget::VideoRenderer::VideoRenderer(QWidget* parent)
 }
 
 void CameraWidget::VideoRenderer::updateFrame(const QImage& frame) {
-    m_currentFrame = frame;
+    QImage rgbFrame = frame.convertToFormat(QImage::Format_RGB888);
+
+    if (rgbFrame.bytesPerLine() != rgbFrame.width() * 3) {
+        QImage packedFrame(rgbFrame.width(), rgbFrame.height(), QImage::Format_RGB888);
+        const int packedLineSize = packedFrame.width() * 3;
+        for (int y = 0; y < rgbFrame.height(); ++y) {
+            std::memcpy(packedFrame.scanLine(y), rgbFrame.constScanLine(y), packedLineSize);
+        }
+        rgbFrame = packedFrame;
+    }
+
+    m_currentFrame = rgbFrame;
     m_hasFrame = true;
     update();
 }

@@ -15,7 +15,7 @@ class CameraWidget : public QWidget {
     Q_OBJECT
 public:
     explicit CameraWidget(const QString& cameraName, QWidget* parent = nullptr);
-    void updateTelemetry(float imgQuality, float signalQuality); // Heartbeat and data update
+    void updateTelemetry(float imgQuality, float signalQuality);
     void setFrame(const QImage& frame);
     void setConnectionStatus(bool connected);
     void setCompactMode(bool compact);

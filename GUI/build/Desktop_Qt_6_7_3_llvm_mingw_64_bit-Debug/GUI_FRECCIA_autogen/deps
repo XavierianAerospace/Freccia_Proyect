@@ -47,17 +47,21 @@ GUI_FRECCIA_autogen/timestamp: \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QHashFunctions \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QList \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QLocale \
+	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QMap \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QMargins \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QMetaType \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QObject \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QPoint \
+	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QPointer \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QProcess \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QRect \
+	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QRectF \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QScopedPointer \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QSize \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QSizeF \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QString \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QStringList \
+	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QThread \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QTime \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QTimer \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QVariant \
@@ -140,6 +144,7 @@ GUI_FRECCIA_autogen/timestamp: \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qoverload.h \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qpair.h \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qpoint.h \
+	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qpointer.h \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qprocess.h \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qprocessordetection.h \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qproperty.h \
@@ -177,6 +182,7 @@ GUI_FRECCIA_autogen/timestamp: \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qtdeprecationmarkers.h \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qtenvironmentvariables.h \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qtextstream.h \
+	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qthread.h \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qtimer.h \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qtmetamacros.h \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qtnoop.h \
@@ -217,6 +223,7 @@ GUI_FRECCIA_autogen/timestamp: \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtDataVisualization/qtdatavisualizationexports.h \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtDataVisualization/qvalue3daxis.h \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtDataVisualization/qvalue3daxisformatter.h \
+	C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/QAction \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/QBrush \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/QColor \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/QFont \
@@ -225,6 +232,7 @@ GUI_FRECCIA_autogen/timestamp: \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/QMatrix4x4 \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/QMouseEvent \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/QOpenGLFunctions \
+	C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/QPainter \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/QPen \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/QQuaternion \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/QSurfaceFormat \
@@ -297,11 +305,16 @@ GUI_FRECCIA_autogen/timestamp: \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtNetwork/qtnetwork-config.h \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtNetwork/qtnetworkexports.h \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtNetwork/qtnetworkglobal.h \
+	C:/Qt/6.7.3/llvm-mingw_64/include/QtOpenGLWidgets/QOpenGLWidget \
+	C:/Qt/6.7.3/llvm-mingw_64/include/QtOpenGLWidgets/qopenglwidget.h \
+	C:/Qt/6.7.3/llvm-mingw_64/include/QtOpenGLWidgets/qtopenglwidgetsexports.h \
+	C:/Qt/6.7.3/llvm-mingw_64/include/QtOpenGLWidgets/qtopenglwidgetsglobal.h \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtSerialPort/QSerialPort \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtSerialPort/qserialport.h \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtSerialPort/qserialportglobal.h \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtSerialPort/qtserialportexports.h \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/QCheckBox \
+	C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/QFrame \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/QGraphicsEllipseItem \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/QGraphicsLineItem \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/QGraphicsSimpleTextItem \
@@ -310,6 +323,7 @@ GUI_FRECCIA_autogen/timestamp: \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/QGridLayout \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/QHBoxLayout \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/QLabel \
+	C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/QMenu \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/QPushButton \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/QSlider \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/QVBoxLayout \
@@ -329,6 +343,7 @@ GUI_FRECCIA_autogen/timestamp: \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/qlabel.h \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/qlayout.h \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/qlayoutitem.h \
+	C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/qmenu.h \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/qpushbutton.h \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/qscrollarea.h \
 	C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/qsizepolicy.h \
@@ -677,8 +692,10 @@ GUI_FRECCIA_autogen/timestamp: \
 	C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/Compiler/Clang-CXX.cmake \
 	C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/Compiler/Clang.cmake \
 	C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/Compiler/GNU.cmake \
+	C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/FindOpenGL.cmake \
 	C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/FindPackageHandleStandardArgs.cmake \
 	C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/FindPackageMessage.cmake \
+	C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/FindPkgConfig.cmake \
 	C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/FindThreads.cmake \
 	C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/FindVulkan.cmake \
 	C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/GNUInstallDirs.cmake \
@@ -1219,8 +1236,11 @@ GUI_FRECCIA_autogen/timestamp: \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__system_error/error_code.h \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__system_error/error_condition.h \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__system_error/system_error.h \
+	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__thread/formatter.h \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__thread/id.h \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__thread/poll_with_backoff.h \
+	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__thread/this_thread.h \
+	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__thread/thread.h \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__threading_support \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__tree \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__tuple/make_tuple_types.h \
@@ -1417,12 +1437,14 @@ GUI_FRECCIA_autogen/timestamp: \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/ctype.h \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/cwchar \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/cwctype \
+	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/deque \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/errno.h \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/exception \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/execution \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/filesystem \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/fstream \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/functional \
+	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/future \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/initializer_list \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/iomanip \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/ios \
@@ -1443,6 +1465,7 @@ GUI_FRECCIA_autogen/timestamp: \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/optional \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/ostream \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/ratio \
+	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/sstream \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/stdbool.h \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/stddef.h \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/stdexcept \
@@ -1454,6 +1477,7 @@ GUI_FRECCIA_autogen/timestamp: \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/string.h \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/string_view \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/system_error \
+	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/thread \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/tuple \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/type_traits \
 	C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/typeinfo \
@@ -1470,19 +1494,32 @@ GUI_FRECCIA_autogen/timestamp: \
 	C:/Qt/Tools/llvm-mingw1706_64/lib/clang/17/include/stdarg.h \
 	C:/Qt/Tools/llvm-mingw1706_64/lib/clang/17/include/vadefs.h \
 	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/CMakeLists.txt \
+	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/CameraWidget.h \
 	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/Graph3DWindow.h \
 	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/InicioWindow.h \
 	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/SensorManager.h \
 	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/SerialReader.h \
+	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/TopToolbar.h \
+	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/VideoDecoder.h \
+	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/VideoManager.h \
+	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/VideoSubsystem.h \
+	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/WindowManager.h \
 	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/data/DataCleaner.h \
 	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/data/DataTopic.h \
 	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/data/FileHelper.h \
+	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/data/RangeChecker.h \
 	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/data/SensorData.h \
 	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/widget.h \
+	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Files/CameraWidget.cpp \
 	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Files/Graph3DWindow.cpp \
 	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Files/InicioWindow.cpp \
 	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Files/SensorManager.cpp \
 	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Files/SerialReader.cpp \
+	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Files/TopToolbar.cpp \
+	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Files/VideoDecoder.cpp \
+	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Files/VideoManager.cpp \
+	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Files/VideoSubsystem.cpp \
+	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Files/WindowManager.cpp \
 	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Files/data/DataCleaner.cpp \
 	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Files/data/DataTopic.cpp \
 	C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Files/data/FileHelper.cpp \

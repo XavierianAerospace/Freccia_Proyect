@@ -42,6 +42,9 @@ void VideoSubsystem::start(int camId, quint16 port) {
     connect(vc->manager, &VideoManager::packetReceived, vc->decoder, &VideoDecoder::decodePacket);
     connect(vc->manager, &VideoManager::codecParametersDetected, vc->decoder, &VideoDecoder::initDecoder);
     connect(vc->manager, &VideoManager::rawPacketReceived, vc->decoder, &VideoDecoder::decodeRawPacket);
+    connect(vc->manager, &VideoManager::frameReceived, this, [=](const QImage& frame) {
+        emit frameReady(camId, frame);
+    });
 
     connect(vc->decoder, &VideoDecoder::frameDecoded, this, [=](const QImage& frame) {
         emit frameReady(camId, frame);
@@ -55,6 +58,7 @@ void VideoSubsystem::stop(int camId) {
     if (!m_channels.contains(camId)) return;
 
     VideoChannel* vc = m_channels.take(camId);
+    vc->manager->stop();
     vc->thread->quit();
     vc->thread->wait();
 

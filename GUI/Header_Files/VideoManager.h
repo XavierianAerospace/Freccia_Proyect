@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <QThread>
+#include <QImage>
+#include <atomic>
 
 // Forward declarations for FFmpeg to avoid header dependency in H files
 struct AVFormatContext;
@@ -23,14 +25,16 @@ signals:
     void packetReceived(AVPacket* packet);
     void codecParametersDetected(AVCodecParameters* params);
     void rawPacketReceived(const QByteArray& data);
+    void frameReceived(const QImage& frame);
     void connectionStatusChanged(bool connected);
 
 private:
     void runReceptionLoop();
-    void runMockLoop();
+    void runFfmpegCliLoop();
+    QString findFfmpegExecutable() const;
 
     quint16 m_port;
-    bool m_running;
+    std::atomic_bool m_running;
     AVFormatContext* m_formatCtx;
 };
 
