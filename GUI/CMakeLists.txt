@@ -49,6 +49,7 @@ if(NOT FFMPEG_FOUND)
         "C:/ffmpeg/include"
         "/usr/local/include"
         "/usr/include"
+        "/usr/include/x86_64-linux-gnu"
     )
 
     find_path(AVCODEC_INCLUDE_DIR libavcodec/avcodec.h PATHS ${FFMPEG_PATHS})

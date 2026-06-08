@@ -2,11 +2,13 @@
 #include <QPainter>
 #include <QDateTime>
 #include <QPixmap>
+#include <cstring>
 
 CameraWidget::CameraWidget(const QString& cameraName, QWidget* parent)
     : QWidget(parent), m_cameraName(cameraName), m_connectionLost(true) {
 
     setupUI();
+    setCursor(Qt::PointingHandCursor);
 
     m_watchdogTimer = new QTimer(this);
     m_watchdogTimer->setInterval(3000);
@@ -20,19 +22,19 @@ void CameraWidget::setupUI() {
     mainLayout->setContentsMargins(5, 5, 5, 5);
 
     m_videoRenderer = new VideoRenderer(this);
-    m_videoRenderer->setMinimumHeight(200);
+    m_videoRenderer->setMinimumHeight(50);
     m_videoRenderer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     mainLayout->addWidget(m_videoRenderer);
 
     // Telemetry Panel
-    QFrame* telemetryFrame = new QFrame(this);
-    telemetryFrame->setStyleSheet("background-color: #111; color: white; border-top: 1px solid #444;");
-    QGridLayout* teleLayout = new QGridLayout(telemetryFrame);
+    m_telemetryFrame = new QFrame(this);
+    m_telemetryFrame->setStyleSheet("background-color: #111; color: white; border-top: 1px solid #444;");
+    QGridLayout* teleLayout = new QGridLayout(m_telemetryFrame);
 
-    m_labelImgQuality = new QLabel("Calidad Imagen: --%", telemetryFrame);
-    m_labelSignalQuality = new QLabel("Calidad Señal: --%", telemetryFrame);
-    m_labelStatus = new QLabel("Estado: DESCONECTADO", telemetryFrame);
+    m_labelImgQuality = new QLabel("Calidad Imagen: --%", m_telemetryFrame);
+    m_labelSignalQuality = new QLabel("Calidad Señal: --%", m_telemetryFrame);
+    m_labelStatus = new QLabel("Estado: DESCONECTADO", m_telemetryFrame);
     m_labelStatus->setStyleSheet("color: red; font-weight: bold;");
 
     teleLayout->addWidget(new QLabel("CAM: " + m_cameraName), 0, 0);
@@ -40,7 +42,7 @@ void CameraWidget::setupUI() {
     teleLayout->addWidget(m_labelImgQuality, 1, 0);
     teleLayout->addWidget(m_labelSignalQuality, 1, 1);
 
-    mainLayout->addWidget(telemetryFrame);
+    mainLayout->addWidget(m_telemetryFrame);
 
     m_overlayLabel = new QLabel("CONNECTION LOST", m_videoRenderer);
     m_overlayLabel->setAlignment(Qt::AlignCenter);
@@ -62,19 +64,15 @@ void CameraWidget::resizeEvent(QResizeEvent* event) {
     m_overlayLabel->setGeometry(m_videoRenderer->rect());
 }
 
-void CameraWidget::updateTelemetry(float imgQuality, float signalQuality) {
-    if (m_connectionLost) {
-        m_connectionLost = false;
-        m_overlayLabel->setVisible(false);
-        m_labelStatus->setText("Estado: CONECTADO");
-        m_labelStatus->setStyleSheet("color: #0f0; font-weight: bold;");
-        update();
-    }
+void CameraWidget::mousePressEvent(QMouseEvent* event) {
+    Q_UNUSED(event);
+    emit clicked(this);
+}
 
+void CameraWidget::updateTelemetry(float imgQuality, float signalQuality) {
     m_labelImgQuality->setText(QString("Calidad Imagen: %1%").arg(imgQuality, 0, 'f', 1));
     m_labelSignalQuality->setText(QString("Calidad Señal: %1%").arg(signalQuality, 0, 'f', 1));
 
-    m_watchdogTimer->start();
 }
 
 void CameraWidget::setFrame(const QImage& frame) {
@@ -99,6 +97,18 @@ void CameraWidget::setConnectionStatus(bool connected) {
     update();
 }
 
+void CameraWidget::setCompactMode(bool compact) {
+    if (compact) {
+        m_telemetryFrame->hide();
+        layout()->setContentsMargins(0, 0, 0, 0);
+        m_overlayLabel->setStyleSheet("background-color: rgba(255, 0, 0, 80); color: white; font-size: 12px; font-weight: bold; border: 1px solid red;");
+    } else {
+        m_telemetryFrame->show();
+        layout()->setContentsMargins(5, 5, 5, 5);
+        m_overlayLabel->setStyleSheet("background-color: rgba(255, 0, 0, 80); color: white; font-size: 20px; font-weight: bold; border: 2px solid red;");
+    }
+}
+
 void CameraWidget::handleTimeout() {
     m_connectionLost = true;
     m_overlayLabel->setGeometry(m_videoRenderer->rect());
@@ -117,7 +127,18 @@ CameraWidget::VideoRenderer::VideoRenderer(QWidget* parent)
 }
 
 void CameraWidget::VideoRenderer::updateFrame(const QImage& frame) {
-    m_currentFrame = frame;
+    QImage rgbFrame = frame.convertToFormat(QImage::Format_RGB888);
+
+    if (rgbFrame.bytesPerLine() != rgbFrame.width() * 3) {
+        QImage packedFrame(rgbFrame.width(), rgbFrame.height(), QImage::Format_RGB888);
+        const int packedLineSize = packedFrame.width() * 3;
+        for (int y = 0; y < rgbFrame.height(); ++y) {
+            std::memcpy(packedFrame.scanLine(y), rgbFrame.constScanLine(y), packedLineSize);
+        }
+        rgbFrame = packedFrame;
+    }
+
+    m_currentFrame = rgbFrame;
     m_hasFrame = true;
     update();
 }
@@ -137,6 +158,7 @@ void CameraWidget::VideoRenderer::paintGL() {
     if (!m_hasFrame) return;
 
     glBindTexture(GL_TEXTURE_2D, m_texture);
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_currentFrame.width(), m_currentFrame.height(), 0, GL_RGB, GL_UNSIGNED_BYTE, m_currentFrame.bits());
 
     glBegin(GL_QUADS);

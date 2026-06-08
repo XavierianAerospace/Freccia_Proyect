@@ -9,18 +9,24 @@
 #include <QFrame>
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
+#include <QMouseEvent>
 
 class CameraWidget : public QWidget {
     Q_OBJECT
 public:
     explicit CameraWidget(const QString& cameraName, QWidget* parent = nullptr);
-    void updateTelemetry(float imgQuality, float signalQuality); // Heartbeat and data update
+    void updateTelemetry(float imgQuality, float signalQuality);
     void setFrame(const QImage& frame);
     void setConnectionStatus(bool connected);
+    void setCompactMode(bool compact);
+
+signals:
+    void clicked(CameraWidget* widget);
 
 protected:
     void paintEvent(QPaintEvent* event) override;
     void resizeEvent(QResizeEvent* event) override;
+    void mousePressEvent(QMouseEvent* event) override;
 
 private slots:
     void handleTimeout();
@@ -43,6 +49,7 @@ private:
     QString m_cameraName;
     VideoRenderer* m_videoRenderer;
     QLabel* m_overlayLabel;
+    QWidget* m_telemetryFrame;
 
     QLabel* m_labelImgQuality;
     QLabel* m_labelSignalQuality;

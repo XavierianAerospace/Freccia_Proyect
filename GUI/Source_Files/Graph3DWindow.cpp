@@ -37,35 +37,52 @@ Graph3DWindow::Graph3DWindow(SensorManager* manager, QWidget* parent)
     m_topToolbar = new TopToolbar(this);
     globalLayout->addWidget(m_topToolbar);
 
-    QWidget* centralWidget = new QWidget();
-    mainLayout = new QGridLayout(centralWidget);
+    m_centralWidget = new QWidget();
+    mainLayout = new QGridLayout(m_centralWidget);
     mainLayout->setSpacing(4);
     mainLayout->setContentsMargins(4, 4, 4, 4);
-    globalLayout->addWidget(centralWidget);
+    globalLayout->addWidget(m_centralWidget);
 
     this->setAttribute(Qt::WA_DeleteOnClose);
 
     // === Cámaras ===
     containerGeneral2D = new QWidget();
-    QVBoxLayout* camLayout = new QVBoxLayout(containerGeneral2D);
-    camLayout->setContentsMargins(0, 0, 0, 0);
-    camLayout->setSpacing(4);
+    m_camLayout = new QGridLayout(containerGeneral2D);
+    m_camLayout->setContentsMargins(0, 0, 0, 0);
+    m_camLayout->setSpacing(4);
 
     m_camera1 = new CameraWidget("Cámara Principal", containerGeneral2D);
     m_camera2 = new CameraWidget("Cámara Secundaria", containerGeneral2D);
+    m_camera3 = new CameraWidget("Cámara Montaje", containerGeneral2D);
+    m_camera4 = new CameraWidget("Cámara Cielo", containerGeneral2D);
 
-    camLayout->addWidget(m_camera1);
-    camLayout->addWidget(m_camera2);
+    m_camLayout->addWidget(m_camera1, 0, 0);
+    m_camLayout->addWidget(m_camera2, 1, 0);
+    m_camLayout->addWidget(m_camera3, 0, 1);
+    m_camLayout->addWidget(m_camera4, 1, 1);
+
+    m_cameras << m_camera1 << m_camera2 << m_camera3 << m_camera4;
+
+    m_pipContainer = new PiPContainer(this);
+    m_pipContainer->hide();
+
+    for (CameraWidget* cam : m_cameras) {
+        connect(cam, &CameraWidget::clicked, this, &Graph3DWindow::toggleCameraMaximize);
+    }
 
     // === Conexión a VideoSubsystem central ===
     connect(VideoSubsystem::instance(), &VideoSubsystem::frameReady, this, [=](int camId, const QImage& frame) {
         if (camId == 1 && m_camera1) m_camera1->setFrame(frame);
         if (camId == 2 && m_camera2) m_camera2->setFrame(frame);
+        if (camId == 3 && m_camera3) m_camera3->setFrame(frame);
+        if (camId == 4 && m_camera4) m_camera4->setFrame(frame);
     });
 
     // Iniciar canales independientes
     VideoSubsystem::instance()->start(1, 5600);
     VideoSubsystem::instance()->start(2, 5601);
+    VideoSubsystem::instance()->start(3, 5602);
+    VideoSubsystem::instance()->start(4, 5603);
 
     // === Gráfico 3D ===
     scatterGraph = new Q3DScatter();
@@ -95,6 +112,7 @@ Graph3DWindow::Graph3DWindow(SensorManager* manager, QWidget* parent)
 
     container3D = QWidget::createWindowContainer(scatterGraph);
     container3D->setMinimumSize(QSize(460, 500));
+    container3D->installEventFilter(this);
     container3D->setAutoFillBackground(true);
     QPalette pal = container3D->palette();
     pal.setColor(QPalette::Window, Qt::white);
@@ -103,6 +121,8 @@ Graph3DWindow::Graph3DWindow(SensorManager* manager, QWidget* parent)
     // === Layout general ===
     mainLayout->addWidget(containerGeneral2D, 0, 0);
     mainLayout->addWidget(container3D,         0, 1);
+    mainLayout->setColumnStretch(0, 1);
+    mainLayout->setColumnStretch(1, 1);
 
     // === Suscripción a DataTopic ===
     connect(DataTopic::instance(), &DataTopic::dataPublished, this, [=](const QString& line) {
@@ -112,6 +132,8 @@ Graph3DWindow::Graph3DWindow(SensorManager* manager, QWidget* parent)
         float mockQual = 95.0f + (rand() % 50) / 10.0f;
         if (m_camera1) m_camera1->updateTelemetry(mockQual, 98.2f);
         if (m_camera2) m_camera2->updateTelemetry(mockQual - 2.0f, 96.5f);
+        if (m_camera3) m_camera3->updateTelemetry(mockQual - 1.0f, 97.0f);
+        if (m_camera4) m_camera4->updateTelemetry(mockQual - 3.0f, 95.8f);
 
         QVector3D pos(d.longitude, xIndex3D, d.latitude);
         pointHistory.append(pos);
@@ -168,5 +190,126 @@ void Graph3DWindow::resetData()
         scatterGraph->axisX()->setAutoAdjustRange(true);
         scatterGraph->axisY()->setAutoAdjustRange(true);
         scatterGraph->axisZ()->setAutoAdjustRange(true);
+    }
+}
+
+bool Graph3DWindow::eventFilter(QObject* watched, QEvent* event) {
+    if (watched == container3D && event->type() == QEvent::MouseButtonDblClick) {
+        if (m_maximizeMode == Graph3D) m_maximizeMode = Grid;
+        else m_maximizeMode = Graph3D;
+        applyLayout();
+        return true;
+    }
+    return QWidget::eventFilter(watched, event);
+}
+
+void Graph3DWindow::toggleCameraMaximize(CameraWidget* clickedCamera) {
+    if (clickedCamera == m_camera1) {
+        if (m_maximizeMode == Cam1) m_maximizeMode = Grid;
+        else m_maximizeMode = Cam1;
+    } else if (clickedCamera == m_camera2) {
+        if (m_maximizeMode == Cam2) m_maximizeMode = Grid;
+        else m_maximizeMode = Cam2;
+    } else if (clickedCamera == m_camera3) {
+        if (m_maximizeMode == Cam3) m_maximizeMode = Grid;
+        else m_maximizeMode = Cam3;
+    } else if (clickedCamera == m_camera4) {
+        if (m_maximizeMode == Cam4) m_maximizeMode = Grid;
+        else m_maximizeMode = Cam4;
+    }
+    applyLayout();
+}
+
+void Graph3DWindow::applyLayout() {
+    // 1. Clear everything from layouts
+    mainLayout->removeWidget(containerGeneral2D);
+    mainLayout->removeWidget(container3D);
+    m_camLayout->removeWidget(m_camera1);
+    m_camLayout->removeWidget(m_camera2);
+    m_camLayout->removeWidget(m_camera3);
+    m_camLayout->removeWidget(m_camera4);
+
+    while (m_pipContainer->layout()->count() > 0) {
+        m_pipContainer->layout()->takeAt(0);
+    }
+    m_pipContainer->hide();
+
+    // 2. Reset visibility and size constraints
+    containerGeneral2D->show();
+    containerGeneral2D->setMinimumSize(0, 0);
+    containerGeneral2D->setMaximumSize(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX);
+
+    container3D->show();
+    for (CameraWidget* cam : m_cameras) {
+        cam->show();
+        cam->setCompactMode(false);
+        cam->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        cam->setMinimumSize(0, 0);
+        cam->setMaximumSize(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX);
+    }
+    container3D->setMinimumSize(0, 0);
+    container3D->setMaximumSize(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX);
+
+    mainLayout->setColumnStretch(0, 1);
+    mainLayout->setColumnStretch(1, 1);
+
+    // 3. Apply layout based on mode
+    switch (m_maximizeMode) {
+        case Grid:
+            mainLayout->addWidget(containerGeneral2D, 0, 0);
+            mainLayout->addWidget(container3D, 0, 1);
+            m_camLayout->addWidget(m_camera1, 0, 0);
+            m_camLayout->addWidget(m_camera2, 1, 0);
+            m_camLayout->addWidget(m_camera3, 0, 1);
+            m_camLayout->addWidget(m_camera4, 1, 1);
+            container3D->setMinimumSize(460, 500);
+            break;
+
+        case Cam1:
+        case Cam2:
+        case Cam3:
+        case Cam4: {
+            CameraWidget* mainCam = nullptr;
+            if (m_maximizeMode == Cam1)      mainCam = m_camera1;
+            else if (m_maximizeMode == Cam2) mainCam = m_camera2;
+            else if (m_maximizeMode == Cam3) mainCam = m_camera3;
+            else if (m_maximizeMode == Cam4) mainCam = m_camera4;
+
+            // Full screen camera
+            mainLayout->addWidget(mainCam, 0, 0, 1, 2);
+            mainCam->show();
+            containerGeneral2D->hide();
+            container3D->hide();
+
+            // Others in PiP row
+            m_pipContainer->show();
+            m_pipContainer->raise();
+            m_pipContainer->setGeometry(20, 20, 480, 130);
+
+            for (CameraWidget* cam : m_cameras) {
+                if (cam == mainCam) continue;
+                cam->setCompactMode(true);
+                cam->setFixedSize(150, 110);
+                m_pipContainer->layout()->addWidget(cam);
+            }
+            break;
+        }
+
+        case Graph3D:
+            // 3D Graph spans the whole window area
+            mainLayout->addWidget(container3D, 0, 0, 1, 2);
+            containerGeneral2D->hide();
+
+            // All cameras in PiP row
+            m_pipContainer->show();
+            m_pipContainer->raise();
+            m_pipContainer->setGeometry(20, 20, 640, 130);
+
+            for (CameraWidget* cam : m_cameras) {
+                cam->setCompactMode(true);
+                cam->setFixedSize(150, 110);
+                m_pipContainer->layout()->addWidget(cam);
+            }
+            break;
     }
 }

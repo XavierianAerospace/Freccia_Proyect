@@ -1,5 +1,11 @@
 #include "VideoSubsystem.h"
 
+#ifdef HAS_FFMPEG
+extern "C" {
+#include <libavformat/avformat.h>
+}
+#endif
+
 VideoSubsystem* VideoSubsystem::m_instance = nullptr;
 
 VideoSubsystem* VideoSubsystem::instance() {
@@ -10,6 +16,9 @@ VideoSubsystem* VideoSubsystem::instance() {
 }
 
 VideoSubsystem::VideoSubsystem(QObject* parent) : QObject(parent) {
+#ifdef HAS_FFMPEG
+    avformat_network_init();
+#endif
 }
 
 VideoSubsystem::~VideoSubsystem() {
@@ -31,7 +40,11 @@ void VideoSubsystem::start(int camId, quint16 port) {
 
     connect(vc->thread, &QThread::started, vc->manager, &VideoManager::start);
     connect(vc->manager, &VideoManager::packetReceived, vc->decoder, &VideoDecoder::decodePacket);
+    connect(vc->manager, &VideoManager::codecParametersDetected, vc->decoder, &VideoDecoder::initDecoder);
     connect(vc->manager, &VideoManager::rawPacketReceived, vc->decoder, &VideoDecoder::decodeRawPacket);
+    connect(vc->manager, &VideoManager::frameReceived, this, [=](const QImage& frame) {
+        emit frameReady(camId, frame);
+    });
 
     connect(vc->decoder, &VideoDecoder::frameDecoded, this, [=](const QImage& frame) {
         emit frameReady(camId, frame);
@@ -45,6 +58,7 @@ void VideoSubsystem::stop(int camId) {
     if (!m_channels.contains(camId)) return;
 
     VideoChannel* vc = m_channels.take(camId);
+    vc->manager->stop();
     vc->thread->quit();
     vc->thread->wait();
 
