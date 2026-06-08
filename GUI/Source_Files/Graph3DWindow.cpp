@@ -63,6 +63,9 @@ Graph3DWindow::Graph3DWindow(SensorManager* manager, QWidget* parent)
 
     m_cameras << m_camera1 << m_camera2 << m_camera3 << m_camera4;
 
+    m_pipContainer = new PiPContainer(this);
+    m_pipContainer->hide();
+
     for (CameraWidget* cam : m_cameras) {
         connect(cam, &CameraWidget::clicked, this, &Graph3DWindow::toggleCameraMaximize);
     }
@@ -226,6 +229,11 @@ void Graph3DWindow::applyLayout() {
     m_camLayout->removeWidget(m_camera3);
     m_camLayout->removeWidget(m_camera4);
 
+    while (m_pipContainer->layout()->count() > 0) {
+        m_pipContainer->layout()->takeAt(0);
+    }
+    m_pipContainer->hide();
+
     // 2. Reset visibility and size constraints
     containerGeneral2D->show();
     containerGeneral2D->setMinimumSize(0, 0);
@@ -234,6 +242,7 @@ void Graph3DWindow::applyLayout() {
     container3D->show();
     for (CameraWidget* cam : m_cameras) {
         cam->show();
+        cam->setCompactMode(false);
         cam->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         cam->setMinimumSize(0, 0);
         cam->setMaximumSize(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX);
@@ -261,49 +270,46 @@ void Graph3DWindow::applyLayout() {
         case Cam3:
         case Cam4: {
             CameraWidget* mainCam = nullptr;
-            if (m_maximizeMode == Cam1) mainCam = m_camera1;
+            if (m_maximizeMode == Cam1)      mainCam = m_camera1;
             else if (m_maximizeMode == Cam2) mainCam = m_camera2;
             else if (m_maximizeMode == Cam3) mainCam = m_camera3;
             else if (m_maximizeMode == Cam4) mainCam = m_camera4;
 
-            // Standard columns: Cameras (left), 3D Graph (right)
-            mainLayout->addWidget(containerGeneral2D, 0, 0);
-            mainLayout->addWidget(container3D, 0, 1);
-            mainLayout->setColumnStretch(0, 2); // Give more space to cameras
-            mainLayout->setColumnStretch(1, 1);
+            // Full screen camera
+            mainLayout->addWidget(mainCam, 0, 0, 1, 2);
+            mainCam->show();
+            containerGeneral2D->hide();
+            container3D->hide();
 
-            // Main camera fills its container
-            m_camLayout->addWidget(mainCam, 0, 0, 2, 2);
+            // Others in PiP row
+            m_pipContainer->show();
+            m_pipContainer->raise();
+            m_pipContainer->setGeometry(20, 20, 480, 130);
 
-            // Other cameras as PiP (Stacked in Top Right)
-            int pipIdx = 0;
             for (CameraWidget* cam : m_cameras) {
                 if (cam == mainCam) continue;
-                m_camLayout->addWidget(cam, 0, 0, Qt::AlignTop | Qt::AlignRight);
-                cam->setFixedSize(160, 120);
-                cam->move(0, pipIdx * 125); // Simple stacking offset
-                cam->raise();
-                pipIdx++;
+                cam->setCompactMode(true);
+                cam->setFixedSize(150, 110);
+                m_pipContainer->layout()->addWidget(cam);
             }
-
-            container3D->setMinimumSize(460, 500);
             break;
         }
 
         case Graph3D:
             // 3D Graph spans the whole window area
             mainLayout->addWidget(container3D, 0, 0, 1, 2);
-            mainLayout->setColumnStretch(0, 0);
-            mainLayout->setColumnStretch(1, 1);
+            containerGeneral2D->hide();
 
-            // Cameras as PiP overlay on top of 3D graph
-            mainLayout->addWidget(containerGeneral2D, 0, 0, 1, 2, Qt::AlignTop | Qt::AlignRight);
-            containerGeneral2D->setFixedSize(180, 500);
-            m_camLayout->addWidget(m_camera1, 0, 0);
-            m_camLayout->addWidget(m_camera2, 1, 0);
-            m_camLayout->addWidget(m_camera3, 2, 0);
-            m_camLayout->addWidget(m_camera4, 3, 0);
-            containerGeneral2D->raise();
+            // All cameras in PiP row
+            m_pipContainer->show();
+            m_pipContainer->raise();
+            m_pipContainer->setGeometry(20, 20, 640, 130);
+
+            for (CameraWidget* cam : m_cameras) {
+                cam->setCompactMode(true);
+                cam->setFixedSize(150, 110);
+                m_pipContainer->layout()->addWidget(cam);
+            }
             break;
     }
 }

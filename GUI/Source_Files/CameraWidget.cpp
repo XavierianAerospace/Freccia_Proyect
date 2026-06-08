@@ -21,19 +21,19 @@ void CameraWidget::setupUI() {
     mainLayout->setContentsMargins(5, 5, 5, 5);
 
     m_videoRenderer = new VideoRenderer(this);
-    m_videoRenderer->setMinimumHeight(100);
+    m_videoRenderer->setMinimumHeight(50);
     m_videoRenderer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     mainLayout->addWidget(m_videoRenderer);
 
     // Telemetry Panel
-    QFrame* telemetryFrame = new QFrame(this);
-    telemetryFrame->setStyleSheet("background-color: #111; color: white; border-top: 1px solid #444;");
-    QGridLayout* teleLayout = new QGridLayout(telemetryFrame);
+    m_telemetryFrame = new QFrame(this);
+    m_telemetryFrame->setStyleSheet("background-color: #111; color: white; border-top: 1px solid #444;");
+    QGridLayout* teleLayout = new QGridLayout(m_telemetryFrame);
 
-    m_labelImgQuality = new QLabel("Calidad Imagen: --%", telemetryFrame);
-    m_labelSignalQuality = new QLabel("Calidad Señal: --%", telemetryFrame);
-    m_labelStatus = new QLabel("Estado: DESCONECTADO", telemetryFrame);
+    m_labelImgQuality = new QLabel("Calidad Imagen: --%", m_telemetryFrame);
+    m_labelSignalQuality = new QLabel("Calidad Señal: --%", m_telemetryFrame);
+    m_labelStatus = new QLabel("Estado: DESCONECTADO", m_telemetryFrame);
     m_labelStatus->setStyleSheet("color: red; font-weight: bold;");
 
     teleLayout->addWidget(new QLabel("CAM: " + m_cameraName), 0, 0);
@@ -41,7 +41,7 @@ void CameraWidget::setupUI() {
     teleLayout->addWidget(m_labelImgQuality, 1, 0);
     teleLayout->addWidget(m_labelSignalQuality, 1, 1);
 
-    mainLayout->addWidget(telemetryFrame);
+    mainLayout->addWidget(m_telemetryFrame);
 
     m_overlayLabel = new QLabel("CONNECTION LOST", m_videoRenderer);
     m_overlayLabel->setAlignment(Qt::AlignCenter);
@@ -103,6 +103,18 @@ void CameraWidget::setConnectionStatus(bool connected) {
         handleTimeout();
     }
     update();
+}
+
+void CameraWidget::setCompactMode(bool compact) {
+    if (compact) {
+        m_telemetryFrame->hide();
+        layout()->setContentsMargins(0, 0, 0, 0);
+        m_overlayLabel->setStyleSheet("background-color: rgba(255, 0, 0, 80); color: white; font-size: 12px; font-weight: bold; border: 1px solid red;");
+    } else {
+        m_telemetryFrame->show();
+        layout()->setContentsMargins(5, 5, 5, 5);
+        m_overlayLabel->setStyleSheet("background-color: rgba(255, 0, 0, 80); color: white; font-size: 20px; font-weight: bold; border: 2px solid red;");
+    }
 }
 
 void CameraWidget::handleTimeout() {
