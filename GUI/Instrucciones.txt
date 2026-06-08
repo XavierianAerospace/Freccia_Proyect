@@ -4,3 +4,29 @@ En la carpeta de build
 
 ./Atenea
 
+========================================
+CAMARA INTEGRATED CAMERA -> PUERTO 5600
+========================================
+
+ffmpeg -f dshow -i video="Integrated Camera" -r 30 -vcodec libx264 -preset ultrafast -tune zerolatency -b:v 2M -maxrate 2M -bufsize 1M -f mpegts udp://127.0.0.1:5600
+
+
+========================================
+CAMARA INTEGRATED CAMERA -> PUERTO 5601
+========================================
+
+ffmpeg -f dshow -i video="Integrated Camera" -r 30 -vcodec libx264 -preset ultrafast -tune zerolatency -b:v 2M -maxrate 2M -bufsize 1M -f mpegts udp://127.0.0.1:5601
+
+
+========================================
+CAMARA INTEGRATED CAMERA -> PUERTO 5602
+========================================
+
+ffmpeg -f dshow -i video="Integrated Camera" -r 30 -vcodec libx264 -preset ultrafast -tune zerolatency -b:v 2M -maxrate 2M -bufsize 1M -f mpegts udp://127.0.0.1:5602
+
+
+========================================
+CAMARA INTEGRATED CAMERA -> PUERTO 5616
+========================================
+
+ffmpeg -f dshow -i video="Integrated Camera" -r 30 -vcodec libx264 -preset ultrafast -tune zerolatency -b:v 2M -maxrate 2M -bufsize 1M -f mpegts udp://127.0.0.1:5616
