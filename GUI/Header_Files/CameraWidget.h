@@ -18,6 +18,7 @@ public:
     void updateTelemetry(float imgQuality, float signalQuality); // Heartbeat and data update
     void setFrame(const QImage& frame);
     void setConnectionStatus(bool connected);
+    void setCompactMode(bool compact);
 
 signals:
     void clicked(CameraWidget* widget);
@@ -48,6 +49,7 @@ private:
     QString m_cameraName;
     VideoRenderer* m_videoRenderer;
     QLabel* m_overlayLabel;
+    QWidget* m_telemetryFrame;
 
     QLabel* m_labelImgQuality;
     QLabel* m_labelSignalQuality;

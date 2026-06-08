@@ -81,7 +81,7 @@ void SensorManager::processRawData(const QByteArray& line) {
         }
 
         // 1. Guardar RAW inmediatamente
-        FileHelper::appendRawData(std::string("../data/raw_data.csv"), sensor);
+        FileHelper::appendRawData(std::string("../Source_Py/raw_telemetry.csv"), sensor);
 
         // 2. Limpieza y corrección de datos
         std::vector<SensorData> tempVec = {sensor};
@@ -91,7 +91,10 @@ void SensorManager::processRawData(const QByteArray& line) {
         // 3. Guardar en historial interno
         vectorData.push_back(sensor);
 
-        // 4. Publicar a través de DataTopic (DATOS LIMPIOS)
+        // 4. Guardar CLEAN
+        FileHelper::appendCleanData(std::string("../Source_Py/processed_telemetry.csv"), {sensor});
+
+        // 5. Publicar a través de DataTopic (DATOS LIMPIOS)
         DataTopic::instance()->publish(sensor.serialize());
 
     } catch (...) {

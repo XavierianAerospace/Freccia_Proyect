@@ -15,6 +15,8 @@
 #include <QPushButton>
 #include <QVector3D>
 #include <QList>
+#include <QMenu>
+#include <QAction>
 
 // Qt Data Visualization
 #include <QtDataVisualization/Q3DScatter>
@@ -31,6 +33,69 @@
 #include <Qt3DExtras/QOrbitCameraController>
 #include <Qt3DRender/QCamera>
 
+class PiPContainer : public QFrame {
+    Q_OBJECT
+public:
+    explicit PiPContainer(QWidget* parent = nullptr) : QFrame(parent) {
+        setFrameShape(QFrame::NoFrame);
+        m_layout = new QHBoxLayout(this);
+        m_layout->setContentsMargins(2, 2, 2, 2);
+        m_layout->setSpacing(2);
+        setStyleSheet("background-color: rgba(0, 0, 0, 150); border: 1px solid #555; border-radius: 4px;");
+        setToolTip("Arrastra para mover. Clic derecho para posiciones rápidas.");
+    }
+    QHBoxLayout* layout() { return m_layout; }
+
+protected:
+    void mousePressEvent(QMouseEvent* event) override {
+        if (event->button() == Qt::LeftButton) {
+            m_dragging = true;
+            m_dragStart = event->globalPosition().toPoint() - frameGeometry().topLeft();
+            event->accept();
+        } else if (event->button() == Qt::RightButton) {
+            showContextMenu(event->globalPosition().toPoint());
+        }
+    }
+    void mouseMoveEvent(QMouseEvent* event) override {
+        if (m_dragging && (event->buttons() & Qt::LeftButton)) {
+            move(event->globalPosition().toPoint() - m_dragStart);
+            event->accept();
+        }
+    }
+    void mouseReleaseEvent(QMouseEvent* event) override {
+        m_dragging = false;
+        event->accept();
+    }
+
+    void showContextMenu(const QPoint& pos) {
+        QMenu menu(this);
+        menu.setStyleSheet("background-color: #333; color: white;");
+
+        QAction* tl = menu.addAction("Arriba Izquierda");
+        QAction* tr = menu.addAction("Arriba Derecha");
+        QAction* bl = menu.addAction("Abajo Izquierda");
+        QAction* br = menu.addAction("Abajo Derecha");
+
+        connect(tl, &QAction::triggered, this, [this]() { move(10, 10); });
+        connect(tr, &QAction::triggered, this, [this]() {
+            if (parentWidget()) move(parentWidget()->width() - width() - 10, 10);
+        });
+        connect(bl, &QAction::triggered, this, [this]() {
+            if (parentWidget()) move(10, parentWidget()->height() - height() - 10);
+        });
+        connect(br, &QAction::triggered, this, [this]() {
+            if (parentWidget()) move(parentWidget()->width() - width() - 10, parentWidget()->height() - height() - 10);
+        });
+
+        menu.exec(pos);
+    }
+
+private:
+    QHBoxLayout* m_layout;
+    bool m_dragging = false;
+    QPoint m_dragStart;
+};
+
 class Graph3DWindow : public QWidget {
     Q_OBJECT
 
@@ -44,13 +109,15 @@ protected:
     bool eventFilter(QObject* watched, QEvent* event) override;
 
 private:
-    enum MaximizeMode { Grid, Cam1, Cam2, Graph3D };
+    enum MaximizeMode { Grid, Cam1, Cam2, Cam3, Cam4, Graph3D };
     MaximizeMode m_maximizeMode = Grid;
 
     SensorManager* m_sensorManager = nullptr;
     TopToolbar* m_topToolbar = nullptr;
     CameraWidget* m_camera1 = nullptr;
     CameraWidget* m_camera2 = nullptr;
+    CameraWidget* m_camera3 = nullptr;
+    CameraWidget* m_camera4 = nullptr;
     QList<CameraWidget*> m_cameras;
     QGridLayout* m_camLayout = nullptr;
 
@@ -61,6 +128,7 @@ private:
     // === Contenedores de visualización ===
     QWidget* containerGeneral2D;
     QWidget* container3D;
+    PiPContainer* m_pipContainer = nullptr;
     
 
     // === Gráfico 3D ===
