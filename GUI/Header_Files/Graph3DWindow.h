@@ -44,13 +44,15 @@ protected:
     bool eventFilter(QObject* watched, QEvent* event) override;
 
 private:
-    enum MaximizeMode { Grid, Cam1, Cam2, Graph3D };
+    enum MaximizeMode { Grid, Cam1, Cam2, Cam3, Cam4, Graph3D };
     MaximizeMode m_maximizeMode = Grid;
 
     SensorManager* m_sensorManager = nullptr;
     TopToolbar* m_topToolbar = nullptr;
     CameraWidget* m_camera1 = nullptr;
     CameraWidget* m_camera2 = nullptr;
+    CameraWidget* m_camera3 = nullptr;
+    CameraWidget* m_camera4 = nullptr;
     QList<CameraWidget*> m_cameras;
     QGridLayout* m_camLayout = nullptr;
 

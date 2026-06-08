@@ -53,11 +53,15 @@ Graph3DWindow::Graph3DWindow(SensorManager* manager, QWidget* parent)
 
     m_camera1 = new CameraWidget("Cámara Principal", containerGeneral2D);
     m_camera2 = new CameraWidget("Cámara Secundaria", containerGeneral2D);
+    m_camera3 = new CameraWidget("Cámara Montaje", containerGeneral2D);
+    m_camera4 = new CameraWidget("Cámara Cielo", containerGeneral2D);
 
     m_camLayout->addWidget(m_camera1, 0, 0);
     m_camLayout->addWidget(m_camera2, 1, 0);
+    m_camLayout->addWidget(m_camera3, 0, 1);
+    m_camLayout->addWidget(m_camera4, 1, 1);
 
-    m_cameras << m_camera1 << m_camera2;
+    m_cameras << m_camera1 << m_camera2 << m_camera3 << m_camera4;
 
     for (CameraWidget* cam : m_cameras) {
         connect(cam, &CameraWidget::clicked, this, &Graph3DWindow::toggleCameraMaximize);
@@ -67,11 +71,15 @@ Graph3DWindow::Graph3DWindow(SensorManager* manager, QWidget* parent)
     connect(VideoSubsystem::instance(), &VideoSubsystem::frameReady, this, [=](int camId, const QImage& frame) {
         if (camId == 1 && m_camera1) m_camera1->setFrame(frame);
         if (camId == 2 && m_camera2) m_camera2->setFrame(frame);
+        if (camId == 3 && m_camera3) m_camera3->setFrame(frame);
+        if (camId == 4 && m_camera4) m_camera4->setFrame(frame);
     });
 
     // Iniciar canales independientes
     VideoSubsystem::instance()->start(1, 5600);
     VideoSubsystem::instance()->start(2, 5601);
+    VideoSubsystem::instance()->start(3, 5602);
+    VideoSubsystem::instance()->start(4, 5603);
 
     // === Gráfico 3D ===
     scatterGraph = new Q3DScatter();
@@ -121,6 +129,8 @@ Graph3DWindow::Graph3DWindow(SensorManager* manager, QWidget* parent)
         float mockQual = 95.0f + (rand() % 50) / 10.0f;
         if (m_camera1) m_camera1->updateTelemetry(mockQual, 98.2f);
         if (m_camera2) m_camera2->updateTelemetry(mockQual - 2.0f, 96.5f);
+        if (m_camera3) m_camera3->updateTelemetry(mockQual - 1.0f, 97.0f);
+        if (m_camera4) m_camera4->updateTelemetry(mockQual - 3.0f, 95.8f);
 
         QVector3D pos(d.longitude, xIndex3D, d.latitude);
         pointHistory.append(pos);
@@ -197,6 +207,12 @@ void Graph3DWindow::toggleCameraMaximize(CameraWidget* clickedCamera) {
     } else if (clickedCamera == m_camera2) {
         if (m_maximizeMode == Cam2) m_maximizeMode = Grid;
         else m_maximizeMode = Cam2;
+    } else if (clickedCamera == m_camera3) {
+        if (m_maximizeMode == Cam3) m_maximizeMode = Grid;
+        else m_maximizeMode = Cam3;
+    } else if (clickedCamera == m_camera4) {
+        if (m_maximizeMode == Cam4) m_maximizeMode = Grid;
+        else m_maximizeMode = Cam4;
     }
     applyLayout();
 }
@@ -207,6 +223,8 @@ void Graph3DWindow::applyLayout() {
     mainLayout->removeWidget(container3D);
     m_camLayout->removeWidget(m_camera1);
     m_camLayout->removeWidget(m_camera2);
+    m_camLayout->removeWidget(m_camera3);
+    m_camLayout->removeWidget(m_camera4);
 
     // 2. Reset visibility and size constraints
     containerGeneral2D->show();
@@ -233,13 +251,20 @@ void Graph3DWindow::applyLayout() {
             mainLayout->addWidget(container3D, 0, 1);
             m_camLayout->addWidget(m_camera1, 0, 0);
             m_camLayout->addWidget(m_camera2, 1, 0);
+            m_camLayout->addWidget(m_camera3, 0, 1);
+            m_camLayout->addWidget(m_camera4, 1, 1);
             container3D->setMinimumSize(460, 500);
             break;
 
         case Cam1:
-        case Cam2: {
-            CameraWidget* mainCam = (m_maximizeMode == Cam1) ? m_camera1 : m_camera2;
-            CameraWidget* pipCam = (m_maximizeMode == Cam1) ? m_camera2 : m_camera1;
+        case Cam2:
+        case Cam3:
+        case Cam4: {
+            CameraWidget* mainCam = nullptr;
+            if (m_maximizeMode == Cam1) mainCam = m_camera1;
+            else if (m_maximizeMode == Cam2) mainCam = m_camera2;
+            else if (m_maximizeMode == Cam3) mainCam = m_camera3;
+            else if (m_maximizeMode == Cam4) mainCam = m_camera4;
 
             // Standard columns: Cameras (left), 3D Graph (right)
             mainLayout->addWidget(containerGeneral2D, 0, 0);
@@ -248,12 +273,18 @@ void Graph3DWindow::applyLayout() {
             mainLayout->setColumnStretch(1, 1);
 
             // Main camera fills its container
-            m_camLayout->addWidget(mainCam, 0, 0);
+            m_camLayout->addWidget(mainCam, 0, 0, 2, 2);
 
-            // Other camera as PiP (Top Right of the camera container)
-            m_camLayout->addWidget(pipCam, 0, 0, Qt::AlignTop | Qt::AlignRight);
-            pipCam->setFixedSize(240, 180);
-            pipCam->raise();
+            // Other cameras as PiP (Stacked in Top Right)
+            int pipIdx = 0;
+            for (CameraWidget* cam : m_cameras) {
+                if (cam == mainCam) continue;
+                m_camLayout->addWidget(cam, 0, 0, Qt::AlignTop | Qt::AlignRight);
+                cam->setFixedSize(160, 120);
+                cam->move(0, pipIdx * 125); // Simple stacking offset
+                cam->raise();
+                pipIdx++;
+            }
 
             container3D->setMinimumSize(460, 500);
             break;
@@ -267,9 +298,11 @@ void Graph3DWindow::applyLayout() {
 
             // Cameras as PiP overlay on top of 3D graph
             mainLayout->addWidget(containerGeneral2D, 0, 0, 1, 2, Qt::AlignTop | Qt::AlignRight);
-            containerGeneral2D->setFixedSize(240, 360);
+            containerGeneral2D->setFixedSize(180, 500);
             m_camLayout->addWidget(m_camera1, 0, 0);
             m_camLayout->addWidget(m_camera2, 1, 0);
+            m_camLayout->addWidget(m_camera3, 2, 0);
+            m_camLayout->addWidget(m_camera4, 3, 0);
             containerGeneral2D->raise();
             break;
     }
