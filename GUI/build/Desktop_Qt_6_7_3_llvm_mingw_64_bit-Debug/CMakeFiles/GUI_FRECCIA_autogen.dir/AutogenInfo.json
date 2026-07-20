@@ -569,14 +569,6 @@
 		"C:/Qt/6.7.3/llvm-mingw_64/lib/cmake/Qt6Network/Qt6NetworkAdditionalTargetInfo.cmake",
 		"C:/Qt/6.7.3/llvm-mingw_64/lib/cmake/Qt6Network/Qt6NetworkVersionlessTargets.cmake",
 		"C:/Qt/6.7.3/llvm-mingw_64/lib/cmake/Qt6Network/Qt6NetworkPlugins.cmake",
-		"C:/Qt/6.7.3/llvm-mingw_64/lib/cmake/Qt6OpenGLWidgets/Qt6OpenGLWidgetsConfigVersion.cmake",
-		"C:/Qt/6.7.3/llvm-mingw_64/lib/cmake/Qt6OpenGLWidgets/Qt6OpenGLWidgetsConfigVersionImpl.cmake",
-		"C:/Qt/6.7.3/llvm-mingw_64/lib/cmake/Qt6OpenGLWidgets/Qt6OpenGLWidgetsConfig.cmake",
-		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeFindDependencyMacro.cmake",
-		"C:/Qt/6.7.3/llvm-mingw_64/lib/cmake/Qt6OpenGLWidgets/Qt6OpenGLWidgetsDependencies.cmake",
-		"C:/Qt/6.7.3/llvm-mingw_64/lib/cmake/Qt6OpenGLWidgets/Qt6OpenGLWidgetsTargets.cmake",
-		"C:/Qt/6.7.3/llvm-mingw_64/lib/cmake/Qt6OpenGLWidgets/Qt6OpenGLWidgetsAdditionalTargetInfo.cmake",
-		"C:/Qt/6.7.3/llvm-mingw_64/lib/cmake/Qt6OpenGLWidgets/Qt6OpenGLWidgetsVersionlessTargets.cmake",
 		"C:/Qt/6.7.3/llvm-mingw_64/lib/cmake/Qt6/Qt6ConfigVersion.cmake",
 		"C:/Qt/6.7.3/llvm-mingw_64/lib/cmake/Qt6/Qt6ConfigVersionImpl.cmake",
 		"C:/Qt/6.7.3/llvm-mingw_64/lib/cmake/Qt6/Qt6Config.cmake",
@@ -601,26 +593,10 @@
 		"C:/Qt/6.7.3/llvm-mingw_64/lib/cmake/Qt6/QtPublicWalkLibsHelpers.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeFindDependencyMacro.cmake",
 		"C:/Qt/6.7.3/llvm-mingw_64/lib/cmake/Qt6/Qt6Dependencies.cmake",
-		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/FindOpenGL.cmake",
-		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/FindPackageHandleStandardArgs.cmake",
-		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/FindPackageMessage.cmake",
-		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/FindPkgConfig.cmake",
-		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/FindPackageHandleStandardArgs.cmake",
-		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/FindPackageMessage.cmake",
-		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/FindPkgConfig.cmake",
-		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/FindPackageHandleStandardArgs.cmake",
-		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/FindPackageMessage.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/GNUInstallDirs.cmake",
 		"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/assets/logo_xae.png",
 		"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/assets/Inicio.gif",
-		"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/assets/Menu.png",
-		"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Py/build.spec",
-		"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Py/client_viewer.py",
-		"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Py/client_viewer2.py",
-		"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Py/CoheteGUI.STL",
-		"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Py/FRECCIA_XAE.spec",
-		"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Py/Instrucciones.txt",
-		"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Py/stl_rotator_pyglet.py"
+		"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/assets/Menu.png"
 	],
 	"CMAKE_SOURCE_DIR" : "C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI",
 	"CROSS_CONFIG" : false,
@@ -628,12 +604,6 @@
 	"DEP_FILE_RULE_NAME" : "GUI_FRECCIA_autogen/timestamp",
 	"HEADERS" : 
 	[
-		[
-			"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/CameraWidget.h",
-			"MU",
-			"RBYB5VKSNZ/moc_CameraWidget.cpp",
-			null
-		],
 		[
 			"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/Graph3DWindow.h",
 			"MU",
@@ -656,36 +626,6 @@
 			"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/SerialReader.h",
 			"MU",
 			"RBYB5VKSNZ/moc_SerialReader.cpp",
-			null
-		],
-		[
-			"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/TopToolbar.h",
-			"MU",
-			"RBYB5VKSNZ/moc_TopToolbar.cpp",
-			null
-		],
-		[
-			"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/VideoDecoder.h",
-			"MU",
-			"RBYB5VKSNZ/moc_VideoDecoder.cpp",
-			null
-		],
-		[
-			"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/VideoManager.h",
-			"MU",
-			"RBYB5VKSNZ/moc_VideoManager.cpp",
-			null
-		],
-		[
-			"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/VideoSubsystem.h",
-			"MU",
-			"RBYB5VKSNZ/moc_VideoSubsystem.cpp",
-			null
-		],
-		[
-			"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/WindowManager.h",
-			"MU",
-			"RBYB5VKSNZ/moc_WindowManager.cpp",
 			null
 		],
 		[
@@ -822,11 +762,6 @@
 	"SOURCES" : 
 	[
 		[
-			"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Files/CameraWidget.cpp",
-			"MU",
-			null
-		],
-		[
 			"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Files/Graph3DWindow.cpp",
 			"MU",
 			null
@@ -843,31 +778,6 @@
 		],
 		[
 			"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Files/SerialReader.cpp",
-			"MU",
-			null
-		],
-		[
-			"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Files/TopToolbar.cpp",
-			"MU",
-			null
-		],
-		[
-			"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Files/VideoDecoder.cpp",
-			"MU",
-			null
-		],
-		[
-			"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Files/VideoManager.cpp",
-			"MU",
-			null
-		],
-		[
-			"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Files/VideoSubsystem.cpp",
-			"MU",
-			null
-		],
-		[
-			"C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Files/WindowManager.cpp",
 			"MU",
 			null
 		],

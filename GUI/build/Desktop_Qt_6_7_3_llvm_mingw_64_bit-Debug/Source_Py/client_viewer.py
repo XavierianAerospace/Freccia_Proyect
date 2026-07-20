@@ -7,7 +7,7 @@ from pathlib import Path
 
 # Qt6
 from PyQt6.QtWidgets import (
-    QApplication, QWidget, QHBoxLayout, QVBoxLayout, QLabel, QPushButton, QFileDialog, QGridLayout
+    QApplication, QWidget, QHBoxLayout, QVBoxLayout, QLabel, QPushButton, QFileDialog
 )
 from PyQt6.QtCore import pyqtSignal, QObject, QUrl, Qt
 from PyQt6.QtGui import QCloseEvent, QIcon
@@ -167,20 +167,7 @@ class SensorClientWindow(QWidget):
 
         # WebEngineView (mapa)
         self.webview = QWebEngineView()
-        left_col.addWidget(self.webview, stretch=2)
-
-        # Cámaras (4 placeholders)
-        cam_grid = QGridLayout()
-        self.cam_labels = []
-        cam_names = ["Principal", "Secundaria", "Montaje", "Cielo"]
-        for i, name in enumerate(cam_names):
-            lbl = QLabel(f"Cámara {name}\n(Esperando señal...)")
-            lbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
-            lbl.setStyleSheet("background-color: black; color: white; border: 1px solid gray; min-height: 120px;")
-            cam_grid.addWidget(lbl, i // 2, i % 2)
-            self.cam_labels.append(lbl)
-
-        left_col.addLayout(cam_grid, stretch=1)
+        left_col.addWidget(self.webview, stretch=1)
 
         # 3D viewer
         self.view3d = gl.GLViewWidget()
@@ -1162,20 +1149,6 @@ class SensorClientWindow(QWidget):
 
     def _client_worker(self, host, port):
         self.signals.status.emit("conectando...")
-
-        # Rutas para los CSVs
-        raw_csv_path = Path(__file__).parent / "raw_telemetry_py.csv"
-        proc_csv_path = Path(__file__).parent / "processed_telemetry_py.csv"
-
-        # Escribir encabezados si son nuevos
-        if not raw_csv_path.exists():
-            with open(raw_csv_path, "w") as f:
-                f.write("raw_line\n")
-
-        if not proc_csv_path.exists():
-            with open(proc_csv_path, "w") as f:
-                f.write("lat,lon,roll,pitch,yaw\n")
-
         try:
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 s.settimeout(5.0)
@@ -1191,11 +1164,6 @@ class SensorClientWindow(QWidget):
                         line = line.strip()
                         if not line:
                             continue
-
-                        # Guardar RAW
-                        with open(raw_csv_path, "a") as f:
-                            f.write(line + "\n")
-
                         parts = line.split(',')
                         if len(parts) < 10:
                             continue
@@ -1205,11 +1173,6 @@ class SensorClientWindow(QWidget):
                             roll = float(parts[7]) if parts[7] != '' else 0.0
                             pitch = float(parts[8]) if parts[8] != '' else 0.0
                             yaw = float(parts[9]) if parts[9] != '' else 0.0
-
-                            # Guardar PROCESSED
-                            with open(proc_csv_path, "a") as f:
-                                f.write(f"{lat},{lon},{roll},{pitch},{yaw}\n")
-
                             self.signals.gps_update.emit(lat, lon)
                             self.signals.attitude_update.emit(roll, pitch, yaw)
                         except Exception as e:

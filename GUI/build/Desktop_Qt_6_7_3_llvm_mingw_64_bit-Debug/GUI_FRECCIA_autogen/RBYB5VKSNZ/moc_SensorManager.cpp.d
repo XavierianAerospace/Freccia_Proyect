@@ -3,11 +3,9 @@ C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/build/Desktop_Qt_6_7_3_llvm_
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QObject \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QString \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QStringList \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QTime \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/q20functional.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/q20memory.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/q20type_traits.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/q23utility.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qalgorithms.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qanystringview.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qarraydata.h \
@@ -22,7 +20,6 @@ C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/build/Desktop_Qt_6_7_3_llvm_
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qbytearrayalgorithms.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qbytearraylist.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qbytearrayview.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qcalendar.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qchar.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qcompare.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qcompare_impl.h \
@@ -33,11 +30,8 @@ C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/build/Desktop_Qt_6_7_3_llvm_
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qcontainerfwd.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qcontainerinfo.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qcontainertools_impl.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qcontiguouscache.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qdarwinhelpers.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qdatastream.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qdatetime.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qdebug.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qexceptionhandling.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qflags.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qfloat16.h \
@@ -47,7 +41,6 @@ C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/build/Desktop_Qt_6_7_3_llvm_
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qgenericatomic.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qglobal.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qglobalstatic.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qhash.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qhashfunctions.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qiodevice.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qiodevicebase.h \
@@ -55,10 +48,8 @@ C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/build/Desktop_Qt_6_7_3_llvm_
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qiterator.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qlatin1stringview.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qlist.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qlocale.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qlogging.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qmalloc.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qmap.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qmath.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qmetacontainer.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qmetatype.h \
@@ -77,11 +68,7 @@ C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/build/Desktop_Qt_6_7_3_llvm_
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qrefcount.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qscopedpointer.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qscopeguard.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qset.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qshareddata.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qshareddata_impl.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qsharedpointer.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qsharedpointer_impl.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qstring.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qstringalgorithms.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qstringbuilder.h \
@@ -104,7 +91,6 @@ C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/build/Desktop_Qt_6_7_3_llvm_
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qtcoreexports.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qtdeprecationmarkers.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qtenvironmentvariables.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qtextstream.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qtmetamacros.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qtnoop.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qtpreprocessorsupport.h \
@@ -116,8 +102,6 @@ C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/build/Desktop_Qt_6_7_3_llvm_
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qtypeinfo.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qtypes.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qutf8stringview.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qvariant.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qvarlengtharray.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qversiontagging.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qxptype_traits.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qyieldcpu.h \
@@ -452,22 +436,6 @@ C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/build/Desktop_Qt_6_7_3_llvm_
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__exception/nested_exception.h \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__exception/operations.h \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__exception/terminate.h \
-  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/copy_options.h \
-  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/directory_entry.h \
-  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/directory_iterator.h \
-  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/directory_options.h \
-  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/file_status.h \
-  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/file_time_type.h \
-  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/file_type.h \
-  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/filesystem_error.h \
-  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/operations.h \
-  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/path.h \
-  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/path_iterator.h \
-  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/perm_options.h \
-  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/perms.h \
-  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/recursive_directory_iterator.h \
-  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/space_info.h \
-  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/u8path.h \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__format/buffer.h \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__format/concepts.h \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__format/enable_insertable.h \
@@ -829,7 +797,6 @@ C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/build/Desktop_Qt_6_7_3_llvm_
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/array \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/atomic \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/bit \
-  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/bitset \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/cctype \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/cerrno \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/chrono \
@@ -848,18 +815,13 @@ C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/build/Desktop_Qt_6_7_3_llvm_
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/ctype.h \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/cwchar \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/cwctype \
-  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/deque \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/errno.h \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/exception \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/execution \
-  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/filesystem \
-  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/fstream \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/functional \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/initializer_list \
-  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/iomanip \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/ios \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/iosfwd \
-  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/istream \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/iterator \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/limits \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/limits.h \
@@ -873,7 +835,6 @@ C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/build/Desktop_Qt_6_7_3_llvm_
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/new \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/numeric \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/optional \
-  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/ostream \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/ratio \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/stdbool.h \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/stddef.h \
@@ -903,5 +864,4 @@ C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/build/Desktop_Qt_6_7_3_llvm_
   C:/Qt/Tools/llvm-mingw1706_64/lib/clang/17/include/vadefs.h \
   C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/SerialReader.h \
   C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/data/DataCleaner.h \
-  C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/data/FileHelper.h \
   C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/data/SensorData.h

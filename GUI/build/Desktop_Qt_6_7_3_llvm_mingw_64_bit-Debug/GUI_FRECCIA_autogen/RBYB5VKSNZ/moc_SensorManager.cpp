@@ -46,7 +46,6 @@ constexpr auto qt_meta_stringdata_CLASSSensorManagerENDCLASS = QtMocHelpers::str
     "clearData",
     "setReceivingEnabled",
     "enabled",
-    "isReceivingEnabled",
     "loadFromCsv",
     "path"
 );
@@ -61,7 +60,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSSensorManagerENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+       6,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -69,15 +68,14 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSSensorManagerENDCLASS[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    3,   56,    2, 0x06,    1 /* Public */,
+       1,    3,   50,    2, 0x06,    1 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       6,    2,   63,    2, 0x0a,    5 /* Public */,
-       6,    1,   68,    2, 0x2a,    8 /* Public | MethodCloned */,
-       8,    0,   71,    2, 0x0a,   10 /* Public */,
-       9,    1,   72,    2, 0x0a,   11 /* Public */,
-      11,    0,   75,    2, 0x10a,   13 /* Public | MethodIsConst  */,
-      12,    1,   76,    2, 0x0a,   14 /* Public */,
+       6,    2,   57,    2, 0x0a,    5 /* Public */,
+       6,    1,   62,    2, 0x2a,    8 /* Public | MethodCloned */,
+       8,    0,   65,    2, 0x0a,   10 /* Public */,
+       9,    1,   66,    2, 0x0a,   11 /* Public */,
+      11,    1,   69,    2, 0x0a,   13 /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString, QMetaType::Int, QMetaType::Bool,    3,    4,    5,
@@ -87,8 +85,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSSensorManagerENDCLASS[] = {
     QMetaType::Bool, QMetaType::QString,    7,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Bool,   10,
-    QMetaType::Bool,
-    QMetaType::Bool, QMetaType::QString,   13,
+    QMetaType::Bool, QMetaType::QString,   12,
 
        0        // eod
 };
@@ -119,8 +116,6 @@ Q_CONSTINIT const QMetaObject SensorManager::staticMetaObject = { {
         // method 'setReceivingEnabled'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<bool, std::false_type>,
-        // method 'isReceivingEnabled'
-        QtPrivate::TypeAndForceComplete<bool, std::false_type>,
         // method 'loadFromCsv'
         QtPrivate::TypeAndForceComplete<bool, std::false_type>,
         QtPrivate::TypeAndForceComplete<const QString &, std::false_type>
@@ -141,9 +136,7 @@ void SensorManager::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
         case 3: _t->clearData(); break;
         case 4: _t->setReceivingEnabled((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
-        case 5: { bool _r = _t->isReceivingEnabled();
-            if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
-        case 6: { bool _r = _t->loadFromCsv((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])));
+        case 5: { bool _r = _t->loadFromCsv((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])));
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
         default: ;
         }
@@ -178,13 +171,13 @@ int SensorManager::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 6;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 7)
+        if (_id < 6)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 7;
+        _id -= 6;
     }
     return _id;
 }
