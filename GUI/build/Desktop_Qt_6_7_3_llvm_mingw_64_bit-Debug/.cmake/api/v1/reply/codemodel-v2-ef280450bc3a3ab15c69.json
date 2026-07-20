@@ -7,7 +7,7 @@
 				{
 					"build" : ".",
 					"hasInstallRule" : true,
-					"jsonFile" : "directory-.-Debug-3c00561b466bb1bc3c48.json",
+					"jsonFile" : "directory-.-Debug-a3a44b150664114249bc.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.16"
@@ -44,7 +44,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "GUI_FRECCIA::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-GUI_FRECCIA-Debug-2e5687629c3e54e03a32.json",
+					"jsonFile" : "target-GUI_FRECCIA-Debug-1b34cc7ff65f9a75ed82.json",
 					"name" : "GUI_FRECCIA",
 					"projectIndex" : 0
 				},

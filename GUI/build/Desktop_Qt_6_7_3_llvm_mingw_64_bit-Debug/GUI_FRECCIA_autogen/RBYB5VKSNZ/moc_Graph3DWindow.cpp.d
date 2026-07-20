@@ -21,26 +21,6 @@ C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/build/Desktop_Qt_6_7_3_llvm_
   C:/Qt/6.7.3/llvm-mingw_64/include/Qt3DRender/qrenderapi.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/Qt3DRender/qt3drender-config.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/Qt3DRender/qt3drender_global.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCharts/QAbstractAxis \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCharts/QAbstractSeries \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCharts/QChart \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCharts/QChartGlobal \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCharts/QChartView \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCharts/QLegend \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCharts/QLineSeries \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCharts/QValueAxis \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCharts/QXYSeries \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCharts/qabstractaxis.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCharts/qabstractseries.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCharts/qchart.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCharts/qchartglobal.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCharts/qchartview.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCharts/qlegend.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCharts/qlineseries.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCharts/qtcharts-config.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCharts/qtchartsexports.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCharts/qvalueaxis.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCharts/qxyseries.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QCoreApplication \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QDebug \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QEvent \
@@ -57,8 +37,8 @@ C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/build/Desktop_Qt_6_7_3_llvm_
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QSizeF \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QString \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QStringList \
+  C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QTime \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QTimer \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/QVariant \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/q20functional.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/q20memory.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/q20type_traits.h \
@@ -78,6 +58,7 @@ C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/build/Desktop_Qt_6_7_3_llvm_
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qbytearrayalgorithms.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qbytearraylist.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qbytearrayview.h \
+  C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qcalendar.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qchar.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qcompare.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qcompare_impl.h \
@@ -94,6 +75,7 @@ C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/build/Desktop_Qt_6_7_3_llvm_
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qcoreevent.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qdarwinhelpers.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qdatastream.h \
+  C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qdatetime.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qdeadlinetimer.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qdebug.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtCore/qelapsedtimer.h \
@@ -212,15 +194,13 @@ C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/build/Desktop_Qt_6_7_3_llvm_
   C:/Qt/6.7.3/llvm-mingw_64/include/QtDataVisualization/qtdatavisualizationexports.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtDataVisualization/qvalue3daxis.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtDataVisualization/qvalue3daxisformatter.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/QBrush \
+  C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/QAction \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/QColor \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/QFont \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/QImage \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/QLinearGradient \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/QMatrix4x4 \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/QMouseEvent \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/QOpenGLFunctions \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/QPen \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/QQuaternion \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/QSurfaceFormat \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/QTouchEvent \
@@ -253,10 +233,7 @@ C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/build/Desktop_Qt_6_7_3_llvm_
   C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/qopenglext.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/qopenglfunctions.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/qpaintdevice.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/qpainter.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/qpainterpath.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/qpalette.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/qpen.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/qpicture.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/qpixelformat.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/qpixmap.h \
@@ -271,7 +248,6 @@ C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/build/Desktop_Qt_6_7_3_llvm_
   C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/qsurface.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/qsurfaceformat.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/qtextdocument.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/qtextoption.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/qtgui-config.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/qtguiexports.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/qtguiglobal.h \
@@ -283,33 +259,31 @@ C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/build/Desktop_Qt_6_7_3_llvm_
   C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/qwindow.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/qwindowdefs.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtGui/qwindowdefs_win.h \
+  C:/Qt/6.7.3/llvm-mingw_64/include/QtOpenGLWidgets/QOpenGLWidget \
+  C:/Qt/6.7.3/llvm-mingw_64/include/QtOpenGLWidgets/qopenglwidget.h \
+  C:/Qt/6.7.3/llvm-mingw_64/include/QtOpenGLWidgets/qtopenglwidgetsexports.h \
+  C:/Qt/6.7.3/llvm-mingw_64/include/QtOpenGLWidgets/qtopenglwidgetsglobal.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtSerialPort/QSerialPort \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtSerialPort/qserialport.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtSerialPort/qserialportglobal.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtSerialPort/qtserialportexports.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/QGraphicsView \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/QGraphicsWidget \
+  C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/QFrame \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/QGridLayout \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/QHBoxLayout \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/QLabel \
+  C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/QMenu \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/QPushButton \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/QVBoxLayout \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/QWidget \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/qabstractbutton.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/qabstractscrollarea.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/qboxlayout.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/qframe.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/qgraphicsitem.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/qgraphicslayoutitem.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/qgraphicsscene.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/qgraphicsview.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/qgraphicswidget.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/qgridlayout.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/qlabel.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/qlayout.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/qlayoutitem.h \
+  C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/qmenu.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/qpushbutton.h \
-  C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/qscrollarea.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/qsizepolicy.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/qtwidgets-config.h \
   C:/Qt/6.7.3/llvm-mingw_64/include/QtWidgets/qtwidgetsexports.h \
@@ -643,6 +617,22 @@ C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/build/Desktop_Qt_6_7_3_llvm_
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__exception/nested_exception.h \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__exception/operations.h \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__exception/terminate.h \
+  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/copy_options.h \
+  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/directory_entry.h \
+  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/directory_iterator.h \
+  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/directory_options.h \
+  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/file_status.h \
+  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/file_time_type.h \
+  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/file_type.h \
+  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/filesystem_error.h \
+  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/operations.h \
+  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/path.h \
+  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/path_iterator.h \
+  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/perm_options.h \
+  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/perms.h \
+  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/recursive_directory_iterator.h \
+  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/space_info.h \
+  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__filesystem/u8path.h \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__format/buffer.h \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__format/concepts.h \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/__format/enable_insertable.h \
@@ -1004,6 +994,7 @@ C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/build/Desktop_Qt_6_7_3_llvm_
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/array \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/atomic \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/bit \
+  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/bitset \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/cctype \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/cerrno \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/chrono \
@@ -1022,13 +1013,18 @@ C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/build/Desktop_Qt_6_7_3_llvm_
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/ctype.h \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/cwchar \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/cwctype \
+  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/deque \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/errno.h \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/exception \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/execution \
+  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/filesystem \
+  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/fstream \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/functional \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/initializer_list \
+  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/iomanip \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/ios \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/iosfwd \
+  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/istream \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/iterator \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/limits \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/limits.h \
@@ -1042,6 +1038,7 @@ C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/build/Desktop_Qt_6_7_3_llvm_
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/new \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/numeric \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/optional \
+  C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/ostream \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/ratio \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/stdbool.h \
   C:/Qt/Tools/llvm-mingw1706_64/include/c++/v1/stddef.h \
@@ -1069,7 +1066,10 @@ C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/build/Desktop_Qt_6_7_3_llvm_
   C:/Qt/Tools/llvm-mingw1706_64/include/sdks/_mingw_ddk.h \
   C:/Qt/Tools/llvm-mingw1706_64/lib/clang/17/include/stdarg.h \
   C:/Qt/Tools/llvm-mingw1706_64/lib/clang/17/include/vadefs.h \
+  C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/CameraWidget.h \
   C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/SensorManager.h \
   C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/SerialReader.h \
+  C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/TopToolbar.h \
   C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/data/DataCleaner.h \
+  C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/data/FileHelper.h \
   C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Header_Files/data/SensorData.h

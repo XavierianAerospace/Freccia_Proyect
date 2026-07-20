@@ -6,49 +6,41 @@
   <component name="ChangeListManager">
     <list default="true" id="c3836191-b95e-4bd7-bdea-4247e06cd896" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/Header_Files/CameraWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/Header_Files/CameraWidget.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/Header_Files/VideoManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/Header_Files/VideoManager.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/Source_Files/CameraWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/Source_Files/CameraWidget.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/Source_Files/VideoManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/Source_Files/VideoManager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/Source_Files/VideoSubsystem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/Source_Files/VideoSubsystem.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply.prev/cache-v2-fc339ca563050795b9e4.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply.prev/cmakeFiles-v1-d42f9918289976a26e7e.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply.prev/codemodel-v2-bfc18f4529ec1671b6ca.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply.prev/directory-.-Debug-8b4aa20f46f33821d326.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply.prev/index-2026-05-13T02-24-44-0043.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply.prev/target-GUI_FRECCIA-Debug-7150f3c7348a288264aa.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/.qtcreator/CMakeLists.txt.user" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/.qtcreator/CMakeLists.txt.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/CMakeLists.txt.user" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/CMakeLists.txt.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/tileserver-gl.log" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/tileserver-gl.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply/cache-v2-84d08b4b1fc22d59f493.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply/cmakeFiles-v1-d42f9918289976a26e7e.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply/codemodel-v2-bfc18f4529ec1671b6ca.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply/directory-.-Debug-8b4aa20f46f33821d326.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply/index-2026-05-13T02-26-04-0001.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply/target-GUI_FRECCIA-Debug-7150f3c7348a288264aa.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply/cmakeFiles-v1-174ede5c01343f886f85.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply/codemodel-v2-c55644222b2774d4d829.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply/directory-.-Debug-3c00561b466bb1bc3c48.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply/index-2026-05-22T20-34-17-0842.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply/target-GUI_FRECCIA-Debug-2e5687629c3e54e03a32.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.ninja_log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/DataCleaner.cpp.2B0B2B4865F44660.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/DataCleaner.cpp.2B0B2B4865F44660.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/DataCleaner.h.B53BE4AF136D8F97.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/DataCleaner.h.B53BE4AF136D8F97.idx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/FileHelper.cpp.BBCDF372C0E1103A.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/FileHelper.cpp.BBCDF372C0E1103A.idx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/Graph3DWindow.cpp.B3BFA664165A1345.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/Graph3DWindow.cpp.B3BFA664165A1345.idx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/Graph3DWindow.h.39FC4A19B36A8D5B.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/Graph3DWindow.h.39FC4A19B36A8D5B.idx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/InicioWindow.cpp.4BA378AE6EB73AAF.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/InicioWindow.cpp.4BA378AE6EB73AAF.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/SensorData.h.8A5A8C816EB349AF.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/SensorData.h.8A5A8C816EB349AF.idx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/QAction.D1A06935B1571F75.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/QAction.D1A06935B1571F75.idx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/SensorManager.cpp.C83C5F909ABA7919.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/SensorManager.cpp.C83C5F909ABA7919.idx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/SensorManager.h.FADA89590554E155.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/SensorManager.h.FADA89590554E155.idx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/main.cpp.7687A5C8EF97574A.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/main.cpp.7687A5C8EF97574A.idx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qfileinfo.h.3AB735556CB8A5E3.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qfileinfo.h.3AB735556CB8A5E3.idx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qmenu.h.EED9142E72E56241.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qmenu.h.EED9142E72E56241.idx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtimezone.h.CFD5B0C77D3BA07F.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtimezone.h.CFD5B0C77D3BA07F.idx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/widget.cpp.AFBAE049EF4A42E1.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/widget.cpp.AFBAE049EF4A42E1.idx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/widget.h.DD4F1D947603F952.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/widget.h.DD4F1D947603F952.idx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/compile_commands.json" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/compile_commands.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeCache.txt.prev" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeCache.txt.prev" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/GUI_FRECCIA_autogen/mocs_compilation.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/GUI_FRECCIA_autogen/mocs_compilation.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/Source_Files/Graph3DWindow.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/Source_Files/Graph3DWindow.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/Source_Files/InicioWindow.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/Source_Files/InicioWindow.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/Source_Files/SensorManager.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/Source_Files/SensorManager.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/Source_Files/data/DataCleaner.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/Source_Files/data/DataCleaner.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/Source_Files/data/FileHelper.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/Source_Files/data/FileHelper.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/Source_Files/main.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/Source_Files/main.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/Source_Files/widget.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/Source_Files/widget.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA_autogen.dir/AutogenInfo.json" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA_autogen.dir/AutogenInfo.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA_autogen.dir/AutogenUsed.txt" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA_autogen.dir/AutogenUsed.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA_autogen.dir/ParseCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA_autogen.dir/ParseCache.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_Graph3DWindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_Graph3DWindow.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_Graph3DWindow.cpp.d" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_Graph3DWindow.cpp.d" afterDir="false" />
@@ -58,10 +50,8 @@
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_widget.cpp.d" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_widget.cpp.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/deps" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/mocs_compilation.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/mocs_compilation.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/Source_Py/client_viewer.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/Source_Py/client_viewer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/Testing/Temporary/LastTest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/build.ninja" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/qtcsettings.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/qtcsettings.cmake" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,18 +77,108 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.client_viewer.executor": "Run",
+    "Python.main.executor": "Run",
     "Python.simulador_serial.executor": "Run",
+    "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "ai.playground.ignore.import.keys.banner.in.settings": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "fix-video-pipeline-alignment-2179148683544931735",
-    "node.js.selected.package.tslint": "(autodetect)"
+    "git-widget-placeholder": "develop",
+    "junie.onboarding.icon.badge.shown": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="client_viewer" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.13" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/GUI/Source_Files/PyWindow" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="RUN_TOOL" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GUI/Source_Files/PyWindow/client_viewer.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.13" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/GUI/Source_Files/PyWindow" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="RUN_TOOL" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GUI/Source_Files/PyWindow/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="simulador_serial" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.13" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/GUI/Others" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="RUN_TOOL" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GUI/Others/simulador_serial.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-7e47963ff851-f0eec537fc84-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.23892.515" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-PY-253.31033.139" />
+        <option value="bundled-python-sdk-2653e85de345-6d6dccd035ac-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-253.31033.139" />
       </set>
     </attachedChunks>
   </component>
@@ -109,13 +189,17 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1759339220964</updated>
+      <workItem from="1784584847127" duration="834000" />
     </task>
     <servers />
   </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Freccia_Proyect$simulador_serial.coverage" NAME="simulador_serial Coverage Results" MODIFIED="1779482127285" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GUI/Others" />
+    <SUITE FILE_PATH="coverage/Freccia_Proyect$simulador_serial.coverage" NAME="simulador_serial Coverage Results" MODIFIED="1784585285222" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GUI/Others" />
     <SUITE FILE_PATH="coverage/Freccia_Proyect$main__2_.coverage" NAME="main (2) Coverage Results" MODIFIED="1779400609208" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GUI/Source_Files/PyWindow" />
-    <SUITE FILE_PATH="coverage/Freccia_Proyect$main.coverage" NAME="main Coverage Results" MODIFIED="1779557785035" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GUI/Source_Files/PyWindow" />
-    <SUITE FILE_PATH="coverage/Freccia_Proyect$client_viewer.coverage" NAME="client_viewer Coverage Results" MODIFIED="1780875706428" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GUI/Source_Files/PyWindow" />
+    <SUITE FILE_PATH="coverage/Freccia_Proyect$client_viewer.coverage" NAME="client_viewer Coverage Results" MODIFIED="1784585095929" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GUI/Source_Files/PyWindow" />
+    <SUITE FILE_PATH="coverage/Freccia_Proyect$main.coverage" NAME="main Coverage Results" MODIFIED="1784585262615" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GUI/Source_Files/PyWindow" />
   </component>
 </project>
