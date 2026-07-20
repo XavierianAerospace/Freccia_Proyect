@@ -47,29 +47,6 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
   endif()
 endif()
 
-if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/examples/charts/GUI_FRECCIA/Source_Files" TYPE DIRECTORY FILES "C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Files/PyWindow" USE_SOURCE_PERMISSIONS)
-endif()
-
-if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/examples/charts/GUI_FRECCIA/Source_Py" TYPE FILE OPTIONAL FILES
-    "C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Py/build.spec"
-    "C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Py/client_viewer.py"
-    "C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Py/client_viewer2.py"
-    "C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Py/CoheteGUI.STL"
-    "C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Py/FRECCIA_XAE.spec"
-    "C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Py/Instrucciones.txt"
-    "C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Py/stl_rotator_pyglet.py"
-    )
-endif()
-
-if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/examples/charts/GUI_FRECCIA/Source_Py" TYPE DIRECTORY OPTIONAL FILES
-    "C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Py/dist"
-    "C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Py/Map"
-    USE_SOURCE_PERMISSIONS)
-endif()
-
 if(CMAKE_INSTALL_COMPONENT)
   if(CMAKE_INSTALL_COMPONENT MATCHES "^[a-zA-Z0-9_.+-]+$")
     set(CMAKE_INSTALL_MANIFEST "install_manifest_${CMAKE_INSTALL_COMPONENT}.txt")
