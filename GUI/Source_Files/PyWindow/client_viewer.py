@@ -101,7 +101,6 @@ class SensorClientWindow(QWidget):
         self.signals.gps_update.connect(self.on_gps_update)
         self.signals.attitude_update.connect(self.on_attitude_update)
         self.signals.status.connect(self.on_status)
-        self.signals.backend_ready.connect(self._load_cesium_url)
 
         self.current_lat   = 0.0
         self.current_lon   = 0.0
@@ -110,22 +109,13 @@ class SensorClientWindow(QWidget):
         self.current_pitch = 0.0
         self.current_yaw   = 0.0
         self.fixed_stl_path = stl_fixed_path or "CoheteGUI.STL"
+        self._load_finished_connected = False
 
         self._setup_ui()
-        self._configure_webview()
         self._init_3d_scene()
 
         if self.fixed_stl_path and os.path.exists(self.fixed_stl_path):
             self.load_stl(self.fixed_stl_path)
-
-        # Backend Cesium
-        if _is_port_open(FLASK_HOST, FLASK_PORT):
-            self.signals.status.emit(f"Backend detectado en {CESIUM_URL}")
-            QTimer.singleShot(300, self._load_cesium_url)
-        else:
-            self.signals.status.emit("Iniciando backend Cesium…")
-            threading.Thread(target=self._start_backend_inline,
-                             daemon=True).start()
 
         # TCP telemetría
         threading.Thread(target=self._tcp_worker,
@@ -168,31 +158,16 @@ class SensorClientWindow(QWidget):
         tb.addWidget(btn)
         root.addWidget(toolbar)
 
-        # Splitter 60 / 40
-        splitter = QSplitter(Qt.Orientation.Horizontal)
-        splitter.setHandleWidth(3)
-        splitter.setStyleSheet("QSplitter::handle{background:#2a2a4a;}")
-
-        # Panel izquierdo — Cesium
-        left = QFrame()
-        ll = QVBoxLayout(left)
-        ll.setContentsMargins(0, 0, 0, 0)
-        self._loading_lbl = QLabel(
-            "⏳  Iniciando backend Cesium Ion…\n\n"
-            "TileServer-GL + Flask arrancando.")
-        self._loading_lbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self._loading_lbl.setStyleSheet(
-            "color:#90caf9;font-size:15px;background:#0d0d1a;")
-        self.webview = QWebEngineView()
-        self.webview.setVisible(False)
-        ll.addWidget(self._loading_lbl)
-        ll.addWidget(self.webview)
-
-        # Panel derecho — STL 3D
-        right = QFrame()
-        rl = QVBoxLayout(right)
+        # Panel único — Ángulo de ataque / STL 3D
+        panel = QFrame()
+        rl = QVBoxLayout(panel)
         rl.setContentsMargins(4, 4, 4, 4)
         rl.setSpacing(4)
+
+        title = QLabel("Ángulo de ataque")
+        title.setStyleSheet("color:#90caf9;font-weight:bold;font-size:12px;")
+        rl.addWidget(title)
+
         self.view3d = gl.GLViewWidget()
         self.view3d.opts["distance"] = 200
         self.view3d.setCameraPosition(distance=200, elevation=30, azimuth=45)
@@ -213,100 +188,9 @@ class SensorClientWindow(QWidget):
         il.addWidget(self.lbl_att)
         rl.addWidget(info)
 
-        splitter.addWidget(left)
-        splitter.addWidget(right)
-        splitter.setSizes([768, 512])
-        root.addWidget(splitter, stretch=1)
+        root.addWidget(panel, stretch=1)
 
-    # ── WebView ───────────────────────────────────────────────────────────────
-    def _configure_webview(self):
-        try:
-            profile = self.webview.page().profile()
-            profile.setHttpCacheType(
-                QWebEngineProfile.HttpCacheType.DiskHttpCache)
-            profile.setPersistentCookiesPolicy(
-                QWebEngineProfile.PersistentCookiesPolicy.AllowPersistentCookies)
-            profile.setHttpUserAgent(
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) "
-                "Chrome/124.0.0.0 Safari/537.36")
-            s = self.webview.settings()
-            for attr in (
-                QWebEngineSettings.WebAttribute.LocalContentCanAccessRemoteUrls,
-                QWebEngineSettings.WebAttribute.AllowRunningInsecureContent,
-                QWebEngineSettings.WebAttribute.JavascriptEnabled,
-                QWebEngineSettings.WebAttribute.WebGLEnabled,
-                QWebEngineSettings.WebAttribute.Accelerated2dCanvasEnabled,
-            ):
-                s.setAttribute(attr, True)
-            self.webview.page().setBackgroundColor(Qt.GlobalColor.black)
-        except Exception as e:
-            print(f"DEBUG WebView: {e}")
-
-    # ── Backend inline ────────────────────────────────────────────────────────
-    def _start_backend_inline(self):
-        """Importa main.py y arranca TileServer-GL + Flask en hilos."""
-        try:
-            main_dir = str(Path(__file__).resolve().parent)
-            if main_dir not in sys.path:
-                sys.path.insert(0, main_dir)
-
-            import main as freccia_main
-
-            base_dir = Path(freccia_main.__file__).resolve().parent
-
-            # 1. .mbtiles
-            try:
-                mbtiles = freccia_main.resolve_mbtiles_path(base_dir)
-            except FileNotFoundError as e:
-                self.signals.status.emit(f"mbtiles no encontrado: {e}")
-                return
-
-            # 2. TileServer-GL
-            try:
-                freccia_main.run_tileserver(base_dir, mbtiles)
-            except Exception as e:
-                self.signals.status.emit(f"TileServer error: {e}")
-                return
-
-            # 3. Flask
-            static   = base_dir / "cesium_app" / "static"
-            template = base_dir / "cesium_app" / "templates"
-            from backend.server import create_app
-            app = create_app(str(mbtiles), str(static), str(template))
-
-            threading.Thread(
-                target=freccia_main.run_flask,
-                args=(app,), daemon=True).start()
-
-            # 4. Esperar Flask
-            deadline = time.time() + 60
-            while time.time() < deadline:
-                if _is_port_open(FLASK_HOST, FLASK_PORT):
-                    self.signals.status.emit(f"Backend listo — {CESIUM_URL}")
-                    self.signals.backend_ready.emit()
-                    return
-                time.sleep(0.5)
-
-            self.signals.status.emit("TIMEOUT: Flask no respondió en 60 s")
-
-        except Exception as e:
-            self.signals.status.emit(f"Error backend: {e}")
-            print(f"DEBUG backend: {e}")
-
-    def _load_cesium_url(self):
-        self._loading_lbl.hide()
-        self.webview.setVisible(True)
-        print(f"DEBUG: Cargando {CESIUM_URL}")
-        self.webview.load(QUrl(CESIUM_URL))
-        self.webview.loadFinished.connect(self._on_loaded)
-
-    def _on_loaded(self, ok: bool):
-        if ok:
-            self.signals.status.emit("Mapa Cesium listo ✓")
-        else:
-            self.signals.status.emit("Error Cesium — reintentando…")
-            QTimer.singleShot(3000, self._load_cesium_url)
+    # ── WebView removido — solo se usa la vista 3D ─────────────────────────
 
     # ── Escena 3D ─────────────────────────────────────────────────────────────
     def _init_3d_scene(self):

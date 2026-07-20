@@ -68,14 +68,25 @@ def read_log_tail(log_path, max_lines=20):
 
 def resolve_mbtiles_path(base_dir):
     maps_dir = Path(base_dir) / "maps"
+    desktop_dir = Path.home() / "Desktop"  # En español normalmente sigue siendo "Desktop"
+
     configured_path = os.environ.get("FRECCIA_MBTILES_PATH")
 
     candidates = []
+
     if configured_path:
         candidates.append(Path(configured_path).expanduser())
 
-    candidates.append(maps_dir / DEFAULT_MBTILES_NAME)
-    candidates.extend(sorted(maps_dir.glob("*.mbtiles")))
+    # Buscar primero en maps
+    maps_candidates = [maps_dir / DEFAULT_MBTILES_NAME]
+    maps_candidates.extend(sorted(maps_dir.glob("*.mbtiles")))
+
+    if any(p.exists() for p in maps_candidates):
+        candidates.extend(maps_candidates)
+    else:
+        # Si no hay ninguno en maps, buscar en el Escritorio
+        candidates.append(desktop_dir / DEFAULT_MBTILES_NAME)
+        candidates.extend(sorted(desktop_dir.glob("*.mbtiles")))
 
     seen = set()
     for candidate in candidates:
