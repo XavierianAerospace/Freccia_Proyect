@@ -29,6 +29,7 @@ public slots:
 
     // Habilitar/deshabilitar recepción (procesamiento/guardado/emisión)
     void setReceivingEnabled(bool enabled) { receivingEnabled_ = enabled; }
+    bool isReceivingEnabled() const { return receivingEnabled_; }
 
     bool loadFromCsv(const QString& path);
 

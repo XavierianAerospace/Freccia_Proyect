@@ -5,727 +5,63 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c3836191-b95e-4bd7-bdea-4247e06cd896" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/IAU2006_XYS/IAU2006_XYS_0.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/IAU2006_XYS/IAU2006_XYS_1.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/IAU2006_XYS/IAU2006_XYS_10.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/IAU2006_XYS/IAU2006_XYS_11.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/IAU2006_XYS/IAU2006_XYS_12.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/IAU2006_XYS/IAU2006_XYS_13.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/IAU2006_XYS/IAU2006_XYS_14.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/IAU2006_XYS/IAU2006_XYS_15.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/IAU2006_XYS/IAU2006_XYS_16.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/IAU2006_XYS/IAU2006_XYS_17.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/IAU2006_XYS/IAU2006_XYS_18.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/IAU2006_XYS/IAU2006_XYS_19.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/IAU2006_XYS/IAU2006_XYS_2.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/IAU2006_XYS/IAU2006_XYS_20.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/IAU2006_XYS/IAU2006_XYS_21.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/IAU2006_XYS/IAU2006_XYS_22.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/IAU2006_XYS/IAU2006_XYS_23.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/IAU2006_XYS/IAU2006_XYS_24.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/IAU2006_XYS/IAU2006_XYS_25.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/IAU2006_XYS/IAU2006_XYS_26.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/IAU2006_XYS/IAU2006_XYS_27.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/IAU2006_XYS/IAU2006_XYS_3.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/IAU2006_XYS/IAU2006_XYS_4.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/IAU2006_XYS/IAU2006_XYS_5.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/IAU2006_XYS/IAU2006_XYS_6.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/IAU2006_XYS/IAU2006_XYS_7.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/IAU2006_XYS/IAU2006_XYS_8.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/IAU2006_XYS/IAU2006_XYS_9.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Images/bing_maps_credit.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Images/cesium_credit.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Images/google_earth_credit.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Images/ion-credit.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/LensFlare/DirtMask.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/LensFlare/StarBurst.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/0/0/0.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/0/1/0.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/1/0/0.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/1/0/1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/1/1/0.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/1/1/1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/1/2/0.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/1/2/1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/1/3/0.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/1/3/1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/0/0.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/0/1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/0/2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/0/3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/1/0.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/1/1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/1/2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/1/3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/2/0.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/2/1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/2/2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/2/3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/3/0.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/3/1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/3/2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/3/3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/4/0.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/4/1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/4/2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/4/3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/5/0.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/5/1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/5/2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/5/3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/6/0.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/6/1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/6/2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/6/3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/7/0.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/7/1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/7/2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/2/7/3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/NaturalEarthII/tilemapresource.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/SkyBox/tycho2t3_80_mx.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/SkyBox/tycho2t3_80_my.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/SkyBox/tycho2t3_80_mz.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/SkyBox/tycho2t3_80_px.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/SkyBox/tycho2t3_80_py.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/SkyBox/tycho2t3_80_pz.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/airfield.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/airport.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/alcohol-shop.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/america-football.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/art-gallery.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/bakery.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/bank.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/bar.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/baseball.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/basketball.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/beer.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/bicycle.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/building.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/bus.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/cafe.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/camera.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/campsite.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/car.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/cemetery.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/cesium.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/chemist.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/cinema.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/circle-stroked.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/circle.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/city.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/clothing-store.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/college.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/commercial.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/cricket.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/cross.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/dam.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/danger.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/disability.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/dog-park.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/embassy.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/emergency-telephone.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/entrance.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/farm.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/fast-food.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/ferry.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/fire-station.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/fuel.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/garden.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/gift.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/golf.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/grocery.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/hairdresser.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/harbor.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/heart.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/heliport.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/hospital.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/ice-cream.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/industrial.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/land-use.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/laundry.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/library.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/lighthouse.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/lodging.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/logging.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/london-underground.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/marker-stroked.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/marker.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/minefield.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/mobilephone.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/monument.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/museum.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/music.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/oil-well.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/park.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/park2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/parking-garage.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/parking.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/pharmacy.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/pitch.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/place-of-worship.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/playground.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/police.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/polling-place.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/post.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/prison.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/rail-above.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/rail-light.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/rail-metro.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/rail-underground.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/rail.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/religious-christian.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/religious-jewish.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/religious-muslim.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/restaurant.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/roadblock.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/rocket.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/school.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/scooter.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/shop.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/skiing.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/slaughterhouse.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/soccer.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/square-stroked.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/square.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/star-stroked.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/star.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/suitcase.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/swimming.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/telephone.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/tennis.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/theatre.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/toilets.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/town-hall.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/town.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/triangle-stroked.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/triangle.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/village.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/warehouse.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/waste-basket.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/water.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/wetland.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/maki/zoo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/moonSmall.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/pin.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/waterNormals.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/Textures/waterNormalsSmall.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Assets/approximateTerrainHeights.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Cesium.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/ThirdParty/Workers/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/ThirdParty/Workers/zip-web-worker.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/ThirdParty/basis_transcoder.wasm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/ThirdParty/draco_decoder.wasm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/ThirdParty/google-earth-dbroot-parser.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/ThirdParty/wasm_splats_bg.wasm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/ThirdParty/zip-module.wasm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Animation/Animation.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Animation/lighter.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/BaseLayerPicker/BaseLayerPicker.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/BaseLayerPicker/lighter.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Cesium3DTilesInspector/Cesium3DTilesInspector.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/CesiumInspector/CesiumInspector.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/CesiumWidget/CesiumWidget.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/CesiumWidget/lighter.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/FullscreenButton/FullscreenButton.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Geocoder/Geocoder.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Geocoder/lighter.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/I3SBuildingSceneLayerExplorer/I3SBuildingSceneLayerExplorer.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/ImageryProviders/ArcGisMapServiceWorldHillshade.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/ImageryProviders/ArcGisMapServiceWorldImagery.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/ImageryProviders/ArcGisMapServiceWorldOcean.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/ImageryProviders/azureAerial.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/ImageryProviders/azureRoads.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/ImageryProviders/bingAerial.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/ImageryProviders/bingAerialLabels.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/ImageryProviders/bingRoads.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/ImageryProviders/blueMarble.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/ImageryProviders/earthAtNight.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/ImageryProviders/googleContour.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/ImageryProviders/googleRoadmap.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/ImageryProviders/googleSatellite.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/ImageryProviders/googleSatelliteLabels.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/ImageryProviders/mapQuestOpenStreetMap.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/ImageryProviders/mapboxSatellite.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/ImageryProviders/mapboxStreets.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/ImageryProviders/mapboxTerrain.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/ImageryProviders/naturalEarthII.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/ImageryProviders/openStreetMap.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/ImageryProviders/sentinel-2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/ImageryProviders/stadiaAlidadeSmooth.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/ImageryProviders/stadiaAlidadeSmoothDark.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/ImageryProviders/stamenToner.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/ImageryProviders/stamenWatercolor.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/NavigationHelp/Mouse.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/NavigationHelp/MouseLeft.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/NavigationHelp/MouseMiddle.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/NavigationHelp/MouseRight.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/NavigationHelp/Touch.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/NavigationHelp/TouchDrag.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/NavigationHelp/TouchRotate.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/NavigationHelp/TouchTilt.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/NavigationHelp/TouchZoom.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/TerrainProviders/CesiumWorldTerrain.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/TerrainProviders/Ellipsoid.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/TimelineIcons.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Images/info-loading.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/InfoBox/InfoBox.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/InfoBox/InfoBoxDescription.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/NavigationHelpButton/NavigationHelpButton.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/NavigationHelpButton/lighter.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/PerformanceWatchdog/PerformanceWatchdog.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/ProjectionPicker/ProjectionPicker.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/SceneModePicker/SceneModePicker.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/SelectionIndicator/SelectionIndicator.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Timeline/Timeline.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Timeline/lighter.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/VRButton/VRButton.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/Viewer/Viewer.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/VoxelInspector/VoxelInspector.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/lighter.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/lighterShared.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/shared.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Widgets/widgets.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-236YIEYT.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-2ZYB3DYT.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-4M56RRIL.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-5BC2Q3QW.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-5XHUDY37.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-6WMLAJJP.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-72KUXMWU.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-7NQYTTAU.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-A35GG5WJ.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-AXNBHUAG.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-DC3K7YTH.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-DRBPXGI7.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-EARRZPMO.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-EHC3BDVP.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-EYZUSGKM.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-EZSKHVA2.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-F3WJIFOO.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-FB7UV5BI.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-FC6IYMYF.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-GF67PEXE.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-GXEQRH2R.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-I5NKQIWE.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-IH7GXIUB.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-IPP3UFGH.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-IYRGNBSH.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-J6BM74AD.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-KG2GJUJT.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-L7UE5MMF.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-LBZ34MHQ.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-LOQDTQMX.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-LYLRYC4L.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-MGPRMLLW.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-NP26LKQA.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-OMUAZ3NM.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-PPFUDJN4.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-PQ3V63XF.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-PWBQN4GK.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-QOTMLO2T.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-SP35IT73.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-T3ZGSZKA.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-TM6SYYHO.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-TSGIJVWH.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-U3YGOX3C.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-VBYOXOSM.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-VCOHJNKB.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-VXAZXMUX.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-VXCJOT4W.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-WPD3MB6X.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-X4D5KUN5.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-XEC656IT.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-XR53QRQS.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-XR7MN4PJ.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-XU6O4MRS.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-XZBHEBLF.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-Z2M4BF4E.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-Z4ERBZFB.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/chunk-ZY2KCIWI.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/combineGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createBoxGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createBoxOutlineGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createCircleGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createCircleOutlineGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createCoplanarPolygonGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createCoplanarPolygonOutlineGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createCorridorGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createCorridorOutlineGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createCylinderGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createCylinderOutlineGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createEllipseGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createEllipseOutlineGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createEllipsoidGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createEllipsoidOutlineGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createFrustumGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createFrustumOutlineGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createGroundPolylineGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createPlaneGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createPlaneOutlineGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createPolygonGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createPolygonOutlineGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createPolylineGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createPolylineVolumeGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createPolylineVolumeOutlineGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createRectangleGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createRectangleOutlineGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createSimplePolylineGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createSphereGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createSphereOutlineGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createTaskProcessorWorker.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createVectorTileClampedPolylines.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createVectorTileGeometries.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createVectorTilePoints.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createVectorTilePolygons.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createVectorTilePolylines.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createVerticesFromCesium3DTilesTerrain.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createVerticesFromGoogleEarthEnterpriseBuffer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createVerticesFromHeightmap.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createVerticesFromQuantizedTerrainMesh.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createWallGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/createWallOutlineGeometry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/decodeDraco.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/decodeGoogleEarthEnterprisePacket.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/decodeI3S.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/gaussianSplatSorter.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/gaussianSplatTextureGenerator.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/incrementallyBuildTerrainPicker.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/transcodeKTX2.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/transferTypedArrayTest.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/upsampleQuantizedTerrainMesh.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/Workers/upsampleVerticesFromCesium3DTilesTerrain.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/index.cjs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/Cesium/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/.qtcreator/CMakeLists.txt.user" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/.qtcreator/CMakeLists.txt.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/CMakeLists.txt.user" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/CMakeLists.txt.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/backend/mbtiles_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/backend/mbtiles_server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/backend/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/backend/server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/static/script.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/cesium_app/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/Source_Files/PyWindow/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/CMakeCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/CMakeFiles/3.28.3/CMakeCCompiler.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/CMakeFiles/3.28.3/CMakeCCompiler.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/CMakeFiles/3.28.3/CMakeCXXCompiler.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/CMakeFiles/3.28.3/CMakeCXXCompiler.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/CMakeFiles/3.28.3/CMakeSystem.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/CMakeFiles/3.28.3/CMakeSystem.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/CMakeFiles/3.28.3/CompilerIdC/CMakeCCompilerId.c" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/CMakeFiles/3.28.3/CompilerIdC/CMakeCCompilerId.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/CMakeFiles/3.28.3/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/CMakeFiles/3.28.3/CompilerIdCXX/CMakeCXXCompilerId.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/DependInfo.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/build.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/cmake_clean.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/cmake_clean.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/compiler_depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/compiler_depend.internal" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/compiler_depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/compiler_depend.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/compiler_depend.ts" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/compiler_depend.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/depend.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/flags.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/link.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/progress.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/src/CSVReader.cpp.o.d" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/src/CSVReader.cpp.o.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/src/DataCleaner.cpp.o.d" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/src/DataCleaner.cpp.o.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/src/FileHelper.cpp.o.d" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/src/FileHelper.cpp.o.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/src/GPSCSVReader.cpp.o.d" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/src/GPSCSVReader.cpp.o.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/src/SensorData.cpp.o.d" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/src/SensorData.cpp.o.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/src/main.cpp.o.d" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/CMakeFiles/Atenea.dir/src/main.cpp.o.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/CMakeFiles/CMakeConfigureLog.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/CMakeFiles/CMakeConfigureLog.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/CMakeFiles/Makefile.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/CMakeFiles/Makefile2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/CMakeFiles/TargetDirectories.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/CMakeFiles/cmake.check_cache" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/CMakeFiles/cmake.check_cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/CMakeFiles/progress.marks" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/CMakeFiles/progress.marks" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/.qt/QtDeploySupport.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/.qt/QtDeploySupport.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/.qt/QtDeployTargets.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/.qt/QtDeployTargets.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/CMakeCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/CMakeFiles/3.30.5/CMakeCXXCompiler.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/CMakeFiles/3.30.5/CMakeCXXCompiler.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/CMakeFiles/3.30.5/CMakeRCCompiler.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/CMakeFiles/3.30.5/CMakeRCCompiler.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/CMakeFiles/3.30.5/CMakeSystem.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/CMakeFiles/3.30.5/CMakeSystem.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/CMakeFiles/3.30.5/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/CMakeFiles/3.30.5/CompilerIdCXX/CMakeCXXCompilerId.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/CMakeFiles/CMakeConfigureLog.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/CMakeFiles/CMakeConfigureLog.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/CMakeFiles/GUI_FRECCIA_autogen.dir/AutogenInfo.json" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/CMakeFiles/GUI_FRECCIA_autogen.dir/AutogenInfo.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/CMakeFiles/GUI_FRECCIA_autogen.dir/AutogenUsed.txt" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/CMakeFiles/GUI_FRECCIA_autogen.dir/AutogenUsed.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/CMakeFiles/GUI_FRECCIA_autogen.dir/ParseCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/CMakeFiles/GUI_FRECCIA_autogen.dir/ParseCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/CMakeFiles/clean_additional.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/CMakeFiles/clean_additional.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/CMakeFiles/cmake.check_cache" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/CMakeFiles/cmake.check_cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/CMakeFiles/rules.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/CMakeFiles/rules.ninja" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/BDBYVKFZ5G/moc_DataTopic.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/BDBYVKFZ5G/moc_DataTopic.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/BDBYVKFZ5G/moc_DataTopic.cpp.d" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/BDBYVKFZ5G/moc_DataTopic.cpp.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_Graph3DWindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_Graph3DWindow.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_Graph3DWindow.cpp.d" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_Graph3DWindow.cpp.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_InicioWindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_InicioWindow.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_InicioWindow.cpp.d" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_InicioWindow.cpp.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_SensorManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_SensorManager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_SensorManager.cpp.d" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_SensorManager.cpp.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_SerialReader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_SerialReader.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_SerialReader.cpp.d" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_SerialReader.cpp.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_widget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_widget.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_widget.cpp.d" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_widget.cpp.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/deps" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/deps" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/moc_predefs.h" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/moc_predefs.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/mocs_compilation.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/GUI_FRECCIA_autogen/mocs_compilation.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/Main.qml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/Main.qml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/forms/Geocode.qml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/forms/Geocode.qml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/forms/GeocodeForm.ui.qml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/forms/GeocodeForm.ui.qml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/forms/Locale.qml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/forms/Locale.qml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/forms/LocaleForm.ui.qml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/forms/LocaleForm.ui.qml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/forms/Message.qml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/forms/Message.qml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/forms/MessageForm.ui.qml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/forms/MessageForm.ui.qml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/forms/ReverseGeocode.qml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/forms/ReverseGeocode.qml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/forms/ReverseGeocodeForm.ui.qml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/forms/ReverseGeocodeForm.ui.qml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/forms/RouteAddress.qml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/forms/RouteAddress.qml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/forms/RouteAddressForm.ui.qml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/forms/RouteAddressForm.ui.qml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/forms/RouteCoordinate.qml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/forms/RouteCoordinate.qml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/forms/RouteCoordinateForm.ui.qml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/forms/RouteCoordinateForm.ui.qml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/forms/RouteList.qml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/forms/RouteList.qml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/forms/RouteListDelegate.qml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/forms/RouteListDelegate.qml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/forms/RouteListHeader.qml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/forms/RouteListHeader.qml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/helper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/map/MapComponent.qml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/map/MapComponent.qml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/map/MapSliders.qml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/map/MapSliders.qml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/map/Marker.qml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/map/Marker.qml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/map/MiniMap.qml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/map/MiniMap.qml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/menus/ItemPopupMenu.qml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/menus/ItemPopupMenu.qml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/menus/MainMenu.qml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/menus/MainMenu.qml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/menus/MapPopupMenu.qml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/menus/MapPopupMenu.qml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/menus/MarkerPopupMenu.qml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/menus/MarkerPopupMenu.qml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/qmldir" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/MapViewer/qmldir" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/mapviewer.pyproject" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/mapviewer.pyproject" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/mapviewer.pyproject.user" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/mapviewer.pyproject.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/run_pywindow.sh" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Files/PyWindow/run_pywindow.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Py/FRECCIA_XAE.spec" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Py/FRECCIA_XAE.spec" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Py/Instrucciones.txt" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Py/Instrucciones.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Py/Map/Map.css" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Py/Map/Map.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Py/Map/Map.html" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Py/Map/Map.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Py/Map/Map.js" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Py/Map/Map.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Py/Map/assets/leaflet.css" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Py/Map/assets/leaflet.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Py/Map/assets/leaflet.js" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Py/Map/assets/leaflet.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Py/build.spec" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Py/build.spec" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Py/client_viewer.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Py/client_viewer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Py/client_viewer2.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Py/client_viewer2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Py/stl_rotator_pyglet.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/Source_Py/stl_rotator_pyglet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/build.ninja" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/cmake_install.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply.prev/cache-v2-fc339ca563050795b9e4.json" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply.prev/cache-v2-fc339ca563050795b9e4.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply.prev/cmakeFiles-v1-d42f9918289976a26e7e.json" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply.prev/cmakeFiles-v1-d42f9918289976a26e7e.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply.prev/codemodel-v2-bfc18f4529ec1671b6ca.json" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply.prev/codemodel-v2-bfc18f4529ec1671b6ca.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply.prev/directory-.-Debug-8b4aa20f46f33821d326.json" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply.prev/directory-.-Debug-8b4aa20f46f33821d326.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply.prev/index-2026-05-13T02-24-44-0043.json" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply.prev/index-2026-05-13T02-24-44-0043.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply.prev/target-GUI_FRECCIA-Debug-7150f3c7348a288264aa.json" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply.prev/target-GUI_FRECCIA-Debug-7150f3c7348a288264aa.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply.prev/target-GUI_FRECCIA_autogen-Debug-358c47bb7f28b576f122.json" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply.prev/target-GUI_FRECCIA_autogen-Debug-358c47bb7f28b576f122.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply.prev/target-GUI_FRECCIA_autogen_timestamp_deps-Debug-e668d0dfcb3554e89016.json" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply.prev/target-GUI_FRECCIA_autogen_timestamp_deps-Debug-e668d0dfcb3554e89016.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply/cache-v2-84d08b4b1fc22d59f493.json" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply/cache-v2-84d08b4b1fc22d59f493.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/Header_Files/CameraWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/Header_Files/CameraWidget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/Header_Files/VideoManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/Header_Files/VideoManager.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/Source_Files/CameraWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/Source_Files/CameraWidget.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/Source_Files/VideoManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/Source_Files/VideoManager.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/Source_Files/VideoSubsystem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/Source_Files/VideoSubsystem.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply.prev/cache-v2-fc339ca563050795b9e4.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply.prev/cmakeFiles-v1-d42f9918289976a26e7e.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply.prev/codemodel-v2-bfc18f4529ec1671b6ca.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply.prev/directory-.-Debug-8b4aa20f46f33821d326.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply.prev/index-2026-05-13T02-24-44-0043.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply.prev/target-GUI_FRECCIA-Debug-7150f3c7348a288264aa.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply/cache-v2-84d08b4b1fc22d59f493.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply/cmakeFiles-v1-d42f9918289976a26e7e.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply/codemodel-v2-bfc18f4529ec1671b6ca.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply/directory-.-Debug-8b4aa20f46f33821d326.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply/index-2026-05-13T02-26-04-0001.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply/target-GUI_FRECCIA-Debug-7150f3c7348a288264aa.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply/target-GUI_FRECCIA_autogen-Debug-358c47bb7f28b576f122.json" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply/target-GUI_FRECCIA_autogen-Debug-358c47bb7f28b576f122.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply/target-GUI_FRECCIA_autogen_timestamp_deps-Debug-e668d0dfcb3554e89016.json" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.cmake/api/v1/reply/target-GUI_FRECCIA_autogen_timestamp_deps-Debug-e668d0dfcb3554e89016.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc/package-manager/LICENSE.conan" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc/package-manager/LICENSE.conan" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc/package-manager/auto-setup.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc/package-manager/auto-setup.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc/package-manager/conan.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc/package-manager/conan.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc/package-manager/conan_provider.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc/package-manager/conan_provider.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc/package-manager/maintenance_tool_provider.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc/package-manager/maintenance_tool_provider.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc/package-manager/maintenance_tool_provider.qs" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc/package-manager/maintenance_tool_provider.qs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/DataCleaner.cpp.2B0B2B4865F44660.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/DataCleaner.cpp.2B0B2B4865F44660.idx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/DataCleaner.h.B53BE4AF136D8F97.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/DataCleaner.h.B53BE4AF136D8F97.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/DataTopic.h.C7BF470ABE2F8007.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/DataTopic.h.C7BF470ABE2F8007.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/FileHelper.h.B5F31DB45DAAD299.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/FileHelper.h.B5F31DB45DAAD299.idx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/FileHelper.cpp.BBCDF372C0E1103A.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/FileHelper.cpp.BBCDF372C0E1103A.idx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/Graph3DWindow.cpp.B3BFA664165A1345.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/Graph3DWindow.cpp.B3BFA664165A1345.idx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/Graph3DWindow.h.39FC4A19B36A8D5B.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/Graph3DWindow.h.39FC4A19B36A8D5B.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/InicioWindow.h.832DB24BDD1F1BB1.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/InicioWindow.h.832DB24BDD1F1BB1.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/QDebug.A055D1506E277077.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/QDebug.A055D1506E277077.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/QList.E09665548AB40FA1.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/QList.E09665548AB40FA1.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/QObject.7CD7E9B4EFBA5B84.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/QObject.7CD7E9B4EFBA5B84.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/QTcpServer.73EAED54C8210EAD.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/QTcpServer.73EAED54C8210EAD.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/QTcpSocket.92DF4751ABC6EA33.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/QTcpSocket.92DF4751ABC6EA33.idx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/InicioWindow.cpp.4BA378AE6EB73AAF.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/InicioWindow.cpp.4BA378AE6EB73AAF.idx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/SensorData.h.8A5A8C816EB349AF.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/SensorData.h.8A5A8C816EB349AF.idx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/SensorManager.cpp.C83C5F909ABA7919.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/SensorManager.cpp.C83C5F909ABA7919.idx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/SensorManager.h.FADA89590554E155.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/SensorManager.h.FADA89590554E155.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/SerialReader.h.1F39A12F9764F67F.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/SerialReader.h.1F39A12F9764F67F.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stdarg___gnuc_va_list.h.7E59B385E6A35046.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stdarg___gnuc_va_list.h.7E59B385E6A35046.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stdarg___va_copy.h.DE8E85698F78AD28.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stdarg___va_copy.h.DE8E85698F78AD28.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stdarg_header_macro.h.AC676BBFFD4786C5.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stdarg_header_macro.h.AC676BBFFD4786C5.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stdarg_va_arg.h.4A9BAFE279B2EC70.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stdarg_va_arg.h.4A9BAFE279B2EC70.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stdarg_va_copy.h.A47F7CDA052B1548.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stdarg_va_copy.h.A47F7CDA052B1548.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stdarg_va_list.h.137062B3DF118CFD.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stdarg_va_list.h.137062B3DF118CFD.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stddef_header_macro.h.B85FEB82315F58BD.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stddef_header_macro.h.B85FEB82315F58BD.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stddef_max_align_t.h.22D107C2804CDC2A.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stddef_max_align_t.h.22D107C2804CDC2A.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stddef_null.h.788C5556D7F7F590.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stddef_null.h.788C5556D7F7F590.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stddef_nullptr_t.h.47212D794463A92B.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stddef_nullptr_t.h.47212D794463A92B.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stddef_offsetof.h.2819BF09F8C8AC24.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stddef_offsetof.h.2819BF09F8C8AC24.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stddef_ptrdiff_t.h.6EEB0F9CEC83E4D5.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stddef_ptrdiff_t.h.6EEB0F9CEC83E4D5.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stddef_size_t.h.88C2F275F76F9953.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stddef_size_t.h.88C2F275F76F9953.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stddef_wchar_t.h.41EC98A182E8E2D6.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/__stddef_wchar_t.h.41EC98A182E8E2D6.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/limits.h.0C3FCC14AF9EE016.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/limits.h.0C3FCC14AF9EE016.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/q20functional.h.4FC74B6E239DA265.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/q20functional.h.4FC74B6E239DA265.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/q20memory.h.A4ABF3BB75382876.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/q20memory.h.A4ABF3BB75382876.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/q20type_traits.h.45681741A8660DC2.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/q20type_traits.h.45681741A8660DC2.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/q23utility.h.53D92BF7A55AD726.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/q23utility.h.53D92BF7A55AD726.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qabstractsocket.h.84333112828A6B57.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qabstractsocket.h.84333112828A6B57.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qalgorithms.h.F3561CFC4C95ABFA.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qalgorithms.h.F3561CFC4C95ABFA.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qanystringview.h.17DAB937156DB161.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qanystringview.h.17DAB937156DB161.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qarraydata.h.15312D89825BE5AE.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qarraydata.h.15312D89825BE5AE.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qarraydataops.h.AC69BF7D65E2B77A.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qarraydataops.h.AC69BF7D65E2B77A.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qarraydatapointer.h.88981179300985B4.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qarraydatapointer.h.88981179300985B4.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qassert.h.E16197BA34E61C04.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qassert.h.E16197BA34E61C04.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qatomic.h.9FC93AC54BBA2BFA.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qatomic.h.9FC93AC54BBA2BFA.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qatomic_cxx11.h.F8C580C7FD64AE86.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qatomic_cxx11.h.F8C580C7FD64AE86.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qbasicatomic.h.4431D3FB5A19BC55.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qbasicatomic.h.4431D3FB5A19BC55.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qbindingstorage.h.F151EB9A6B459015.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qbindingstorage.h.F151EB9A6B459015.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qbytearray.h.AFD24CC63BB14D2B.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qbytearray.h.AFD24CC63BB14D2B.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qbytearrayalgorithms.h.D81D777C73612A91.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qbytearrayalgorithms.h.D81D777C73612A91.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qbytearraylist.h.465F8E157EB7BBC6.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qbytearraylist.h.465F8E157EB7BBC6.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qbytearrayview.h.219C979B5FE28D85.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qbytearrayview.h.219C979B5FE28D85.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qchar.h.72E2AA6575236908.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qchar.h.72E2AA6575236908.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qcompare.h.0D620763C99DDD70.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qcompare.h.0D620763C99DDD70.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qcompare_impl.h.AD0510DAE31A770E.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qcompare_impl.h.AD0510DAE31A770E.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qcomparehelpers.h.BA826A4D6E6C8B7D.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qcomparehelpers.h.BA826A4D6E6C8B7D.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qcompilerdetection.h.9773F2AC101B413C.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qcompilerdetection.h.9773F2AC101B413C.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qconfig.h.AD30D9D2E5646F0F.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qconfig.h.AD30D9D2E5646F0F.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qconstructormacros.h.A4A217D0AAB4F4CA.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qconstructormacros.h.A4A217D0AAB4F4CA.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qcontainerfwd.h.58EB192CDDAC551C.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qcontainerfwd.h.58EB192CDDAC551C.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qcontainerinfo.h.075BE9D94F8D8E98.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qcontainerinfo.h.075BE9D94F8D8E98.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qcontainertools_impl.h.1BCCA01DE8257D9D.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qcontainertools_impl.h.1BCCA01DE8257D9D.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qcontiguouscache.h.15BD58C4476537AD.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qcontiguouscache.h.15BD58C4476537AD.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qdarwinhelpers.h.C3AE29584CF6F474.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qdarwinhelpers.h.C3AE29584CF6F474.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qdatastream.h.EBE570050A0F5DED.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qdatastream.h.EBE570050A0F5DED.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qdebug.h.4B0A916B892D4E04.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qdebug.h.4B0A916B892D4E04.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qexceptionhandling.h.C6756E71D9099A3F.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qexceptionhandling.h.C6756E71D9099A3F.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qflags.h.AE300A1EA83BB994.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qflags.h.AE300A1EA83BB994.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qfloat16.h.5826A96909FDB303.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qfloat16.h.5826A96909FDB303.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qforeach.h.D0C3DDB88FC93807.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qforeach.h.D0C3DDB88FC93807.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qfunctionaltools_impl.h.003EC346A54A9A83.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qfunctionaltools_impl.h.003EC346A54A9A83.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qfunctionpointer.h.BC893A432E9A1B57.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qfunctionpointer.h.BC893A432E9A1B57.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qgenericatomic.h.BA09442ECED95BA5.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qgenericatomic.h.BA09442ECED95BA5.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qglobal.h.B3971ABCBDD232F6.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qglobal.h.B3971ABCBDD232F6.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qglobalstatic.h.E5A746230AA404D9.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qglobalstatic.h.E5A746230AA404D9.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qhash.h.9904E32C8573202E.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qhash.h.9904E32C8573202E.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qhashfunctions.h.C469C22C118E2303.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qhashfunctions.h.C469C22C118E2303.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qhostaddress.h.136E3359D89EE336.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qhostaddress.h.136E3359D89EE336.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qiodevice.h.98D925F3202964B4.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qiodevice.h.98D925F3202964B4.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qiodevicebase.h.3DCC9E2EABCE0AF7.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qiodevicebase.h.3DCC9E2EABCE0AF7.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qiterable.h.57A5A7210693480D.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qiterable.h.57A5A7210693480D.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qiterator.h.EE7DC77F40E344F2.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qiterator.h.EE7DC77F40E344F2.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qlatin1stringview.h.9AD8E9F77BDBDEBF.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qlatin1stringview.h.9AD8E9F77BDBDEBF.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qlist.h.06138FFE6D243E21.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qlist.h.06138FFE6D243E21.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qlogging.h.FD2E028A4DB29F45.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qlogging.h.FD2E028A4DB29F45.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qmalloc.h.BFC6FBB4BE25A52B.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qmalloc.h.BFC6FBB4BE25A52B.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qmap.h.659FA9EC18E3295D.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qmap.h.659FA9EC18E3295D.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qmath.h.5090CC55E4B4C04C.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qmath.h.5090CC55E4B4C04C.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qmetacontainer.h.3F4C92EA2A4B79D4.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qmetacontainer.h.3F4C92EA2A4B79D4.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qmetatype.h.7EFBCABD8A4A68C5.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qmetatype.h.7EFBCABD8A4A68C5.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qminmax.h.C9320B4DC2503CF1.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qminmax.h.C9320B4DC2503CF1.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qnamespace.h.EA4902125032BF0A.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qnamespace.h.EA4902125032BF0A.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qnumeric.h.016293308DBA6DD4.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qnumeric.h.016293308DBA6DD4.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qobject.h.DA7AAF56AEC2B2CA.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qobject.h.DA7AAF56AEC2B2CA.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qobject_impl.h.B20C0E51C8DBE66E.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qobject_impl.h.B20C0E51C8DBE66E.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qobjectdefs.h.96D53E1D21E4D6A6.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qobjectdefs.h.96D53E1D21E4D6A6.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qobjectdefs.h.A2A9D94BA29FBE34.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qobjectdefs.h.A2A9D94BA29FBE34.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qobjectdefs_impl.h.DA63987AD5EEA0DE.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qobjectdefs_impl.h.DA63987AD5EEA0DE.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qoverload.h.707CD8E2C2B07036.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qoverload.h.707CD8E2C2B07036.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qpair.h.6210E38DEF72957F.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qpair.h.6210E38DEF72957F.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qprocessordetection.h.E1F20A6D3D9CC621.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qprocessordetection.h.E1F20A6D3D9CC621.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qrefcount.h.8A15F695256CBCFB.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qrefcount.h.8A15F695256CBCFB.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qscopedpointer.h.BE42E03FF7818191.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qscopedpointer.h.BE42E03FF7818191.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qscopeguard.h.2517FE44D1F8A70E.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qscopeguard.h.2517FE44D1F8A70E.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qset.h.F34DD3CA56D86E3B.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qset.h.F34DD3CA56D86E3B.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qshareddata.h.9BDBB981CD587C8A.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qshareddata.h.9BDBB981CD587C8A.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qshareddata_impl.h.17EC4D96583FFFC3.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qshareddata_impl.h.17EC4D96583FFFC3.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qsharedpointer.h.7F6D95E84833B3E5.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qsharedpointer.h.7F6D95E84833B3E5.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qsharedpointer_impl.h.711BF15307711F21.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qsharedpointer_impl.h.711BF15307711F21.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstring.h.C5FDCD8380C47569.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstring.h.C5FDCD8380C47569.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstringalgorithms.h.E5DFC80BF5F8A1ED.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstringalgorithms.h.E5DFC80BF5F8A1ED.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstringbuilder.h.3241B0671A48A07E.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstringbuilder.h.3241B0671A48A07E.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstringconverter.h.2C6734E1A32FA82E.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstringconverter.h.2C6734E1A32FA82E.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstringconverter_base.h.03EF4C0AB66CBD2F.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstringconverter_base.h.03EF4C0AB66CBD2F.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstringfwd.h.771DDD2DC6F30118.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstringfwd.h.771DDD2DC6F30118.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstringlist.h.5F5CD449CFFE9F2B.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstringlist.h.5F5CD449CFFE9F2B.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstringliteral.h.FDA65EF0326B14D9.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstringliteral.h.FDA65EF0326B14D9.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstringmatcher.h.0F2CA7BF42E312B0.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstringmatcher.h.0F2CA7BF42E312B0.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstringtokenizer.h.075A48CC8851EB82.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstringtokenizer.h.075A48CC8851EB82.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstringview.h.E26189F5DA10D088.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qstringview.h.E26189F5DA10D088.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qswap.h.9561C9678D6F4F13.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qswap.h.9561C9678D6F4F13.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qsysinfo.h.078E9E7EB14F00DD.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qsysinfo.h.078E9E7EB14F00DD.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qsystemdetection.h.790FE45DC248E770.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qsystemdetection.h.790FE45DC248E770.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtaggedpointer.h.3F65D5875617096A.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtaggedpointer.h.3F65D5875617096A.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtclasshelpermacros.h.25BEA44D3F2E5F94.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtclasshelpermacros.h.25BEA44D3F2E5F94.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtconfiginclude.h.DC448005432AC838.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtconfiginclude.h.DC448005432AC838.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtconfigmacros.h.3290BEA17EC1F44E.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtconfigmacros.h.3290BEA17EC1F44E.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtcore-config.h.87BA63B10B037413.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtcore-config.h.87BA63B10B037413.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtcoreexports.h.759DCACF12D0B314.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtcoreexports.h.759DCACF12D0B314.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtcpserver.h.147405B05D6F70FC.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtcpserver.h.147405B05D6F70FC.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtcpsocket.h.035EF1A0E6FC22E2.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtcpsocket.h.035EF1A0E6FC22E2.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtdeprecationmarkers.h.CC9F4875E37FB80C.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtdeprecationmarkers.h.CC9F4875E37FB80C.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtenvironmentvariables.h.61C7E41B8642FBF2.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtenvironmentvariables.h.61C7E41B8642FBF2.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtextstream.h.166F53906081F579.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtextstream.h.166F53906081F579.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtmetamacros.h.A1A3E9896051B2EE.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtmetamacros.h.A1A3E9896051B2EE.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtnetwork-config.h.961F004A6251DF88.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtnetwork-config.h.961F004A6251DF88.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtnetworkexports.h.42903DCDE4480F8C.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtnetworkexports.h.42903DCDE4480F8C.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtnetworkglobal.h.EB7276CAC0A8CE39.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtnetworkglobal.h.EB7276CAC0A8CE39.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtnoop.h.C9F1CEA84E4E9136.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtnoop.h.C9F1CEA84E4E9136.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtpreprocessorsupport.h.7569A196AC437BA1.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtpreprocessorsupport.h.7569A196AC437BA1.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtresource.h.039311C5C65F56C8.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtresource.h.039311C5C65F56C8.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qttranslation.h.57A53B3D5D84AA57.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qttranslation.h.57A53B3D5D84AA57.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qttypetraits.h.4777DBA1749EC3A4.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qttypetraits.h.4777DBA1749EC3A4.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtversion.h.E0E0AA1E9F746450.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtversion.h.E0E0AA1E9F746450.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtversionchecks.h.3776031473DABC85.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtversionchecks.h.3776031473DABC85.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtypeinfo.h.B52C2D228EBD33B6.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtypeinfo.h.B52C2D228EBD33B6.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtypes.h.AD31F9C5632C413A.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qtypes.h.AD31F9C5632C413A.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qutf8stringview.h.708924A05C7A3351.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qutf8stringview.h.708924A05C7A3351.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qvariant.h.3DC7B91DC7F3EA8D.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qvariant.h.3DC7B91DC7F3EA8D.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qvarlengtharray.h.7BD35A157C839057.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qvarlengtharray.h.7BD35A157C839057.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qversiontagging.h.EEBC3C267FEE1F47.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qversiontagging.h.EEBC3C267FEE1F47.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qxptype_traits.h.D8D05EBFFD199723.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qxptype_traits.h.D8D05EBFFD199723.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qyieldcpu.h.F17E890DABF10E41.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/qyieldcpu.h.F17E890DABF10E41.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stdarg.h.6A64C8385703D6DC.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stdarg.h.6A64C8385703D6DC.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stdbool.h.79C5FD91B5BB70F7.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stdbool.h.79C5FD91B5BB70F7.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stddef.h.32EB764F10FC598D.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stddef.h.32EB764F10FC598D.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stdint.h.6B9C8940BC0CABC8.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/stdint.h.6B9C8940BC0CABC8.idx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/main.cpp.7687A5C8EF97574A.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/main.cpp.7687A5C8EF97574A.idx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/widget.cpp.AFBAE049EF4A42E1.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/widget.cpp.AFBAE049EF4A42E1.idx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/widget.h.DD4F1D947603F952.idx" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/.cache/clangd/index/widget.h.DD4F1D947603F952.idx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/compile_commands.json" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/.qtc_clangd/compile_commands.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeCache.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeCache.txt.prev" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeCache.txt.prev" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/3.30.5/CMakeCXXCompiler.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/3.30.5/CMakeCXXCompiler.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/3.30.5/CMakeRCCompiler.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/3.30.5/CMakeRCCompiler.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/3.30.5/CMakeSystem.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/3.30.5/CMakeSystem.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/3.30.5/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/3.30.5/CompilerIdCXX/CMakeCXXCompilerId.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/CMakeConfigureLog.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/CMakeConfigureLog.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/GUI_FRECCIA_autogen/mocs_compilation.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/GUI_FRECCIA_autogen/mocs_compilation.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/Source_Files/Graph3DWindow.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/Source_Files/Graph3DWindow.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/Source_Files/InicioWindow.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/Source_Files/InicioWindow.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/Source_Files/SensorManager.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/Source_Files/SensorManager.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/Source_Files/data/DataCleaner.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/Source_Files/data/DataCleaner.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/Source_Files/data/FileHelper.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/Source_Files/data/FileHelper.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/Source_Files/main.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/Source_Files/main.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/Source_Files/widget.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA.dir/Source_Files/widget.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA_autogen.dir/AutogenInfo.json" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA_autogen.dir/AutogenInfo.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA_autogen.dir/AutogenUsed.txt" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA_autogen.dir/AutogenUsed.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA_autogen.dir/ParseCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/CMakeFiles/GUI_FRECCIA_autogen.dir/ParseCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/BDBYVKFZ5G/moc_DataTopic.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/BDBYVKFZ5G/moc_DataTopic.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/BDBYVKFZ5G/moc_DataTopic.cpp.d" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/BDBYVKFZ5G/moc_DataTopic.cpp.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_Graph3DWindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_Graph3DWindow.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_Graph3DWindow.cpp.d" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_Graph3DWindow.cpp.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_InicioWindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_InicioWindow.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_InicioWindow.cpp.d" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_InicioWindow.cpp.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_SensorManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_SensorManager.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_SensorManager.cpp.d" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_SensorManager.cpp.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_SerialReader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_SerialReader.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_SerialReader.cpp.d" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_SerialReader.cpp.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_widget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_widget.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_widget.cpp.d" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/RBYB5VKSNZ/moc_widget.cpp.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/deps" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/deps" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/moc_predefs.h" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/moc_predefs.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/mocs_compilation.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/GUI_FRECCIA_autogen/mocs_compilation.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/Source_Files/PyWindow/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/Source_Files/PyWindow/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/Source_Py/client_viewer.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/Source_Py/client_viewer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/Testing/Temporary/LastTest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/build.ninja" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/cmake_install.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/qtcsettings.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Desktop_Qt_6_7_3_llvm_mingw_64_bit-Debug/qtcsettings.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/build/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/build/cmake_install.cmake" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -751,163 +87,18 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Node.js.helper.js.executor": "Run",
-    "Python.client_viewer.executor": "Run",
-    "Python.main (2).executor": "Run",
-    "Python.main.executor": "Run",
     "Python.simulador_serial.executor": "Run",
-    "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "ai.playground.ignore.import.keys.banner.in.settings": "true",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "feature/cesium-map-integration-7955672035070117902",
-    "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "C:/Users/santi/Documents/GitHub/Freccia_Proyect/GUI/Source_Files/PyWindow/cesium_app/static",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "PyConsoleConfigurable.Python Console",
-    "settings.editor.splitter.proportion": "0.28513238",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+    "git-widget-placeholder": "fix-video-pipeline-alignment-2179148683544931735",
+    "node.js.selected.package.tslint": "(autodetect)"
   }
 }]]></component>
-  <component name="PyConsoleOptionsProvider">
-    <option name="myPythonConsoleState">
-      <console-settings sdk-home="$PROJECT_DIR$/GUI/Others/.venv/Scripts/python.exe">
-        <option name="sdk">
-          <Sdk />
-        </option>
-        <option name="mySdkHome" value="$PROJECT_DIR$/GUI/Others/.venv/Scripts/python.exe" />
-        <option name="mySdk">
-          <Sdk />
-        </option>
-      </console-settings>
-    </option>
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\santi\Documents\GitHub\Freccia_Proyect\GUI\Source_Files\PyWindow\cesium_app\static" />
-    </key>
-  </component>
-  <component name="RunManager">
-    <configuration name="client_viewer" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.13" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/GUI/Source_Files/PyWindow" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GUI/Source_Files/PyWindow/client_viewer.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="main (2)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.13" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/GUI/Source_Files/PyWindow" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GUI/Source_Files/PyWindow/main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.13" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/GUI/Source_Files/PyWindow" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GUI/Source_Files/PyWindow/main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="simulador_serial" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.13" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/GUI/Others" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GUI/Others/simulador_serial.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.main (2)" />
-      </list>
-    </recent_temporary>
-  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-PY-253.31033.139" />
-        <option value="bundled-python-sdk-2653e85de345-6d6dccd035ac-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-253.31033.139" />
+        <option value="bundled-python-sdk-7e47963ff851-f0eec537fc84-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.23892.515" />
       </set>
     </attachedChunks>
   </component>
@@ -918,20 +109,13 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1759339220964</updated>
-      <workItem from="1779380620762" duration="235000" />
-      <workItem from="1779389200729" duration="10930000" />
-      <workItem from="1779408493454" duration="595000" />
-      <workItem from="1779410214534" duration="10640000" />
     </task>
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Freccia_Proyect$simulador_serial.coverage" NAME="simulador_serial Coverage Results" MODIFIED="1779482127285" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GUI/Others" />
     <SUITE FILE_PATH="coverage/Freccia_Proyect$main__2_.coverage" NAME="main (2) Coverage Results" MODIFIED="1779400609208" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GUI/Source_Files/PyWindow" />
-    <SUITE FILE_PATH="coverage/Freccia_Proyect$client_viewer.coverage" NAME="client_viewer Coverage Results" MODIFIED="1779482208002" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GUI/Source_Files/PyWindow" />
-    <SUITE FILE_PATH="coverage/Freccia_Proyect$main.coverage" NAME="main Coverage Results" MODIFIED="1779482880908" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GUI/Source_Files/PyWindow" />
+    <SUITE FILE_PATH="coverage/Freccia_Proyect$main.coverage" NAME="main Coverage Results" MODIFIED="1779557785035" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GUI/Source_Files/PyWindow" />
+    <SUITE FILE_PATH="coverage/Freccia_Proyect$client_viewer.coverage" NAME="client_viewer Coverage Results" MODIFIED="1780875706428" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GUI/Source_Files/PyWindow" />
   </component>
 </project>
